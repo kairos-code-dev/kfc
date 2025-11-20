@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="016e1f85-4a44-41b8-a348-827de419e3a3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plan/01-프로젝트-개요.md" beforeDir="false" afterPath="$PROJECT_DIR$/plan/01-프로젝트-개요.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plan/11-OPENDART-API-통합-명세.md" beforeDir="false" afterPath="$PROJECT_DIR$/plan/11-OPENDART-API-통합-명세.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plan/17-프로젝트-구조.md" beforeDir="false" afterPath="$PROJECT_DIR$/plan/17-프로젝트-구조.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,12 +32,29 @@
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="kotlin-krx" type="f1a62948:ProjectNode" />
+                <item name="kfc" type="f1a62948:ProjectNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="kotlin-krx" type="f1a62948:ProjectNode" />
+                <item name="kfc" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="kfc" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="kfc" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="verification" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="kfc" type="f1a62948:ProjectNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
               </path>
             </expand>
             <select />
@@ -55,10 +75,15 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/ulalax-karios/kotlin-krx.git&quot;,
-    &quot;accountId&quot;: &quot;8a7f8b49-680b-49b1-bf41-622a276cd53b&quot;
+    &quot;accountId&quot;: &quot;83383c24-b19f-4b63-b6b1-572b63ab532e&quot;
   }
 }</component>
-  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$" gradleHome="\\wsl.localhost\Ubuntu-24.04\home\ulalax\project\kairos\kotlin-krx//wsl.localhost/Ubuntu-24.04/home/ulalax/.gradle/wrapper/dists/gradle-8.14-bin/38aieal9i53h9rfe7vjup95b9/gradle-8.14" javaHome="\\wsl.localhost\Ubuntu-24.04\home\ulalax\project\kairos\kotlin-krx\home\ulalax\.sdkman\candidates\java\21.0.8-amzn" gradleVersion="8.14" />
+  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$" gradleHome="$USER_HOME$/.sdkman/candidates/gradle/9.0.0/bin/wrapper/dists/gradle-8.12-bin/cetblhg4pflnnks72fxwobvgv/gradle-8.12" javaHome="$USER_HOME$/.sdkman/candidates/java/21.0.8-amzn" gradleVersion="8.12" />
+  <component name="JavaAutoRunManager">
+    <enabled-run-configurations>
+      <run-configuration type="JUnit" name="KrxEtfApiTest.getEtfList_should_include_KODEX_200" />
+    </enabled-run-configurations>
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -69,8 +94,28 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Gradle.Build kotlin-krx.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.KrxEtfApiTest.getAllEtfDailyPrices_should_return_all_ETF_prices_for_specific_date.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.KrxEtfApiTest.getComprehensiveEtfInfo should return ETF detail with basic fields.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.KrxEtfApiTest.getEtfList_should_include_KODEX_200.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.NaverEtfApiTest.getAdjustedOhlcv should return empty list when invalid ticker.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Tests in 'com.kairos.krx'.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.kotlin-krx [bootRun].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kotlin-krx [checkKotlinGradlePluginConfigurationErrors].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kotlin-krx [checkSigningConfiguration].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kotlin-krx [check].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kotlin-krx [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kotlin-krx [test].executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.KrxEtfApiTest.getComprehensiveEtfInfo should return ETF detail with basic fields.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.KrxEtfApiTest.getComprehensiveEtfInfo_should_return_ETF_detail_with_basic_fields.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.KrxEtfApiTest.getEtfList should include KODEX 200.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.KrxEtfApiTest.getEtfList should return all ETFs when data exists.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.KrxEtfApiTest.getEtfList_should_include_KODEX_200.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.KrxEtfApiTest.getEtfOhlcv should return 1 month data when valid range.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.KrxEtfApiTest.getEtfOhlcv_should_return_single_day_data_when_same_from_and_to_date.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.KrxEtfApiTest.getEtfPriceChanges_should_return_price_changes_for_period.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.NormalizationExtensionsTest.toKrxRate - 음수 부호 유지.executor&quot;: &quot;Run&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
@@ -83,12 +128,55 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.35172415&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Gradle.Tests in 'com.kairos.krx'">
-    <configuration name="Tests in 'com.kairos.krx'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RdControllerToolWindowsLayoutState" isNewUi="true">
+    <layout>
+      <window_info id="Bookmarks" side_tool="true" />
+      <window_info id="Merge Requests" />
+      <window_info id="Backup and Sync History" />
+      <window_info id="Commit_Guest" show_stripe_button="false" />
+      <window_info id="Pull Requests" />
+      <window_info id="Learn" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13256541" />
+      <window_info id="Commit" order="1" weight="0.25" />
+      <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Database Changes" />
+      <window_info anchor="bottom" id="TypeScript" />
+      <window_info anchor="bottom" id="Profiler" />
+      <window_info anchor="bottom" id="Python Packages" />
+      <window_info anchor="bottom" id="TODO" />
+      <window_info anchor="bottom" id="File Transfer" />
+      <window_info anchor="bottom" id="HfCacheToolWindow" />
+      <window_info anchor="bottom" id="Find" />
+      <window_info anchor="bottom" id="Version Control" order="0" />
+      <window_info anchor="bottom" id="Problems" order="1" />
+      <window_info anchor="bottom" id="Problems View" order="2" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="3" visible="true" weight="0.3097631" />
+      <window_info anchor="bottom" id="Services" order="4" />
+      <window_info anchor="bottom" id="Build" order="5" weight="0.3298636" />
+      <window_info anchor="bottom" id="Run" order="6" weight="0.3298636" />
+      <window_info anchor="bottom" id="Debug" order="7" weight="0.3298636" />
+      <window_info anchor="right" id="Plots" />
+      <window_info anchor="right" id="Endpoints" />
+      <window_info anchor="right" id="Python Console" />
+      <window_info anchor="right" id="SciView" />
+      <window_info anchor="right" id="Jupyter Variables" side_tool="true" />
+      <window_info anchor="right" content_ui="combo" id="Notifications" order="0" weight="0.25" />
+      <window_info anchor="right" id="AIAssistant" order="1" weight="0.25" />
+      <window_info anchor="right" id="Database" order="2" weight="0.25" />
+      <window_info active="true" anchor="right" id="Gradle" order="3" sideWeight="0.7505787" visible="true" weight="0.24424052" />
+      <window_info anchor="right" id="Maven" order="4" weight="0.25" />
+      <window_info anchor="right" id="Coverage" order="5" sideWeight="0.2494213" side_tool="true" weight="0.24424052" />
+    </layout>
+  </component>
+  <component name="RunManager" selected="Gradle.KrxEtfApiTest.getAllEtfDailyPrices_should_return_all_ETF_prices_for_specific_date">
+    <configuration name="KrxEtfApiTest.getAllEtfDailyPrices_should_return_all_ETF_prices_for_specific_date" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -99,9 +187,9 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":app:test" />
+            <option value=":lib:test" />
             <option value="--tests" />
-            <option value="&quot;com.kairos.krx.*&quot;" />
+            <option value="&quot;dev.kairoscode.kfc.api.krx.KrxEtfApiTest.getAllEtfDailyPrices_should_return_all_ETF_prices_for_specific_date&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -112,7 +200,31 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="kotlin-krx [bootRun]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="KrxEtfApiTest.getEtfList_should_include_KODEX_200" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":lib:test" />
+            <option value="--tests" />
+            <option value="&quot;dev.kairoscode.kfc.api.krx.KrxEtfApiTest.getEtfList_should_include_KODEX_200&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="kotlin-krx [check]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -123,7 +235,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="bootRun" />
+            <option value="check" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -134,28 +246,53 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
+    <configuration name="KrxEtfApiTest.getEtfList_should_include_KODEX_200" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="kfc.lib.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dev.kairoscode.kfc.api.krx.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="dev.kairoscode.kfc.api.krx" />
+      <option name="MAIN_CLASS_NAME" value="dev.kairoscode.kfc.api.krx.KrxEtfApiTest" />
+      <option name="METHOD_NAME" value="getEtfList_should_include_KODEX_200" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="KrxEtfApiTest.getEtfOhlcv_should_return_single_day_data_when_same_from_and_to_date" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="kfc.lib.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dev.kairoscode.kfc.api.krx.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="dev.kairoscode.kfc.api.krx" />
+      <option name="MAIN_CLASS_NAME" value="dev.kairoscode.kfc.api.krx.KrxEtfApiTest" />
+      <option name="METHOD_NAME" value="getEtfOhlcv_should_return_single_day_data_when_same_from_and_to_date" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="KrxEtfApiTest.getEtfPriceChanges_should_return_price_changes_for_period" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="kfc.lib.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dev.kairoscode.kfc.api.krx.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="dev.kairoscode.kfc.api.krx" />
+      <option name="MAIN_CLASS_NAME" value="dev.kairoscode.kfc.api.krx.KrxEtfApiTest" />
+      <option name="METHOD_NAME" value="getEtfPriceChanges_should_return_price_changes_for_period" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration default="true" type="Tox" factoryName="Tox">
       <option name="ENV_FILES" value="" />
@@ -169,18 +306,29 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Gradle.KrxEtfApiTest.getEtfList_should_include_KODEX_200" />
+      <item itemvalue="Gradle.KrxEtfApiTest.getAllEtfDailyPrices_should_return_all_ETF_prices_for_specific_date" />
+      <item itemvalue="Gradle.kotlin-krx [check]" />
+      <item itemvalue="JUnit.KrxEtfApiTest.getEtfOhlcv_should_return_single_day_data_when_same_from_and_to_date" />
+      <item itemvalue="JUnit.KrxEtfApiTest.getEtfPriceChanges_should_return_price_changes_for_period" />
+      <item itemvalue="JUnit.KrxEtfApiTest.getEtfList_should_include_KODEX_200" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.Tests in 'com.kairos.krx'" />
-        <item itemvalue="Gradle.kotlin-krx [bootRun]" />
+        <item itemvalue="Gradle.KrxEtfApiTest.getAllEtfDailyPrices_should_return_all_ETF_prices_for_specific_date" />
+        <item itemvalue="JUnit.KrxEtfApiTest.getEtfOhlcv_should_return_single_day_data_when_same_from_and_to_date" />
+        <item itemvalue="JUnit.KrxEtfApiTest.getEtfPriceChanges_should_return_price_changes_for_period" />
+        <item itemvalue="JUnit.KrxEtfApiTest.getEtfList_should_include_KODEX_200" />
+        <item itemvalue="Gradle.kotlin-krx [check]" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26830.84" />
-        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.26830.84" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26199.74" />
+        <option value="bundled-js-predefined-d6986cc7102b-9c94529fcfe0-JavaScript-IU-252.26199.74" />
       </set>
     </attachedChunks>
   </component>
@@ -197,11 +345,80 @@
       <workItem from="1760519179234" duration="389000" />
       <workItem from="1760519641367" duration="847000" />
       <workItem from="1761279276148" duration="1191000" />
-      <workItem from="1763449891009" duration="19508000" />
+      <workItem from="1763449891009" duration="23457000" />
+      <workItem from="1763493936119" duration="209000" />
+      <workItem from="1763494154263" duration="281000" />
+      <workItem from="1763494441273" duration="14084000" />
+      <workItem from="1763533279536" duration="2116000" />
+      <workItem from="1763535279160" duration="1155000" />
+      <workItem from="1763536366088" duration="18000" />
+      <workItem from="1763536497520" duration="11000" />
+      <workItem from="1763536534308" duration="9569000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/lib/src/test/kotlin/dev/kairoscode/kfc/api/naver/NaverEtfApiTest.kt</url>
+          <line>225</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/lib/src/main/kotlin/dev/kairoscode/kfc/internal/naver/NaverEtfApiImpl.kt</url>
+          <line>74</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/lib/src/main/kotlin/dev/kairoscode/kfc/internal/naver/NaverEtfApiImpl.kt</url>
+          <line>80</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/lib/src/main/kotlin/dev/kairoscode/kfc/internal/naver/NaverEtfApiImpl.kt</url>
+          <line>82</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/lib/src/main/kotlin/dev/kairoscode/kfc/internal/naver/NaverEtfApiImpl.kt</url>
+          <line>167</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/lib/src/test/kotlin/dev/kairoscode/kfc/api/krx/KrxEtfApiTest.kt</url>
+          <line>53</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/lib/src/test/kotlin/dev/kairoscode/kfc/api/krx/KrxEtfApiTest.kt</url>
+          <line>128</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/lib/src/test/kotlin/dev/kairoscode/kfc/api/krx/KrxEtfApiTest.kt</url>
+          <line>113</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/kfc$KrxEtfApiTest_getEtfList_should_include_KODEX_200.ic" NAME="KrxEtfApiTest.getEtfList_should_include_KODEX_200 Coverage Results" MODIFIED="1763535520550" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>dev.kairoscode.kfc.api.krx.*</FILTER>
+    </SUITE>
   </component>
 </project>
