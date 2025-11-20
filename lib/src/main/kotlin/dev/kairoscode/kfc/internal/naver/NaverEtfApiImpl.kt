@@ -3,6 +3,9 @@ package dev.kairoscode.kfc.internal.naver
 import dev.kairoscode.kfc.api.naver.NaverEtfApi
 import dev.kairoscode.kfc.exception.ErrorCode
 import dev.kairoscode.kfc.exception.KfcException
+import dev.kairoscode.kfc.internal.ratelimit.RateLimiter
+import dev.kairoscode.kfc.internal.ratelimit.RateLimitingSettings
+import dev.kairoscode.kfc.internal.ratelimit.TokenBucketRateLimiter
 import dev.kairoscode.kfc.model.naver.NaverEtfOhlcv
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.client.*
@@ -25,7 +28,9 @@ import javax.xml.parsers.DocumentBuilderFactory
  *
  * 네이버 증권 차트 API를 통해 조정주가 데이터를 조회합니다.
  */
-internal class NaverEtfApiImpl : NaverEtfApi {
+internal class NaverEtfApiImpl(
+    private val rateLimiter: RateLimiter = TokenBucketRateLimiter(RateLimitingSettings.naverDefault())
+) : NaverEtfApi {
 
     private val httpClient = HttpClient(CIO) {
         install(HttpTimeout) {
@@ -53,6 +58,8 @@ internal class NaverEtfApiImpl : NaverEtfApi {
         fromDate: LocalDate,
         toDate: LocalDate
     ): List<NaverEtfOhlcv> {
+        rateLimiter.acquire()
+
         // 날짜 역순 검증 - 역순이면 빈 리스트 반환
         if (fromDate > toDate) {
             logger.warn { "fromDate ($fromDate) is after toDate ($toDate), returning empty list" }

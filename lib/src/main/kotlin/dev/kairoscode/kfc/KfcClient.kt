@@ -6,6 +6,8 @@ import dev.kairoscode.kfc.api.opendart.OpenDartApi
 import dev.kairoscode.kfc.internal.krx.KrxEtfApiImpl
 import dev.kairoscode.kfc.internal.naver.NaverEtfApiImpl
 import dev.kairoscode.kfc.internal.opendart.OpenDartApiImpl
+import dev.kairoscode.kfc.internal.ratelimit.RateLimitingSettings
+import dev.kairoscode.kfc.internal.ratelimit.TokenBucketRateLimiter
 
 /**
  * KFC (Korea Financial Client) 통합 클라이언트
@@ -60,14 +62,22 @@ class KfcClient private constructor(
          * KfcClient 인스턴스 생성
          *
          * @param opendartApiKey OPENDART API 인증키 (선택 사항)
+         * @param rateLimitingSettings Rate Limiting 설정 (기본값: 모든 소스 초당 50 req/sec)
          * @return KfcClient 인스턴스
          */
         fun create(
-            opendartApiKey: String? = null
+            opendartApiKey: String? = null,
+            rateLimitingSettings: RateLimitingSettings = RateLimitingSettings()
         ): KfcClient {
-            val krxApi = KrxEtfApiImpl()
-            val naverApi = NaverEtfApiImpl()
-            val opendartApi = opendartApiKey?.let { OpenDartApiImpl(it) }
+            // Rate Limiter 인스턴스 생성
+            val krxRateLimiter = TokenBucketRateLimiter(rateLimitingSettings.krx)
+            val naverRateLimiter = TokenBucketRateLimiter(rateLimitingSettings.naver)
+            val opendartRateLimiter = TokenBucketRateLimiter(rateLimitingSettings.opendart)
+
+            // API 구현체에 Rate Limiter 주입
+            val krxApi = KrxEtfApiImpl(rateLimiter = krxRateLimiter)
+            val naverApi = NaverEtfApiImpl(rateLimiter = naverRateLimiter)
+            val opendartApi = opendartApiKey?.let { OpenDartApiImpl(apiKey = it, rateLimiter = opendartRateLimiter) }
 
             return KfcClient(
                 krx = krxApi,

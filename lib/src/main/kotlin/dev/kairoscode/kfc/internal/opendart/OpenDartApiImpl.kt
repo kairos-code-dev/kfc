@@ -3,6 +3,9 @@ package dev.kairoscode.kfc.internal.opendart
 import dev.kairoscode.kfc.api.opendart.OpenDartApi
 import dev.kairoscode.kfc.exception.ErrorCode
 import dev.kairoscode.kfc.exception.KfcException
+import dev.kairoscode.kfc.internal.ratelimit.RateLimiter
+import dev.kairoscode.kfc.internal.ratelimit.RateLimitingSettings
+import dev.kairoscode.kfc.internal.ratelimit.TokenBucketRateLimiter
 import dev.kairoscode.kfc.model.opendart.*
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.client.*
@@ -28,9 +31,11 @@ import javax.xml.parsers.DocumentBuilderFactory
  * OPENDART API 구현체
  *
  * @property apiKey OPENDART API 인증키
+ * @property rateLimiter Rate Limiting 관리자
  */
 internal class OpenDartApiImpl(
-    private val apiKey: String
+    private val apiKey: String,
+    private val rateLimiter: RateLimiter = TokenBucketRateLimiter(RateLimitingSettings.openDartDefault())
 ) : OpenDartApi {
 
     private val httpClient = HttpClient(CIO) {
@@ -61,6 +66,7 @@ internal class OpenDartApiImpl(
     }
 
     override suspend fun getCorpCodeList(): List<CorpCode> {
+        rateLimiter.acquire()
         logger.debug { "Fetching corp code list from OPENDART" }
 
         val url = "$BASE_URL/corpCode.xml"
@@ -96,6 +102,7 @@ internal class OpenDartApiImpl(
         year: Int,
         reportCode: String
     ): List<DividendInfo> {
+        rateLimiter.acquire()
         logger.debug { "Fetching dividend info: corpCode=$corpCode, year=$year, reportCode=$reportCode" }
 
         val url = "$BASE_URL/alotMatter.json"
@@ -114,6 +121,7 @@ internal class OpenDartApiImpl(
         year: Int,
         reportCode: String
     ): List<StockSplitInfo> {
+        rateLimiter.acquire()
         logger.debug { "Fetching stock split info: corpCode=$corpCode, year=$year, reportCode=$reportCode" }
 
         val url = "$BASE_URL/irdsSttus.json"
@@ -134,6 +142,7 @@ internal class OpenDartApiImpl(
         pageNo: Int,
         pageCount: Int
     ): List<DisclosureItem> {
+        rateLimiter.acquire()
         logger.debug { "Searching disclosures: corpCode=$corpCode, from=$startDate, to=$endDate" }
 
         val url = "$BASE_URL/list.json"

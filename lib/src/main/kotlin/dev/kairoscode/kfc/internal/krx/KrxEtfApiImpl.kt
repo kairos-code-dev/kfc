@@ -1,6 +1,9 @@
 package dev.kairoscode.kfc.internal.krx
 
 import dev.kairoscode.kfc.api.krx.KrxEtfApi
+import dev.kairoscode.kfc.internal.ratelimit.RateLimiter
+import dev.kairoscode.kfc.internal.ratelimit.RateLimitingSettings
+import dev.kairoscode.kfc.internal.ratelimit.TokenBucketRateLimiter
 import dev.kairoscode.kfc.model.krx.*
 import dev.kairoscode.kfc.util.*
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -16,7 +19,8 @@ private val logger = KotlinLogging.logger {}
  * HTTP 클라이언트를 사용하여 실제 KRX API와 통신합니다.
  */
 internal class KrxEtfApiImpl(
-    private val httpClient: KrxHttpClient = KrxHttpClient()
+    private val httpClient: KrxHttpClient = KrxHttpClient(),
+    private val rateLimiter: RateLimiter = TokenBucketRateLimiter(RateLimitingSettings.krxDefault())
 ) : KrxEtfApi {
 
     companion object {
@@ -61,6 +65,7 @@ internal class KrxEtfApiImpl(
     // ================================
 
     override suspend fun getEtfList(): List<EtfListItem> {
+        rateLimiter.acquire()
         logger.debug { "Fetching ETF list" }
 
         val parameters = mapOf(KrxApiParams.BLD to BLD_ETF_LIST)
@@ -94,6 +99,7 @@ internal class KrxEtfApiImpl(
         isin: String,
         tradeDate: LocalDate
     ): ComprehensiveEtfInfo? {
+        rateLimiter.acquire()
         logger.debug { "Fetching comprehensive ETF info for ISIN: $isin, date: $tradeDate" }
 
         val parameters = mapOf(
@@ -124,6 +130,7 @@ internal class KrxEtfApiImpl(
     // ================================
 
     override suspend fun getAllEtfDailyPrices(date: LocalDate): List<EtfDailyPrice> {
+        rateLimiter.acquire()
         logger.debug { "Fetching all ETF daily prices for date: $date" }
 
         val parameters = mapOf(
@@ -168,6 +175,7 @@ internal class KrxEtfApiImpl(
             "fromDate must be before or equal to toDate (fromDate: $fromDate, toDate: $toDate)"
         }
 
+        rateLimiter.acquire()
         logger.debug { "Fetching ETF OHLCV for ISIN: $isin, from: $fromDate, to: $toDate" }
 
         val parameters = mapOf(
@@ -210,6 +218,7 @@ internal class KrxEtfApiImpl(
         fromDate: LocalDate,
         toDate: LocalDate
     ): List<EtfPriceChange> {
+        rateLimiter.acquire()
         logger.debug { "Fetching ETF price changes from: $fromDate, to: $toDate" }
 
         val parameters = mapOf(
@@ -241,6 +250,7 @@ internal class KrxEtfApiImpl(
     // ================================
 
     override suspend fun getEtfPortfolio(isin: String, date: LocalDate): List<PortfolioConstituent> {
+        rateLimiter.acquire()
         logger.debug { "Fetching ETF portfolio for ISIN: $isin, date: $date" }
 
         val parameters = mapOf(
@@ -274,6 +284,7 @@ internal class KrxEtfApiImpl(
         fromDate: LocalDate,
         toDate: LocalDate
     ): List<TrackingError> {
+        rateLimiter.acquire()
         logger.debug { "Fetching tracking error for ISIN: $isin, from: $fromDate, to: $toDate" }
 
         val parameters = mapOf(
@@ -305,6 +316,7 @@ internal class KrxEtfApiImpl(
         fromDate: LocalDate,
         toDate: LocalDate
     ): List<DivergenceRate> {
+        rateLimiter.acquire()
         logger.debug { "Fetching divergence rate for ISIN: $isin, from: $fromDate, to: $toDate" }
 
         val parameters = mapOf(
@@ -334,6 +346,7 @@ internal class KrxEtfApiImpl(
     // ================================
 
     override suspend fun getAllEtfInvestorTrading(date: LocalDate): List<InvestorTrading> {
+        rateLimiter.acquire()
         logger.debug { "Fetching all ETF investor trading for date: $date" }
 
         val parameters = mapOf(
@@ -362,6 +375,7 @@ internal class KrxEtfApiImpl(
         fromDate: LocalDate,
         toDate: LocalDate
     ): List<InvestorTradingByDate> {
+        rateLimiter.acquire()
         logger.debug { "Fetching all ETF investor trading by period from: $fromDate, to: $toDate" }
 
         val parameters = mapOf(
@@ -425,6 +439,7 @@ internal class KrxEtfApiImpl(
     }
 
     override suspend fun getEtfInvestorTrading(isin: String, date: LocalDate): List<InvestorTrading> {
+        rateLimiter.acquire()
         logger.debug { "Fetching ETF investor trading for ISIN: $isin, date: $date" }
 
         val parameters = mapOf(
@@ -455,6 +470,7 @@ internal class KrxEtfApiImpl(
         fromDate: LocalDate,
         toDate: LocalDate
     ): List<InvestorTradingByDate> {
+        rateLimiter.acquire()
         logger.debug { "Fetching ETF investor trading by period for ISIN: $isin, from: $fromDate, to: $toDate" }
 
         val parameters = mapOf(
@@ -526,6 +542,7 @@ internal class KrxEtfApiImpl(
         fromDate: LocalDate,
         toDate: LocalDate
     ): List<ShortSelling> {
+        rateLimiter.acquire()
         logger.debug { "Fetching short selling for ISIN: $isin, from: $fromDate, to: $toDate" }
 
         val parameters = mapOf(
@@ -574,6 +591,7 @@ internal class KrxEtfApiImpl(
         fromDate: LocalDate,
         toDate: LocalDate
     ): List<ShortBalance> {
+        rateLimiter.acquire()
         logger.debug { "Fetching short balance for ISIN: $isin, from: $fromDate, to: $toDate" }
 
         val parameters = mapOf(

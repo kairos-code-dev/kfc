@@ -1,4 +1,5 @@
-# kotlin-krx
+# KFC 
+(Korea Financial data Collector)
 
 > Kotlin library for collecting KRX, Naver, and OPENDART ETF data
 
@@ -18,6 +19,7 @@
 - ✅ **자동 분할**: KRX API의 730일 제한을 자동으로 처리
 - ✅ **Facade 패턴**: 통합 API 클라이언트로 간편한 사용
 - ✅ **코루틴 지원**: Kotlin Coroutines 기반 비동기 API
+- ✅ **Rate Limiting**: Token Bucket 알고리즘 기반의 내장 속도 제어 (소스별 독립 설정 가능)
 - ✅ **확장 가능**: 새로운 데이터 소스 및 상품 추가 용이
 
 ---
@@ -124,6 +126,78 @@ suspend fun main() {
     val corpCodes = openDartApi.getCorpCodeList()
 }
 ```
+
+---
+
+## Rate Limiting
+
+KFC는 Token Bucket 알고리즘 기반의 Rate Limiting을 내장하고 있어 API 호출 속도를 자동으로 제어합니다.
+
+### Rate Limiting 활성화
+
+기본적으로 각 API 소스별로 **초당 50개 요청(req/sec)**의 레이트 제한이 적용됩니다.
+
+```kotlin
+// 기본 설정 사용 (KRX/Naver/OPENDART 모두 50 req/sec)
+val client = KfcClient.create()
+```
+
+### 커스텀 Rate Limiting 설정
+
+```kotlin
+import dev.kairoscode.kfc.internal.ratelimit.RateLimitConfig
+import dev.kairoscode.kfc.internal.ratelimit.RateLimitingSettings
+
+suspend fun main() {
+    // 소스별로 다른 레이트 제한 설정
+    val customSettings = RateLimitingSettings(
+        krx = RateLimitConfig(
+            capacity = 100,           // 최대 100개 요청
+            refillRate = 100,         // 초당 100개 토큰 충전
+            enabled = true,
+            waitTimeoutMillis = 60000 // 60초 타임아웃
+        ),
+        naver = RateLimitConfig(
+            capacity = 50,
+            refillRate = 50,
+            enabled = true,
+            waitTimeoutMillis = 60000
+        ),
+        opendart = RateLimitConfig(
+            capacity = 30,
+            refillRate = 30,
+            enabled = true,
+            waitTimeoutMillis = 60000
+        )
+    )
+
+    val client = KfcClient.create(rateLimitingSettings = customSettings)
+
+    // 이제 각 API 호출이 설정된 레이트 제한을 따릅니다
+    val etfList = client.krx.getEtfList()   // KRX 레이트 제한 적용
+    val ohlcv = client.naver.getAdjustedOhlcv(...)  // Naver 레이트 제한 적용
+}
+```
+
+### Rate Limiting 비활성화
+
+```kotlin
+// 모든 API 소스의 레이트 제한을 비활성화
+val unlimitedSettings = RateLimitingSettings(
+    krx = RateLimitConfig(enabled = false),
+    naver = RateLimitConfig(enabled = false),
+    opendart = RateLimitConfig(enabled = false)
+)
+
+val client = KfcClient.create(rateLimitingSettings = unlimitedSettings)
+```
+
+### Rate Limiting 동작 원리
+
+- **Token Bucket Algorithm**: 초기에 최대 용량(capacity)만큼의 토큰으로 시작하며, 시간 경과에 따라 refillRate만큼 토큰이 충전됩니다
+- **자동 대기**: 토큰이 부족하면 필요한 토큰이 충전될 때까지 자동으로 요청을 대기시킵니다
+- **타임아웃**: waitTimeoutMillis를 초과하면 `RateLimitTimeoutException`이 발생합니다
+- **소스 독립성**: 각 API 소스(KRX, Naver, OPENDART)는 독립적인 Rate Limiter를 사용합니다
 
 ---
 
@@ -343,6 +417,7 @@ try {
 - [x] Naver ETF API 구현 (1개 함수)
 - [x] OPENDART API 구현 (4개 함수)
 - [x] Facade 패턴 적용 (KfcClient)
+- [x] Rate Limiting 구현 (Token Bucket 알고리즘)
 - [ ] 테스트 작성 (커버리지 80% 이상)
 - [ ] Maven Central 배포
 
