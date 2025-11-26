@@ -41,8 +41,8 @@ internal object KrxApiFields {
         const val CLOSE_ALT = "CLSPRC"  // 종가 (대체 필드)
         const val BASE = "BAS_PRC"  // 기준가격
         const val COMPARE = "CMP_PRC"  // 비교가격
-        const val WEEK52_HIGH = "WK52_HGST_PRC"  // 52주 최고가
-        const val WEEK52_LOW = "WK52_LWST_PRC"  // 52주 최저가
+        const val WEEK52_HIGH = "WK52_HGST_PRC"  // 52주 최고가 (MDCSTAT04701 실제 응답)
+        const val WEEK52_LOW = "WK52_LWST_PRC"  // 52주 최저가 (MDCSTAT04701 실제 응답)
     }
 
     /**

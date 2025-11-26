@@ -175,9 +175,63 @@ internal class KrxEtfApiImpl(
             "fromDate must be before or equal to toDate (fromDate: $fromDate, toDate: $toDate)"
         }
 
-        rateLimiter.acquire()
         logger.debug { "Fetching ETF OHLCV for ISIN: $isin, from: $fromDate, to: $toDate" }
 
+        // 730일 초과 범위는 자동으로 분할 처리
+        val daysDifference = java.time.temporal.ChronoUnit.DAYS.between(fromDate, toDate).toInt()
+        if (daysDifference > 730) {
+            logger.debug { "Date range exceeds 730 days ($daysDifference days), splitting into multiple requests" }
+            val results = mutableListOf<EtfOhlcv>()
+            var currentFrom = fromDate
+
+            while (currentFrom <= toDate) {
+                val currentTo = minOf(currentFrom.plusDays(730), toDate)
+                logger.debug { "Fetching OHLCV for ISIN: $isin, from: $currentFrom, to: $currentTo" }
+
+                rateLimiter.acquire()
+                val parameters = mapOf(
+                    KrxApiParams.BLD to BLD_ETF_OHLCV,
+                    KrxApiParams.START_DATE to currentFrom.format(dateFormatter),
+                    KrxApiParams.END_DATE to currentTo.format(dateFormatter),
+                    KrxApiParams.ISIN_CODE to isin
+                )
+
+                val response = httpClient.post(BASE_URL, parameters)
+                val output = response.extractOutput()
+
+                results.addAll(output.map { raw ->
+                    EtfOhlcv(
+                        tradeDate = raw.getString(KrxApiFields.DateTime.TRADE_DATE).toKrxDate(),
+                        openPrice = raw.getString(KrxApiFields.Price.OPEN).toKrxInt(),
+                        highPrice = raw.getString(KrxApiFields.Price.HIGH).toKrxInt(),
+                        lowPrice = raw.getString(KrxApiFields.Price.LOW).toKrxInt(),
+                        closePrice = raw.getString(KrxApiFields.Price.CLOSE).toKrxInt(),
+                        volume = raw.getString(KrxApiFields.Volume.ACCUMULATED).toKrxLong(),
+                        tradingValue = raw.getString(KrxApiFields.Volume.TRADING_VALUE).toKrxLong(),
+                        nav = raw.getString(KrxApiFields.Nav.VALUE_LAST).toKrxBigDecimal(),
+                        priceChange = raw.getString(KrxApiFields.PriceChange.AMOUNT).toKrxInt(),
+                        priceChangeRate = raw.getString(KrxApiFields.PriceChange.RATE).toKrxDouble(),
+                        priceDirection = raw.getString(KrxApiFields.PriceChange.DIRECTION).toDirection(),
+                        marketCap = raw.getString(KrxApiFields.Asset.MARKET_CAP).toKrxLong(),
+                        netAsset = raw.getString(KrxApiFields.Asset.NET_ASSET_TOTAL).toKrxLong(),
+                        listedShares = raw.getString(KrxApiFields.Asset.LISTED_SHARES).toKrxLong(),
+                        indexName = raw.getString(KrxApiFields.Index.NAME),
+                        indexValue = raw.getString(KrxApiFields.Index.VALUE).toKrxBigDecimal(),
+                        indexChange = raw.getString(KrxApiFields.Index.CHANGE_AMOUNT).toKrxBigDecimal(),
+                        indexChangeRate = raw.getString(KrxApiFields.Index.CHANGE_RATE).toKrxDouble(),
+                        indexDirection = raw.getString(KrxApiFields.PriceChange.INDEX_DIRECTION).toDirection()
+                    )
+                })
+
+                currentFrom = currentTo.plusDays(1)
+            }
+
+            return results.sortedBy { it.tradeDate }
+                .also { logger.debug { "Fetched ${it.size} OHLCV records from split requests" } }
+        }
+
+        // 730일 이하 범위는 단일 요청
+        rateLimiter.acquire()
         val parameters = mapOf(
             KrxApiParams.BLD to BLD_ETF_OHLCV,
             KrxApiParams.START_DATE to fromDate.format(dateFormatter),
