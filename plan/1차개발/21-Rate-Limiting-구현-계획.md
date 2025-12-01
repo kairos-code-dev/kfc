@@ -35,9 +35,9 @@
 ```
 
 ### 참고 문서
-- [20-Rate-Limiting-기술명세.md](./20-Rate-Limiting-기술명세.md) - 상세 설계 (Token Bucket 알고리즘, 설정값, API 설계)
-- [16-라이브러리-아키텍처.md](./16-라이브러리-아키텍처.md) - 라이브러리 책임 및 아키텍처
-- [01-프로젝트-개요.md](./01-프로젝트-개요.md) - 프로젝트 전체 개요
+- [20-Rate-Limiting-기술명세.md](20-Rate-Limiting-기술명세.md) - 상세 설계 (Token Bucket 알고리즘, 설정값, API 설계)
+- [16-라이브러리-아키텍처.md](16-라이브러리-아키텍처.md) - 라이브러리 책임 및 아키텍처
+- [01-프로젝트-개요.md](01-프로젝트-개요.md) - 프로젝트 전체 개요
 
 ---
 
@@ -98,7 +98,7 @@ lib/src/main/kotlin/dev/kairoscode/kfc/
 ```
 
 **참고**:
-- [20-Rate-Limiting-기술명세.md#51-rate-limiter-인터페이스](./20-Rate-Limiting-기술명세.md#51-rate-limiter-인터페이스) 의 "RateLimitConfig" 섹션 참고
+- [20-Rate-Limiting-기술명세.md#51-rate-limiter-인터페이스](20-Rate-Limiting-기술명세.md#51-rate-limiter-인터페이스) 의 "RateLimitConfig" 섹션 참고
 - 모든 Source의 기본값: capacity=50, refillRate=50
 
 **완료 기준**:
@@ -130,7 +130,7 @@ lib/src/main/kotlin/dev/kairoscode/kfc/
 ```
 
 **참고**:
-- [20-Rate-Limiting-기술명세.md#51-rate-limiter-인터페이스](./20-Rate-Limiting-기술명세.md#51-rate-limiter-인터페이스) 섹션 전체 참고
+- [20-Rate-Limiting-기술명세.md#51-rate-limiter-인터페이스](20-Rate-Limiting-기술명세.md#51-rate-limiter-인터페이스) 섹션 전체 참고
 
 **완료 기준**:
 - [ ] RateLimiter 인터페이스 정의
@@ -142,7 +142,7 @@ lib/src/main/kotlin/dev/kairoscode/kfc/
 
 **파일**: `lib/src/main/kotlin/dev/kairoscode/kfc/internal/ratelimit/TokenBucketRateLimiter.kt`
 
-**핵심 로직** ([20-Rate-Limiting-기술명세.md#722-tokenburketratelimiter-구현](./20-Rate-Limiting-기술명세.md#722-tokenburketratelimiter-구현) 참고):
+**핵심 로직** ([20-Rate-Limiting-기술명세.md#722-tokenburketratelimiter-구현](20-Rate-Limiting-기술명세.md#722-tokenburketratelimiter-구현) 참고):
 
 ```kotlin
 class TokenBucketRateLimiter(private val config: RateLimitConfig) : RateLimiter {
@@ -163,7 +163,7 @@ class TokenBucketRateLimiter(private val config: RateLimitConfig) : RateLimiter 
 - 타임아웃 시 RateLimitTimeoutException 발생
 
 **참고**:
-- [20-Rate-Limiting-기술명세.md#722-tokenburketratelimiter-구현](./20-Rate-Limiting-기술명세.md#722-tokenburketratelimiter-구현) 섹션 전체
+- [20-Rate-Limiting-기술명세.md#722-tokenburketratelimiter-구현](20-Rate-Limiting-기술명세.md#722-tokenburketratelimiter-구현) 섹션 전체
 
 **완료 기준**:
 - [ ] TokenBucketRateLimiter 클래스 구현
@@ -196,7 +196,7 @@ class RateLimitConfigException(
 ```
 
 **참고**:
-- [20-Rate-Limiting-기술명세.md#54-예외-정의](./20-Rate-Limiting-기술명세.md#54-예외-정의) 섹션
+- [20-Rate-Limiting-기술명세.md#54-예외-정의](20-Rate-Limiting-기술명세.md#54-예외-정의) 섹션
 
 **완료 기준**:
 - [ ] RateLimitException 기본 클래스 정의
@@ -242,7 +242,7 @@ class KfcClient private constructor(
 ```
 
 **참고**:
-- [20-Rate-Limiting-기술명세.md#53-kfcclient-업데이트](./20-Rate-Limiting-기술명세.md#53-kfcclient-업데이트) 섹션
+- [20-Rate-Limiting-기술명세.md#53-kfcclient-업데이트](20-Rate-Limiting-기술명세.md#53-kfcclient-업데이트) 섹션
 
 **완료 기준**:
 - [ ] create() 메서드에 rateLimitingSettings 파라미터 추가
@@ -296,8 +296,8 @@ internal class KrxEtfApiImpl(
 - 기존 로직은 변경하지 않음
 
 **참고**:
-- [20-Rate-Limiting-기술명세.md#722-api-구현체에-rate-limiter-주입](./20-Rate-Limiting-기술명세.md#722-api-구현체에-rate-limiter-주입) 섹션
-- KrxEtfApi의 모든 함수 목록: [10-함수-시그니처-카탈로그.md](./10-함수-시그니처-카탈로그.md) 참고
+- [20-Rate-Limiting-기술명세.md#722-api-구현체에-rate-limiter-주입](20-Rate-Limiting-기술명세.md#722-api-구현체에-rate-limiter-주입) 섹션
+- KrxEtfApi의 모든 함수 목록: [10-함수-시그니처-카탈로그.md](10-함수-시그니처-카탈로그.md) 참고
 
 **완료 기준**:
 - [ ] 생성자에 rateLimiter 파라미터 추가 (기본값 제공)
@@ -331,7 +331,7 @@ internal class NaverEtfApiImpl(
 
 **참고**:
 - NaverEtfApi는 현재 1개 함수만 제공
-- [09-네이버-API-통합-명세.md](./09-네이버-API-통합-명세.md) 참고
+- [09-네이버-API-통합-명세.md](09-네이버-API-통합-명세.md) 참고
 
 **완료 기준**:
 - [ ] 생성자에 rateLimiter 파라미터 추가 (기본값 제공)
@@ -364,8 +364,8 @@ internal class OpenDartApiImpl(
 
 **참고**:
 - OpenDartApi는 6개 함수 제공
-- [11-OPENDART-API-통합-명세.md](./11-OPENDART-API-통합-명세.md) 참고
-- [12-OPENDART-함수-시그니처-카탈로그.md](./12-OPENDART-함수-시그니처-카탈로그.md) 참고
+- [11-OPENDART-API-통합-명세.md](11-OPENDART-API-통합-명세.md) 참고
+- [12-OPENDART-함수-시그니처-카탈로그.md](12-OPENDART-함수-시그니처-카탈로그.md) 참고
 
 **완료 기준**:
 - [ ] 생성자에 rateLimiter 파라미터 추가 (기본값 제공)
@@ -380,7 +380,7 @@ internal class OpenDartApiImpl(
 
 **파일**: `lib/src/test/kotlin/dev/kairoscode/kfc/internal/ratelimit/TokenBucketRateLimiterTest.kt`
 
-**테스트 케이스** ([20-Rate-Limiting-기술명세.md#81-단위-테스트](./20-Rate-Limiting-기술명세.md#81-단위-테스트) 참고):
+**테스트 케이스** ([20-Rate-Limiting-기술명세.md#81-단위-테스트](20-Rate-Limiting-기술명세.md#81-단위-테스트) 참고):
 - [ ] testBasicAcquisition: 토큰 정상 소비
 - [ ] testBurstAllowed: 초기 토큰으로 버스트 가능
 - [ ] testTimeoutException: 타임아웃 발생
@@ -397,7 +397,7 @@ internal class OpenDartApiImpl(
 
 **파일**: `lib/src/test/kotlin/dev/kairoscode/kfc/KfcClientRateLimitingIntegrationTest.kt`
 
-**테스트 케이스** ([20-Rate-Limiting-기술명세.md#82-통합-테스트](./20-Rate-Limiting-기술명세.md#82-통합-테스트) 참고):
+**테스트 케이스** ([20-Rate-Limiting-기술명세.md#82-통합-테스트](20-Rate-Limiting-기술명세.md#82-통합-테스트) 참고):
 - [ ] testKrxRateLimiting: KRX API rate limiting 동작
 - [ ] testSourceIndependence: Source별 rate limit 독립성
 - [ ] testCustomSettings: 커스텀 설정 적용
@@ -711,33 +711,33 @@ plan/
 ## 참고 문서
 
 ### 필수 참고
-1. **[20-Rate-Limiting-기술명세.md](./20-Rate-Limiting-기술명세.md)**
+1. **[20-Rate-Limiting-기술명세.md](20-Rate-Limiting-기술명세.md)**
    - Token Bucket 알고리즘 상세 설명
    - API 설계 (RateLimiter 인터페이스, 설정)
    - 구현 예시 코드
 
-2. **[16-라이브러리-아키텍처.md](./16-라이브러리-아키텍처.md)**
+2. **[16-라이브러리-아키텍처.md](16-라이브러리-아키텍처.md)**
    - 라이브러리 책임 재정의
    - 레이어 구조
    - 디자인 패턴
 
-3. **[01-프로젝트-개요.md](./01-프로젝트-개요.md)**
+3. **[01-프로젝트-개요.md](01-프로젝트-개요.md)**
    - 프로젝트 전체 구조
    - Rate Limiting 개요
 
 ### 함수 시그니처 참고
-- [10-함수-시그니처-카탈로그.md](./10-함수-시그니처-카탈로그.md) - KRX API 함수 목록
-- [12-OPENDART-함수-시그니처-카탈로그.md](./12-OPENDART-함수-시그니처-카탈로그.md) - OPENDART API 함수 목록
+- [10-함수-시그니처-카탈로그.md](10-함수-시그니처-카탈로그.md) - KRX API 함수 목록
+- [12-OPENDART-함수-시그니처-카탈로그.md](12-OPENDART-함수-시그니처-카탈로그.md) - OPENDART API 함수 목록
 
 ### API 명세 참고
-- [03-MDCSTAT04701-상세명세.md](./03-MDCSTAT04701-상세명세.md) - KRX 상세 명세
-- [09-네이버-API-통합-명세.md](./09-네이버-API-통합-명세.md) - Naver 명세
-- [11-OPENDART-API-통합-명세.md](./11-OPENDART-API-통합-명세.md) - OPENDART 명세
+- [03-MDCSTAT04701-상세명세.md](03-MDCSTAT04701-상세명세.md) - KRX 상세 명세
+- [09-네이버-API-통합-명세.md](09-네이버-API-통합-명세.md) - Naver 명세
+- [11-OPENDART-API-통합-명세.md](11-OPENDART-API-통합-명세.md) - OPENDART 명세
 
 ### 테스트 참고
-- [19-테스트-작성-원칙.md](./19-테스트-작성-원칙.md) - 테스트 작성 가이드
-- [13-KRX-테스트-시나리오-명세.md](./13-KRX-테스트-시나리오-명세.md) - KRX 테스트
-- [15-OPENDART-테스트-시나리오-명세.md](./15-OPENDART-테스트-시나리오-명세.md) - OPENDART 테스트
+- [19-테스트-작성-원칙.md](19-테스트-작성-원칙.md) - 테스트 작성 가이드
+- [13-KRX-테스트-시나리오-명세.md](13-KRX-테스트-시나리오-명세.md) - KRX 테스트
+- [15-OPENDART-테스트-시나리오-명세.md](15-OPENDART-테스트-시나리오-명세.md) - OPENDART 테스트
 
 ---
 

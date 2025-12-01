@@ -6,13 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="016e1f85-4a44-41b8-a348-827de419e3a3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/main/kotlin/dev/kairoscode/kfc/KfcClient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/main/kotlin/dev/kairoscode/kfc/KfcClient.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/main/kotlin/dev/kairoscode/kfc/internal/krx/KrxEtfApiImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/main/kotlin/dev/kairoscode/kfc/internal/krx/KrxEtfApiImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/main/kotlin/dev/kairoscode/kfc/internal/naver/NaverEtfApiImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/main/kotlin/dev/kairoscode/kfc/internal/naver/NaverEtfApiImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/main/kotlin/dev/kairoscode/kfc/internal/opendart/OpenDartApiImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/main/kotlin/dev/kairoscode/kfc/internal/opendart/OpenDartApiImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plan/01-프로젝트-개요.md" beforeDir="false" afterPath="$PROJECT_DIR$/plan/01-프로젝트-개요.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plan/16-라이브러리-아키텍처.md" beforeDir="false" afterPath="$PROJECT_DIR$/plan/16-라이브러리-아키텍처.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +30,46 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="kfc" type="f1a62948:ProjectNode" />
               </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="kfc" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="kfc" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="documentation" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="kfc" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="help" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="kfc" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="kfc" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="signing" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="kfc" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="verification" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="kfc" type="f1a62948:ProjectNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
+              </path>
             </expand>
             <select />
           </tree_state>
@@ -53,13 +86,13 @@
     &quot;assignee&quot;: &quot;ulalax-karios&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "git@github.com:kairos-code-dev/kfc.git",
-    "accountId": "83383c24-b19f-4b63-b6b1-572b63ab532e"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:kairos-code-dev/kfc.git&quot;,
+    &quot;accountId&quot;: &quot;83383c24-b19f-4b63-b6b1-572b63ab532e&quot;
   }
-}]]></component>
-  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$" gradleHome="$USER_HOME$/.gradle/wrapper/dists/gradle-8.12-bin/cetblhg4pflnnks72fxwobvgv/gradle-8.12" javaHome="$USER_HOME$/.sdkman/candidates/java/21.0.8-amzn" gradleVersion="8.12" />
+}</component>
+  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$" gradleHome="$USER_HOME$/.sdkman/candidates/gradle/9.0.0/bin/wrapper/dists/gradle-8.12-bin/cetblhg4pflnnks72fxwobvgv/gradle-8.12" javaHome="$USER_HOME$/.sdkman/candidates/java/21.0.8-amzn" gradleVersion="8.12" />
   <component name="JavaAutoRunManager">
     <enabled-run-configurations>
       <run-configuration type="JUnit" name="KrxEtfApiTest.getEtfList_should_include_KODEX_200" />
@@ -120,12 +153,13 @@
     <layout>
       <window_info id="Bookmarks" side_tool="true" />
       <window_info id="Merge Requests" />
+      <window_info id="Kotest" />
       <window_info id="Backup and Sync History" />
       <window_info id="Commit_Guest" show_stripe_button="false" />
       <window_info id="Pull Requests" />
       <window_info id="Learn" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13256541" />
-      <window_info id="Commit" order="1" weight="0.13256541" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1433881" />
+      <window_info id="Commit" order="1" weight="0.14310816" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Database Changes" />
       <window_info anchor="bottom" id="TypeScript" />
@@ -138,10 +172,10 @@
       <window_info anchor="bottom" id="Version Control" order="0" />
       <window_info anchor="bottom" id="Problems" order="1" />
       <window_info anchor="bottom" id="Problems View" order="2" />
-      <window_info anchor="bottom" id="Services" order="4" />
-      <window_info anchor="bottom" id="Build" order="5" weight="0.3298636" />
-      <window_info anchor="bottom" id="Run" order="6" weight="0.3298636" />
-      <window_info anchor="bottom" id="Debug" order="7" weight="0.3298636" />
+      <window_info anchor="bottom" id="Services" order="3" />
+      <window_info anchor="bottom" id="Build" order="4" weight="0.3298636" />
+      <window_info anchor="bottom" id="Run" order="5" weight="0.3298636" />
+      <window_info anchor="bottom" id="Debug" order="6" weight="0.3298636" />
       <window_info anchor="right" id="Plots" />
       <window_info anchor="right" id="Endpoints" />
       <window_info anchor="right" id="Python Console" />
@@ -153,7 +187,7 @@
       <window_info anchor="right" id="Gradle" order="3" sideWeight="0.7505787" weight="0.42385787" />
       <window_info anchor="right" id="Maven" order="4" weight="0.25" />
       <window_info anchor="right" id="Coverage" order="5" sideWeight="0.2494213" side_tool="true" weight="0.24424052" />
-      <window_info anchor="right" id="Terminal" order="6" visible="true" weight="0.42073408" />
+      <window_info anchor="right" id="Terminal" order="6" visible="true" weight="0.42155713" />
     </layout>
   </component>
   <component name="RunManager" selected="Gradle.KrxEtfApiTest.getAllEtfDailyPrices_should_return_all_ETF_prices_for_specific_date">
@@ -324,6 +358,7 @@
       <workItem from="1763536497520" duration="11000" />
       <workItem from="1763536534308" duration="9569000" />
       <workItem from="1763609001466" duration="6829000" />
+      <workItem from="1764553890703" duration="315000" />
     </task>
     <servers />
   </component>
