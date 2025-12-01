@@ -69,7 +69,7 @@ dependencies {
 
 ## Quick Start
 
-### 1. Facade 사용 (권장)
+### 도메인별 API 사용 (권장)
 
 ```kotlin
 import dev.kairoscode.kfc.KfcClient
@@ -77,53 +77,40 @@ import java.time.LocalDate
 
 suspend fun main() {
     // 클라이언트 생성
-    val client = KfcClient.create(
+    val kfc = KfcClient.create(
         opendartApiKey = "YOUR_OPENDART_API_KEY" // 선택적
     )
 
-    // KRX API: ETF 목록 조회
-    val etfList = client.krx.getEtfList()
+    // ETF 도메인: ETF 목록 조회 (from KRX)
+    val etfList = kfc.etf.getList()
     println("ETF 개수: ${etfList.size}")
 
-    // KRX API: ETF OHLCV 조회
-    val ohlcv = client.krx.getEtfOhlcv(
+    // ETF 도메인: ETF OHLCV 조회 (from KRX)
+    val ohlcv = kfc.etf.getOhlcv(
         isin = "KR7152100004", // ARIRANG 200
         fromDate = LocalDate.of(2024, 1, 1),
         toDate = LocalDate.of(2024, 12, 31)
     )
     println("OHLCV 데이터: ${ohlcv.size}일")
 
-    // Naver API: 조정주가 조회
-    val adjustedOhlcv = client.naver.getAdjustedOhlcv(
+    // ETF 도메인: 조정주가 조회 (from Naver)
+    val adjustedOhlcv = kfc.etf.getAdjustedOhlcv(
         ticker = "152100",
         fromDate = LocalDate.of(2024, 1, 1),
         toDate = LocalDate.of(2024, 12, 31)
     )
     println("조정주가 데이터: ${adjustedOhlcv.size}일")
 
-    // OPENDART API: 법인코드 목록 조회
-    val corpCodes = client.opendart?.getCorpCodeList()
+    // 기업 공시 도메인: 법인코드 목록 조회 (from OPENDART)
+    val corpCodes = kfc.corp?.getCorpCodeList()
     println("법인코드 개수: ${corpCodes?.size}")
-}
-```
 
-### 2. 개별 API 사용 (세밀한 제어)
-
-```kotlin
-import dev.kairoscode.kfc.api.krx.KrxEtfApi
-import dev.kairoscode.kfc.api.naver.NaverEtfApi
-import dev.kairoscode.kfc.api.opendart.OpenDartApi
-
-suspend fun main() {
-    // 개별 API 클라이언트 생성
-    val krxApi = KrxEtfApiFactory.create()
-    val naverApi = NaverEtfApiFactory.create()
-    val openDartApi = OpenDartApiFactory.create(apiKey = "YOUR_API_KEY")
-
-    // 사용
-    val etfList = krxApi.getEtfList()
-    val adjustedClose = naverApi.getAdjustedClose(...)
-    val corpCodes = openDartApi.getCorpCodeList()
+    // 기업 공시 도메인: 배당 정보 조회 (from OPENDART)
+    val dividends = kfc.corp?.getDividendInfo(
+        corpCode = "00164779",
+        year = 2024
+    )
+    println("배당 정보: ${dividends?.size}건")
 }
 ```
 
@@ -171,11 +158,11 @@ suspend fun main() {
         )
     )
 
-    val client = KfcClient.create(rateLimitingSettings = customSettings)
+    val kfc = KfcClient.create(rateLimitingSettings = customSettings)
 
     // 이제 각 API 호출이 설정된 레이트 제한을 따릅니다
-    val etfList = client.krx.getEtfList()   // KRX 레이트 제한 적용
-    val ohlcv = client.naver.getAdjustedOhlcv(...)  // Naver 레이트 제한 적용
+    val etfList = kfc.etf.getList()   // KRX 레이트 제한 적용
+    val ohlcv = kfc.etf.getAdjustedOhlcv(...)  // Naver 레이트 제한 적용
 }
 ```
 
@@ -203,85 +190,95 @@ val client = KfcClient.create(rateLimitingSettings = unlimitedSettings)
 
 ## API Examples
 
-### KRX ETF API (15개 함수)
+### ETF 도메인 API
 
-#### ETF 목록 조회
+#### ETF 목록 조회 (from KRX)
 
 ```kotlin
-val etfList = client.krx.etf.getEtfList()
+val etfList = kfc.etf.getList()
 etfList.forEach { etf ->
     println("${etf.ticker} ${etf.name} (${etf.totalExpenseRatio}%)")
 }
 ```
 
-#### ETF 상세 정보 조회
+#### ETF 상세 정보 조회 (from KRX)
 
 ```kotlin
-val detail = client.krx.etf.getEtfDetail(
+val detail = kfc.etf.getComprehensiveInfo(
     isin = "KR7069500007",
-    date = LocalDate.now()
+    tradeDate = LocalDate.now()
 )
-println("NAV: ${detail.nav}, 시가총액: ${detail.marketCap}")
+println("NAV: ${detail?.nav}, 시가총액: ${detail?.marketCap}")
 ```
 
-#### ETF OHLCV 조회 (자동 분할 지원)
+#### ETF OHLCV 조회 (from KRX, 자동 분할 지원)
 
 ```kotlin
 // 730일 초과 시 자동으로 분할 후 병합
-val ohlcv = client.krx.etf.getEtfOhlcv(
+val ohlcv = kfc.etf.getOhlcv(
     isin = "KR7069500007",
-    fromDate = LocalDate(2020, 1, 1), // 5년치 데이터
-    toDate = LocalDate(2024, 12, 31)
+    fromDate = LocalDate.of(2020, 1, 1), // 5년치 데이터
+    toDate = LocalDate.of(2024, 12, 31)
 )
 println("총 ${ohlcv.size}일치 OHLCV 데이터")
 ```
 
-#### ETF 포트폴리오 구성 종목 조회
+#### 조정주가 OHLCV 조회 (from Naver)
 
 ```kotlin
-val portfolio = client.krx.etf.getEtfPortfolioConstituents(
+val adjustedOhlcv = kfc.etf.getAdjustedOhlcv(
+    ticker = "069500",
+    fromDate = LocalDate.of(2024, 1, 1),
+    toDate = LocalDate.of(2024, 12, 31)
+)
+adjustedOhlcv.forEach { data ->
+    println("${data.date}: Open=${data.open}, Close=${data.close}")
+}
+```
+
+#### ETF 포트폴리오 구성 종목 조회 (from KRX)
+
+```kotlin
+val portfolio = kfc.etf.getPortfolio(
     isin = "KR7069500007",
     date = LocalDate.now()
 )
 portfolio.forEach { stock ->
-    println("${stock.ticker} ${stock.name}: ${stock.weight}%")
+    println("${stock.constituentCode} ${stock.constituentName}: ${stock.weightPercent}%")
 }
 ```
 
-### Naver ETF API (1개 함수)
+### 기업 공시 도메인 API
 
-#### 조정 종가 조회
-
-```kotlin
-val adjustedClose = client.naver.etf.getAdjustedClose(
-    ticker = "069500",
-    fromDate = LocalDate(2024, 1, 1),
-    toDate = LocalDate(2024, 12, 31)
-)
-adjustedClose.forEach { data ->
-    println("${data.tradeDate}: ${data.adjustedClose}")
-}
-```
-
-### OPENDART API (6개 함수)
-
-#### 법인코드 목록 조회
+#### 법인코드 목록 조회 (from OPENDART)
 
 ```kotlin
-val corpCodes = client.openDart.getCorpCodeList()
-val kodex200 = corpCodes.find { it.stockCode == "069500" }
+val corpCodes = kfc.corp?.getCorpCodeList()
+val kodex200 = corpCodes?.find { it.stockCode == "069500" }
 println("법인코드: ${kodex200?.corpCode}")
 ```
 
-#### 배당 정보 조회
+#### 배당 정보 조회 (from OPENDART)
 
 ```kotlin
-val dividends = client.openDart.getDividendInfo(
+val dividends = kfc.corp?.getDividendInfo(
     corpCode = "00164779", // KODEX 200
     year = 2024
 )
-dividends.forEach { div ->
-    println("${div.dividendDate}: ${div.dividendPerShare}원")
+dividends?.forEach { div ->
+    println("${div.settlementDate}: ${div.currentYear}원")
+}
+```
+
+#### 주식 분할/병합 정보 조회 (from OPENDART)
+
+```kotlin
+val stockSplits = kfc.corp?.getStockSplitInfo(
+    corpCode = "00164779",
+    year = 2024
+)
+stockSplits?.forEach { split ->
+    println("${split.eventDate}: ${split.eventType}")
 }
 ```
 
@@ -294,40 +291,48 @@ dividends.forEach { div ->
 ```
 ┌─────────────────────────────────────────┐
 │         API Layer (Public)              │
-│  KrxEtfApi, NaverEtfApi, OpenDartApi    │
+│  EtfApi (도메인 통합)                    │
+│  CorpApi (도메인 통합)                   │
 │  KfcClient (Facade)                     │
 └─────────────────┬───────────────────────┘
-                  │ (반환)
-        Model (Data Transfer Objects)
-      EtfListItem, EtfOhlcv, AdjustedClose
                   │ (사용)
+        Model (Data Transfer Objects)
+      EtfListItem, EtfOhlcv, NaverEtfOhlcv
+                  │ (반환)
 ┌─────────────────▼───────────────────────┐
 │ Implementation Layer (Internal)         │
+│  EtfApiImpl, CorpApiImpl                │
+│  KrxEtfApiImpl, NaverEtfApiImpl         │
+│  OpenDartApiImpl                        │
 │  HTTP Client, Parser, Type Converter    │
 └─────────────────────────────────────────┘
 ```
 
-### 패키지 구조 (소스별 분류)
+### 패키지 구조 (도메인별 분류)
 
 ```
 dev.kairoscode.kfc/
-├── api/              # Public API
-│   ├── krx/
-│   ├── naver/
-│   ├── opendart/
-│   └── KfcClient.kt  # Facade
+├── api/              # Public API (도메인별)
+│   ├── EtfApi.kt        # ETF 도메인 인터페이스
+│   ├── CorpApi.kt       # 기업 공시 도메인 인터페이스
+│   ├── krx/             # KRX 소스별 인터페이스 (내부 사용)
+│   ├── naver/           # Naver 소스별 인터페이스 (내부 사용)
+│   ├── opendart/        # OPENDART 소스별 인터페이스 (내부 사용)
+│   └── KfcClient.kt     # Facade
 │
 ├── model/            # 데이터 클래스
-│   ├── krx/etf/
-│   ├── naver/etf/
+│   ├── krx/
+│   ├── naver/
 │   ├── opendart/
 │   └── common/
 │
 ├── internal/         # 내부 구현 (internal)
-│   ├── krx/etf/
-│   ├── naver/etf/
-│   ├── opendart/
-│   └── http/
+│   ├── EtfApiImpl.kt        # ETF 도메인 구현체
+│   ├── CorpApiImpl.kt       # 기업 공시 도메인 구현체
+│   ├── krx/                 # KRX 소스별 구현체
+│   ├── naver/               # Naver 소스별 구현체
+│   ├── opendart/            # OPENDART 소스별 구현체
+│   └── ratelimit/           # Rate Limiting
 │
 └── exception/        # 예외 클래스
 ```
@@ -344,7 +349,7 @@ dev.kairoscode.kfc/
 import dev.kairoscode.kfc.exception.*
 
 try {
-    val etfList = client.krx.getEtfList()
+    val etfList = kfc.etf.getList()
 } catch (e: KfcException) {
     when (e.errorCode) {
         ErrorCode.NETWORK_CONNECTION_FAILED -> println("네트워크 연결 실패")
