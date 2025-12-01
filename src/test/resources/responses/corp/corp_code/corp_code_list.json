@@ -1,0 +1,32 @@
+[
+  {
+    "corpCode": "00126380",
+    "corpName": "삼성전자",
+    "stockCode": "005930",
+    "modifyDate": "2024-12-01"
+  },
+  {
+    "corpCode": "00222206",
+    "corpName": "카카오",
+    "stockCode": "035720",
+    "modifyDate": "2024-12-01"
+  },
+  {
+    "corpCode": "00164470",
+    "corpName": "현대차",
+    "stockCode": "005380",
+    "modifyDate": "2024-12-01"
+  },
+  {
+    "corpCode": "00434003",
+    "corpName": "다코",
+    "stockCode": null,
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00430964",
+    "corpName": "굿앤엘에스",
+    "stockCode": null,
+    "modifyDate": "2017-06-30"
+  }
+]

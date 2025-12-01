@@ -1,0 +1,156 @@
+[
+  {
+    "tradeDate": "2025-10-27",
+    "closePrice": 56815,
+    "nav": "56858.20",
+    "divergenceRate": -0.08,
+    "priceDirection": "UP"
+  },
+  {
+    "tradeDate": "2025-10-28",
+    "closePrice": 56260,
+    "nav": "56238.06",
+    "divergenceRate": 0.04,
+    "priceDirection": "DOWN"
+  },
+  {
+    "tradeDate": "2025-10-29",
+    "closePrice": 57440,
+    "nav": "57295.04",
+    "divergenceRate": 0.25,
+    "priceDirection": "UP"
+  },
+  {
+    "tradeDate": "2025-10-30",
+    "closePrice": 57465,
+    "nav": "57662.85",
+    "divergenceRate": -0.34,
+    "priceDirection": "UP"
+  },
+  {
+    "tradeDate": "2025-10-31",
+    "closePrice": 58110,
+    "nav": "58090.44",
+    "divergenceRate": 0.03,
+    "priceDirection": "UP"
+  },
+  {
+    "tradeDate": "2025-11-03",
+    "closePrice": 59950,
+    "nav": "60058.03",
+    "divergenceRate": -0.18,
+    "priceDirection": "UP"
+  },
+  {
+    "tradeDate": "2025-11-04",
+    "closePrice": 58290,
+    "nav": "58351.32",
+    "divergenceRate": -0.11,
+    "priceDirection": "DOWN"
+  },
+  {
+    "tradeDate": "2025-11-05",
+    "closePrice": 56665,
+    "nav": "56693.73",
+    "divergenceRate": -0.05,
+    "priceDirection": "DOWN"
+  },
+  {
+    "tradeDate": "2025-11-06",
+    "closePrice": 56980,
+    "nav": "56994.53",
+    "divergenceRate": -0.03,
+    "priceDirection": "UP"
+  },
+  {
+    "tradeDate": "2025-11-07",
+    "closePrice": 55950,
+    "nav": "55956.67",
+    "divergenceRate": -0.01,
+    "priceDirection": "DOWN"
+  },
+  {
+    "tradeDate": "2025-11-10",
+    "closePrice": 57675,
+    "nav": "57696.14",
+    "divergenceRate": -0.04,
+    "priceDirection": "UP"
+  },
+  {
+    "tradeDate": "2025-11-11",
+    "closePrice": 58240,
+    "nav": "58313.62",
+    "divergenceRate": -0.13,
+    "priceDirection": "UP"
+  },
+  {
+    "tradeDate": "2025-11-12",
+    "closePrice": 58845,
+    "nav": "58850.81",
+    "divergenceRate": -0.01,
+    "priceDirection": "UP"
+  },
+  {
+    "tradeDate": "2025-11-13",
+    "closePrice": 59110,
+    "nav": "59052.92",
+    "divergenceRate": 0.1,
+    "priceDirection": "UP"
+  },
+  {
+    "tradeDate": "2025-11-14",
+    "closePrice": 56505,
+    "nav": "56525.28",
+    "divergenceRate": -0.04,
+    "priceDirection": "DOWN"
+  },
+  {
+    "tradeDate": "2025-11-17",
+    "closePrice": 57735,
+    "nav": "57848.85",
+    "divergenceRate": -0.2,
+    "priceDirection": "UP"
+  },
+  {
+    "tradeDate": "2025-11-18",
+    "closePrice": 55830,
+    "nav": "55822.92",
+    "divergenceRate": 0.01,
+    "priceDirection": "DOWN"
+  },
+  {
+    "tradeDate": "2025-11-19",
+    "closePrice": 55410,
+    "nav": "55447.04",
+    "divergenceRate": -0.07,
+    "priceDirection": "DOWN"
+  },
+  {
+    "tradeDate": "2025-11-20",
+    "closePrice": 56625,
+    "nav": "56602.92",
+    "divergenceRate": 0.04,
+    "priceDirection": "UP"
+  },
+  {
+    "tradeDate": "2025-11-21",
+    "closePrice": 54235,
+    "nav": "54215.36",
+    "divergenceRate": 0.04,
+    "priceDirection": "DOWN"
+  },
+  {
+    "tradeDate": "2025-11-24",
+    "closePrice": 54255,
+    "nav": "54304.04",
+    "divergenceRate": -0.09,
+    "priceDirection": "UP"
+  },
+  {
+    "tradeDate": "2025-11-25",
+    "closePrice": 54640,
+    "nav": "54693.57",
+    "divergenceRate": -0.1,
+    "priceDirection": "UP"
+  }
+]

@@ -1,0 +1,119 @@
+[
+  {
+    "investorType": "금융투자",
+    "askVolume": 263229470,
+    "askValue": 2708740650701,
+    "bidVolume": 251070387,
+    "bidValue": 2311363114270,
+    "netBuyVolume": -12159083,
+    "netBuyValue": -397377536431
+  },
+  {
+    "investorType": "보험",
+    "askVolume": 2011938,
+    "askValue": 32880350687,
+    "bidVolume": 1397914,
+    "bidValue": 27470377148,
+    "netBuyVolume": -614024,
+    "netBuyValue": -5409973539
+  },
+  {
+    "investorType": "투신",
+    "askVolume": 5957250,
+    "askValue": 50468631346,
+    "bidVolume": 10563624,
+    "bidValue": 290765434105,
+    "netBuyVolume": 4606374,
+    "netBuyValue": 240296802759
+  },
+  {
+    "investorType": "사모",
+    "askVolume": 497182,
+    "askValue": 14541422611,
+    "bidVolume": 669970,
+    "bidValue": 14734180183,
+    "netBuyVolume": 172788,
+    "netBuyValue": 192757572
+  },
+  {
+    "investorType": "은행",
+    "askVolume": 4667978,
+    "askValue": 93829179642,
+    "bidVolume": 8908171,
+    "bidValue": 165036685082,
+    "netBuyVolume": 4240193,
+    "netBuyValue": 71207505440
+  },
+  {
+    "investorType": "기타금융",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 269010,
+    "bidValue": 3274939141,
+    "netBuyVolume": 269010,
+    "netBuyValue": 3274939141
+  },
+  {
+    "investorType": "연기금 등",
+    "askVolume": 66355,
+    "askValue": 3342001172,
+    "bidVolume": 320488,
+    "bidValue": 3364891326,
+    "netBuyVolume": 254133,
+    "netBuyValue": 22890154
+  },
+  {
+    "investorType": "기관합계",
+    "askVolume": 276430173,
+    "askValue": 2903802236159,
+    "bidVolume": 273199564,
+    "bidValue": 2816009621255,
+    "netBuyVolume": -3230609,
+    "netBuyValue": -87792614904
+  },
+  {
+    "investorType": "기타법인",
+    "askVolume": 13016650,
+    "askValue": 98111109049,
+    "bidVolume": 13574885,
+    "bidValue": 108965887619,
+    "netBuyVolume": 558235,
+    "netBuyValue": 10854778570
+  },
+  {
+    "investorType": "개인",
+    "askVolume": 643880281,
+    "askValue": 2364331792866,
+    "bidVolume": 655862432,
+    "bidValue": 2439281959413,
+    "netBuyVolume": 11982151,
+    "netBuyValue": 74950166547
+  },
+  {
+    "investorType": "외국인",
+    "askVolume": 488793804,
+    "askValue": 1929936517855,
+    "bidVolume": 479177334,
+    "bidValue": 1929897672926,
+    "netBuyVolume": -9616470,
+    "netBuyValue": -38844929
+  },
+  {
+    "investorType": "기타외국인",
+    "askVolume": 1702487,
+    "askValue": 3955623336,
+    "bidVolume": 2009180,
+    "bidValue": 5982138052,
+    "netBuyVolume": 306693,
+    "netBuyValue": 2026514716
+  },
+  {
+    "investorType": "전체",
+    "askVolume": 1423823395,
+    "askValue": 7300137279265,
+    "bidVolume": 1423823395,
+    "bidValue": 7300137279265,
+    "netBuyVolume": 0,
+    "netBuyValue": 0
+  }
+]
