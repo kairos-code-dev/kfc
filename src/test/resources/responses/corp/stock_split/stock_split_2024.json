@@ -1,0 +1,14 @@
+[
+  {
+    "eventType": "분할",
+    "eventDate": "2024-01-15",
+    "beforeRatio": "1",
+    "afterRatio": "2"
+  },
+  {
+    "eventType": "병합",
+    "eventDate": "2024-06-10",
+    "beforeRatio": "10",
+    "afterRatio": "1"
+  }
+]
