@@ -68,8 +68,9 @@ sourceSets {
         resources {
             srcDir("src/liveTest/resources")
         }
-        compileClasspath += sourceSets.main.get().output + sourceSets.test.get().output
-        runtimeClasspath += sourceSets.main.get().output + sourceSets.test.get().output
+        // Test 클래스만 포함 (resources는 불필요)
+        compileClasspath += sourceSets.main.get().output + sourceSets.test.get().output.classesDirs
+        runtimeClasspath += sourceSets.main.get().output + sourceSets.test.get().output.classesDirs
     }
 }
 
@@ -83,6 +84,10 @@ dependencies {
 }
 
 // Gradle resources 처리 중복 파일 전략
+// 이유: liveTest와 test가 같은 리소스 파일을 공유하기 때문
+// - test: 단위 테스트용 mock 데이터
+// - liveTest: 실제 API 응답 레코딩
+// 둘 다 src/*/resources/responses/에 동일한 구조를 가지므로 중복 발생
 tasks.named("processTestResources", Copy::class) {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }

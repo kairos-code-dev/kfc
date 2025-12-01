@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="016e1f85-4a44-41b8-a348-827de419e3a3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/KfcClient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/KfcClient.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/responses/corp/corp_code/corp_code_list.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/responses/corp/corp_code/corp_code_list.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -399,7 +394,7 @@
       <workItem from="1764553890703" duration="315000" />
       <workItem from="1764555037857" duration="1591000" />
       <workItem from="1764588621839" duration="12861000" />
-      <workItem from="1764604819083" duration="947000" />
+      <workItem from="1764604819083" duration="1079000" />
     </task>
     <servers />
   </component>
