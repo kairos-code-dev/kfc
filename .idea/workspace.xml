@@ -6,6 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="016e1f85-4a44-41b8-a348-827de419e3a3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/KfcClient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/KfcClient.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/responses/corp/corp_code/corp_code_list.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/responses/corp/corp_code/corp_code_list.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +44,12 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="kfc" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="kfc" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="documentation" type="c8890929:TasksNode$1" />
               </path>
               <path>
@@ -58,6 +69,12 @@
                 <item name="kfc" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="signing" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="kfc" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="validation" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -93,11 +110,6 @@
   }
 }</component>
   <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$" gradleHome="$USER_HOME$/.sdkman/candidates/gradle/9.0.0/bin/wrapper/dists/gradle-8.12-bin/cetblhg4pflnnks72fxwobvgv/gradle-8.12" javaHome="$USER_HOME$/.sdkman/candidates/java/21.0.8-amzn" gradleVersion="8.12" />
-  <component name="JavaAutoRunManager">
-    <enabled-run-configurations>
-      <run-configuration type="JUnit" name="KrxEtfApiTest.getEtfList_should_include_KODEX_200" />
-    </enabled-run-configurations>
-  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -115,6 +127,11 @@
     &quot;Gradle.KrxEtfApiTest.getEtfList_should_include_KODEX_200.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.NaverEtfApiTest.getAdjustedOhlcv should return empty list when invalid ticker.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Tests in 'com.kairos.krx'.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kfc [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kfc [check].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kfc [cleanLiveTest].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kfc [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kfc [liveTest].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.kotlin-krx [bootRun].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.kotlin-krx [checkKotlinGradlePluginConfigurationErrors].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.kotlin-krx [checkSigningConfiguration].executor&quot;: &quot;Run&quot;,
@@ -158,8 +175,8 @@
       <window_info id="Commit_Guest" show_stripe_button="false" />
       <window_info id="Pull Requests" />
       <window_info id="Learn" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.29773527" />
-      <window_info id="Commit" order="1" weight="0.29812574" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.33014446" />
+      <window_info id="Commit" order="1" weight="0.10718469" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Database Changes" />
       <window_info anchor="bottom" id="TypeScript" />
@@ -174,7 +191,7 @@
       <window_info anchor="bottom" id="Problems View" order="2" />
       <window_info anchor="bottom" id="Services" order="3" />
       <window_info anchor="bottom" id="Build" order="4" weight="0.3298636" />
-      <window_info anchor="bottom" id="Run" order="5" weight="0.3298636" />
+      <window_info anchor="bottom" id="Run" order="5" visible="true" weight="0.3298636" />
       <window_info anchor="bottom" id="Debug" order="6" weight="0.3298636" />
       <window_info anchor="right" id="Plots" />
       <window_info anchor="right" id="Endpoints" />
@@ -184,37 +201,18 @@
       <window_info anchor="right" content_ui="combo" id="Notifications" order="0" weight="0.25" />
       <window_info anchor="right" id="AIAssistant" order="1" weight="0.25" />
       <window_info anchor="right" id="Database" order="2" weight="0.25" />
-      <window_info anchor="right" id="Gradle" order="3" sideWeight="0.7505787" weight="0.42385787" />
+      <window_info anchor="right" id="Gradle" order="3" sideWeight="0.7505787" weight="0.33873487" />
       <window_info anchor="right" id="Maven" order="4" weight="0.25" />
       <window_info anchor="right" id="Coverage" order="5" sideWeight="0.2494213" side_tool="true" weight="0.24424052" />
       <window_info active="true" anchor="right" id="Terminal" order="6" visible="true" weight="0.33873487" />
     </layout>
   </component>
-  <component name="RunManager" selected="Gradle.KrxEtfApiTest.getAllEtfDailyPrices_should_return_all_ETF_prices_for_specific_date">
-    <configuration name="KrxEtfApiTest.getAllEtfDailyPrices_should_return_all_ETF_prices_for_specific_date" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":lib:test" />
-            <option value="--tests" />
-            <option value="&quot;dev.kairoscode.kfc.api.krx.KrxEtfApiTest.getAllEtfDailyPrices_should_return_all_ETF_prices_for_specific_date&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/plan" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.kfc [liveTest]">
     <configuration name="KrxEtfApiTest.getEtfList_should_include_KODEX_200" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -239,7 +237,29 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="kotlin-krx [check]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="kfc [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="kfc [check]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -261,69 +281,87 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="KrxEtfApiTest.getEtfList_should_include_KODEX_200" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="kfc.lib.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="dev.kairoscode.kfc.api.krx.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="dev.kairoscode.kfc.api.krx" />
-      <option name="MAIN_CLASS_NAME" value="dev.kairoscode.kfc.api.krx.KrxEtfApiTest" />
-      <option name="METHOD_NAME" value="getEtfList_should_include_KODEX_200" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="kfc [cleanLiveTest]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="cleanLiveTest" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
     </configuration>
-    <configuration name="KrxEtfApiTest.getEtfOhlcv_should_return_single_day_data_when_same_from_and_to_date" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="kfc.lib.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="dev.kairoscode.kfc.api.krx.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="dev.kairoscode.kfc.api.krx" />
-      <option name="MAIN_CLASS_NAME" value="dev.kairoscode.kfc.api.krx.KrxEtfApiTest" />
-      <option name="METHOD_NAME" value="getEtfOhlcv_should_return_single_day_data_when_same_from_and_to_date" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="kfc [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
     </configuration>
-    <configuration name="KrxEtfApiTest.getEtfPriceChanges_should_return_price_changes_for_period" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="kfc.lib.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="dev.kairoscode.kfc.api.krx.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="dev.kairoscode.kfc.api.krx" />
-      <option name="MAIN_CLASS_NAME" value="dev.kairoscode.kfc.api.krx.KrxEtfApiTest" />
-      <option name="METHOD_NAME" value="getEtfPriceChanges_should_return_price_changes_for_period" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="kfc [liveTest]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="liveTest" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Gradle.KrxEtfApiTest.getEtfList_should_include_KODEX_200" />
-      <item itemvalue="Gradle.KrxEtfApiTest.getAllEtfDailyPrices_should_return_all_ETF_prices_for_specific_date" />
-      <item itemvalue="Gradle.kotlin-krx [check]" />
-      <item itemvalue="JUnit.KrxEtfApiTest.getEtfOhlcv_should_return_single_day_data_when_same_from_and_to_date" />
-      <item itemvalue="JUnit.KrxEtfApiTest.getEtfPriceChanges_should_return_price_changes_for_period" />
-      <item itemvalue="JUnit.KrxEtfApiTest.getEtfList_should_include_KODEX_200" />
+      <item itemvalue="Gradle.kfc [build]" />
+      <item itemvalue="Gradle.kfc [check]" />
+      <item itemvalue="Gradle.kfc [cleanLiveTest]" />
+      <item itemvalue="Gradle.kfc [clean]" />
+      <item itemvalue="Gradle.kfc [liveTest]" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.KrxEtfApiTest.getAllEtfDailyPrices_should_return_all_ETF_prices_for_specific_date" />
-        <item itemvalue="JUnit.KrxEtfApiTest.getEtfOhlcv_should_return_single_day_data_when_same_from_and_to_date" />
-        <item itemvalue="JUnit.KrxEtfApiTest.getEtfPriceChanges_should_return_price_changes_for_period" />
-        <item itemvalue="JUnit.KrxEtfApiTest.getEtfList_should_include_KODEX_200" />
-        <item itemvalue="Gradle.kotlin-krx [check]" />
+        <item itemvalue="Gradle.kfc [liveTest]" />
+        <item itemvalue="Gradle.kfc [build]" />
+        <item itemvalue="Gradle.kfc [clean]" />
+        <item itemvalue="Gradle.kfc [cleanLiveTest]" />
+        <item itemvalue="Gradle.kfc [check]" />
       </list>
     </recent_temporary>
   </component>
@@ -360,7 +398,8 @@
       <workItem from="1763609001466" duration="6829000" />
       <workItem from="1764553890703" duration="315000" />
       <workItem from="1764555037857" duration="1591000" />
-      <workItem from="1764588621839" duration="2052000" />
+      <workItem from="1764588621839" duration="12861000" />
+      <workItem from="1764604819083" duration="947000" />
     </task>
     <servers />
   </component>

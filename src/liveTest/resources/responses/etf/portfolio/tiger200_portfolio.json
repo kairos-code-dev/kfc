@@ -1,0 +1,1610 @@
+[
+  {
+    "constituentCode": "005930",
+    "constituentName": "삼성전자",
+    "sharesPerCu": "7100.00",
+    "value": 686570000,
+    "constituentAmount": 705030000,
+    "weightPercent": "25.78"
+  },
+  {
+    "constituentCode": "000660",
+    "constituentName": "SK하이닉스",
+    "sharesPerCu": "851.00",
+    "value": 442520000,
+    "constituentAmount": 441669000,
+    "weightPercent": "16.15"
+  },
+  {
+    "constituentCode": "105560",
+    "constituentName": "KB금융",
+    "sharesPerCu": "492.00",
+    "value": 59187600,
+    "constituentAmount": 59876400,
+    "weightPercent": "2.19"
+  },
+  {
+    "constituentCode": "005380",
+    "constituentName": "현대차",
+    "sharesPerCu": "205.00",
+    "value": 52787500,
+    "constituentAmount": 52787500,
+    "weightPercent": "1.93"
+  },
+  {
+    "constituentCode": "055550",
+    "constituentName": "신한지주",
+    "sharesPerCu": "647.00",
+    "value": 49366100,
+    "constituentAmount": 50142500,
+    "weightPercent": "1.83"
+  },
+  {
+    "constituentCode": "035420",
+    "constituentName": "NAVER",
+    "sharesPerCu": "197.00",
+    "value": 51417000,
+    "constituentAmount": 49841000,
+    "weightPercent": "1.82"
+  },
+  {
+    "constituentCode": "034020",
+    "constituentName": "두산에너빌리티",
+    "sharesPerCu": "652.00",
+    "value": 47270000,
+    "constituentAmount": 47922000,
+    "weightPercent": "1.75"
+  },
+  {
+    "constituentCode": "012450",
+    "constituentName": "한화에어로스페이스",
+    "sharesPerCu": "53.00",
+    "value": 45315000,
+    "constituentAmount": 45527000,
+    "weightPercent": "1.66"
+  },
+  {
+    "constituentCode": "068270",
+    "constituentName": "셀트리온",
+    "sharesPerCu": "235.00",
+    "value": 42793500,
+    "constituentAmount": 42887500,
+    "weightPercent": "1.57"
+  },
+  {
+    "constituentCode": "000270",
+    "constituentName": "기아",
+    "sharesPerCu": "374.00",
+    "value": 41551400,
+    "constituentAmount": 41588800,
+    "weightPercent": "1.52"
+  },
+  {
+    "constituentCode": "402340",
+    "constituentName": "SK스퀘어",
+    "sharesPerCu": "139.00",
+    "value": 38364000,
+    "constituentAmount": 40379500,
+    "weightPercent": "1.48"
+  },
+  {
+    "constituentCode": "086790",
+    "constituentName": "하나금융지주",
+    "sharesPerCu": "389.00",
+    "value": 34815500,
+    "constituentAmount": 35321200,
+    "weightPercent": "1.29"
+  },
+  {
+    "constituentCode": "028260",
+    "constituentName": "삼성물산",
+    "sharesPerCu": "152.00",
+    "value": 33136000,
+    "constituentAmount": 34732000,
+    "weightPercent": "1.27"
+  },
+  {
+    "constituentCode": "005490",
+    "constituentName": "POSCO홀딩스",
+    "sharesPerCu": "104.00",
+    "value": 31460000,
+    "constituentAmount": 31304000,
+    "weightPercent": "1.14"
+  },
+  {
+    "constituentCode": "009540",
+    "constituentName": "HD한국조선해양",
+    "sharesPerCu": "71.00",
+    "value": 30814000,
+    "constituentAmount": 29820000,
+    "weightPercent": "1.09"
+  },
+  {
+    "constituentCode": "035720",
+    "constituentName": "카카오",
+    "sharesPerCu": "510.00",
+    "value": 29988000,
+    "constituentAmount": 29580000,
+    "weightPercent": "1.08"
+  },
+  {
+    "constituentCode": "012330",
+    "constituentName": "현대모비스",
+    "sharesPerCu": "96.00",
+    "value": 28176000,
+    "constituentAmount": 28176000,
+    "weightPercent": "1.03"
+  },
+  {
+    "constituentCode": "267260",
+    "constituentName": "HD현대일렉트릭",
+    "sharesPerCu": "34.00",
+    "value": 25500000,
+    "constituentAmount": 26520000,
+    "weightPercent": "0.97"
+  },
+  {
+    "constituentCode": "316140",
+    "constituentName": "우리금융지주",
+    "sharesPerCu": "1026.00",
+    "value": 26470800,
+    "constituentAmount": 26419500,
+    "weightPercent": "0.97"
+  },
+  {
+    "constituentCode": "006400",
+    "constituentName": "삼성SDI",
+    "sharesPerCu": "91.00",
+    "value": 25571000,
+    "constituentAmount": 25889500,
+    "weightPercent": "0.95"
+  },
+  {
+    "constituentCode": "051910",
+    "constituentName": "LG화학",
+    "sharesPerCu": "70.00",
+    "value": 25095000,
+    "constituentAmount": 25410000,
+    "weightPercent": "0.93"
+  },
+  {
+    "constituentCode": "010140",
+    "constituentName": "삼성중공업",
+    "sharesPerCu": "1002.00",
+    "value": 25100100,
+    "constituentAmount": 24849600,
+    "weightPercent": "0.91"
+  },
+  {
+    "constituentCode": "015760",
+    "constituentName": "한국전력",
+    "sharesPerCu": "478.00",
+    "value": 23039600,
+    "constituentAmount": 24617000,
+    "weightPercent": "0.90"
+  },
+  {
+    "constituentCode": "207940",
+    "constituentName": "삼성바이오로직스",
+    "sharesPerCu": "15.00",
+    "value": 26835000,
+    "constituentAmount": 24405000,
+    "weightPercent": "0.89"
+  },
+  {
+    "constituentCode": "373220",
+    "constituentName": "LG에너지솔루션",
+    "sharesPerCu": "53.00",
+    "value": 21836000,
+    "constituentAmount": 21915500,
+    "weightPercent": "0.80"
+  },
+  {
+    "constituentCode": "000810",
+    "constituentName": "삼성화재",
+    "sharesPerCu": "46.00",
+    "value": 21758000,
+    "constituentAmount": 21758000,
+    "weightPercent": "0.80"
+  },
+  {
+    "constituentCode": "009150",
+    "constituentName": "삼성전기",
+    "sharesPerCu": "84.00",
+    "value": 18984000,
+    "constituentAmount": 20286000,
+    "weightPercent": "0.74"
+  },
+  {
+    "constituentCode": "033780",
+    "constituentName": "KT\u0026G",
+    "sharesPerCu": "141.00",
+    "value": 20656500,
+    "constituentAmount": 19768200,
+    "weightPercent": "0.72"
+  },
+  {
+    "constituentCode": "064350",
+    "constituentName": "현대로템",
+    "sharesPerCu": "111.00",
+    "value": 19425000,
+    "constituentAmount": 19669200,
+    "weightPercent": "0.72"
+  },
+  {
+    "constituentCode": "042660",
+    "constituentName": "한화오션",
+    "sharesPerCu": "172.00",
+    "value": 20433600,
+    "constituentAmount": 19436000,
+    "weightPercent": "0.71"
+  },
+  {
+    "constituentCode": "032830",
+    "constituentName": "삼성생명",
+    "sharesPerCu": "128.00",
+    "value": 18534400,
+    "constituentAmount": 18777600,
+    "weightPercent": "0.69"
+  },
+  {
+    "constituentCode": "329180",
+    "constituentName": "HD현대중공업",
+    "sharesPerCu": "34.00",
+    "value": 18768000,
+    "constituentAmount": 18632000,
+    "weightPercent": "0.68"
+  },
+  {
+    "constituentCode": "030200",
+    "constituentName": "KT",
+    "sharesPerCu": "333.00",
+    "value": 16683300,
+    "constituentAmount": 16600050,
+    "weightPercent": "0.61"
+  },
+  {
+    "constituentCode": "066570",
+    "constituentName": "LG전자",
+    "sharesPerCu": "164.00",
+    "value": 13776000,
+    "constituentAmount": 13972800,
+    "weightPercent": "0.51"
+  },
+  {
+    "constituentCode": "267250",
+    "constituentName": "HD현대",
+    "sharesPerCu": "68.00",
+    "value": 13634000,
+    "constituentAmount": 13770000,
+    "weightPercent": "0.50"
+  },
+  {
+    "constituentCode": "298040",
+    "constituentName": "효성중공업",
+    "sharesPerCu": "7.00",
+    "value": 13321000,
+    "constituentAmount": 13580000,
+    "weightPercent": "0.50"
+  },
+  {
+    "constituentCode": "034730",
+    "constituentName": "SK",
+    "sharesPerCu": "54.00",
+    "value": 13473000,
+    "constituentAmount": 13446000,
+    "weightPercent": "0.49"
+  },
+  {
+    "constituentCode": "138040",
+    "constituentName": "메리츠금융지주",
+    "sharesPerCu": "120.00",
+    "value": 12924000,
+    "constituentAmount": 12900000,
+    "weightPercent": "0.47"
+  },
+  {
+    "constituentCode": "017670",
+    "constituentName": "SK텔레콤",
+    "sharesPerCu": "225.00",
+    "value": 12172500,
+    "constituentAmount": 12037500,
+    "weightPercent": "0.44"
+  },
+  {
+    "constituentCode": "047810",
+    "constituentName": "한국항공우주",
+    "sharesPerCu": "107.00",
+    "value": 11117300,
+    "constituentAmount": 11620200,
+    "weightPercent": "0.42"
+  },
+  {
+    "constituentCode": "010130",
+    "constituentName": "고려아연",
+    "sharesPerCu": "10.00",
+    "value": 10780000,
+    "constituentAmount": 11380000,
+    "weightPercent": "0.42"
+  },
+  {
+    "constituentCode": "259960",
+    "constituentName": "크래프톤",
+    "sharesPerCu": "44.00",
+    "value": 11220000,
+    "constituentAmount": 11220000,
+    "weightPercent": "0.41"
+  },
+  {
+    "constituentCode": "096770",
+    "constituentName": "SK이노베이션",
+    "sharesPerCu": "101.00",
+    "value": 11241300,
+    "constituentAmount": 11211000,
+    "weightPercent": "0.41"
+  },
+  {
+    "constituentCode": "003550",
+    "constituentName": "LG",
+    "sharesPerCu": "141.00",
+    "value": 10955700,
+    "constituentAmount": 11054400,
+    "weightPercent": "0.40"
+  },
+  {
+    "constituentCode": "323410",
+    "constituentName": "카카오뱅크",
+    "sharesPerCu": "514.00",
+    "value": 11102400,
+    "constituentAmount": 10871100,
+    "weightPercent": "0.40"
+  },
+  {
+    "constituentCode": "010120",
+    "constituentName": "LS ELECTRIC",
+    "sharesPerCu": "24.00",
+    "value": 10464000,
+    "constituentAmount": 10560000,
+    "weightPercent": "0.39"
+  },
+  {
+    "constituentCode": "000100",
+    "constituentName": "유한양행",
+    "sharesPerCu": "91.00",
+    "value": 10483200,
+    "constituentAmount": 10419500,
+    "weightPercent": "0.38"
+  },
+  {
+    "constituentCode": "018260",
+    "constituentName": "삼성에스디에스",
+    "sharesPerCu": "58.00",
+    "value": 9674400,
+    "constituentAmount": 9732400,
+    "weightPercent": "0.36"
+  },
+  {
+    "constituentCode": "011200",
+    "constituentName": "HMM",
+    "sharesPerCu": "514.00",
+    "value": 9591240,
+    "constituentAmount": 9616940,
+    "weightPercent": "0.35"
+  },
+  {
+    "constituentCode": "071050",
+    "constituentName": "한국금융지주",
+    "sharesPerCu": "62.00",
+    "value": 9684400,
+    "constituentAmount": 9585200,
+    "weightPercent": "0.35"
+  },
+  {
+    "constituentCode": "278470",
+    "constituentName": "에이피알",
+    "sharesPerCu": "37.00",
+    "value": 9157500,
+    "constituentAmount": 9268500,
+    "weightPercent": "0.34"
+  },
+  {
+    "constituentCode": "000150",
+    "constituentName": "두산",
+    "sharesPerCu": "11.00",
+    "value": 9394000,
+    "constituentAmount": 9130000,
+    "weightPercent": "0.33"
+  },
+  {
+    "constituentCode": "352820",
+    "constituentName": "하이브",
+    "sharesPerCu": "32.00",
+    "value": 9280000,
+    "constituentAmount": 8976000,
+    "weightPercent": "0.33"
+  },
+  {
+    "constituentCode": "086280",
+    "constituentName": "현대글로비스",
+    "sharesPerCu": "56.00",
+    "value": 8870400,
+    "constituentAmount": 8960000,
+    "weightPercent": "0.33"
+  },
+  {
+    "constituentCode": "003670",
+    "constituentName": "포스코퓨처엠",
+    "sharesPerCu": "47.00",
+    "value": 8779600,
+    "constituentAmount": 8793700,
+    "weightPercent": "0.32"
+  },
+  {
+    "constituentCode": "006800",
+    "constituentName": "미래에셋증권",
+    "sharesPerCu": "416.00",
+    "value": 8819200,
+    "constituentAmount": 8736000,
+    "weightPercent": "0.32"
+  },
+  {
+    "constituentCode": "024110",
+    "constituentName": "기업은행",
+    "sharesPerCu": "412.00",
+    "value": 8281200,
+    "constituentAmount": 8301800,
+    "weightPercent": "0.30"
+  },
+  {
+    "constituentCode": "003490",
+    "constituentName": "대한항공",
+    "sharesPerCu": "386.00",
+    "value": 8106000,
+    "constituentAmount": 8144600,
+    "weightPercent": "0.30"
+  },
+  {
+    "constituentCode": "005830",
+    "constituentName": "DB손해보험",
+    "sharesPerCu": "67.00",
+    "value": 8066800,
+    "constituentAmount": 8033300,
+    "weightPercent": "0.29"
+  },
+  {
+    "constituentCode": "003230",
+    "constituentName": "삼양식품",
+    "sharesPerCu": "6.00",
+    "value": 8130000,
+    "constituentAmount": 7866000,
+    "weightPercent": "0.29"
+  },
+  {
+    "constituentCode": "042700",
+    "constituentName": "한미반도체",
+    "sharesPerCu": "65.00",
+    "value": 7774000,
+    "constituentAmount": 7806500,
+    "weightPercent": "0.29"
+  },
+  {
+    "constituentCode": "079550",
+    "constituentName": "LIG넥스원",
+    "sharesPerCu": "20.00",
+    "value": 7880000,
+    "constituentAmount": 7690000,
+    "weightPercent": "0.28"
+  },
+  {
+    "constituentCode": "010620",
+    "constituentName": "HD현대미포",
+    "sharesPerCu": "35.00",
+    "value": 7752500,
+    "constituentAmount": 7682500,
+    "weightPercent": "0.28"
+  },
+  {
+    "constituentCode": "021240",
+    "constituentName": "코웨이",
+    "sharesPerCu": "83.00",
+    "value": 7113100,
+    "constituentAmount": 7387000,
+    "weightPercent": "0.27"
+  },
+  {
+    "constituentCode": "016360",
+    "constituentName": "삼성증권",
+    "sharesPerCu": "92.00",
+    "value": 7295600,
+    "constituentAmount": 7139200,
+    "weightPercent": "0.26"
+  },
+  {
+    "constituentCode": "180640",
+    "constituentName": "한진칼",
+    "sharesPerCu": "71.00",
+    "value": 7731900,
+    "constituentAmount": 7107100,
+    "weightPercent": "0.26"
+  },
+  {
+    "constituentCode": "000720",
+    "constituentName": "현대건설",
+    "sharesPerCu": "112.00",
+    "value": 6686400,
+    "constituentAmount": 6809600,
+    "weightPercent": "0.25"
+  },
+  {
+    "constituentCode": "032640",
+    "constituentName": "LG유플러스",
+    "sharesPerCu": "424.00",
+    "value": 6754320,
+    "constituentAmount": 6444800,
+    "weightPercent": "0.24"
+  },
+  {
+    "constituentCode": "161390",
+    "constituentName": "한국타이어앤테크놀로지",
+    "sharesPerCu": "109.00",
+    "value": 6300200,
+    "constituentAmount": 6365600,
+    "weightPercent": "0.23"
+  },
+  {
+    "constituentCode": "028050",
+    "constituentName": "삼성E\u0026A",
+    "sharesPerCu": "238.00",
+    "value": 6033300,
+    "constituentAmount": 5973800,
+    "weightPercent": "0.22"
+  },
+  {
+    "constituentCode": "090430",
+    "constituentName": "아모레퍼시픽",
+    "sharesPerCu": "47.00",
+    "value": 6152300,
+    "constituentAmount": 5940800,
+    "weightPercent": "0.22"
+  },
+  {
+    "constituentCode": "138930",
+    "constituentName": "BNK금융지주",
+    "sharesPerCu": "396.00",
+    "value": 5864760,
+    "constituentAmount": 5872680,
+    "weightPercent": "0.21"
+  },
+  {
+    "constituentCode": "175330",
+    "constituentName": "JB금융지주",
+    "sharesPerCu": "244.00",
+    "value": 5636400,
+    "constituentAmount": 5795000,
+    "weightPercent": "0.21"
+  },
+  {
+    "constituentCode": "326030",
+    "constituentName": "SK바이오팜",
+    "sharesPerCu": "42.00",
+    "value": 5388600,
+    "constituentAmount": 5418000,
+    "weightPercent": "0.20"
+  },
+  {
+    "constituentCode": "036570",
+    "constituentName": "엔씨소프트",
+    "sharesPerCu": "26.00",
+    "value": 5265000,
+    "constituentAmount": 5408000,
+    "weightPercent": "0.20"
+  },
+  {
+    "constituentCode": "034220",
+    "constituentName": "LG디스플레이",
+    "sharesPerCu": "440.00",
+    "value": 5376800,
+    "constituentAmount": 5381200,
+    "weightPercent": "0.20"
+  },
+  {
+    "constituentCode": "039490",
+    "constituentName": "키움증권",
+    "sharesPerCu": "20.00",
+    "value": 5340000,
+    "constituentAmount": 5380000,
+    "weightPercent": "0.20"
+  },
+  {
+    "constituentCode": "011070",
+    "constituentName": "LG이노텍",
+    "sharesPerCu": "22.00",
+    "value": 5104000,
+    "constituentAmount": 5192000,
+    "weightPercent": "0.19"
+  },
+  {
+    "constituentCode": "010950",
+    "constituentName": "S-Oil",
+    "sharesPerCu": "63.00",
+    "value": 5134500,
+    "constituentAmount": 5065200,
+    "weightPercent": "0.19"
+  },
+  {
+    "constituentCode": "272210",
+    "constituentName": "한화시스템",
+    "sharesPerCu": "106.00",
+    "value": 5024400,
+    "constituentAmount": 4897200,
+    "weightPercent": "0.18"
+  },
+  {
+    "constituentCode": "006260",
+    "constituentName": "LS",
+    "sharesPerCu": "26.00",
+    "value": 4659200,
+    "constituentAmount": 4612400,
+    "weightPercent": "0.17"
+  },
+  {
+    "constituentCode": "009830",
+    "constituentName": "한화솔루션",
+    "sharesPerCu": "164.00",
+    "value": 4337800,
+    "constituentAmount": 4501800,
+    "weightPercent": "0.16"
+  },
+  {
+    "constituentCode": "128940",
+    "constituentName": "한미약품",
+    "sharesPerCu": "10.00",
+    "value": 4460000,
+    "constituentAmount": 4445000,
+    "weightPercent": "0.16"
+  },
+  {
+    "constituentCode": "241560",
+    "constituentName": "두산밥캣",
+    "sharesPerCu": "79.00",
+    "value": 4526700,
+    "constituentAmount": 4345000,
+    "weightPercent": "0.16"
+  },
+  {
+    "constituentCode": "066970",
+    "constituentName": "엘앤에프",
+    "sharesPerCu": "38.00",
+    "value": 4237000,
+    "constituentAmount": 4316800,
+    "weightPercent": "0.16"
+  },
+  {
+    "constituentCode": "005940",
+    "constituentName": "NH투자증권",
+    "sharesPerCu": "202.00",
+    "value": 4151100,
+    "constituentAmount": 4151100,
+    "weightPercent": "0.15"
+  },
+  {
+    "constituentCode": "051900",
+    "constituentName": "LG생활건강",
+    "sharesPerCu": "14.00",
+    "value": 4046000,
+    "constituentAmount": 3955000,
+    "weightPercent": "0.14"
+  },
+  {
+    "constituentCode": "078930",
+    "constituentName": "GS",
+    "sharesPerCu": "68.00",
+    "value": 4052800,
+    "constituentAmount": 3910000,
+    "weightPercent": "0.14"
+  },
+  {
+    "constituentCode": "004020",
+    "constituentName": "현대제철",
+    "sharesPerCu": "128.00",
+    "value": 3724800,
+    "constituentAmount": 3750400,
+    "weightPercent": "0.14"
+  },
+  {
+    "constituentCode": "001440",
+    "constituentName": "대한전선",
+    "sharesPerCu": "170.00",
+    "value": 3706000,
+    "constituentAmount": 3714500,
+    "weightPercent": "0.14"
+  },
+  {
+    "constituentCode": "001040",
+    "constituentName": "CJ",
+    "sharesPerCu": "21.00",
+    "value": 3838800,
+    "constituentAmount": 3664500,
+    "weightPercent": "0.13"
+  },
+  {
+    "constituentCode": "047050",
+    "constituentName": "포스코인터내셔널",
+    "sharesPerCu": "69.00",
+    "value": 3532800,
+    "constituentAmount": 3594900,
+    "weightPercent": "0.13"
+  },
+  {
+    "constituentCode": "271560",
+    "constituentName": "오리온",
+    "sharesPerCu": "33.00",
+    "value": 3375900,
+    "constituentAmount": 3389100,
+    "weightPercent": "0.12"
+  },
+  {
+    "constituentCode": "000880",
+    "constituentName": "한화",
+    "sharesPerCu": "42.00",
+    "value": 3305400,
+    "constituentAmount": 3263400,
+    "weightPercent": "0.12"
+  },
+  {
+    "constituentCode": "011790",
+    "constituentName": "SKC",
+    "sharesPerCu": "30.00",
+    "value": 3189000,
+    "constituentAmount": 3207000,
+    "weightPercent": "0.12"
+  },
+  {
+    "constituentCode": "017800",
+    "constituentName": "현대엘리베이터",
+    "sharesPerCu": "39.00",
+    "value": 3104400,
+    "constituentAmount": 3178500,
+    "weightPercent": "0.12"
+  },
+  {
+    "constituentCode": "139130",
+    "constituentName": "iM금융지주",
+    "sharesPerCu": "217.00",
+    "value": 3053190,
+    "constituentAmount": 3085740,
+    "weightPercent": "0.11"
+  },
+  {
+    "constituentCode": "035250",
+    "constituentName": "강원랜드",
+    "sharesPerCu": "172.00",
+    "value": 3082240,
+    "constituentAmount": 3015160,
+    "weightPercent": "0.11"
+  },
+  {
+    "constituentCode": "014680",
+    "constituentName": "한솔케미칼",
+    "sharesPerCu": "13.00",
+    "value": 2730000,
+    "constituentAmount": 3003000,
+    "weightPercent": "0.11"
+  },
+  {
+    "constituentCode": "111770",
+    "constituentName": "영원무역",
+    "sharesPerCu": "33.00",
+    "value": 2923800,
+    "constituentAmount": 2937000,
+    "weightPercent": "0.11"
+  },
+  {
+    "constituentCode": "042670",
+    "constituentName": "HD현대인프라코어",
+    "sharesPerCu": "196.00",
+    "value": 2855720,
+    "constituentAmount": 2818480,
+    "weightPercent": "0.10"
+  },
+  {
+    "constituentCode": "012750",
+    "constituentName": "에스원",
+    "sharesPerCu": "37.00",
+    "value": 2741700,
+    "constituentAmount": 2752800,
+    "weightPercent": "0.10"
+  },
+  {
+    "constituentCode": "0126Z0",
+    "constituentName": "삼성에피스홀딩스",
+    "sharesPerCu": "8.00",
+    "value": 3508000,
+    "constituentAmount": 2684000,
+    "weightPercent": "0.10"
+  },
+  {
+    "constituentCode": "001450",
+    "constituentName": "현대해상",
+    "sharesPerCu": "91.00",
+    "value": 2525250,
+    "constituentAmount": 2629900,
+    "weightPercent": "0.10"
+  },
+  {
+    "constituentCode": "011780",
+    "constituentName": "금호석유화학",
+    "sharesPerCu": "23.00",
+    "value": 2608200,
+    "constituentAmount": 2612800,
+    "weightPercent": "0.10"
+  },
+  {
+    "constituentCode": "097950",
+    "constituentName": "CJ제일제당",
+    "sharesPerCu": "12.00",
+    "value": 2574000,
+    "constituentAmount": 2514000,
+    "weightPercent": "0.09"
+  },
+  {
+    "constituentCode": "052690",
+    "constituentName": "한전기술",
+    "sharesPerCu": "28.00",
+    "value": 2444400,
+    "constituentAmount": 2494800,
+    "weightPercent": "0.09"
+  },
+  {
+    "constituentCode": "251270",
+    "constituentName": "넷마블",
+    "sharesPerCu": "48.00",
+    "value": 2476800,
+    "constituentAmount": 2481600,
+    "weightPercent": "0.09"
+  },
+  {
+    "constituentCode": "103140",
+    "constituentName": "풍산",
+    "sharesPerCu": "26.00",
+    "value": 2441400,
+    "constituentAmount": 2451800,
+    "weightPercent": "0.09"
+  },
+  {
+    "constituentCode": "002380",
+    "constituentName": "KCC",
+    "sharesPerCu": "6.00",
+    "value": 2409000,
+    "constituentAmount": 2448000,
+    "weightPercent": "0.09"
+  },
+  {
+    "constituentCode": "139480",
+    "constituentName": "이마트",
+    "sharesPerCu": "30.00",
+    "value": 2328000,
+    "constituentAmount": 2370000,
+    "weightPercent": "0.09"
+  },
+  {
+    "constituentCode": "030000",
+    "constituentName": "제일기획",
+    "sharesPerCu": "105.00",
+    "value": 2362500,
+    "constituentAmount": 2362500,
+    "weightPercent": "0.09"
+  },
+  {
+    "constituentCode": "489790",
+    "constituentName": "한화비전",
+    "sharesPerCu": "52.00",
+    "value": 2373800,
+    "constituentAmount": 2308800,
+    "weightPercent": "0.08"
+  },
+  {
+    "constituentCode": "009420",
+    "constituentName": "한올바이오파마",
+    "sharesPerCu": "54.00",
+    "value": 2400300,
+    "constituentAmount": 2303100,
+    "weightPercent": "0.08"
+  },
+  {
+    "constituentCode": "443060",
+    "constituentName": "HD현대마린솔루션",
+    "sharesPerCu": "12.00",
+    "value": 2490000,
+    "constituentAmount": 2253600,
+    "weightPercent": "0.08"
+  },
+  {
+    "constituentCode": "004370",
+    "constituentName": "농심",
+    "sharesPerCu": "5.00",
+    "value": 2270000,
+    "constituentAmount": 2207500,
+    "weightPercent": "0.08"
+  },
+  {
+    "constituentCode": "081660",
+    "constituentName": "미스토홀딩스",
+    "sharesPerCu": "52.00",
+    "value": 2160600,
+    "constituentAmount": 2165800,
+    "weightPercent": "0.08"
+  },
+  {
+    "constituentCode": "029780",
+    "constituentName": "삼성카드",
+    "sharesPerCu": "40.00",
+    "value": 2140000,
+    "constituentAmount": 2160000,
+    "weightPercent": "0.08"
+  },
+  {
+    "constituentCode": "377300",
+    "constituentName": "카카오페이",
+    "sharesPerCu": "43.00",
+    "value": 2150000,
+    "constituentAmount": 2124200,
+    "weightPercent": "0.08"
+  },
+  {
+    "constituentCode": "008770",
+    "constituentName": "호텔신라",
+    "sharesPerCu": "46.00",
+    "value": 2208000,
+    "constituentAmount": 2104500,
+    "weightPercent": "0.08"
+  },
+  {
+    "constituentCode": "004170",
+    "constituentName": "신세계",
+    "sharesPerCu": "10.00",
+    "value": 2160000,
+    "constituentAmount": 2090000,
+    "weightPercent": "0.08"
+  },
+  {
+    "constituentCode": "454910",
+    "constituentName": "두산로보틱스",
+    "sharesPerCu": "30.00",
+    "value": 2112000,
+    "constituentAmount": 2079000,
+    "weightPercent": "0.08"
+  },
+  {
+    "constituentCode": "204320",
+    "constituentName": "HL만도",
+    "sharesPerCu": "49.00",
+    "value": 2028600,
+    "constituentAmount": 2028600,
+    "weightPercent": "0.07"
+  },
+  {
+    "constituentCode": "450080",
+    "constituentName": "에코프로머티",
+    "sharesPerCu": "38.00",
+    "value": 2036800,
+    "constituentAmount": 2017800,
+    "weightPercent": "0.07"
+  },
+  {
+    "constituentCode": "011170",
+    "constituentName": "롯데케미칼",
+    "sharesPerCu": "27.00",
+    "value": 2011500,
+    "constituentAmount": 2011500,
+    "weightPercent": "0.07"
+  },
+  {
+    "constituentCode": "010060",
+    "constituentName": "OCI홀딩스",
+    "sharesPerCu": "20.00",
+    "value": 2008000,
+    "constituentAmount": 1996000,
+    "weightPercent": "0.07"
+  },
+  {
+    "constituentCode": "036460",
+    "constituentName": "한국가스공사",
+    "sharesPerCu": "49.00",
+    "value": 1955100,
+    "constituentAmount": 1974700,
+    "weightPercent": "0.07"
+  },
+  {
+    "constituentCode": "302440",
+    "constituentName": "SK바이오사이언스",
+    "sharesPerCu": "39.00",
+    "value": 1996800,
+    "constituentAmount": 1965600,
+    "weightPercent": "0.07"
+  },
+  {
+    "constituentCode": "192820",
+    "constituentName": "코스맥스",
+    "sharesPerCu": "12.00",
+    "value": 1987200,
+    "constituentAmount": 1934400,
+    "weightPercent": "0.07"
+  },
+  {
+    "constituentCode": "069960",
+    "constituentName": "현대백화점",
+    "sharesPerCu": "21.00",
+    "value": 1940400,
+    "constituentAmount": 1875300,
+    "weightPercent": "0.07"
+  },
+  {
+    "constituentCode": "006360",
+    "constituentName": "GS건설",
+    "sharesPerCu": "97.00",
+    "value": 1807110,
+    "constituentAmount": 1798380,
+    "weightPercent": "0.07"
+  },
+  {
+    "constituentCode": "022100",
+    "constituentName": "포스코DX",
+    "sharesPerCu": "76.00",
+    "value": 1808800,
+    "constituentAmount": 1793600,
+    "weightPercent": "0.07"
+  },
+  {
+    "constituentCode": "375500",
+    "constituentName": "DL이앤씨",
+    "sharesPerCu": "45.00",
+    "value": 1741500,
+    "constituentAmount": 1761750,
+    "weightPercent": "0.06"
+  },
+  {
+    "constituentCode": "051600",
+    "constituentName": "한전KPS",
+    "sharesPerCu": "33.00",
+    "value": 1696200,
+    "constituentAmount": 1709400,
+    "weightPercent": "0.06"
+  },
+  {
+    "constituentCode": "161890",
+    "constituentName": "한국콜마",
+    "sharesPerCu": "26.00",
+    "value": 1734200,
+    "constituentAmount": 1697800,
+    "weightPercent": "0.06"
+  },
+  {
+    "constituentCode": "008930",
+    "constituentName": "한미사이언스",
+    "sharesPerCu": "43.00",
+    "value": 1616800,
+    "constituentAmount": 1610350,
+    "weightPercent": "0.06"
+  },
+  {
+    "constituentCode": "000120",
+    "constituentName": "CJ대한통운",
+    "sharesPerCu": "17.00",
+    "value": 1581000,
+    "constituentAmount": 1575900,
+    "weightPercent": "0.06"
+  },
+  {
+    "constituentCode": "457190",
+    "constituentName": "이수스페셜티케미컬",
+    "sharesPerCu": "31.00",
+    "value": 1536050,
+    "constituentAmount": 1519000,
+    "weightPercent": "0.06"
+  },
+  {
+    "constituentCode": "383220",
+    "constituentName": "F\u0026F",
+    "sharesPerCu": "21.00",
+    "value": 1530900,
+    "constituentAmount": 1503600,
+    "weightPercent": "0.05"
+  },
+  {
+    "constituentCode": "088350",
+    "constituentName": "한화생명",
+    "sharesPerCu": "501.00",
+    "value": 1477950,
+    "constituentAmount": 1472940,
+    "weightPercent": "0.05"
+  },
+  {
+    "constituentCode": "112610",
+    "constituentName": "씨에스윈드",
+    "sharesPerCu": "36.00",
+    "value": 1405800,
+    "constituentAmount": 1441800,
+    "weightPercent": "0.05"
+  },
+  {
+    "constituentCode": "009970",
+    "constituentName": "영원무역홀딩스",
+    "sharesPerCu": "8.00",
+    "value": 1388000,
+    "constituentAmount": 1376800,
+    "weightPercent": "0.05"
+  },
+  {
+    "constituentCode": "011210",
+    "constituentName": "현대위아",
+    "sharesPerCu": "24.00",
+    "value": 1384800,
+    "constituentAmount": 1356000,
+    "weightPercent": "0.05"
+  },
+  {
+    "constituentCode": "004990",
+    "constituentName": "롯데지주",
+    "sharesPerCu": "45.00",
+    "value": 1359000,
+    "constituentAmount": 1329750,
+    "weightPercent": "0.05"
+  },
+  {
+    "constituentCode": "282330",
+    "constituentName": "BGF리테일",
+    "sharesPerCu": "12.00",
+    "value": 1322400,
+    "constituentAmount": 1324800,
+    "weightPercent": "0.05"
+  },
+  {
+    "constituentCode": "017960",
+    "constituentName": "한국카본",
+    "sharesPerCu": "49.00",
+    "value": 1332800,
+    "constituentAmount": 1303400,
+    "weightPercent": "0.05"
+  },
+  {
+    "constituentCode": "026960",
+    "constituentName": "동서",
+    "sharesPerCu": "47.00",
+    "value": 1320700,
+    "constituentAmount": 1285450,
+    "weightPercent": "0.05"
+  },
+  {
+    "constituentCode": "073240",
+    "constituentName": "금호타이어",
+    "sharesPerCu": "240.00",
+    "value": 1272000,
+    "constituentAmount": 1284000,
+    "weightPercent": "0.05"
+  },
+  {
+    "constituentCode": "028670",
+    "constituentName": "팬오션",
+    "sharesPerCu": "341.00",
+    "value": 1249765,
+    "constituentAmount": 1251470,
+    "weightPercent": "0.05"
+  },
+  {
+    "constituentCode": "018880",
+    "constituentName": "한온시스템",
+    "sharesPerCu": "348.00",
+    "value": 1245840,
+    "constituentAmount": 1228440,
+    "weightPercent": "0.04"
+  },
+  {
+    "constituentCode": "069620",
+    "constituentName": "대웅제약",
+    "sharesPerCu": "7.00",
+    "value": 1171100,
+    "constituentAmount": 1157800,
+    "weightPercent": "0.04"
+  },
+  {
+    "constituentCode": "002790",
+    "constituentName": "아모레퍼시픽홀딩스",
+    "sharesPerCu": "39.00",
+    "value": 1158300,
+    "constituentAmount": 1119300,
+    "weightPercent": "0.04"
+  },
+  {
+    "constituentCode": "007070",
+    "constituentName": "GS리테일",
+    "sharesPerCu": "51.00",
+    "value": 1116900,
+    "constituentAmount": 1116900,
+    "weightPercent": "0.04"
+  },
+  {
+    "constituentCode": "120110",
+    "constituentName": "코오롱인더",
+    "sharesPerCu": "28.00",
+    "value": 1111600,
+    "constituentAmount": 1104600,
+    "weightPercent": "0.04"
+  },
+  {
+    "constituentCode": "023530",
+    "constituentName": "롯데쇼핑",
+    "sharesPerCu": "15.00",
+    "value": 1074000,
+    "constituentAmount": 1066500,
+    "weightPercent": "0.04"
+  },
+  {
+    "constituentCode": "361610",
+    "constituentName": "SK아이이테크놀로지",
+    "sharesPerCu": "39.00",
+    "value": 1047150,
+    "constituentAmount": 1039350,
+    "weightPercent": "0.04"
+  },
+  {
+    "constituentCode": "047040",
+    "constituentName": "대우건설",
+    "sharesPerCu": "303.00",
+    "value": 1042320,
+    "constituentAmount": 1039290,
+    "weightPercent": "0.04"
+  },
+  {
+    "constituentCode": "006280",
+    "constituentName": "녹십자",
+    "sharesPerCu": "8.00",
+    "value": 1044000,
+    "constituentAmount": 1037600,
+    "weightPercent": "0.04"
+  },
+  {
+    "constituentCode": "285130",
+    "constituentName": "SK케미칼",
+    "sharesPerCu": "15.00",
+    "value": 1035000,
+    "constituentAmount": 1024500,
+    "weightPercent": "0.04"
+  },
+  {
+    "constituentCode": "185750",
+    "constituentName": "종근당",
+    "sharesPerCu": "12.00",
+    "value": 1018800,
+    "constituentAmount": 998400,
+    "weightPercent": "0.04"
+  },
+  {
+    "constituentCode": "004000",
+    "constituentName": "롯데정밀화학",
+    "sharesPerCu": "22.00",
+    "value": 971300,
+    "constituentAmount": 973500,
+    "weightPercent": "0.04"
+  },
+  {
+    "constituentCode": "000240",
+    "constituentName": "한국앤컴퍼니",
+    "sharesPerCu": "36.00",
+    "value": 952200,
+    "constituentAmount": 954000,
+    "weightPercent": "0.03"
+  },
+  {
+    "constituentCode": "005850",
+    "constituentName": "에스엘",
+    "sharesPerCu": "24.00",
+    "value": 874800,
+    "constituentAmount": 891600,
+    "weightPercent": "0.03"
+  },
+  {
+    "constituentCode": "298020",
+    "constituentName": "효성티앤씨",
+    "sharesPerCu": "4.00",
+    "value": 876000,
+    "constituentAmount": 888000,
+    "weightPercent": "0.03"
+  },
+  {
+    "constituentCode": "000080",
+    "constituentName": "하이트진로",
+    "sharesPerCu": "47.00",
+    "value": 881250,
+    "constituentAmount": 873260,
+    "weightPercent": "0.03"
+  },
+  {
+    "constituentCode": "192080",
+    "constituentName": "더블유게임즈",
+    "sharesPerCu": "16.00",
+    "value": 828800,
+    "constituentAmount": 827200,
+    "weightPercent": "0.03"
+  },
+  {
+    "constituentCode": "298050",
+    "constituentName": "HS효성첨단소재",
+    "sharesPerCu": "4.00",
+    "value": 791600,
+    "constituentAmount": 795600,
+    "weightPercent": "0.03"
+  },
+  {
+    "constituentCode": "003240",
+    "constituentName": "태광산업",
+    "sharesPerCu": "1.00",
+    "value": 814000,
+    "constituentAmount": 788000,
+    "weightPercent": "0.03"
+  },
+  {
+    "constituentCode": "007310",
+    "constituentName": "오뚜기",
+    "sharesPerCu": "2.00",
+    "value": 775000,
+    "constituentAmount": 768000,
+    "weightPercent": "0.03"
+  },
+  {
+    "constituentCode": "039130",
+    "constituentName": "하나투어",
+    "sharesPerCu": "16.00",
+    "value": 758400,
+    "constituentAmount": 749600,
+    "weightPercent": "0.03"
+  },
+  {
+    "constituentCode": "007340",
+    "constituentName": "DN오토모티브",
+    "sharesPerCu": "31.00",
+    "value": 739350,
+    "constituentAmount": 726950,
+    "weightPercent": "0.03"
+  },
+  {
+    "constituentCode": "004490",
+    "constituentName": "세방전지",
+    "sharesPerCu": "12.00",
+    "value": 716400,
+    "constituentAmount": 717600,
+    "weightPercent": "0.03"
+  },
+  {
+    "constituentCode": "006650",
+    "constituentName": "대한유화",
+    "sharesPerCu": "5.00",
+    "value": 680500,
+    "constituentAmount": 678000,
+    "weightPercent": "0.02"
+  },
+  {
+    "constituentCode": "012630",
+    "constituentName": "HDC",
+    "sharesPerCu": "39.00",
+    "value": 680160,
+    "constituentAmount": 675090,
+    "weightPercent": "0.02"
+  },
+  {
+    "constituentCode": "003090",
+    "constituentName": "대웅",
+    "sharesPerCu": "29.00",
+    "value": 664100,
+    "constituentAmount": 655400,
+    "weightPercent": "0.02"
+  },
+  {
+    "constituentCode": "114090",
+    "constituentName": "GKL",
+    "sharesPerCu": "46.00",
+    "value": 678500,
+    "constituentAmount": 648600,
+    "weightPercent": "0.02"
+  },
+  {
+    "constituentCode": "000210",
+    "constituentName": "DL",
+    "sharesPerCu": "16.00",
+    "value": 619200,
+    "constituentAmount": 615200,
+    "weightPercent": "0.02"
+  },
+  {
+    "constituentCode": "093370",
+    "constituentName": "후성",
+    "sharesPerCu": "83.00",
+    "value": 647400,
+    "constituentAmount": 614200,
+    "weightPercent": "0.02"
+  },
+  {
+    "constituentCode": "069260",
+    "constituentName": "TKG휴켐스",
+    "sharesPerCu": "33.00",
+    "value": 591360,
+    "constituentAmount": 600600,
+    "weightPercent": "0.02"
+  },
+  {
+    "constituentCode": "001800",
+    "constituentName": "오리온홀딩스",
+    "sharesPerCu": "31.00",
+    "value": 610390,
+    "constituentAmount": 599540,
+    "weightPercent": "0.02"
+  },
+  {
+    "constituentCode": "005300",
+    "constituentName": "롯데칠성",
+    "sharesPerCu": "5.00",
+    "value": 612000,
+    "constituentAmount": 598500,
+    "weightPercent": "0.02"
+  },
+  {
+    "constituentCode": "001680",
+    "constituentName": "대상",
+    "sharesPerCu": "29.00",
+    "value": 601750,
+    "constituentAmount": 597400,
+    "weightPercent": "0.02"
+  },
+  {
+    "constituentCode": "009240",
+    "constituentName": "한샘",
+    "sharesPerCu": "13.00",
+    "value": 587600,
+    "constituentAmount": 592150,
+    "weightPercent": "0.02"
+  },
+  {
+    "constituentCode": "005420",
+    "constituentName": "코스모화학",
+    "sharesPerCu": "38.00",
+    "value": 592420,
+    "constituentAmount": 590520,
+    "weightPercent": "0.02"
+  },
+  {
+    "constituentCode": "005250",
+    "constituentName": "녹십자홀딩스",
+    "sharesPerCu": "34.00",
+    "value": 531760,
+    "constituentAmount": 522920,
+    "weightPercent": "0.02"
+  },
+  {
+    "constituentCode": "001430",
+    "constituentName": "세아베스틸지주",
+    "sharesPerCu": "19.00",
+    "value": 500650,
+    "constituentAmount": 511100,
+    "weightPercent": "0.02"
+  },
+  {
+    "constituentCode": "137310",
+    "constituentName": "에스디바이오센서",
+    "sharesPerCu": "54.00",
+    "value": 494640,
+    "constituentAmount": 492480,
+    "weightPercent": "0.02"
+  },
+  {
+    "constituentCode": "145720",
+    "constituentName": "덴티움",
+    "sharesPerCu": "10.00",
+    "value": 487500,
+    "constituentAmount": 487500,
+    "weightPercent": "0.02"
+  },
+  {
+    "constituentCode": "000670",
+    "constituentName": "영풍",
+    "sharesPerCu": "8.00",
+    "value": 459200,
+    "constituentAmount": 470400,
+    "weightPercent": "0.02"
+  },
+  {
+    "constituentCode": "008730",
+    "constituentName": "율촌화학",
+    "sharesPerCu": "16.00",
+    "value": 464000,
+    "constituentAmount": 461600,
+    "weightPercent": "0.02"
+  },
+  {
+    "constituentCode": "003620",
+    "constituentName": "KG모빌리티",
+    "sharesPerCu": "135.00",
+    "value": 438750,
+    "constituentAmount": 438750,
+    "weightPercent": "0.02"
+  },
+  {
+    "constituentCode": "071320",
+    "constituentName": "지역난방공사",
+    "sharesPerCu": "4.00",
+    "value": 409600,
+    "constituentAmount": 423600,
+    "weightPercent": "0.02"
+  },
+  {
+    "constituentCode": "300720",
+    "constituentName": "한일시멘트",
+    "sharesPerCu": "24.00",
+    "value": 427920,
+    "constituentAmount": 416640,
+    "weightPercent": "0.02"
+  },
+  {
+    "constituentCode": "002710",
+    "constituentName": "TCC스틸",
+    "sharesPerCu": "27.00",
+    "value": 404730,
+    "constituentAmount": 403650,
+    "weightPercent": "0.01"
+  },
+  {
+    "constituentCode": "456040",
+    "constituentName": "OCI",
+    "sharesPerCu": "7.00",
+    "value": 400400,
+    "constituentAmount": 401100,
+    "weightPercent": "0.01"
+  },
+  {
+    "constituentCode": "280360",
+    "constituentName": "롯데웰푸드",
+    "sharesPerCu": "3.00",
+    "value": 368100,
+    "constituentAmount": 366900,
+    "weightPercent": "0.01"
+  },
+  {
+    "constituentCode": "002840",
+    "constituentName": "미원상사",
+    "sharesPerCu": "2.00",
+    "value": 294200,
+    "constituentAmount": 289600,
+    "weightPercent": "0.01"
+  },
+  {
+    "constituentCode": "003030",
+    "constituentName": "세아제강지주",
+    "sharesPerCu": "2.00",
+    "value": 266400,
+    "constituentAmount": 265400,
+    "weightPercent": "0.01"
+  },
+  {
+    "constituentCode": "006040",
+    "constituentName": "동원산업",
+    "sharesPerCu": "6.00",
+    "value": 270000,
+    "constituentAmount": 263100,
+    "weightPercent": "0.01"
+  },
+  {
+    "constituentCode": "014820",
+    "constituentName": "동원시스템즈",
+    "sharesPerCu": "8.00",
+    "value": 210000,
+    "constituentAmount": 205600,
+    "weightPercent": "0.01"
+  },
+  {
+    "constituentCode": "268280",
+    "constituentName": "미원에스씨",
+    "sharesPerCu": "1.00",
+    "value": 135900,
+    "constituentAmount": 134300,
+    "weightPercent": "0.00"
+  }
+]

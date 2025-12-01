@@ -82,6 +82,15 @@ dependencies {
     liveTestImplementation(sourceSets.test.get().output)
 }
 
+// Gradle resources 처리 중복 파일 전략
+tasks.named("processTestResources", Copy::class) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.named("processLiveTestResources", Copy::class) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 // ============================================
 // Test Tasks 설정
 // ============================================

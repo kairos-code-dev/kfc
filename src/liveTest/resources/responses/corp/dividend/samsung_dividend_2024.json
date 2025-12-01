@@ -1,0 +1,152 @@
+[
+  {
+    "rceptNo": "20250311001085",
+    "corpCode": "00126380",
+    "corpName": "삼성전자",
+    "dividendType": "주당액면가액(원)",
+    "stockKind": "",
+    "currentYear": "100",
+    "previousYear": "100",
+    "twoYearsAgo": "100",
+    "settlementDate": "2024-12-31"
+  },
+  {
+    "rceptNo": "20250311001085",
+    "corpCode": "00126380",
+    "corpName": "삼성전자",
+    "dividendType": "(연결)당기순이익(백만원)",
+    "stockKind": "",
+    "currentYear": "33621363",
+    "previousYear": "14473401",
+    "twoYearsAgo": "54730018",
+    "settlementDate": "2024-12-31"
+  },
+  {
+    "rceptNo": "20250311001085",
+    "corpCode": "00126380",
+    "corpName": "삼성전자",
+    "dividendType": "(별도)당기순이익(백만원)",
+    "stockKind": "",
+    "currentYear": "23582565",
+    "previousYear": "25397099",
+    "twoYearsAgo": "25418778",
+    "settlementDate": "2024-12-31"
+  },
+  {
+    "rceptNo": "20250311001085",
+    "corpCode": "00126380",
+    "corpName": "삼성전자",
+    "dividendType": "(연결)주당순이익(원)",
+    "stockKind": "",
+    "currentYear": "4950",
+    "previousYear": "2131",
+    "twoYearsAgo": "8057",
+    "settlementDate": "2024-12-31"
+  },
+  {
+    "rceptNo": "20250311001085",
+    "corpCode": "00126380",
+    "corpName": "삼성전자",
+    "dividendType": "현금배당금총액(백만원)",
+    "stockKind": "",
+    "currentYear": "9810767",
+    "previousYear": "9809438",
+    "twoYearsAgo": "9809438",
+    "settlementDate": "2024-12-31"
+  },
+  {
+    "rceptNo": "20250311001085",
+    "corpCode": "00126380",
+    "corpName": "삼성전자",
+    "dividendType": "주식배당금총액(백만원)",
+    "stockKind": "",
+    "settlementDate": "2024-12-31"
+  },
+  {
+    "rceptNo": "20250311001085",
+    "corpCode": "00126380",
+    "corpName": "삼성전자",
+    "dividendType": "(연결)현금배당성향(%)",
+    "stockKind": "",
+    "currentYear": "29.20",
+    "previousYear": "67.80",
+    "twoYearsAgo": "17.90",
+    "settlementDate": "2024-12-31"
+  },
+  {
+    "rceptNo": "20250311001085",
+    "corpCode": "00126380",
+    "corpName": "삼성전자",
+    "dividendType": "현금배당수익률(%)",
+    "stockKind": "보통주",
+    "currentYear": "2.70",
+    "previousYear": "1.90",
+    "twoYearsAgo": "2.50",
+    "settlementDate": "2024-12-31"
+  },
+  {
+    "rceptNo": "20250311001085",
+    "corpCode": "00126380",
+    "corpName": "삼성전자",
+    "dividendType": "현금배당수익률(%)",
+    "stockKind": "우선주",
+    "currentYear": "3.30",
+    "previousYear": "2.40",
+    "twoYearsAgo": "2.70",
+    "settlementDate": "2024-12-31"
+  },
+  {
+    "rceptNo": "20250311001085",
+    "corpCode": "00126380",
+    "corpName": "삼성전자",
+    "dividendType": "주식배당수익률(%)",
+    "stockKind": "보통주",
+    "settlementDate": "2024-12-31"
+  },
+  {
+    "rceptNo": "20250311001085",
+    "corpCode": "00126380",
+    "corpName": "삼성전자",
+    "dividendType": "주식배당수익률(%)",
+    "stockKind": "우선주",
+    "settlementDate": "2024-12-31"
+  },
+  {
+    "rceptNo": "20250311001085",
+    "corpCode": "00126380",
+    "corpName": "삼성전자",
+    "dividendType": "주당 현금배당금(원)",
+    "stockKind": "보통주",
+    "currentYear": "1446",
+    "previousYear": "1444",
+    "twoYearsAgo": "1444",
+    "settlementDate": "2024-12-31"
+  },
+  {
+    "rceptNo": "20250311001085",
+    "corpCode": "00126380",
+    "corpName": "삼성전자",
+    "dividendType": "주당 현금배당금(원)",
+    "stockKind": "우선주",
+    "currentYear": "1447",
+    "previousYear": "1445",
+    "twoYearsAgo": "1445",
+    "settlementDate": "2024-12-31"
+  },
+  {
+    "rceptNo": "20250311001085",
+    "corpCode": "00126380",
+    "corpName": "삼성전자",
+    "dividendType": "주당 주식배당(주)",
+    "stockKind": "보통주",
+    "settlementDate": "2024-12-31"
+  },
+  {
+    "rceptNo": "20250311001085",
+    "corpCode": "00126380",
+    "corpName": "삼성전자",
+    "dividendType": "주당 주식배당(주)",
+    "stockKind": "우선주",
+    "settlementDate": "2024-12-31"
+  }
+]

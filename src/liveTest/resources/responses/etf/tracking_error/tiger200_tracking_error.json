@@ -1,0 +1,200 @@
+[
+  {
+    "tradeDate": "2025-10-27",
+    "nav": "56858.20",
+    "navChangeRate": 2.81,
+    "indexValue": "565.69",
+    "indexChangeRate": 2.81,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.65
+  },
+  {
+    "tradeDate": "2025-10-28",
+    "nav": "56238.06",
+    "navChangeRate": -1.1,
+    "indexValue": "559.51",
+    "indexChangeRate": -1.1,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.65
+  },
+  {
+    "tradeDate": "2025-10-29",
+    "nav": "57295.04",
+    "navChangeRate": 1.86,
+    "indexValue": "571.51",
+    "indexChangeRate": 2.12,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.65
+  },
+  {
+    "tradeDate": "2025-10-30",
+    "nav": "57662.85",
+    "navChangeRate": 0.64,
+    "indexValue": "575.21",
+    "indexChangeRate": 0.65,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.65
+  },
+  {
+    "tradeDate": "2025-10-31",
+    "nav": "58090.44",
+    "navChangeRate": 0.74,
+    "indexValue": "579.46",
+    "indexChangeRate": 0.74,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.65
+  },
+  {
+    "tradeDate": "2025-11-03",
+    "nav": "60058.03",
+    "navChangeRate": 3.33,
+    "indexValue": "599.03",
+    "indexChangeRate": 3.32,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.65
+  },
+  {
+    "tradeDate": "2025-11-04",
+    "nav": "58351.32",
+    "navChangeRate": -2.88,
+    "indexValue": "581.94",
+    "indexChangeRate": -2.89,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.65
+  },
+  {
+    "tradeDate": "2025-11-05",
+    "nav": "56693.73",
+    "navChangeRate": -2.88,
+    "indexValue": "565.40",
+    "indexChangeRate": -2.88,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.65
+  },
+  {
+    "tradeDate": "2025-11-06",
+    "nav": "56994.53",
+    "navChangeRate": 0.53,
+    "indexValue": "568.38",
+    "indexChangeRate": 0.53,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.65
+  },
+  {
+    "tradeDate": "2025-11-07",
+    "nav": "55956.67",
+    "navChangeRate": -1.84,
+    "indexValue": "557.98",
+    "indexChangeRate": -1.85,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.65
+  },
+  {
+    "tradeDate": "2025-11-10",
+    "nav": "57696.14",
+    "navChangeRate": 3.06,
+    "indexValue": "575.31",
+    "indexChangeRate": 3.06,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.65
+  },
+  {
+    "tradeDate": "2025-11-11",
+    "nav": "58313.62",
+    "navChangeRate": 1.06,
+    "indexValue": "581.41",
+    "indexChangeRate": 1.05,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.65
+  },
+  {
+    "tradeDate": "2025-11-12",
+    "nav": "58850.81",
+    "navChangeRate": 0.92,
+    "indexValue": "586.73",
+    "indexChangeRate": 0.91,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.65
+  },
+  {
+    "tradeDate": "2025-11-13",
+    "nav": "59052.92",
+    "navChangeRate": 0.34,
+    "indexValue": "588.65",
+    "indexChangeRate": 0.33,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.65
+  },
+  {
+    "tradeDate": "2025-11-14",
+    "nav": "56525.28",
+    "navChangeRate": -4.37,
+    "indexValue": "563.43",
+    "indexChangeRate": -4.38,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.65
+  },
+  {
+    "tradeDate": "2025-11-17",
+    "nav": "57848.85",
+    "navChangeRate": 2.31,
+    "indexValue": "576.65",
+    "indexChangeRate": 2.32,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.65
+  },
+  {
+    "tradeDate": "2025-11-18",
+    "nav": "55822.92",
+    "navChangeRate": -3.56,
+    "indexValue": "556.45",
+    "indexChangeRate": -3.57,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.65
+  },
+  {
+    "tradeDate": "2025-11-19",
+    "nav": "55447.04",
+    "navChangeRate": -0.68,
+    "indexValue": "552.66",
+    "indexChangeRate": -0.68,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.65
+  },
+  {
+    "tradeDate": "2025-11-20",
+    "nav": "56602.92",
+    "navChangeRate": 2.06,
+    "indexValue": "564.20",
+    "indexChangeRate": 2.07,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.65
+  },
+  {
+    "tradeDate": "2025-11-21",
+    "nav": "54215.36",
+    "navChangeRate": -4.31,
+    "indexValue": "540.36",
+    "indexChangeRate": -4.32,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.65
+  },
+  {
+    "tradeDate": "2025-11-24",
+    "nav": "54304.04",
+    "navChangeRate": 0.16,
+    "indexValue": "540.81",
+    "indexChangeRate": 0.08,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.65
+  },
+  {
+    "tradeDate": "2025-11-25",
+    "nav": "54693.57",
+    "navChangeRate": 0.71,
+    "indexValue": "544.62",
+    "indexChangeRate": 0.7,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.65
+  }
+]

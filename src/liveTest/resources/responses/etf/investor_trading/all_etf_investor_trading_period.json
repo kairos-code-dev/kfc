@@ -1,0 +1,882 @@
+[
+  {
+    "tradeDate": "2025-10-27",
+    "investorType": "기관",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -592265218640
+  },
+  {
+    "tradeDate": "2025-10-27",
+    "investorType": "기타법인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 23874884064
+  },
+  {
+    "tradeDate": "2025-10-27",
+    "investorType": "개인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 587042577454
+  },
+  {
+    "tradeDate": "2025-10-27",
+    "investorType": "외국인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -18652242878
+  },
+  {
+    "tradeDate": "2025-10-28",
+    "investorType": "기관",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -674144204054
+  },
+  {
+    "tradeDate": "2025-10-28",
+    "investorType": "기타법인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 42128845734
+  },
+  {
+    "tradeDate": "2025-10-28",
+    "investorType": "개인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 639876314034
+  },
+  {
+    "tradeDate": "2025-10-28",
+    "investorType": "외국인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -7860955714
+  },
+  {
+    "tradeDate": "2025-10-29",
+    "investorType": "기관",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -498272079772
+  },
+  {
+    "tradeDate": "2025-10-29",
+    "investorType": "기타법인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 10939969368
+  },
+  {
+    "tradeDate": "2025-10-29",
+    "investorType": "개인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 505863608092
+  },
+  {
+    "tradeDate": "2025-10-29",
+    "investorType": "외국인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -18531497688
+  },
+  {
+    "tradeDate": "2025-10-30",
+    "investorType": "기관",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -785556975103
+  },
+  {
+    "tradeDate": "2025-10-30",
+    "investorType": "기타법인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 11759503028
+  },
+  {
+    "tradeDate": "2025-10-30",
+    "investorType": "개인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 812346702299
+  },
+  {
+    "tradeDate": "2025-10-30",
+    "investorType": "외국인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -38549230224
+  },
+  {
+    "tradeDate": "2025-10-31",
+    "investorType": "기관",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -412775644469
+  },
+  {
+    "tradeDate": "2025-10-31",
+    "investorType": "기타법인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 24877375894
+  },
+  {
+    "tradeDate": "2025-10-31",
+    "investorType": "개인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 361100582268
+  },
+  {
+    "tradeDate": "2025-10-31",
+    "investorType": "외국인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 26797686307
+  },
+  {
+    "tradeDate": "2025-11-03",
+    "investorType": "기관",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -497379597082
+  },
+  {
+    "tradeDate": "2025-11-03",
+    "investorType": "기타법인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 7315422928
+  },
+  {
+    "tradeDate": "2025-11-03",
+    "investorType": "개인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 526902818857
+  },
+  {
+    "tradeDate": "2025-11-03",
+    "investorType": "외국인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -36838644703
+  },
+  {
+    "tradeDate": "2025-11-04",
+    "investorType": "기관",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -595719306560
+  },
+  {
+    "tradeDate": "2025-11-04",
+    "investorType": "기타법인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 10024477618
+  },
+  {
+    "tradeDate": "2025-11-04",
+    "investorType": "개인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 612211701441
+  },
+  {
+    "tradeDate": "2025-11-04",
+    "investorType": "외국인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -26516872499
+  },
+  {
+    "tradeDate": "2025-11-05",
+    "investorType": "기관",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -31489742094
+  },
+  {
+    "tradeDate": "2025-11-05",
+    "investorType": "기타법인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -91638549043
+  },
+  {
+    "tradeDate": "2025-11-05",
+    "investorType": "개인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 7912114893
+  },
+  {
+    "tradeDate": "2025-11-05",
+    "investorType": "외국인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 115216176244
+  },
+  {
+    "tradeDate": "2025-11-06",
+    "investorType": "기관",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -258593387538
+  },
+  {
+    "tradeDate": "2025-11-06",
+    "investorType": "기타법인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 13065975370
+  },
+  {
+    "tradeDate": "2025-11-06",
+    "investorType": "개인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 243717299668
+  },
+  {
+    "tradeDate": "2025-11-06",
+    "investorType": "외국인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 1810112500
+  },
+  {
+    "tradeDate": "2025-11-07",
+    "investorType": "기관",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -379690731952
+  },
+  {
+    "tradeDate": "2025-11-07",
+    "investorType": "기타법인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 13778869251
+  },
+  {
+    "tradeDate": "2025-11-07",
+    "investorType": "개인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 306663472982
+  },
+  {
+    "tradeDate": "2025-11-07",
+    "investorType": "외국인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 59248389719
+  },
+  {
+    "tradeDate": "2025-11-10",
+    "investorType": "기관",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -230176472597
+  },
+  {
+    "tradeDate": "2025-11-10",
+    "investorType": "기타법인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 11585322208
+  },
+  {
+    "tradeDate": "2025-11-10",
+    "investorType": "개인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 270909758733
+  },
+  {
+    "tradeDate": "2025-11-10",
+    "investorType": "외국인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -52318608344
+  },
+  {
+    "tradeDate": "2025-11-11",
+    "investorType": "기관",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -355543146049
+  },
+  {
+    "tradeDate": "2025-11-11",
+    "investorType": "기타법인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 47480380631
+  },
+  {
+    "tradeDate": "2025-11-11",
+    "investorType": "개인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 280692646913
+  },
+  {
+    "tradeDate": "2025-11-11",
+    "investorType": "외국인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 27370118505
+  },
+  {
+    "tradeDate": "2025-11-12",
+    "investorType": "기관",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -210630844804
+  },
+  {
+    "tradeDate": "2025-11-12",
+    "investorType": "기타법인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 48356152759
+  },
+  {
+    "tradeDate": "2025-11-12",
+    "investorType": "개인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 142024186024
+  },
+  {
+    "tradeDate": "2025-11-12",
+    "investorType": "외국인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 20250506021
+  },
+  {
+    "tradeDate": "2025-11-13",
+    "investorType": "기관",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -273587857666
+  },
+  {
+    "tradeDate": "2025-11-13",
+    "investorType": "기타법인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 19365735887
+  },
+  {
+    "tradeDate": "2025-11-13",
+    "investorType": "개인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 211959403191
+  },
+  {
+    "tradeDate": "2025-11-13",
+    "investorType": "외국인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 42262718588
+  },
+  {
+    "tradeDate": "2025-11-14",
+    "investorType": "기관",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -923124822255
+  },
+  {
+    "tradeDate": "2025-11-14",
+    "investorType": "기타법인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -10582613195
+  },
+  {
+    "tradeDate": "2025-11-14",
+    "investorType": "개인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 854763692988
+  },
+  {
+    "tradeDate": "2025-11-14",
+    "investorType": "외국인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 78943742462
+  },
+  {
+    "tradeDate": "2025-11-17",
+    "investorType": "기관",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -49323738008
+  },
+  {
+    "tradeDate": "2025-11-17",
+    "investorType": "기타법인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -28439631889
+  },
+  {
+    "tradeDate": "2025-11-17",
+    "investorType": "개인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 111790986123
+  },
+  {
+    "tradeDate": "2025-11-17",
+    "investorType": "외국인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -34027616226
+  },
+  {
+    "tradeDate": "2025-11-18",
+    "investorType": "기관",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -371697975645
+  },
+  {
+    "tradeDate": "2025-11-18",
+    "investorType": "기타법인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -7105497901
+  },
+  {
+    "tradeDate": "2025-11-18",
+    "investorType": "개인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 329869865942
+  },
+  {
+    "tradeDate": "2025-11-18",
+    "investorType": "외국인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 48933607604
+  },
+  {
+    "tradeDate": "2025-11-19",
+    "investorType": "기관",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -7595054737
+  },
+  {
+    "tradeDate": "2025-11-19",
+    "investorType": "기타법인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 11316974571
+  },
+  {
+    "tradeDate": "2025-11-19",
+    "investorType": "개인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 11952871986
+  },
+  {
+    "tradeDate": "2025-11-19",
+    "investorType": "외국인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -15674791820
+  },
+  {
+    "tradeDate": "2025-11-20",
+    "investorType": "기관",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 94490479846
+  },
+  {
+    "tradeDate": "2025-11-20",
+    "investorType": "기타법인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 37526256266
+  },
+  {
+    "tradeDate": "2025-11-20",
+    "investorType": "개인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -90623114396
+  },
+  {
+    "tradeDate": "2025-11-20",
+    "investorType": "외국인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -41393621716
+  },
+  {
+    "tradeDate": "2025-11-21",
+    "investorType": "기관",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -678792511069
+  },
+  {
+    "tradeDate": "2025-11-21",
+    "investorType": "기타법인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 24201417213
+  },
+  {
+    "tradeDate": "2025-11-21",
+    "investorType": "개인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 599516035882
+  },
+  {
+    "tradeDate": "2025-11-21",
+    "investorType": "외국인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 55075057974
+  },
+  {
+    "tradeDate": "2025-11-24",
+    "investorType": "기관",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -119990013136
+  },
+  {
+    "tradeDate": "2025-11-24",
+    "investorType": "기타법인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 265727823
+  },
+  {
+    "tradeDate": "2025-11-24",
+    "investorType": "개인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 121843446288
+  },
+  {
+    "tradeDate": "2025-11-24",
+    "investorType": "외국인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -2119160975
+  },
+  {
+    "tradeDate": "2025-11-25",
+    "investorType": "기관",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": -87792614904
+  },
+  {
+    "tradeDate": "2025-11-25",
+    "investorType": "기타법인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 10854778570
+  },
+  {
+    "tradeDate": "2025-11-25",
+    "investorType": "개인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 74950166547
+  },
+  {
+    "tradeDate": "2025-11-25",
+    "investorType": "외국인",
+    "askVolume": 0,
+    "askValue": 0,
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 1987669787
+  }
+]

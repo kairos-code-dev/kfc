@@ -50,7 +50,7 @@ import dev.kairoscode.kfc.internal.ratelimit.TokenBucketRateLimiter
  * @property etf ETF 도메인 API (KRX + Naver 통합)
  * @property corp 기업 공시 도메인 API (API Key 제공 시에만 사용 가능)
  */
-class KfcClient private constructor(
+class KfcClient internal constructor(
     val etf: EtfApi,
     val corp: CorpApi?
 ) {
