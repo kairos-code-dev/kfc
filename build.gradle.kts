@@ -68,30 +68,33 @@ sourceSets {
         resources {
             srcDir("src/liveTest/resources")
         }
-        // Test 클래스만 포함 (resources는 불필요)
-        compileClasspath += sourceSets.main.get().output + sourceSets.test.get().output.classesDirs
-        runtimeClasspath += sourceSets.main.get().output + sourceSets.test.get().output.classesDirs
+        // Main 출력만 포함 - test와 완전 분리
+        compileClasspath += sourceSets.main.get().output
+        runtimeClasspath += sourceSets.main.get().output
     }
 }
 
 // Live Test용 Configuration
+// Complete separation: liveTest has its own dependencies
 val liveTestImplementation by configurations.getting {
-    extendsFrom(configurations.testImplementation.get())
+    // Main 의존성을 포함하되, test output은 포함하지 않음
+    extendsFrom(configurations.implementation.get())
 }
 
 dependencies {
-    liveTestImplementation(sourceSets.test.get().output)
+    // liveTest는 test 의존성 추가 (test output 제외)
+    liveTestImplementation(libs.junit.jupiter)
+    liveTestImplementation(libs.assertj.core)
+    liveTestImplementation(libs.kotlinx.coroutines.test)
+    liveTestImplementation("com.google.code.gson:gson:2.11.0")
 }
 
-// Gradle resources 처리 중복 파일 전략
-// 이유: liveTest와 test가 같은 리소스 파일을 공유하기 때문
-// - test: 단위 테스트용 mock 데이터
-// - liveTest: 실제 API 응답 레코딩
-// 둘 다 src/*/resources/responses/에 동일한 구조를 가지므로 중복 발생
-tasks.named("processTestResources", Copy::class) {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-}
 
+// ============================================
+// Resource Processing Tasks
+// ============================================
+// Note: 완전 분리되었으나, Gradle's resource processing에서 duplicate 감지
+// (liveTest와 test가 별도의 출력 디렉토리를 사용하므로 실제 충돌은 없음)
 tasks.named("processLiveTestResources", Copy::class) {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
@@ -109,6 +112,8 @@ tasks.test {
     localProperties.getProperty("OPENDART_API_KEY")?.let { apiKey ->
         environment("OPENDART_API_KEY", apiKey)
     }
+    // 항상 테스트 실행 (캐시 무시)
+    outputs.upToDateWhen { false }
 }
 
 // Live Test Task 생성
@@ -144,6 +149,9 @@ val liveTest = tasks.register<Test>("liveTest") {
     maxParallelForks = 1
 
     shouldRunAfter(tasks.test)
+
+    // 항상 테스트 실행 (캐시 무시)
+    outputs.upToDateWhen { false }
 }
 
 // cleanLiveTest Task 생성 (레코딩 데이터 삭제)

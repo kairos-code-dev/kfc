@@ -70,6 +70,7 @@ internal class KrxEtfApiImpl(
 
         val parameters = mapOf(KrxApiParams.BLD to BLD_ETF_LIST)
         val response = httpClient.post(BASE_URL, parameters)
+        response.checkForErrors()
         val output = response.extractOutput()
 
         return output.map { raw ->
@@ -109,6 +110,7 @@ internal class KrxEtfApiImpl(
         )
 
         val response = httpClient.post(BASE_URL, parameters)
+        response.checkForErrors()
         val output = response.extractOutput()
 
         if (output.isEmpty()) {
@@ -139,6 +141,7 @@ internal class KrxEtfApiImpl(
         )
 
         val response = httpClient.post(BASE_URL, parameters)
+        response.checkForErrors()
         val output = response.extractOutput()
 
         return output.map { raw ->
@@ -197,6 +200,7 @@ internal class KrxEtfApiImpl(
                 )
 
                 val response = httpClient.post(BASE_URL, parameters)
+                response.checkForErrors()
                 val output = response.extractOutput()
 
                 results.addAll(output.map { raw ->
@@ -240,6 +244,7 @@ internal class KrxEtfApiImpl(
         )
 
         val response = httpClient.post(BASE_URL, parameters)
+        response.checkForErrors()
         val output = response.extractOutput()
 
         return output.map { raw ->
@@ -282,6 +287,7 @@ internal class KrxEtfApiImpl(
         )
 
         val response = httpClient.post(BASE_URL, parameters)
+        response.checkForErrors()
         val output = response.extractOutput()
 
         return output.map { raw ->
@@ -314,6 +320,7 @@ internal class KrxEtfApiImpl(
         )
 
         val response = httpClient.post(BASE_URL, parameters)
+        response.checkForErrors()
         val output = response.extractOutput()
 
         return output.map { raw ->
@@ -349,6 +356,7 @@ internal class KrxEtfApiImpl(
         )
 
         val response = httpClient.post(BASE_URL, parameters)
+        response.checkForErrors()
         val output = response.extractOutput()
 
         return output.map { raw ->
@@ -381,6 +389,7 @@ internal class KrxEtfApiImpl(
         )
 
         val response = httpClient.post(BASE_URL, parameters)
+        response.checkForErrors()
         val output = response.extractOutput()
 
         return output.map { raw ->
@@ -410,6 +419,7 @@ internal class KrxEtfApiImpl(
         )
 
         val response = httpClient.post(BASE_URL, parameters)
+        response.checkForErrors()
         val output = response.extractOutput()
 
         return output.map { raw ->
@@ -441,6 +451,7 @@ internal class KrxEtfApiImpl(
         )
 
         val response = httpClient.post(BASE_URL, parameters)
+        response.checkForErrors()
         val output = response.extractOutput()
 
         // 날짜별로 파싱하여 투자자별 데이터로 변환
@@ -504,6 +515,7 @@ internal class KrxEtfApiImpl(
         )
 
         val response = httpClient.post(BASE_URL, parameters)
+        response.checkForErrors()
         val output = response.extractOutput()
 
         return output.map { raw ->
@@ -537,6 +549,7 @@ internal class KrxEtfApiImpl(
         )
 
         val response = httpClient.post(BASE_URL, parameters)
+        response.checkForErrors()
         val output = response.extractOutput()
 
         return output.flatMap { raw ->
@@ -613,6 +626,7 @@ internal class KrxEtfApiImpl(
         )
 
         val response = httpClient.post(BASE_URL, parameters)
+        response.checkForErrors()
         val output = (response["OutBlock_1"] as? List<Map<String, Any?>>) ?: emptyList()
 
         // ISIN에서 ticker 추출 (KR7069500007 -> 069500)
@@ -660,6 +674,7 @@ internal class KrxEtfApiImpl(
         )
 
         val response = httpClient.post(BASE_URL, parameters)
+        response.checkForErrors()
         val output = (response["OutBlock_1"] as? List<Map<String, Any?>>) ?: emptyList()
 
         // ISIN에서 ticker 추출

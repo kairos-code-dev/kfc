@@ -76,20 +76,10 @@ internal class NaverEtfApiImpl(
         val count = ((daysFromToday + daysInRange) * 1.5).toInt().coerceAtMost(500) // Max 500
 
         // 2. API 호출
-        val xml = try {
-            fetchChartData(ticker, count)
-        } catch (e: KfcException) {
-            logger.warn { "Failed to fetch data for ticker $ticker: ${e.message}" }
-            return emptyList()
-        }
+        val xml = fetchChartData(ticker, count)
 
         // 3. XML 파싱
-        val ohlcvList = try {
-            parseXmlResponse(xml)
-        } catch (e: KfcException) {
-            logger.warn { "Failed to parse XML response for ticker $ticker: ${e.message}" }
-            return emptyList()
-        }
+        val ohlcvList = parseXmlResponse(xml)
 
         // 4. 날짜 필터링 및 정렬
         return ohlcvList

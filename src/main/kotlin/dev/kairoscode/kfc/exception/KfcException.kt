@@ -32,5 +32,9 @@ package dev.kairoscode.kfc.exception
  */
 class KfcException(
     val errorCode: ErrorCode,
+    message: String? = null,
     cause: Throwable? = null
-) : Exception(errorCode.message, cause)
+) : Exception(message ?: errorCode.message, cause) {
+    // Secondary constructor for backward compatibility with Exception as second parameter
+    constructor(errorCode: ErrorCode, cause: Throwable) : this(errorCode, null, cause)
+}

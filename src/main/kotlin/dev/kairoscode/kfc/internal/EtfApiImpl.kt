@@ -3,6 +3,8 @@ package dev.kairoscode.kfc.internal
 import dev.kairoscode.kfc.api.EtfApi
 import dev.kairoscode.kfc.api.krx.KrxEtfApi
 import dev.kairoscode.kfc.api.naver.NaverEtfApi
+import dev.kairoscode.kfc.exception.ErrorCode
+import dev.kairoscode.kfc.exception.KfcException
 import dev.kairoscode.kfc.model.krx.*
 import dev.kairoscode.kfc.model.naver.NaverEtfOhlcv
 import java.time.LocalDate
@@ -18,6 +20,12 @@ internal class EtfApiImpl(
     private val naverApi: NaverEtfApi
 ) : EtfApi {
 
+    companion object {
+        // ISIN 코드 형식: KR7 + 9자리 숫자 (총 12자리)
+        private const val ISIN_LENGTH = 12
+        private const val ISIN_PREFIX = "KR7"
+    }
+
     // ================================
     // 1. ETF 목록 및 기본 정보
     // ================================
@@ -30,6 +38,8 @@ internal class EtfApiImpl(
         isin: String,
         tradeDate: LocalDate
     ): ComprehensiveEtfInfo? {
+        validateIsin(isin)
+        validateTradeDate(tradeDate)
         return krxApi.getComprehensiveEtfInfo(isin, tradeDate)
     }
 
@@ -48,6 +58,8 @@ internal class EtfApiImpl(
         fromDate: LocalDate,
         toDate: LocalDate
     ): List<EtfOhlcv> {
+        validateIsin(isin)
+        validateDateRange(fromDate, toDate)
         return krxApi.getEtfOhlcv(isin, fromDate, toDate)
     }
 
@@ -74,6 +86,8 @@ internal class EtfApiImpl(
         isin: String,
         date: LocalDate
     ): List<PortfolioConstituent> {
+        validateIsin(isin)
+        validateTradeDate(date)
         return krxApi.getEtfPortfolio(isin, date)
     }
 
@@ -86,6 +100,8 @@ internal class EtfApiImpl(
         fromDate: LocalDate,
         toDate: LocalDate
     ): List<TrackingError> {
+        validateIsin(isin)
+        validateDateRange(fromDate, toDate)
         return krxApi.getEtfTrackingError(isin, fromDate, toDate)
     }
 
@@ -94,6 +110,8 @@ internal class EtfApiImpl(
         fromDate: LocalDate,
         toDate: LocalDate
     ): List<DivergenceRate> {
+        validateIsin(isin)
+        validateDateRange(fromDate, toDate)
         return krxApi.getEtfDivergenceRate(isin, fromDate, toDate)
     }
 
@@ -118,6 +136,8 @@ internal class EtfApiImpl(
         isin: String,
         date: LocalDate
     ): List<InvestorTrading> {
+        validateIsin(isin)
+        validateTradeDate(date)
         return krxApi.getEtfInvestorTrading(isin, date)
     }
 
@@ -126,6 +146,8 @@ internal class EtfApiImpl(
         fromDate: LocalDate,
         toDate: LocalDate
     ): List<InvestorTradingByDate> {
+        validateIsin(isin)
+        validateDateRange(fromDate, toDate)
         return krxApi.getEtfInvestorTradingByPeriod(isin, fromDate, toDate)
     }
 
@@ -138,6 +160,8 @@ internal class EtfApiImpl(
         fromDate: LocalDate,
         toDate: LocalDate
     ): List<ShortSelling> {
+        validateIsin(isin)
+        validateDateRange(fromDate, toDate)
         return krxApi.getEtfShortSelling(isin, fromDate, toDate)
     }
 
@@ -146,6 +170,59 @@ internal class EtfApiImpl(
         fromDate: LocalDate,
         toDate: LocalDate
     ): List<ShortBalance> {
+        validateIsin(isin)
+        validateDateRange(fromDate, toDate)
         return krxApi.getEtfShortBalance(isin, fromDate, toDate)
+    }
+
+    // ================================
+    // Validation Functions
+    // ================================
+
+    /**
+     * ISIN 코드 검증
+     * - 공백이 아니어야 함
+     * - 정확히 12자 (KR7 + 9자리)
+     * - KR7 프리픽스로 시작
+     * - 나머지는 숫자로만 구성
+     */
+    private fun validateIsin(isin: String) {
+        val trimmed = isin.trim()
+
+        when {
+            trimmed.isBlank() ->
+                throw KfcException(ErrorCode.INVALID_PARAMETER, "ISIN 코드는 공백이 아니어야 합니다")
+            trimmed.length != ISIN_LENGTH ->
+                throw KfcException(ErrorCode.INVALID_PARAMETER, "ISIN 코드는 정확히 ${ISIN_LENGTH}자여야 합니다 (입력: $trimmed)")
+            !trimmed.startsWith(ISIN_PREFIX) ->
+                throw KfcException(ErrorCode.INVALID_PARAMETER, "ISIN 코드는 ${ISIN_PREFIX}로 시작해야 합니다 (입력: $trimmed)")
+            !trimmed.drop(ISIN_PREFIX.length).all { it.isDigit() } ->
+                throw KfcException(ErrorCode.INVALID_PARAMETER, "ISIN 코드는 ${ISIN_PREFIX} 이후 숫자만 포함해야 합니다 (입력: $trimmed)")
+        }
+    }
+
+    /**
+     * 거래 날짜 검증
+     * - 현재 또는 과거 날짜만 허용
+     */
+    private fun validateTradeDate(date: LocalDate) {
+        when {
+            date > LocalDate.now() ->
+                throw KfcException(ErrorCode.INVALID_PARAMETER, "거래 날짜는 미래 날짜일 수 없습니다 (입력: $date)")
+        }
+    }
+
+    /**
+     * 날짜 범위 검증
+     * - fromDate <= toDate
+     * - 둘 다 현재 또는 과거 날짜
+     */
+    private fun validateDateRange(fromDate: LocalDate, toDate: LocalDate) {
+        when {
+            fromDate > toDate ->
+                throw KfcException(ErrorCode.INVALID_DATE_RANGE, "시작 날짜는 종료 날짜보다 이전이어야 합니다 (fromDate: $fromDate, toDate: $toDate)")
+            toDate > LocalDate.now() ->
+                throw KfcException(ErrorCode.INVALID_PARAMETER, "종료 날짜는 미래 날짜일 수 없습니다 (입력: $toDate)")
+        }
     }
 }
