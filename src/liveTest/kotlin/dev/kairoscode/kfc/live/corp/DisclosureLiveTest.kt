@@ -7,7 +7,7 @@ import dev.kairoscode.kfc.utils.TestSymbols
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import java.time.LocalDate
+
 
 /**
  * 공시 검색 Live Test
@@ -25,7 +25,7 @@ class DisclosureLiveTest : LiveTestBase() {
     @DisplayName("특정 기간의 공시 목록을 조회할 수 있다")
     fun testSearchDisclosures() = liveTest {
         // Given: startDate, endDate 지정
-        val endDate = LocalDate.now().minusDays(7)
+        val endDate = TestSymbols.TRADING_DAY
         val startDate = endDate.minusMonths(1)
         val corpCode = TestSymbols.SAMSUNG_CORP_CODE
 
@@ -56,7 +56,7 @@ class DisclosureLiveTest : LiveTestBase() {
     fun testSearchDisclosuresKakao() = liveTest {
         // Given: 카카오 corp_code
         val corpCode = TestSymbols.KAKAO_CORP_CODE
-        val endDate = LocalDate.now().minusDays(7)
+        val endDate = TestSymbols.TRADING_DAY
         val startDate = endDate.minusMonths(1)
 
         // When: 공시 검색
@@ -77,7 +77,7 @@ class DisclosureLiveTest : LiveTestBase() {
     @DisplayName("전체 법인의 공시를 조회할 수 있다")
     fun testSearchAllCorpDisclosures() = liveTest {
         // Given: corpCode = null, 특정 날짜
-        val date = LocalDate.now().minusDays(7)
+        val date = TestSymbols.TRADING_DAY
 
         // When: searchDisclosures(null, startDate, endDate) 호출
         val disclosures = client.corp?.searchDisclosures(
@@ -104,7 +104,7 @@ class DisclosureLiveTest : LiveTestBase() {
     fun testDisclosurePagination() = liveTest {
         // Given: pageNo, pageCount 지정
         val corpCode = TestSymbols.SAMSUNG_CORP_CODE
-        val endDate = LocalDate.now().minusDays(7)
+        val endDate = TestSymbols.TRADING_DAY
         val startDate = endDate.minusMonths(3)
 
         // When: searchDisclosures(..., pageNo=1, pageCount=50) 호출
@@ -126,7 +126,7 @@ class DisclosureLiveTest : LiveTestBase() {
     fun testSearchDisclosuresByKeyword() = liveTest {
         // Given: 공시 목록 조회
         val corpCode = TestSymbols.SAMSUNG_CORP_CODE
-        val endDate = LocalDate.now().minusDays(7)
+        val endDate = TestSymbols.TRADING_DAY
         val startDate = endDate.minusMonths(6)
         val disclosures = client.corp?.searchDisclosures(corpCode, startDate, endDate) ?: return@liveTest
 
@@ -150,7 +150,7 @@ class DisclosureLiveTest : LiveTestBase() {
     fun testDisclosureStatistics() = liveTest {
         // Given: 3개월 공시 데이터
         val corpCode = TestSymbols.SAMSUNG_CORP_CODE
-        val endDate = LocalDate.now().minusDays(7)
+        val endDate = TestSymbols.TRADING_DAY
         val startDate = endDate.minusMonths(3)
         val disclosures = client.corp?.searchDisclosures(corpCode, startDate, endDate) ?: return@liveTest
 

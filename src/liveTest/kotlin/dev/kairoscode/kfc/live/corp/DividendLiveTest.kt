@@ -7,7 +7,7 @@ import dev.kairoscode.kfc.utils.TestSymbols
 import kotlinx.coroutines.delay
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import java.time.LocalDate
+
 
 /**
  * 배당 정보 조회 Live Test
@@ -22,11 +22,11 @@ import java.time.LocalDate
 class DividendLiveTest : LiveTestBase() {
 
     @Test
-    @DisplayName("특정 법인의 배당 정보를 조회할 수 있다")
+    @DisplayName("특정 법인의 배당 정보를 고정 연도로 조회할 수 있다")
     fun testGetDividendInfo() = liveTest {
-        // Given: 삼성전자 corp_code, year (2024)
+        // Given: 삼성전자 corp_code, year (고정: 2023년)
         val corpCode = TestSymbols.SAMSUNG_CORP_CODE
-        val year = LocalDate.now().year - 1 // 작년 데이터
+        val year = 2023 // 고정 연도
 
         // When: 배당 정보 조회
         val dividendInfo = client.corp?.getDividendInfo(corpCode, year) ?: return@liveTest
@@ -50,11 +50,11 @@ class DividendLiveTest : LiveTestBase() {
     }
 
     @Test
-    @DisplayName("카카오 배당 정보를 조회할 수 있다")
+    @DisplayName("카카오 배당 정보를 고정 연도로 조회할 수 있다")
     fun testGetDividendInfoKakao() = liveTest {
-        // Given: 카카오 corp_code
+        // Given: 카카오 corp_code (고정: 2023년)
         val corpCode = TestSymbols.KAKAO_CORP_CODE
-        val year = LocalDate.now().year - 1
+        val year = 2023 // 고정 연도
 
         // When: 배당 정보 조회
         val dividendInfo = client.corp?.getDividendInfo(corpCode, year) ?: return@liveTest
@@ -71,11 +71,11 @@ class DividendLiveTest : LiveTestBase() {
     }
 
     @Test
-    @DisplayName("다양한 보고서 타입으로 조회할 수 있다")
+    @DisplayName("다양한 보고서 타입으로 고정 연도 기준 조회할 수 있다")
     fun testGetDividendInfoWithDifferentReportCodes() = liveTest {
-        // Given: 삼성전자 corp_code
+        // Given: 삼성전자 corp_code (고정: 2023년)
         val corpCode = TestSymbols.SAMSUNG_CORP_CODE
-        val year = LocalDate.now().year - 1
+        val year = 2023 // 고정 연도
 
         val reportCodes = mapOf(
             "11011" to "사업보고서",
@@ -85,7 +85,7 @@ class DividendLiveTest : LiveTestBase() {
         )
 
         // When: reportCode를 변경하여 호출
-        println("\n=== 보고서 타입별 배당 정보 ===")
+        println("\n=== 보고서 타입별 배당 정보 (${year}년) ===")
         reportCodes.forEach { (reportCode, reportName) ->
             val dividendInfo = client.corp?.getDividendInfo(corpCode, year, reportCode) ?: return@liveTest
             println("$reportName ($reportCode): ${dividendInfo.size}건")
@@ -96,15 +96,14 @@ class DividendLiveTest : LiveTestBase() {
     }
 
     @Test
-    @DisplayName("[활용] 배당 이력을 조회할 수 있다")
+    @DisplayName("[활용] 고정 기간 기준으로 배당 이력을 조회할 수 있다")
     fun testDividendHistory() = liveTest {
-        // Given: 최근 3년 배당 정보
+        // Given: 고정 기간 배당 정보 (2021-2023년)
         val corpCode = TestSymbols.SAMSUNG_CORP_CODE
-        val currentYear = LocalDate.now().year
-        val years = listOf(currentYear - 3, currentYear - 2, currentYear - 1)
+        val years = listOf(2021, 2022, 2023) // 고정 연도 목록
 
         // When: 각 연도별 getDividendInfo() 호출
-        println("\n=== 삼성전자 배당 이력 (최근 3년) ===")
+        println("\n=== 삼성전자 배당 이력 (2021-2023년) ===")
         years.forEach { year ->
             val dividendInfo = client.corp?.getDividendInfo(corpCode, year) ?: return@liveTest
             println("${year}년: ${dividendInfo.size}건")

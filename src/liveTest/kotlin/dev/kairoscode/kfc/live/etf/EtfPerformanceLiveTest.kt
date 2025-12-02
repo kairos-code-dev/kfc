@@ -6,7 +6,7 @@ import dev.kairoscode.kfc.utils.ResponseRecorder
 import dev.kairoscode.kfc.utils.TestSymbols
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import java.time.LocalDate
+
 import kotlin.math.abs
 import org.junit.jupiter.api.Assertions.assertTrue
 
@@ -26,7 +26,7 @@ class EtfPerformanceLiveTest : LiveTestBase() {
     fun testGetTrackingError() = liveTest {
         // Given: TIGER 200 ISIN, 1개월 기간
         val isin = TestSymbols.TIGER_200_ISIN
-        val toDate = LocalDate.now().minusDays(7)
+        val toDate = TestSymbols.TRADING_DAY
         val fromDate = toDate.minusMonths(1)
 
         // When: 추적 오차 조회
@@ -51,7 +51,7 @@ class EtfPerformanceLiveTest : LiveTestBase() {
     fun testAverageTrackingError() = liveTest {
         // Given: 추적 오차 데이터
         val isin = TestSymbols.TIGER_200_ISIN
-        val toDate = LocalDate.now().minusDays(7)
+        val toDate = TestSymbols.TRADING_DAY
         val fromDate = toDate.minusMonths(1)
         val trackingErrors = client.etf.getTrackingError(isin, fromDate, toDate)
 
@@ -76,7 +76,7 @@ class EtfPerformanceLiveTest : LiveTestBase() {
     fun testGetDivergenceRate() = liveTest {
         // Given: TIGER 200 ISIN, 1개월 기간
         val isin = TestSymbols.TIGER_200_ISIN
-        val toDate = LocalDate.now().minusDays(7)
+        val toDate = TestSymbols.TRADING_DAY
         val fromDate = toDate.minusMonths(1)
 
         // When: 괴리율 조회
@@ -101,7 +101,7 @@ class EtfPerformanceLiveTest : LiveTestBase() {
     fun testGetDivergenceRateKodex200() = liveTest {
         // Given: KODEX 200 ISIN
         val isin = TestSymbols.KODEX_200_ISIN
-        val toDate = LocalDate.now().minusDays(7)
+        val toDate = TestSymbols.TRADING_DAY
         val fromDate = toDate.minusMonths(1)
 
         // When: 괴리율 조회
@@ -125,7 +125,7 @@ class EtfPerformanceLiveTest : LiveTestBase() {
     fun testHighDivergenceRateDays() = liveTest {
         // Given: 괴리율 데이터
         val isin = TestSymbols.TIGER_200_ISIN
-        val toDate = LocalDate.now().minusDays(7)
+        val toDate = TestSymbols.TRADING_DAY
         val fromDate = toDate.minusMonths(1)
         val divergenceRates = client.etf.getDivergenceRate(isin, fromDate, toDate)
 
@@ -152,7 +152,7 @@ class EtfPerformanceLiveTest : LiveTestBase() {
     fun testAverageDivergenceRate() = liveTest {
         // Given: 괴리율 데이터
         val isin = TestSymbols.TIGER_200_ISIN
-        val toDate = LocalDate.now().minusDays(7)
+        val toDate = TestSymbols.TRADING_DAY
         val fromDate = toDate.minusMonths(1)
         val divergenceRates = client.etf.getDivergenceRate(isin, fromDate, toDate)
 

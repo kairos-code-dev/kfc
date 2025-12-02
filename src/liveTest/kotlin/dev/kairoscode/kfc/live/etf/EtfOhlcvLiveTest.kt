@@ -6,7 +6,6 @@ import dev.kairoscode.kfc.utils.ResponseRecorder
 import dev.kairoscode.kfc.utils.TestSymbols
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import java.time.LocalDate
 import org.junit.jupiter.api.Assertions.assertTrue
 
 /**
@@ -17,11 +16,11 @@ import org.junit.jupiter.api.Assertions.assertTrue
 class EtfOhlcvLiveTest : LiveTestBase() {
 
     @Test
-    @DisplayName("1개월 OHLCV 데이터를 조회할 수 있다")
+    @DisplayName("1개월 OHLCV 데이터를 고정 기간으로 조회할 수 있다")
     fun testGetOhlcv1Month() = liveTest {
-        // Given: 최근 1개월 기간 설정
-        val toDate = LocalDate.now().minusDays(7)
-        val fromDate = toDate.minusMonths(1)
+        // Given: 고정 1개월 기간 설정
+        val toDate = TestSymbols.TRADING_DAY // 2024-11-25
+        val fromDate = TestSymbols.ONE_MONTH_AGO // 2024-10-25
         val isin = TestSymbols.TIGER_200_ISIN
 
         // When: OHLCV 조회
@@ -51,11 +50,11 @@ class EtfOhlcvLiveTest : LiveTestBase() {
     }
 
     @Test
-    @DisplayName("3개월 OHLCV 데이터를 조회할 수 있다")
+    @DisplayName("3개월 OHLCV 데이터를 고정 기간으로 조회할 수 있다")
     fun testGetOhlcv3Months() = liveTest {
-        // Given: 최근 3개월 기간 설정
-        val toDate = LocalDate.now().minusDays(7)
-        val fromDate = toDate.minusMonths(3)
+        // Given: 고정 3개월 기간 설정
+        val toDate = TestSymbols.TRADING_DAY // 2024-11-25
+        val fromDate = TestSymbols.THREE_MONTHS_AGO // 2024-08-25
         val isin = TestSymbols.TIGER_200_ISIN
 
         // When: OHLCV 조회
@@ -65,6 +64,7 @@ class EtfOhlcvLiveTest : LiveTestBase() {
         assertTrue(ohlcvList.size >= 50, "3개월 데이터는 최소 50개 이상이어야 합니다. 실제: ${ohlcvList.size}개")
 
         println("✅ 3개월 OHLCV 데이터 개수: ${ohlcvList.size}")
+        println("✅ 기간: $fromDate ~ $toDate")
 
         // 응답 레코딩
         ResponseRecorder.recordList(
@@ -75,11 +75,11 @@ class EtfOhlcvLiveTest : LiveTestBase() {
     }
 
     @Test
-    @DisplayName("1년 OHLCV 데이터를 조회할 수 있다 (자동 분할 처리)")
+    @DisplayName("1년 OHLCV 데이터를 고정 기간으로 조회할 수 있다 (자동 분할 처리)")
     fun testGetOhlcv1Year() = liveTest {
-        // Given: 최근 1년 기간 설정 (730일 초과)
-        val toDate = LocalDate.now().minusDays(7)
-        val fromDate = toDate.minusYears(1)
+        // Given: 고정 1년 기간 설정 (730일 초과)
+        val toDate = TestSymbols.TRADING_DAY // 2024-11-25
+        val fromDate = TestSymbols.ONE_YEAR_AGO // 2023-11-25
         val isin = TestSymbols.TIGER_200_ISIN
 
         // When: OHLCV 조회
@@ -90,6 +90,7 @@ class EtfOhlcvLiveTest : LiveTestBase() {
 
         // Then: 내부적으로 730일 단위로 자동 분할 처리됨
         println("✅ 1년 OHLCV 데이터 개수: ${ohlcvList.size}")
+        println("✅ 기간: $fromDate ~ $toDate")
 
         // 응답 레코딩
         ResponseRecorder.recordList(
@@ -100,11 +101,11 @@ class EtfOhlcvLiveTest : LiveTestBase() {
     }
 
     @Test
-    @DisplayName("[활용] 수익률을 계산할 수 있다")
+    @DisplayName("[활용] 고정 기간 기준으로 수익률을 계산할 수 있다")
     fun testReturnCalculation() = liveTest {
-        // Given: 최근 3개월 OHLCV 데이터
-        val toDate = LocalDate.now().minusDays(7)
-        val fromDate = toDate.minusMonths(3)
+        // Given: 고정 3개월 OHLCV 데이터
+        val toDate = TestSymbols.TRADING_DAY // 2024-11-25
+        val fromDate = TestSymbols.THREE_MONTHS_AGO // 2024-08-25
         val isin = TestSymbols.TIGER_200_ISIN
         val ohlcvList = client.etf.getOhlcv(isin, fromDate, toDate)
 
@@ -116,18 +117,18 @@ class EtfOhlcvLiveTest : LiveTestBase() {
         val returnRate = ((lastClose - firstClose) / firstClose) * 100
 
         // Then: 수익률 출력
-        println("\n=== 3개월 수익률 계산 ===")
+        println("\n=== 3개월 수익률 계산 (기간: $fromDate ~ $toDate) ===")
         println("시작 종가: ${firstClose}원 (${ohlcvList.first().tradeDate})")
         println("마지막 종가: ${lastClose}원 (${ohlcvList.last().tradeDate})")
         println("3개월 수익률: ${"%.2f".format(returnRate)}%")
     }
 
     @Test
-    @DisplayName("[활용] 이동평균을 계산할 수 있다")
+    @DisplayName("[활용] 고정 기간 기준으로 이동평균을 계산할 수 있다")
     fun testMovingAverageCalculation() = liveTest {
-        // Given: 최근 3개월 OHLCV 데이터
-        val toDate = LocalDate.now().minusDays(7)
-        val fromDate = toDate.minusMonths(3)
+        // Given: 고정 3개월 OHLCV 데이터
+        val toDate = TestSymbols.TRADING_DAY // 2024-11-25
+        val fromDate = TestSymbols.THREE_MONTHS_AGO // 2024-08-25
         val isin = TestSymbols.TIGER_200_ISIN
         val ohlcvList = client.etf.getOhlcv(isin, fromDate, toDate)
 
@@ -138,7 +139,7 @@ class EtfOhlcvLiveTest : LiveTestBase() {
         val ma20 = last20Closes.average()
 
         // Then: 20일 이동평균 출력
-        println("\n=== 20일 이동평균 계산 ===")
+        println("\n=== 20일 이동평균 계산 (기준일: $toDate) ===")
         println("현재가: ${ohlcvList.last().closePrice}원")
         println("20일 이동평균: ${"%.2f".format(ma20)}원")
     }

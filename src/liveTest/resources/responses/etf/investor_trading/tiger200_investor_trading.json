@@ -1,48 +1,48 @@
 [
   {
     "investorType": "금융투자",
-    "askVolume": 1292882,
-    "askValue": 71181029345,
-    "bidVolume": 1188453,
-    "bidValue": 65486377913,
-    "netBuyVolume": -104429,
-    "netBuyValue": -5694651432
+    "askVolume": 551249,
+    "askValue": 18631423715,
+    "bidVolume": 801186,
+    "bidValue": 27069015150,
+    "netBuyVolume": 249937,
+    "netBuyValue": 8437591435
   },
   {
     "investorType": "보험",
-    "askVolume": 18152,
-    "askValue": 995275269,
-    "bidVolume": 24410,
-    "bidValue": 1339142395,
-    "netBuyVolume": 6258,
-    "netBuyValue": 343867126
+    "askVolume": 14856,
+    "askValue": 502402415,
+    "bidVolume": 121391,
+    "bidValue": 4107531935,
+    "netBuyVolume": 106535,
+    "netBuyValue": 3605129520
   },
   {
     "investorType": "투신",
-    "askVolume": 53992,
-    "askValue": 2954981709,
-    "bidVolume": 147774,
-    "bidValue": 8092263045,
-    "netBuyVolume": 93782,
-    "netBuyValue": 5137281336
+    "askVolume": 458052,
+    "askValue": 15481384740,
+    "bidVolume": 62007,
+    "bidValue": 2097307415,
+    "netBuyVolume": -396045,
+    "netBuyValue": -13384077325
   },
   {
     "investorType": "사모",
-    "askVolume": 8,
-    "askValue": 441080,
-    "bidVolume": 12583,
-    "bidValue": 690212785,
-    "netBuyVolume": 12575,
-    "netBuyValue": 689771705
+    "askVolume": 111408,
+    "askValue": 3766779720,
+    "bidVolume": 73926,
+    "bidValue": 2500761200,
+    "netBuyVolume": -37482,
+    "netBuyValue": -1266018520
   },
   {
     "investorType": "은행",
-    "askVolume": 13352,
-    "askValue": 733200340,
-    "bidVolume": 6512,
-    "bidValue": 358296570,
-    "netBuyVolume": -6840,
-    "netBuyValue": -374903770
+    "askVolume": 2484,
+    "askValue": 83719290,
+    "bidVolume": 2601,
+    "bidValue": 87669820,
+    "netBuyVolume": 117,
+    "netBuyValue": 3950530
   },
   {
     "investorType": "기타금융",
@@ -57,62 +57,62 @@
     "investorType": "연기금 등",
     "askVolume": 0,
     "askValue": 0,
-    "bidVolume": 9076,
-    "bidValue": 496757180,
-    "netBuyVolume": 9076,
-    "netBuyValue": 496757180
+    "bidVolume": 0,
+    "bidValue": 0,
+    "netBuyVolume": 0,
+    "netBuyValue": 0
   },
   {
     "investorType": "기관합계",
-    "askVolume": 1378386,
-    "askValue": 75864927743,
-    "bidVolume": 1388808,
-    "bidValue": 76463049888,
-    "netBuyVolume": 10422,
-    "netBuyValue": 598122145
+    "askVolume": 1138049,
+    "askValue": 38465709880,
+    "bidVolume": 1061111,
+    "bidValue": 35862285520,
+    "netBuyVolume": -76938,
+    "netBuyValue": -2603424360
   },
   {
     "investorType": "기타법인",
-    "askVolume": 37299,
-    "askValue": 2066950875,
-    "bidVolume": 20781,
-    "bidValue": 1147660170,
-    "netBuyVolume": -16518,
-    "netBuyValue": -919290705
+    "askVolume": 3,
+    "askValue": 101605,
+    "bidVolume": 14010,
+    "bidValue": 473639915,
+    "netBuyVolume": 14007,
+    "netBuyValue": 473538310
   },
   {
     "investorType": "개인",
-    "askVolume": 264283,
-    "askValue": 14574050274,
-    "bidVolume": 278328,
-    "bidValue": 15324674475,
-    "netBuyVolume": 14045,
-    "netBuyValue": 750624201
+    "askVolume": 80935,
+    "askValue": 2733189090,
+    "bidVolume": 61595,
+    "bidValue": 2082386645,
+    "netBuyVolume": -19340,
+    "netBuyValue": -650802445
   },
   {
     "investorType": "외국인",
-    "askVolume": 1359350,
-    "askValue": 74899063056,
-    "bidVolume": 1351054,
-    "bidValue": 74450554510,
-    "netBuyVolume": -8296,
-    "netBuyValue": -448508546
+    "askVolume": 404636,
+    "askValue": 13667507060,
+    "bidVolume": 487396,
+    "bidValue": 16464651115,
+    "netBuyVolume": 82760,
+    "netBuyValue": 2797144055
   },
   {
     "investorType": "기타외국인",
-    "askVolume": 14,
-    "askValue": 770035,
-    "bidVolume": 361,
-    "bidValue": 19822940,
-    "netBuyVolume": 347,
-    "netBuyValue": 19052905
+    "askVolume": 527,
+    "askValue": 17741590,
+    "bidVolume": 38,
+    "bidValue": 1286030,
+    "netBuyVolume": -489,
+    "netBuyValue": -16455560
   },
   {
     "investorType": "전체",
-    "askVolume": 3039332,
-    "askValue": 167405761983,
-    "bidVolume": 3039332,
-    "bidValue": 167405761983,
+    "askVolume": 1624150,
+    "askValue": 54884249225,
+    "bidVolume": 1624150,
+    "bidValue": 54884249225,
     "netBuyVolume": 0,
     "netBuyValue": 0
   }

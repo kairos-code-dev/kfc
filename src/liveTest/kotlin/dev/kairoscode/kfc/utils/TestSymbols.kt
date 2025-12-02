@@ -1,5 +1,7 @@
 package dev.kairoscode.kfc.utils
 
+import java.time.LocalDate
+
 /**
  * 테스트용 ETF 및 종목 코드 상수
  *
@@ -14,6 +16,10 @@ package dev.kairoscode.kfc.utils
  * ## 종목 선정 기준
  * - 삼성전자: 한국 대표 기업, 공시 데이터 풍부
  * - 카카오: IT 대표 기업, 활발한 공시 이력
+ *
+ * ## 고정 날짜 선정 기준
+ * - 거래일/비거래일: 2024년 11월 데이터 (안정적인 과거 데이터)
+ * - 공휴일 없는 기간 선택으로 일관성 보장
  */
 object TestSymbols {
     // ================================
@@ -48,4 +54,22 @@ object TestSymbols {
 
     /** 카카오 법인 코드 */
     const val KAKAO_CORP_CODE = "00222206"
+
+    // ================================
+    // 고정 날짜 (테스트 재현성 보장)
+    // ================================
+    /** 거래일 (2024-11-25, 월요일) - 안정적인 과거 거래일 */
+    val TRADING_DAY: LocalDate = LocalDate.of(2024, 11, 25)
+
+    /** 비거래일 (2024-11-23, 토요일) - 주말, 거래 없음 */
+    val NON_TRADING_DAY: LocalDate = LocalDate.of(2024, 11, 23)
+
+    /** 1개월 전 날짜 (2024-10-25) - 기간 테스트용 */
+    val ONE_MONTH_AGO: LocalDate = LocalDate.of(2024, 10, 25)
+
+    /** 3개월 전 날짜 (2024-08-25) - 기간 테스트용 */
+    val THREE_MONTHS_AGO: LocalDate = LocalDate.of(2024, 8, 25)
+
+    /** 1년 전 날짜 (2023-11-25) - 기간 테스트용 */
+    val ONE_YEAR_AGO: LocalDate = LocalDate.of(2023, 11, 25)
 }

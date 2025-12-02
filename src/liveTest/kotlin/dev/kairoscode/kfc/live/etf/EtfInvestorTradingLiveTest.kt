@@ -6,7 +6,7 @@ import dev.kairoscode.kfc.utils.ResponseRecorder
 import dev.kairoscode.kfc.utils.TestSymbols
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import java.time.LocalDate
+
 import org.junit.jupiter.api.Assertions.assertTrue
 
 /**
@@ -25,7 +25,7 @@ class EtfInvestorTradingLiveTest : LiveTestBase() {
     @DisplayName("특정 날짜의 전체 ETF 투자자별 거래를 조회할 수 있다")
     fun testGetAllInvestorTrading() = liveTest {
         // Given: 특정 거래일
-        val date = LocalDate.now().minusDays(7)
+        val date = TestSymbols.TRADING_DAY
 
         // When: 전체 ETF 투자자별 거래 조회
         val investorTrading = client.etf.getAllInvestorTrading(date)
@@ -48,7 +48,7 @@ class EtfInvestorTradingLiveTest : LiveTestBase() {
     @DisplayName("기간별 전체 ETF 투자자별 거래를 조회할 수 있다")
     fun testGetAllInvestorTradingByPeriod() = liveTest {
         // Given: 시작일, 종료일 (1개월)
-        val toDate = LocalDate.now().minusDays(7)
+        val toDate = TestSymbols.TRADING_DAY
         val fromDate = toDate.minusMonths(1)
 
         // When: 기간별 전체 ETF 투자자별 거래 조회
@@ -77,7 +77,7 @@ class EtfInvestorTradingLiveTest : LiveTestBase() {
     fun testGetInvestorTrading() = liveTest {
         // Given: TIGER 200 ISIN, 특정 날짜
         val isin = TestSymbols.TIGER_200_ISIN
-        val date = LocalDate.now().minusDays(7)
+        val date = TestSymbols.TRADING_DAY
 
         // When: 투자자별 거래 조회
         val investorTrading = client.etf.getInvestorTrading(isin, date)
@@ -100,7 +100,7 @@ class EtfInvestorTradingLiveTest : LiveTestBase() {
     fun testGetInvestorTradingByPeriod() = liveTest {
         // Given: TIGER 200 ISIN, 기간
         val isin = TestSymbols.TIGER_200_ISIN
-        val toDate = LocalDate.now().minusDays(7)
+        val toDate = TestSymbols.TRADING_DAY
         val fromDate = toDate.minusMonths(1)
 
         // When: 기간별 투자자별 거래 조회
@@ -127,7 +127,7 @@ class EtfInvestorTradingLiveTest : LiveTestBase() {
     @DisplayName("[활용] 투자자 유형별 순매수를 분석할 수 있다")
     fun testAnalyzeInvestorNetBuy() = liveTest {
         // Given: 전체 ETF 투자자별 거래 데이터
-        val date = LocalDate.now().minusDays(7)
+        val date = TestSymbols.TRADING_DAY
         val investorTrading = client.etf.getAllInvestorTrading(date)
 
         // When: 투자자 유형별 순매수 집계
@@ -142,7 +142,7 @@ class EtfInvestorTradingLiveTest : LiveTestBase() {
     fun testAnalyzeInstitutionalTradingTrend() = liveTest {
         // Given: 개별 ETF 기간별 데이터
         val isin = TestSymbols.TIGER_200_ISIN
-        val toDate = LocalDate.now().minusDays(7)
+        val toDate = TestSymbols.TRADING_DAY
         val fromDate = toDate.minusMonths(1)
         val investorTradingByDate = client.etf.getInvestorTradingByPeriod(isin, fromDate, toDate)
 

@@ -6,7 +6,7 @@ import dev.kairoscode.kfc.utils.ResponseRecorder
 import dev.kairoscode.kfc.utils.TestSymbols
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import java.time.LocalDate
+
 import org.junit.jupiter.api.Assertions.assertTrue
 
 /**
@@ -25,7 +25,7 @@ class EtfShortLiveTest : LiveTestBase() {
     fun testGetShortSelling() = liveTest {
         // Given: TIGER 200 ISIN, 1개월 기간
         val isin = TestSymbols.TIGER_200_ISIN
-        val toDate = LocalDate.now().minusDays(7)
+        val toDate = TestSymbols.TRADING_DAY
         val fromDate = toDate.minusMonths(1)
 
         // When: 공매도 거래 조회
@@ -50,7 +50,7 @@ class EtfShortLiveTest : LiveTestBase() {
     fun testGetShortSellingKodex200() = liveTest {
         // Given: KODEX 200 ISIN
         val isin = TestSymbols.KODEX_200_ISIN
-        val toDate = LocalDate.now().minusDays(7)
+        val toDate = TestSymbols.TRADING_DAY
         val fromDate = toDate.minusMonths(1)
 
         // When: 공매도 거래 조회
@@ -78,7 +78,7 @@ class EtfShortLiveTest : LiveTestBase() {
     fun testGetShortBalance() = liveTest {
         // Given: TIGER 200 ISIN, 1개월 기간
         val isin = TestSymbols.TIGER_200_ISIN
-        val toDate = LocalDate.now().minusDays(7)
+        val toDate = TestSymbols.TRADING_DAY
         val fromDate = toDate.minusMonths(1)
 
         // When: 공매도 잔고 조회
@@ -103,7 +103,7 @@ class EtfShortLiveTest : LiveTestBase() {
     fun testGetShortBalanceKodex200() = liveTest {
         // Given: KODEX 200 ISIN
         val isin = TestSymbols.KODEX_200_ISIN
-        val toDate = LocalDate.now().minusDays(7)
+        val toDate = TestSymbols.TRADING_DAY
         val fromDate = toDate.minusMonths(1)
 
         // When: 공매도 잔고 조회
@@ -131,7 +131,7 @@ class EtfShortLiveTest : LiveTestBase() {
     fun testCalculateShortRatio() = liveTest {
         // Given: 공매도 잔고 데이터
         val isin = TestSymbols.TIGER_200_ISIN
-        val toDate = LocalDate.now().minusDays(7)
+        val toDate = TestSymbols.TRADING_DAY
         val fromDate = toDate.minusDays(7) // 최근 1일
         val shortBalances = client.etf.getShortBalance(isin, fromDate, toDate)
 
@@ -152,7 +152,7 @@ class EtfShortLiveTest : LiveTestBase() {
     fun testShortSellingTrend() = liveTest {
         // Given: 공매도 거래 데이터
         val isin = TestSymbols.TIGER_200_ISIN
-        val toDate = LocalDate.now().minusDays(7)
+        val toDate = TestSymbols.TRADING_DAY
         val fromDate = toDate.minusMonths(1)
         val shortSellings = client.etf.getShortSelling(isin, fromDate, toDate)
 

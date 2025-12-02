@@ -1,200 +1,200 @@
 [
   {
-    "tradeDate": "2025-10-27",
-    "nav": "56858.20",
-    "navChangeRate": 2.81,
-    "indexValue": "565.69",
-    "indexChangeRate": 2.81,
+    "tradeDate": "2024-10-25",
+    "nav": "34628.60",
+    "navChangeRate": 0.14,
+    "indexValue": "343.37",
+    "indexChangeRate": 0.14,
     "trackingMultiple": "1.00",
-    "trackingErrorRate": 0.65
+    "trackingErrorRate": 0.66
   },
   {
-    "tradeDate": "2025-10-28",
-    "nav": "56238.06",
-    "navChangeRate": -1.1,
-    "indexValue": "559.51",
-    "indexChangeRate": -1.1,
+    "tradeDate": "2024-10-28",
+    "nav": "35020.43",
+    "navChangeRate": 1.13,
+    "indexValue": "347.27",
+    "indexChangeRate": 1.13,
     "trackingMultiple": "1.00",
-    "trackingErrorRate": 0.65
+    "trackingErrorRate": 0.66
   },
   {
-    "tradeDate": "2025-10-29",
-    "nav": "57295.04",
-    "navChangeRate": 1.86,
-    "indexValue": "571.51",
-    "indexChangeRate": 2.12,
+    "tradeDate": "2024-10-29",
+    "nav": "34999.48",
+    "navChangeRate": -0.06,
+    "indexValue": "348.28",
+    "indexChangeRate": 0.29,
     "trackingMultiple": "1.00",
-    "trackingErrorRate": 0.65
+    "trackingErrorRate": 0.66
   },
   {
-    "tradeDate": "2025-10-30",
-    "nav": "57662.85",
-    "navChangeRate": 0.64,
-    "indexValue": "575.21",
-    "indexChangeRate": 0.65,
+    "tradeDate": "2024-10-30",
+    "nav": "34673.99",
+    "navChangeRate": -0.93,
+    "indexValue": "345.00",
+    "indexChangeRate": -0.95,
     "trackingMultiple": "1.00",
-    "trackingErrorRate": 0.65
+    "trackingErrorRate": 0.66
   },
   {
-    "tradeDate": "2025-10-31",
-    "nav": "58090.44",
-    "navChangeRate": 0.74,
-    "indexValue": "579.46",
-    "indexChangeRate": 0.74,
+    "tradeDate": "2024-10-31",
+    "nav": "34103.05",
+    "navChangeRate": -1.66,
+    "indexValue": "339.32",
+    "indexChangeRate": -1.66,
     "trackingMultiple": "1.00",
-    "trackingErrorRate": 0.65
+    "trackingErrorRate": 0.66
   },
   {
-    "tradeDate": "2025-11-03",
-    "nav": "60058.03",
-    "navChangeRate": 3.33,
-    "indexValue": "599.03",
-    "indexChangeRate": 3.32,
+    "tradeDate": "2024-11-01",
+    "nav": "33919.23",
+    "navChangeRate": -0.54,
+    "indexValue": "337.49",
+    "indexChangeRate": -0.54,
     "trackingMultiple": "1.00",
-    "trackingErrorRate": 0.65
+    "trackingErrorRate": 0.66
   },
   {
-    "tradeDate": "2025-11-04",
-    "nav": "58351.32",
-    "navChangeRate": -2.88,
-    "indexValue": "581.94",
-    "indexChangeRate": -2.89,
+    "tradeDate": "2024-11-04",
+    "nav": "34531.31",
+    "navChangeRate": 1.79,
+    "indexValue": "343.60",
+    "indexChangeRate": 1.79,
     "trackingMultiple": "1.00",
-    "trackingErrorRate": 0.65
+    "trackingErrorRate": 0.66
   },
   {
-    "tradeDate": "2025-11-05",
-    "nav": "56693.73",
-    "navChangeRate": -2.88,
-    "indexValue": "565.40",
-    "indexChangeRate": -2.88,
+    "tradeDate": "2024-11-05",
+    "nav": "34318.62",
+    "navChangeRate": -0.62,
+    "indexValue": "341.47",
+    "indexChangeRate": -0.62,
     "trackingMultiple": "1.00",
-    "trackingErrorRate": 0.65
+    "trackingErrorRate": 0.66
   },
   {
-    "tradeDate": "2025-11-06",
-    "nav": "56994.53",
-    "navChangeRate": 0.53,
-    "indexValue": "568.38",
-    "indexChangeRate": 0.53,
+    "tradeDate": "2024-11-06",
+    "nav": "34233.30",
+    "navChangeRate": -0.25,
+    "indexValue": "340.61",
+    "indexChangeRate": -0.25,
     "trackingMultiple": "1.00",
-    "trackingErrorRate": 0.65
+    "trackingErrorRate": 0.66
   },
   {
-    "tradeDate": "2025-11-07",
-    "nav": "55956.67",
-    "navChangeRate": -1.84,
-    "indexValue": "557.98",
-    "indexChangeRate": -1.85,
-    "trackingMultiple": "1.00",
-    "trackingErrorRate": 0.65
-  },
-  {
-    "tradeDate": "2025-11-10",
-    "nav": "57696.14",
-    "navChangeRate": 3.06,
-    "indexValue": "575.31",
-    "indexChangeRate": 3.06,
-    "trackingMultiple": "1.00",
-    "trackingErrorRate": 0.65
-  },
-  {
-    "tradeDate": "2025-11-11",
-    "nav": "58313.62",
-    "navChangeRate": 1.06,
-    "indexValue": "581.41",
-    "indexChangeRate": 1.05,
-    "trackingMultiple": "1.00",
-    "trackingErrorRate": 0.65
-  },
-  {
-    "tradeDate": "2025-11-12",
-    "nav": "58850.81",
-    "navChangeRate": 0.92,
-    "indexValue": "586.73",
-    "indexChangeRate": 0.91,
-    "trackingMultiple": "1.00",
-    "trackingErrorRate": 0.65
-  },
-  {
-    "tradeDate": "2025-11-13",
-    "nav": "59052.92",
-    "navChangeRate": 0.34,
-    "indexValue": "588.65",
-    "indexChangeRate": 0.33,
-    "trackingMultiple": "1.00",
-    "trackingErrorRate": 0.65
-  },
-  {
-    "tradeDate": "2025-11-14",
-    "nav": "56525.28",
-    "navChangeRate": -4.37,
-    "indexValue": "563.43",
-    "indexChangeRate": -4.38,
-    "trackingMultiple": "1.00",
-    "trackingErrorRate": 0.65
-  },
-  {
-    "tradeDate": "2025-11-17",
-    "nav": "57848.85",
-    "navChangeRate": 2.31,
-    "indexValue": "576.65",
-    "indexChangeRate": 2.32,
-    "trackingMultiple": "1.00",
-    "trackingErrorRate": 0.65
-  },
-  {
-    "tradeDate": "2025-11-18",
-    "nav": "55822.92",
-    "navChangeRate": -3.56,
-    "indexValue": "556.45",
-    "indexChangeRate": -3.57,
-    "trackingMultiple": "1.00",
-    "trackingErrorRate": 0.65
-  },
-  {
-    "tradeDate": "2025-11-19",
-    "nav": "55447.04",
-    "navChangeRate": -0.68,
-    "indexValue": "552.66",
-    "indexChangeRate": -0.68,
-    "trackingMultiple": "1.00",
-    "trackingErrorRate": 0.65
-  },
-  {
-    "tradeDate": "2025-11-20",
-    "nav": "56602.92",
-    "navChangeRate": 2.06,
-    "indexValue": "564.20",
-    "indexChangeRate": 2.07,
-    "trackingMultiple": "1.00",
-    "trackingErrorRate": 0.65
-  },
-  {
-    "tradeDate": "2025-11-21",
-    "nav": "54215.36",
-    "navChangeRate": -4.31,
-    "indexValue": "540.36",
-    "indexChangeRate": -4.32,
-    "trackingMultiple": "1.00",
-    "trackingErrorRate": 0.65
-  },
-  {
-    "tradeDate": "2025-11-24",
-    "nav": "54304.04",
-    "navChangeRate": 0.16,
-    "indexValue": "540.81",
+    "tradeDate": "2024-11-07",
+    "nav": "34259.10",
+    "navChangeRate": 0.08,
+    "indexValue": "340.87",
     "indexChangeRate": 0.08,
     "trackingMultiple": "1.00",
-    "trackingErrorRate": 0.65
+    "trackingErrorRate": 0.66
   },
   {
-    "tradeDate": "2025-11-25",
-    "nav": "54693.57",
-    "navChangeRate": 0.71,
-    "indexValue": "544.62",
-    "indexChangeRate": 0.7,
+    "tradeDate": "2024-11-08",
+    "nav": "34144.13",
+    "navChangeRate": -0.34,
+    "indexValue": "339.71",
+    "indexChangeRate": -0.34,
     "trackingMultiple": "1.00",
-    "trackingErrorRate": 0.65
+    "trackingErrorRate": 0.66
+  },
+  {
+    "tradeDate": "2024-11-11",
+    "nav": "33636.97",
+    "navChangeRate": -1.5,
+    "indexValue": "334.64",
+    "indexChangeRate": -1.5,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.66
+  },
+  {
+    "tradeDate": "2024-11-12",
+    "nav": "32900.84",
+    "navChangeRate": -2.21,
+    "indexValue": "327.31",
+    "indexChangeRate": -2.21,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.66
+  },
+  {
+    "tradeDate": "2024-11-13",
+    "nav": "32050.97",
+    "navChangeRate": -2.62,
+    "indexValue": "318.84",
+    "indexChangeRate": -2.62,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.66
+  },
+  {
+    "tradeDate": "2024-11-14",
+    "nav": "31935.86",
+    "navChangeRate": -0.36,
+    "indexValue": "317.70",
+    "indexChangeRate": -0.36,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.66
+  },
+  {
+    "tradeDate": "2024-11-15",
+    "nav": "32219.74",
+    "navChangeRate": 0.88,
+    "indexValue": "320.53",
+    "indexChangeRate": 0.89,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.66
+  },
+  {
+    "tradeDate": "2024-11-18",
+    "nav": "33013.30",
+    "navChangeRate": 2.43,
+    "indexValue": "328.44",
+    "indexChangeRate": 2.44,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.66
+  },
+  {
+    "tradeDate": "2024-11-19",
+    "nav": "32980.22",
+    "navChangeRate": -0.1,
+    "indexValue": "328.11",
+    "indexChangeRate": -0.1,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.66
+  },
+  {
+    "tradeDate": "2024-11-20",
+    "nav": "33073.16",
+    "navChangeRate": 0.28,
+    "indexValue": "329.02",
+    "indexChangeRate": 0.28,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.66
+  },
+  {
+    "tradeDate": "2024-11-21",
+    "nav": "33119.85",
+    "navChangeRate": 0.14,
+    "indexValue": "329.49",
+    "indexChangeRate": 0.14,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.66
+  },
+  {
+    "tradeDate": "2024-11-22",
+    "nav": "33408.09",
+    "navChangeRate": 0.87,
+    "indexValue": "332.36",
+    "indexChangeRate": 0.87,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.66
+  },
+  {
+    "tradeDate": "2024-11-25",
+    "nav": "33837.05",
+    "navChangeRate": 1.28,
+    "indexValue": "336.63",
+    "indexChangeRate": 1.28,
+    "trackingMultiple": "1.00",
+    "trackingErrorRate": 0.66
   }
 ]

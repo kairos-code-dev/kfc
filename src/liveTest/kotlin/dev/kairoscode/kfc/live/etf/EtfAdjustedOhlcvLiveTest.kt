@@ -6,7 +6,7 @@ import dev.kairoscode.kfc.utils.ResponseRecorder
 import dev.kairoscode.kfc.utils.TestSymbols
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import java.time.LocalDate
+
 import org.junit.jupiter.api.Assertions.assertTrue
 
 /**
@@ -21,7 +21,7 @@ class EtfAdjustedOhlcvLiveTest : LiveTestBase() {
     fun testGetAdjustedOhlcv() = liveTest {
         // Given: TIGER 200 티커 (6자리)
         val ticker = TestSymbols.TIGER_200_TICKER
-        val toDate = LocalDate.now().minusDays(7)
+        val toDate = TestSymbols.TRADING_DAY
         val fromDate = toDate.minusMonths(1)
 
         // When: 조정주가 OHLCV 조회
@@ -54,7 +54,7 @@ class EtfAdjustedOhlcvLiveTest : LiveTestBase() {
     fun testGetAdjustedOhlcvKodex200() = liveTest {
         // Given: KODEX 200 티커
         val ticker = TestSymbols.KODEX_200_TICKER
-        val toDate = LocalDate.now().minusDays(7)
+        val toDate = TestSymbols.TRADING_DAY
         val fromDate = toDate.minusMonths(1)
 
         // When: 조정주가 OHLCV 조회
@@ -78,7 +78,7 @@ class EtfAdjustedOhlcvLiveTest : LiveTestBase() {
     fun testAdjustedReturnCalculation() = liveTest {
         // Given: 조정주가 OHLCV 데이터
         val ticker = TestSymbols.TIGER_200_TICKER
-        val toDate = LocalDate.now().minusDays(7)
+        val toDate = TestSymbols.TRADING_DAY
         val fromDate = toDate.minusMonths(3)
         val adjustedOhlcvList = client.etf.getAdjustedOhlcv(ticker, fromDate, toDate)
 
