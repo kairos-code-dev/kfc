@@ -1,7 +1,7 @@
 package dev.kairoscode.kfc.utils
 
 import dev.kairoscode.kfc.KfcClient
-import dev.kairoscode.kfc.api.EtfApi
+import dev.kairoscode.kfc.api.FundsApi
 import dev.kairoscode.kfc.api.CorpApi
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.AfterEach
@@ -16,17 +16,17 @@ import kotlin.time.Duration.Companion.seconds
  *
  * ## 사용 예제
  * ```kotlin
- * class EtfApiTest : UnitTestBase() {
+ * class FundsApiTest : UnitTestBase() {
  *     @Test
- *     fun `ETF 목록 조회 테스트`() = unitTest {
+ *     fun `펀드 목록 조회 테스트`() = unitTest {
  *         // Mock 응답 설정
- *         mockEtfApi = MockEtfApi(
+ *         mockFundsApi = MockFundsApi(
  *             listResponse = JsonResponseLoader.load("etf/list", "etf_list_all")
  *         )
  *         initClient()
  *
  *         // 테스트 실행
- *         val result = client.etf.getList()
+ *         val result = client.funds.getList()
  *         result.assertNotEmpty()
  *     }
  * }
@@ -42,42 +42,46 @@ import kotlin.time.Duration.Companion.seconds
 abstract class UnitTestBase {
 
     protected lateinit var client: KfcClient
-    protected var mockEtfApi: EtfApi? = null
+    protected var mockFundsApi: FundsApi? = null
     protected var mockCorpApi: CorpApi? = null
 
     /**
      * Mock API를 주입하여 KfcClient 생성
      *
-     * 테스트 케이스에서 mockEtfApi 또는 mockCorpApi를 설정한 후
+     * 테스트 케이스에서 mockFundsApi 또는 mockCorpApi를 설정한 후
      * 이 메서드를 호출하여 client를 초기화합니다.
      */
     protected fun initClient() {
-        require(mockEtfApi != null || mockCorpApi != null) {
-            "mockEtfApi 또는 mockCorpApi를 먼저 설정해야 합니다"
+        require(mockFundsApi != null || mockCorpApi != null) {
+            "mockFundsApi 또는 mockCorpApi를 먼저 설정해야 합니다"
         }
 
-        // KfcClient 생성자는 etf가 필수이고 corp는 optional이므로
-        // mockEtfApi가 없으면 dummy EtfApi 생성
-        val dummyEtfApi = object : EtfApi {
-            override suspend fun getList() = emptyList<dev.kairoscode.kfc.model.krx.EtfListItem>()
-            override suspend fun getComprehensiveInfo(isin: String, tradeDate: java.time.LocalDate) = null
+        // KfcClient 생성자는 funds가 필수이고 corp는 optional이므로
+        // mockFundsApi가 없으면 dummy FundsApi 생성
+        val dummyFundsApi = object : FundsApi {
+            override suspend fun getList(type: dev.kairoscode.kfc.model.FundType?) = emptyList<dev.kairoscode.kfc.model.krx.EtfListItem>()
+            override suspend fun getDetailedInfo(isin: String, tradeDate: java.time.LocalDate) = null
+            override suspend fun getIntradayBars(isin: String, tradeDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.EtfIntradayBar>()
+            override suspend fun getRecentDaily(isin: String, tradeDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.EtfRecentDaily>()
+            override suspend fun getGeneralInfo(isin: String, tradeDate: java.time.LocalDate) = null
             override suspend fun getAllDailyPrices(date: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.EtfDailyPrice>()
             override suspend fun getOhlcv(isin: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.EtfOhlcv>()
             override suspend fun getAdjustedOhlcv(ticker: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.naver.NaverEtfOhlcv>()
             override suspend fun getPriceChanges(fromDate: java.time.LocalDate, toDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.EtfPriceChange>()
             override suspend fun getPortfolio(isin: String, date: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.PortfolioConstituent>()
+            override suspend fun getPortfolioTop10(isin: String, date: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.PortfolioTopItem>()
             override suspend fun getTrackingError(isin: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.TrackingError>()
             override suspend fun getDivergenceRate(isin: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.DivergenceRate>()
             override suspend fun getAllInvestorTrading(date: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.InvestorTrading>()
             override suspend fun getAllInvestorTradingByPeriod(fromDate: java.time.LocalDate, toDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.InvestorTradingByDate>()
             override suspend fun getInvestorTrading(isin: String, date: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.InvestorTrading>()
             override suspend fun getInvestorTradingByPeriod(isin: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.InvestorTradingByDate>()
-            override suspend fun getShortSelling(isin: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.ShortSelling>()
-            override suspend fun getShortBalance(isin: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.ShortBalance>()
+            override suspend fun getShortSelling(isin: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate, type: dev.kairoscode.kfc.model.FundType) = emptyList<dev.kairoscode.kfc.model.krx.ShortSelling>()
+            override suspend fun getShortBalance(isin: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate, type: dev.kairoscode.kfc.model.FundType) = emptyList<dev.kairoscode.kfc.model.krx.ShortBalance>()
         }
 
         client = KfcClient(
-            etf = mockEtfApi ?: dummyEtfApi,
+            funds = mockFundsApi ?: dummyFundsApi,
             corp = mockCorpApi
         )
     }
@@ -97,6 +101,10 @@ abstract class UnitTestBase {
     protected fun loadEtfListResponse(fileName: String) =
         loadMockResponse("etf/list", fileName)
 
+    protected fun loadEtfDetailedInfoResponse(fileName: String) =
+        loadMockResponse("etf/metrics/detailed_info", fileName)
+
+    @Deprecated("Use loadEtfDetailedInfoResponse instead", ReplaceWith("loadEtfDetailedInfoResponse(fileName)"))
     protected fun loadEtfComprehensiveResponse(fileName: String) =
         loadMockResponse("etf/comprehensive", fileName)
 

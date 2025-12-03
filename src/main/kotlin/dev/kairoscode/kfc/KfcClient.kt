@@ -1,11 +1,11 @@
 package dev.kairoscode.kfc
 
 import dev.kairoscode.kfc.api.CorpApi
-import dev.kairoscode.kfc.api.EtfApi
+import dev.kairoscode.kfc.api.FundsApi
 import dev.kairoscode.kfc.internal.CorpApiImpl
-import dev.kairoscode.kfc.internal.EtfApiImpl
-import dev.kairoscode.kfc.internal.krx.KrxEtfApiImpl
-import dev.kairoscode.kfc.internal.naver.NaverEtfApiImpl
+import dev.kairoscode.kfc.internal.FundsApiImpl
+import dev.kairoscode.kfc.internal.krx.KrxFundsApiImpl
+import dev.kairoscode.kfc.internal.naver.NaverFundsApiImpl
 import dev.kairoscode.kfc.internal.opendart.OpenDartApiImpl
 import dev.kairoscode.kfc.internal.ratelimit.RateLimitingSettings
 import dev.kairoscode.kfc.internal.ratelimit.TokenBucketRateLimiter
@@ -16,13 +16,13 @@ import dev.kairoscode.kfc.internal.ratelimit.TokenBucketRateLimiter
  * 한국 금융 데이터 조회를 위한 통합 Facade 클라이언트입니다.
  *
  * 이 클라이언트는 다음 도메인에 대한 통합 접근을 제공합니다:
- * - **ETF 도메인**: ETF 관련 모든 데이터 (KRX + Naver 통합)
+ * - **펀드/증권상품 도메인**: ETF 및 기타 펀드 관련 모든 데이터 (KRX + Naver 통합)
  * - **기업 공시 도메인**: 기업 공시 관련 데이터 (OPENDART)
  *
  * ## 사용 예제
  *
  * ```kotlin
- * // 기본 생성 (ETF 도메인만 사용)
+ * // 기본 생성 (펀드/증권상품 도메인만 사용)
  * val kfc = KfcClient.create()
  *
  * // OPENDART API 함께 사용
@@ -31,10 +31,10 @@ import dev.kairoscode.kfc.internal.ratelimit.TokenBucketRateLimiter
  * )
  *
  * // ETF 목록 조회 (from KRX)
- * val etfList = kfc.etf.getList()
+ * val etfList = kfc.funds.getList()
  *
  * // 조정주가 조회 (from Naver)
- * val adjustedPrice = kfc.etf.getAdjustedOhlcv(
+ * val adjustedPrice = kfc.funds.getAdjustedOhlcv(
  *     ticker = "069500",
  *     fromDate = LocalDate.of(2024, 1, 1),
  *     toDate = LocalDate.of(2024, 12, 31)
@@ -47,11 +47,11 @@ import dev.kairoscode.kfc.internal.ratelimit.TokenBucketRateLimiter
  * )
  * ```
  *
- * @property etf ETF 도메인 API (KRX + Naver 통합)
+ * @property funds 펀드/증권상품 도메인 API (KRX + Naver 통합, ETF 포함)
  * @property corp 기업 공시 도메인 API (API Key 제공 시에만 사용 가능)
  */
 class KfcClient internal constructor(
-    val etf: EtfApi,
+    val funds: FundsApi,
     val corp: CorpApi?
 ) {
 
@@ -73,16 +73,16 @@ class KfcClient internal constructor(
             val opendartRateLimiter = TokenBucketRateLimiter(rateLimitingSettings.opendart)
 
             // 소스별 API 구현체 생성
-            val krxApi = KrxEtfApiImpl(rateLimiter = krxRateLimiter)
-            val naverApi = NaverEtfApiImpl(rateLimiter = naverRateLimiter)
+            val krxApi = KrxFundsApiImpl(rateLimiter = krxRateLimiter)
+            val naverApi = NaverFundsApiImpl(rateLimiter = naverRateLimiter)
             val openDartApi = opendartApiKey?.let { OpenDartApiImpl(apiKey = it, rateLimiter = opendartRateLimiter) }
 
             // 도메인별 API 구현체 생성 (소스별 API 재사용)
-            val etfApi = EtfApiImpl(krxApi = krxApi, naverApi = naverApi)
+            val fundsApi = FundsApiImpl(krxFundsApi = krxApi, naverFundsApi = naverApi)
             val corpApi = openDartApi?.let { CorpApiImpl(openDartApi = it) }
 
             return KfcClient(
-                etf = etfApi,
+                funds = fundsApi,
                 corp = corpApi
             )
         }

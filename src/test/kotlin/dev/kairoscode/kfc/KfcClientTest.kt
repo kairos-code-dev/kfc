@@ -12,26 +12,26 @@ import java.time.LocalDate
 class KfcClientTest {
 
     @Test
-    fun `ETF 도메인 API가 정상적으로 동작하는지 확인`() = runBlocking {
+    fun `펀드 도메인 API가 정상적으로 동작하는지 확인`() = runBlocking {
         // given
         val kfc = KfcClient.create()
 
         // when
-        val etfList = kfc.etf.getList()
+        val fundsList = kfc.funds.getList()
 
         // then
-        assert(etfList.isNotEmpty()) { "ETF 목록이 비어있으면 안됩니다" }
-        println("✅ ETF 목록 조회 성공: ${etfList.size}개")
+        assert(fundsList.isNotEmpty()) { "펀드 목록이 비어있으면 안됩니다" }
+        println("✅ 펀드 목록 조회 성공: ${fundsList.size}개")
     }
 
     @Test
-    fun `ETF OHLCV 조회가 정상적으로 동작하는지 확인`() = runBlocking {
+    fun `펀드 OHLCV 조회가 정상적으로 동작하는지 확인`() = runBlocking {
         // given
         val kfc = KfcClient.create()
         val isin = "KR7152100004" // ARIRANG 200
 
         // when
-        val ohlcv = kfc.etf.getOhlcv(
+        val ohlcv = kfc.funds.getOhlcv(
             isin = isin,
             fromDate = LocalDate.of(2024, 1, 1),
             toDate = LocalDate.of(2024, 1, 31)
@@ -49,7 +49,7 @@ class KfcClientTest {
         val ticker = "152100"
 
         // when
-        val adjustedOhlcv = kfc.etf.getAdjustedOhlcv(
+        val adjustedOhlcv = kfc.funds.getAdjustedOhlcv(
             ticker = ticker,
             fromDate = LocalDate.of(2024, 1, 1),
             toDate = LocalDate.of(2024, 1, 31)

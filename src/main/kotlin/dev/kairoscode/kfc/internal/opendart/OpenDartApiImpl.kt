@@ -3,6 +3,7 @@ package dev.kairoscode.kfc.internal.opendart
 import dev.kairoscode.kfc.api.opendart.OpenDartApi
 import dev.kairoscode.kfc.exception.ErrorCode
 import dev.kairoscode.kfc.exception.KfcException
+import dev.kairoscode.kfc.internal.installResponseRecording
 import dev.kairoscode.kfc.internal.ratelimit.RateLimiter
 import dev.kairoscode.kfc.internal.ratelimit.RateLimitingSettings
 import dev.kairoscode.kfc.internal.ratelimit.TokenBucketRateLimiter
@@ -39,6 +40,9 @@ internal class OpenDartApiImpl(
 ) : OpenDartApi {
 
     private val httpClient = HttpClient(CIO) {
+        // 응답 레코딩 플러그인 설치 (ResponseRecordingContext가 있을 때만 동작)
+        installResponseRecording()
+
         install(ContentNegotiation) {
             json(Json {
                 prettyPrint = true

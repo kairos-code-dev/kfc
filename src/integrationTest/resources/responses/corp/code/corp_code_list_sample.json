@@ -1,0 +1,5037 @@
+[
+  {
+    "corpCode": "01335028",
+    "corpName": "계양이앤씨",
+    "modifyDate": "2018-10-24"
+  },
+  {
+    "corpCode": "01780060",
+    "corpName": "엑스페디오투",
+    "modifyDate": "2023-08-08"
+  },
+  {
+    "corpCode": "00675178",
+    "corpName": "동화개발",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01664452",
+    "corpName": "에스제이씨앤디",
+    "modifyDate": "2023-02-14"
+  },
+  {
+    "corpCode": "01537787",
+    "corpName": "아크",
+    "modifyDate": "2024-06-28"
+  },
+  {
+    "corpCode": "00784689",
+    "corpName": "궁전종합건설",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01753367",
+    "corpName": "원주택",
+    "modifyDate": "2023-05-03"
+  },
+  {
+    "corpCode": "00843715",
+    "corpName": "디지비신용정보",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00571438",
+    "corpName": "세창씨엠",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01505344",
+    "corpName": "케이피알엠",
+    "modifyDate": "2023-02-13"
+  },
+  {
+    "corpCode": "00649067",
+    "corpName": "일창프리시젼",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00261522",
+    "corpName": "시지테크",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01465435",
+    "corpName": "에프에이모스트",
+    "modifyDate": "2022-02-23"
+  },
+  {
+    "corpCode": "00562528",
+    "corpName": "제이앤케이개발",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01257924",
+    "corpName": "장현에스에이치",
+    "modifyDate": "2018-03-13"
+  },
+  {
+    "corpCode": "00359085",
+    "corpName": "신원화학",
+    "modifyDate": "2023-02-22"
+  },
+  {
+    "corpCode": "01747807",
+    "corpName": "랜드시엘",
+    "modifyDate": "2023-04-27"
+  },
+  {
+    "corpCode": "01152647",
+    "corpName": "유진정밀",
+    "modifyDate": "2024-06-28"
+  },
+  {
+    "corpCode": "01909203",
+    "corpName": "필인베스트랜드",
+    "modifyDate": "2025-04-30"
+  },
+  {
+    "corpCode": "00786030",
+    "corpName": "엔에이치피홀딩스",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01935642",
+    "corpName": "케이비메자닌캐피탈제4호사모투자",
+    "modifyDate": "2025-06-17"
+  },
+  {
+    "corpCode": "00255460",
+    "corpName": "세마앤드남경",
+    "modifyDate": "2022-02-23"
+  },
+  {
+    "corpCode": "01445264",
+    "corpName": "서주엔터프라이즈",
+    "modifyDate": "2023-02-10"
+  },
+  {
+    "corpCode": "01778418",
+    "corpName": "헤븐리치",
+    "modifyDate": "2023-08-07"
+  },
+  {
+    "corpCode": "01132528",
+    "corpName": "농업회사법인봉화",
+    "modifyDate": "2022-01-14"
+  },
+  {
+    "corpCode": "01334773",
+    "corpName": "청남",
+    "modifyDate": "2018-10-15"
+  },
+  {
+    "corpCode": "00366483",
+    "corpName": "디더블유",
+    "modifyDate": "2019-03-11"
+  },
+  {
+    "corpCode": "01369502",
+    "corpName": "에이치아이티에스",
+    "modifyDate": "2022-05-04"
+  },
+  {
+    "corpCode": "01556320",
+    "corpName": "무안솔라파크",
+    "modifyDate": "2022-02-28"
+  },
+  {
+    "corpCode": "00916905",
+    "corpName": "제주힐C.C",
+    "modifyDate": "2018-04-19"
+  },
+  {
+    "corpCode": "01694116",
+    "corpName": "신보2022제22차유동화전문유한회사",
+    "modifyDate": "2022-10-17"
+  },
+  {
+    "corpCode": "00532129",
+    "corpName": "영림원소프트랩",
+    "stockCode": "060850",
+    "modifyDate": "2022-02-25"
+  },
+  {
+    "corpCode": "00465924",
+    "corpName": "BT(International)HoldingsLimited",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00550949",
+    "corpName": "녹천물산",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01469255",
+    "corpName": "에스엔에이",
+    "modifyDate": "2023-02-23"
+  },
+  {
+    "corpCode": "01654084",
+    "corpName": "세유",
+    "modifyDate": "2024-02-28"
+  },
+  {
+    "corpCode": "00627384",
+    "corpName": "이스트블루",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00442598",
+    "corpName": "코리아마트",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00408053",
+    "corpName": "에스엔프로퍼티스",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01624685",
+    "corpName": "네오스프링",
+    "modifyDate": "2022-04-27"
+  },
+  {
+    "corpCode": "00915340",
+    "corpName": "지텍",
+    "modifyDate": "2025-02-19"
+  },
+  {
+    "corpCode": "01642131",
+    "corpName": "핀업",
+    "modifyDate": "2023-02-15"
+  },
+  {
+    "corpCode": "00964559",
+    "corpName": "대한도장플랜트",
+    "modifyDate": "2019-02-14"
+  },
+  {
+    "corpCode": "01629644",
+    "corpName": "고것참식품",
+    "modifyDate": "2024-06-28"
+  },
+  {
+    "corpCode": "01650635",
+    "corpName": "웅상종합철강",
+    "modifyDate": "2023-02-21"
+  },
+  {
+    "corpCode": "00233185",
+    "corpName": "신흥기업",
+    "modifyDate": "2022-02-23"
+  },
+  {
+    "corpCode": "00407823",
+    "corpName": "신성엔지니어링",
+    "modifyDate": "2022-02-22"
+  },
+  {
+    "corpCode": "01757691",
+    "corpName": "아이헤이트플라잉버그스",
+    "modifyDate": "2023-05-12"
+  },
+  {
+    "corpCode": "01467248",
+    "corpName": "씨스타마리타임",
+    "modifyDate": "2023-02-23"
+  },
+  {
+    "corpCode": "01531862",
+    "corpName": "케이디탱크터미널",
+    "modifyDate": "2023-02-15"
+  },
+  {
+    "corpCode": "01759079",
+    "corpName": "유니에스시큐리티",
+    "modifyDate": "2023-05-10"
+  },
+  {
+    "corpCode": "01284575",
+    "corpName": "와이케이오봉",
+    "modifyDate": "2018-06-19"
+  },
+  {
+    "corpCode": "00694225",
+    "corpName": "오리엔트바이오NHP",
+    "modifyDate": "2024-06-28"
+  },
+  {
+    "corpCode": "00628897",
+    "corpName": "베르상스퍼시픽",
+    "modifyDate": "2023-02-22"
+  },
+  {
+    "corpCode": "01686852",
+    "corpName": "더원코리아",
+    "modifyDate": "2023-02-20"
+  },
+  {
+    "corpCode": "01153716",
+    "corpName": "에이치에스하이테크",
+    "modifyDate": "2023-04-06"
+  },
+  {
+    "corpCode": "00207311",
+    "corpName": "한국신문잉크",
+    "modifyDate": "2023-04-06"
+  },
+  {
+    "corpCode": "01021471",
+    "corpName": "국제산업렌탈",
+    "modifyDate": "2024-02-26"
+  },
+  {
+    "corpCode": "01844447",
+    "corpName": "주)정원디이피",
+    "modifyDate": "2024-05-10"
+  },
+  {
+    "corpCode": "01350027",
+    "corpName": "지티이노베이션",
+    "modifyDate": "2022-02-25"
+  },
+  {
+    "corpCode": "01217883",
+    "corpName": "브이에프케이헤드",
+    "modifyDate": "2018-05-08"
+  },
+  {
+    "corpCode": "01819566",
+    "corpName": "키스에스에프제이십육차",
+    "modifyDate": "2024-03-29"
+  },
+  {
+    "corpCode": "01899988",
+    "corpName": "혜초여행개발",
+    "modifyDate": "2025-04-29"
+  },
+  {
+    "corpCode": "01331952",
+    "corpName": "에스에스코퍼레이션",
+    "modifyDate": "2019-03-25"
+  },
+  {
+    "corpCode": "00208356",
+    "corpName": "동호전자",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00106766",
+    "corpName": "길천실업",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00874274",
+    "corpName": "케이씨알테크",
+    "modifyDate": "2024-02-26"
+  },
+  {
+    "corpCode": "00413967",
+    "corpName": "바콤",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00927035",
+    "corpName": "디엠아이",
+    "modifyDate": "2023-02-13"
+  },
+  {
+    "corpCode": "00676609",
+    "corpName": "유니크대성",
+    "modifyDate": "2022-02-28"
+  },
+  {
+    "corpCode": "01694417",
+    "corpName": "파이온일렉트릭",
+    "modifyDate": "2023-02-17"
+  },
+  {
+    "corpCode": "01597433",
+    "corpName": "롯데광주씨케이",
+    "modifyDate": "2025-08-21"
+  },
+  {
+    "corpCode": "00982281",
+    "corpName": "에임메드",
+    "modifyDate": "2022-02-25"
+  },
+  {
+    "corpCode": "01197437",
+    "corpName": "다이나모홀딩스",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00678810",
+    "corpName": "드림기업",
+    "modifyDate": "2022-07-12"
+  },
+  {
+    "corpCode": "01374115",
+    "corpName": "해송건설",
+    "modifyDate": "2023-02-20"
+  },
+  {
+    "corpCode": "01458541",
+    "corpName": "아이스푸드앤바인",
+    "modifyDate": "2025-02-19"
+  },
+  {
+    "corpCode": "01961753",
+    "corpName": "준앤씨티타워에너지제육차",
+    "modifyDate": "2025-10-24"
+  },
+  {
+    "corpCode": "01509216",
+    "corpName": "보성인터네셔날",
+    "modifyDate": "2022-02-28"
+  },
+  {
+    "corpCode": "00564225",
+    "corpName": "우경건설",
+    "modifyDate": "2022-02-25"
+  },
+  {
+    "corpCode": "00674902",
+    "corpName": "미광인더스트리",
+    "modifyDate": "2023-02-21"
+  },
+  {
+    "corpCode": "00674577",
+    "corpName": "엠앤드엠",
+    "modifyDate": "2024-06-28"
+  },
+  {
+    "corpCode": "01856691",
+    "corpName": "키스에스에프제삼십이차",
+    "modifyDate": "2024-07-24"
+  },
+  {
+    "corpCode": "01289224",
+    "corpName": "대상휴먼씨",
+    "modifyDate": "2021-02-24"
+  },
+  {
+    "corpCode": "01703034",
+    "corpName": "케이비국민카드제십차유동화전문유한회사",
+    "modifyDate": "2022-11-22"
+  },
+  {
+    "corpCode": "01262166",
+    "corpName": "챔플린제사차",
+    "modifyDate": "2017-11-14"
+  },
+  {
+    "corpCode": "01697575",
+    "corpName": "케이에이치산업개발",
+    "modifyDate": "2022-10-31"
+  },
+  {
+    "corpCode": "01628399",
+    "corpName": "다인에프씨",
+    "modifyDate": "2023-02-21"
+  },
+  {
+    "corpCode": "01173640",
+    "corpName": "그린트리",
+    "modifyDate": "2019-06-26"
+  },
+  {
+    "corpCode": "01350717",
+    "corpName": "제이비",
+    "modifyDate": "2019-01-11"
+  },
+  {
+    "corpCode": "01319570",
+    "corpName": "다크미르",
+    "modifyDate": "2018-07-13"
+  },
+  {
+    "corpCode": "00695598",
+    "corpName": "정원하우징",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01138692",
+    "corpName": "케이비엠산업",
+    "modifyDate": "2023-02-21"
+  },
+  {
+    "corpCode": "00816128",
+    "corpName": "푸른꿈학교사랑",
+    "modifyDate": "2022-03-24"
+  },
+  {
+    "corpCode": "01831133",
+    "corpName": "대준",
+    "modifyDate": "2024-05-07"
+  },
+  {
+    "corpCode": "00594794",
+    "corpName": "오케이씨앤씨",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00446008",
+    "corpName": "대야산업개발",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00855376",
+    "corpName": "케이지인바이로텍",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00335234",
+    "corpName": "아림상호저축은행",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01112977",
+    "corpName": "프런티어제이차",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01628362",
+    "corpName": "가나아트한남",
+    "modifyDate": "2023-02-17"
+  },
+  {
+    "corpCode": "01185584",
+    "corpName": "정심푸드",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00606497",
+    "corpName": "한림공원",
+    "modifyDate": "2019-02-28"
+  },
+  {
+    "corpCode": "01334366",
+    "corpName": "아이엠홀딩스",
+    "modifyDate": "2020-06-30"
+  },
+  {
+    "corpCode": "01276132",
+    "corpName": "뉴스타피에스",
+    "modifyDate": "2019-02-12"
+  },
+  {
+    "corpCode": "00135652",
+    "corpName": "신고려관광",
+    "modifyDate": "2023-02-16"
+  },
+  {
+    "corpCode": "01304408",
+    "corpName": "참솔하우징",
+    "modifyDate": "2019-02-28"
+  },
+  {
+    "corpCode": "01086894",
+    "corpName": "케이티큐브제사차",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01735635",
+    "corpName": "위컴플러스",
+    "modifyDate": "2023-05-12"
+  },
+  {
+    "corpCode": "00510482",
+    "corpName": "디에이씨오",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00467320",
+    "corpName": "삼진종합토건",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00873062",
+    "corpName": "한국다케다제약",
+    "modifyDate": "2025-04-10"
+  },
+  {
+    "corpCode": "00397146",
+    "corpName": "삼성프론티어제십차유동화전문유한회사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00682479",
+    "corpName": "도솔",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00148850",
+    "corpName": "제철세라믹",
+    "modifyDate": "2022-02-25"
+  },
+  {
+    "corpCode": "01739358",
+    "corpName": "제이엠에스",
+    "modifyDate": "2023-05-02"
+  },
+  {
+    "corpCode": "01366860",
+    "corpName": "피엠이",
+    "modifyDate": "2022-02-23"
+  },
+  {
+    "corpCode": "00873336",
+    "corpName": "다승산기",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01911208",
+    "corpName": "오성피앤에이",
+    "modifyDate": "2025-05-02"
+  },
+  {
+    "corpCode": "00575364",
+    "corpName": "동북쇼핑",
+    "modifyDate": "2023-02-22"
+  },
+  {
+    "corpCode": "01593279",
+    "corpName": "디엔케이",
+    "modifyDate": "2022-02-28"
+  },
+  {
+    "corpCode": "01359958",
+    "corpName": "프리지어제십육차",
+    "modifyDate": "2019-03-21"
+  },
+  {
+    "corpCode": "01548701",
+    "corpName": "상개골프연습장",
+    "modifyDate": "2022-02-24"
+  },
+  {
+    "corpCode": "01302297",
+    "corpName": "명준약품",
+    "modifyDate": "2023-02-27"
+  },
+  {
+    "corpCode": "01639599",
+    "corpName": "더헤리티지너싱홈",
+    "modifyDate": "2023-02-22"
+  },
+  {
+    "corpCode": "00592510",
+    "corpName": "우리들디앤씨",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00765709",
+    "corpName": "대양중공업",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01494455",
+    "corpName": "에스에프로키제구차",
+    "modifyDate": "2020-09-01"
+  },
+  {
+    "corpCode": "00372916",
+    "corpName": "세라젬",
+    "modifyDate": "2024-08-26"
+  },
+  {
+    "corpCode": "00457095",
+    "corpName": "에이치와이냉장",
+    "modifyDate": "2022-02-25"
+  },
+  {
+    "corpCode": "00927257",
+    "corpName": "대구프라스틱",
+    "modifyDate": "2020-02-28"
+  },
+  {
+    "corpCode": "01929836",
+    "corpName": "탄탄도로",
+    "modifyDate": "2025-05-14"
+  },
+  {
+    "corpCode": "00395582",
+    "corpName": "쥬리히캐피탈메니지먼트잉크",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00588243",
+    "corpName": "마르스제일호사모투자전문회사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00925684",
+    "corpName": "백천정밀",
+    "modifyDate": "2024-06-28"
+  },
+  {
+    "corpCode": "01157961",
+    "corpName": "퍼스트모바일",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00371245",
+    "corpName": "정안철강",
+    "modifyDate": "2023-02-22"
+  },
+  {
+    "corpCode": "00459561",
+    "corpName": "신도산업",
+    "modifyDate": "2022-02-21"
+  },
+  {
+    "corpCode": "01792454",
+    "corpName": "프로젝트텐저린",
+    "modifyDate": "2023-10-23"
+  },
+  {
+    "corpCode": "00550727",
+    "corpName": "다이아케믹스코리아",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00375755",
+    "corpName": "지그모",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01018060",
+    "corpName": "베른타운디씨티",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00805210",
+    "corpName": "컨벡스",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00689366",
+    "corpName": "아델리안건설",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00669469",
+    "corpName": "일광폴리머",
+    "modifyDate": "2022-02-28"
+  },
+  {
+    "corpCode": "01327056",
+    "corpName": "엘라",
+    "modifyDate": "2021-04-16"
+  },
+  {
+    "corpCode": "01769100",
+    "corpName": "탑아트",
+    "modifyDate": "2023-07-05"
+  },
+  {
+    "corpCode": "01838312",
+    "corpName": "아이엔지시스템",
+    "modifyDate": "2024-05-08"
+  },
+  {
+    "corpCode": "01868401",
+    "corpName": "대륙산업개발",
+    "modifyDate": "2024-09-23"
+  },
+  {
+    "corpCode": "01633993",
+    "corpName": "천지인씨앤씨",
+    "modifyDate": "2023-02-14"
+  },
+  {
+    "corpCode": "00693493",
+    "corpName": "우리에스비제십이차유동화전문유한회사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00541163",
+    "corpName": "이엠텍",
+    "stockCode": "091120",
+    "modifyDate": "2025-03-27"
+  },
+  {
+    "corpCode": "00588571",
+    "corpName": "파워비젼프로그램네트워크",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01214026",
+    "corpName": "조은실업",
+    "modifyDate": "2019-03-04"
+  },
+  {
+    "corpCode": "01038790",
+    "corpName": "STRAUMANNHOLDINGAG",
+    "modifyDate": "2024-06-28"
+  },
+  {
+    "corpCode": "01749133",
+    "corpName": "동명기술",
+    "modifyDate": "2023-05-10"
+  },
+  {
+    "corpCode": "01133712",
+    "corpName": "드림송정비발디제일차",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01737332",
+    "corpName": "재유",
+    "modifyDate": "2023-05-03"
+  },
+  {
+    "corpCode": "00495208",
+    "corpName": "이순",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01401002",
+    "corpName": "영남건설",
+    "modifyDate": "2019-09-06"
+  },
+  {
+    "corpCode": "01286023",
+    "corpName": "트루프렌드남춘천제일차",
+    "modifyDate": "2018-04-11"
+  },
+  {
+    "corpCode": "01902112",
+    "corpName": "겜프스엔",
+    "modifyDate": "2025-04-07"
+  },
+  {
+    "corpCode": "01861435",
+    "corpName": "우신테크",
+    "modifyDate": "2024-08-27"
+  },
+  {
+    "corpCode": "01967960",
+    "corpName": "화이트큐브서울",
+    "modifyDate": "2025-11-28"
+  },
+  {
+    "corpCode": "01779523",
+    "corpName": "더블문제일차",
+    "modifyDate": "2023-08-07"
+  },
+  {
+    "corpCode": "00565224",
+    "corpName": "소이전자",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01935387",
+    "corpName": "세기비즈",
+    "modifyDate": "2025-06-30"
+  },
+  {
+    "corpCode": "01260043",
+    "corpName": "찬경텍스타일",
+    "modifyDate": "2019-02-08"
+  },
+  {
+    "corpCode": "01939116",
+    "corpName": "아이스타이거비",
+    "modifyDate": "2025-07-16"
+  },
+  {
+    "corpCode": "01112621",
+    "corpName": "태웅홀딩스",
+    "modifyDate": "2019-05-02"
+  },
+  {
+    "corpCode": "00454618",
+    "corpName": "에이치비콥",
+    "modifyDate": "2022-03-29"
+  },
+  {
+    "corpCode": "01676703",
+    "corpName": "위클리플랜",
+    "modifyDate": "2022-09-16"
+  },
+  {
+    "corpCode": "01156102",
+    "corpName": "퓨처젠",
+    "modifyDate": "2024-04-22"
+  },
+  {
+    "corpCode": "01403611",
+    "corpName": "이룸주택개발",
+    "modifyDate": "2022-02-28"
+  },
+  {
+    "corpCode": "01413195",
+    "corpName": "신한삼송제일차",
+    "modifyDate": "2019-10-10"
+  },
+  {
+    "corpCode": "01962956",
+    "corpName": "SE\u0026T",
+    "modifyDate": "2025-10-30"
+  },
+  {
+    "corpCode": "00801542",
+    "corpName": "안국루브텍",
+    "modifyDate": "2023-02-20"
+  },
+  {
+    "corpCode": "01387474",
+    "corpName": "한국태양광발전소",
+    "modifyDate": "2019-05-16"
+  },
+  {
+    "corpCode": "01745076",
+    "corpName": "진천디스트리뷰션",
+    "modifyDate": "2023-05-08"
+  },
+  {
+    "corpCode": "01768262",
+    "corpName": "세원피앤피",
+    "modifyDate": "2023-07-18"
+  },
+  {
+    "corpCode": "01228339",
+    "corpName": "금광",
+    "modifyDate": "2018-05-10"
+  },
+  {
+    "corpCode": "01400049",
+    "corpName": "원일개발",
+    "modifyDate": "2023-02-20"
+  },
+  {
+    "corpCode": "01156041",
+    "corpName": "남경플러스",
+    "modifyDate": "2019-02-21"
+  },
+  {
+    "corpCode": "00976907",
+    "corpName": "라싸디벨로프먼트",
+    "modifyDate": "2022-02-24"
+  },
+  {
+    "corpCode": "00592176",
+    "corpName": "척산온천휴양촌",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01566716",
+    "corpName": "엘에프에스테이트",
+    "modifyDate": "2023-02-20"
+  },
+  {
+    "corpCode": "00694386",
+    "corpName": "스타다스트",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01533781",
+    "corpName": "더블유엔2103유동화전문유한회사",
+    "modifyDate": "2021-03-12"
+  },
+  {
+    "corpCode": "00622361",
+    "corpName": "세경",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00261832",
+    "corpName": "마이플랜",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01329328",
+    "corpName": "신풍자원",
+    "modifyDate": "2023-02-22"
+  },
+  {
+    "corpCode": "01587834",
+    "corpName": "스토리티비",
+    "modifyDate": "2023-02-13"
+  },
+  {
+    "corpCode": "00676797",
+    "corpName": "카이로넷",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00960881",
+    "corpName": "제이에스오토모티브",
+    "modifyDate": "2022-02-28"
+  },
+  {
+    "corpCode": "01470242",
+    "corpName": "승학",
+    "modifyDate": "2023-02-13"
+  },
+  {
+    "corpCode": "01363322",
+    "corpName": "영화사두둥",
+    "modifyDate": "2019-04-09"
+  },
+  {
+    "corpCode": "00238700",
+    "corpName": "태원산업",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01431890",
+    "corpName": "하이레트로제육차",
+    "modifyDate": "2020-02-06"
+  },
+  {
+    "corpCode": "01937756",
+    "corpName": "폴리곤하우징",
+    "modifyDate": "2025-07-07"
+  },
+  {
+    "corpCode": "00818621",
+    "corpName": "에이피엠",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00464493",
+    "corpName": "정우식품",
+    "modifyDate": "2022-07-25"
+  },
+  {
+    "corpCode": "00865902",
+    "corpName": "에이치알인베스트",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00898405",
+    "corpName": "메디원",
+    "modifyDate": "2017-11-29"
+  },
+  {
+    "corpCode": "01043729",
+    "corpName": "네오랩컨버전스",
+    "modifyDate": "2022-08-25"
+  },
+  {
+    "corpCode": "01935776",
+    "corpName": "대진기전",
+    "modifyDate": "2025-06-20"
+  },
+  {
+    "corpCode": "01574496",
+    "corpName": "소레즈",
+    "modifyDate": "2021-07-07"
+  },
+  {
+    "corpCode": "00629744",
+    "corpName": "한인터네트웍스",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00417255",
+    "corpName": "우성산업개발",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01251090",
+    "corpName": "정보와기술",
+    "modifyDate": "2024-02-28"
+  },
+  {
+    "corpCode": "00492724",
+    "corpName": "신일기업",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01639137",
+    "corpName": "코스모트리",
+    "modifyDate": "2022-04-22"
+  },
+  {
+    "corpCode": "00415415",
+    "corpName": "엔프라니",
+    "modifyDate": "2023-02-20"
+  },
+  {
+    "corpCode": "00495341",
+    "corpName": "덕화스포츠",
+    "modifyDate": "2020-05-11"
+  },
+  {
+    "corpCode": "01469033",
+    "corpName": "다우에너지",
+    "modifyDate": "2020-05-07"
+  },
+  {
+    "corpCode": "01857353",
+    "corpName": "세종네트웍스",
+    "modifyDate": "2024-07-30"
+  },
+  {
+    "corpCode": "01169911",
+    "corpName": "뉴스타일광제이차",
+    "modifyDate": "2017-11-13"
+  },
+  {
+    "corpCode": "00319254",
+    "corpName": "나노광학",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00183941",
+    "corpName": "우남기업",
+    "modifyDate": "2022-02-23"
+  },
+  {
+    "corpCode": "01146442",
+    "corpName": "원천기업",
+    "modifyDate": "2019-02-26"
+  },
+  {
+    "corpCode": "01288067",
+    "corpName": "일산",
+    "modifyDate": "2022-02-24"
+  },
+  {
+    "corpCode": "01615252",
+    "corpName": "HB투자파트너스",
+    "modifyDate": "2022-02-15"
+  },
+  {
+    "corpCode": "00420718",
+    "corpName": "프론티어제칠차유동화전문유한회사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00466987",
+    "corpName": "에어포트로얄프라자",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00504658",
+    "corpName": "우리디와이이엑스제일차유동화전문유한회사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00968120",
+    "corpName": "부산신호태양광발전",
+    "modifyDate": "2022-02-24"
+  },
+  {
+    "corpCode": "01145267",
+    "corpName": "동남테크",
+    "modifyDate": "2020-12-16"
+  },
+  {
+    "corpCode": "01070547",
+    "corpName": "화신개발",
+    "modifyDate": "2022-02-28"
+  },
+  {
+    "corpCode": "00323929",
+    "corpName": "에몬스가구",
+    "modifyDate": "2022-02-25"
+  },
+  {
+    "corpCode": "00765602",
+    "corpName": "하남유통",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00442668",
+    "corpName": "세종월드",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00666523",
+    "corpName": "명강스틸",
+    "modifyDate": "2022-02-25"
+  },
+  {
+    "corpCode": "00760324",
+    "corpName": "경기미래학당관리",
+    "modifyDate": "2022-02-24"
+  },
+  {
+    "corpCode": "00684352",
+    "corpName": "더컨텐츠엔터테인먼트",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01656709",
+    "corpName": "이지메카시스템",
+    "modifyDate": "2022-05-10"
+  },
+  {
+    "corpCode": "00667504",
+    "corpName": "하베코리아",
+    "modifyDate": "2023-02-21"
+  },
+  {
+    "corpCode": "00656623",
+    "corpName": "21세기프로젝트매니지먼트",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00562874",
+    "corpName": "한영",
+    "modifyDate": "2023-02-16"
+  },
+  {
+    "corpCode": "01090879",
+    "corpName": "케이에이제오차유동화전문유한회사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01807321",
+    "corpName": "테크젠",
+    "modifyDate": "2025-02-25"
+  },
+  {
+    "corpCode": "01794717",
+    "corpName": "화승산업개발",
+    "modifyDate": "2023-10-31"
+  },
+  {
+    "corpCode": "01026306",
+    "corpName": "에스모아제십구차유동화전문유한회사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01523979",
+    "corpName": "곡성환경",
+    "modifyDate": "2023-03-06"
+  },
+  {
+    "corpCode": "01642177",
+    "corpName": "피엘엔제사차",
+    "modifyDate": "2022-04-25"
+  },
+  {
+    "corpCode": "00293114",
+    "corpName": "애드게이터컴",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01082551",
+    "corpName": "WPM엔지니어링",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00577663",
+    "corpName": "인텔로그디앤씨",
+    "modifyDate": "2022-02-25"
+  },
+  {
+    "corpCode": "01020700",
+    "corpName": "에스제이신소재",
+    "modifyDate": "2023-02-20"
+  },
+  {
+    "corpCode": "00549891",
+    "corpName": "케어젠",
+    "stockCode": "214370",
+    "modifyDate": "2025-09-24"
+  },
+  {
+    "corpCode": "00678528",
+    "corpName": "동북아32호선박투자회사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01374805",
+    "corpName": "프라임",
+    "modifyDate": "2022-02-23"
+  },
+  {
+    "corpCode": "01098428",
+    "corpName": "엠투",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01844298",
+    "corpName": "내함물산",
+    "modifyDate": "2024-06-28"
+  },
+  {
+    "corpCode": "01128190",
+    "corpName": "골드마운틴파트너스",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01514306",
+    "corpName": "케이비그레이트베어제일차",
+    "modifyDate": "2020-12-01"
+  },
+  {
+    "corpCode": "01238202",
+    "corpName": "디비베스트제삼차",
+    "modifyDate": "2017-07-05"
+  },
+  {
+    "corpCode": "00606035",
+    "corpName": "리솜건설",
+    "modifyDate": "2018-11-07"
+  },
+  {
+    "corpCode": "00224406",
+    "corpName": "코스모리조트",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00262354",
+    "corpName": "상원이엔씨",
+    "modifyDate": "2022-02-28"
+  },
+  {
+    "corpCode": "00758107",
+    "corpName": "소프닉스",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00331618",
+    "corpName": "씨아이엠보험",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01559646",
+    "corpName": "판교2밸리대토개발제일호위탁관리부동산투자회사",
+    "modifyDate": "2023-02-17"
+  },
+  {
+    "corpCode": "01744545",
+    "corpName": "아스턴55",
+    "modifyDate": "2025-04-07"
+  },
+  {
+    "corpCode": "01460281",
+    "corpName": "경림테크",
+    "modifyDate": "2023-02-20"
+  },
+  {
+    "corpCode": "01736148",
+    "corpName": "엠엑스엔커머스코리아",
+    "modifyDate": "2024-02-15"
+  },
+  {
+    "corpCode": "01328994",
+    "corpName": "씨앤에스유통",
+    "modifyDate": "2022-12-22"
+  },
+  {
+    "corpCode": "00432856",
+    "corpName": "벽산건설블루밍제일차유동화전문유한회사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00614478",
+    "corpName": "휴메딕스",
+    "stockCode": "200670",
+    "modifyDate": "2025-03-27"
+  },
+  {
+    "corpCode": "01829031",
+    "corpName": "현대철강",
+    "modifyDate": "2024-04-24"
+  },
+  {
+    "corpCode": "01218192",
+    "corpName": "스타비젼",
+    "modifyDate": "2022-02-15"
+  },
+  {
+    "corpCode": "01902592",
+    "corpName": "이베데스다대한제10호위탁관리부동산투자회사",
+    "modifyDate": "2025-03-25"
+  },
+  {
+    "corpCode": "01443275",
+    "corpName": "늘푸른아이2차",
+    "modifyDate": "2023-02-23"
+  },
+  {
+    "corpCode": "01586862",
+    "corpName": "대흥건설산업",
+    "modifyDate": "2022-02-21"
+  },
+  {
+    "corpCode": "01836341",
+    "corpName": "가나공영",
+    "modifyDate": "2024-04-30"
+  },
+  {
+    "corpCode": "00409371",
+    "corpName": "인베니아",
+    "stockCode": "079950",
+    "modifyDate": "2023-11-17"
+  },
+  {
+    "corpCode": "01467992",
+    "corpName": "도원교통",
+    "modifyDate": "2023-02-13"
+  },
+  {
+    "corpCode": "01108123",
+    "corpName": "청라제일차",
+    "modifyDate": "2019-01-14"
+  },
+  {
+    "corpCode": "00135333",
+    "corpName": "스파클",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00307204",
+    "corpName": "KCTV제주방송",
+    "modifyDate": "2023-02-22"
+  },
+  {
+    "corpCode": "00672861",
+    "corpName": "네오지텍",
+    "modifyDate": "2022-02-25"
+  },
+  {
+    "corpCode": "01073678",
+    "corpName": "얼라인드",
+    "stockCode": "238120",
+    "modifyDate": "2023-02-20"
+  },
+  {
+    "corpCode": "00483230",
+    "corpName": "영인랩플러스",
+    "modifyDate": "2022-02-28"
+  },
+  {
+    "corpCode": "01910236",
+    "corpName": "훈유",
+    "modifyDate": "2025-04-25"
+  },
+  {
+    "corpCode": "01029242",
+    "corpName": "황성이편한세상제일차",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01750616",
+    "corpName": "지엠에스",
+    "modifyDate": "2023-05-08"
+  },
+  {
+    "corpCode": "00518749",
+    "corpName": "한진평택컨테이너터미널",
+    "modifyDate": "2023-02-15"
+  },
+  {
+    "corpCode": "00429524",
+    "corpName": "우리모아제이차유동화전문유한회사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00566463",
+    "corpName": "싸이렌엔터테인먼트",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00606178",
+    "corpName": "인고트",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01642113",
+    "corpName": "엠펙스메디칼",
+    "modifyDate": "2023-02-20"
+  },
+  {
+    "corpCode": "01548367",
+    "corpName": "디원종합개발",
+    "modifyDate": "2023-02-22"
+  },
+  {
+    "corpCode": "01368141",
+    "corpName": "푸르미르",
+    "modifyDate": "2022-01-24"
+  },
+  {
+    "corpCode": "01526930",
+    "corpName": "씨네큐",
+    "modifyDate": "2022-02-25"
+  },
+  {
+    "corpCode": "01730913",
+    "corpName": "케이디에스",
+    "modifyDate": "2023-04-21"
+  },
+  {
+    "corpCode": "00162221",
+    "corpName": "비에스한양",
+    "modifyDate": "2025-11-05"
+  },
+  {
+    "corpCode": "00527190",
+    "corpName": "동이공업",
+    "modifyDate": "2023-03-03"
+  },
+  {
+    "corpCode": "00574365",
+    "corpName": "안웅",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01260724",
+    "corpName": "에이하에이",
+    "modifyDate": "2022-02-24"
+  },
+  {
+    "corpCode": "00237190",
+    "corpName": "흥국건설",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00546423",
+    "corpName": "제우글로비스",
+    "modifyDate": "2024-06-28"
+  },
+  {
+    "corpCode": "00364227",
+    "corpName": "에너윈",
+    "stockCode": "055970",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01046595",
+    "corpName": "메리츠오토제이차유동화전문유한회사",
+    "modifyDate": "2018-07-30"
+  },
+  {
+    "corpCode": "01756276",
+    "corpName": "지호건설",
+    "modifyDate": "2023-05-10"
+  },
+  {
+    "corpCode": "00690168",
+    "corpName": "천은엔지니어링",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01359204",
+    "corpName": "더플래티넘제일차",
+    "modifyDate": "2019-03-14"
+  },
+  {
+    "corpCode": "00493796",
+    "corpName": "희영",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00983280",
+    "corpName": "대원에이취알디",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00584326",
+    "corpName": "한국카스코",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01137426",
+    "corpName": "한국리테일투자",
+    "modifyDate": "2018-07-12"
+  },
+  {
+    "corpCode": "00990615",
+    "corpName": "하회물산",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01617931",
+    "corpName": "원봉에스피씨",
+    "modifyDate": "2023-02-21"
+  },
+  {
+    "corpCode": "01885471",
+    "corpName": "세아에프에스아이",
+    "modifyDate": "2025-01-02"
+  },
+  {
+    "corpCode": "01653678",
+    "corpName": "브이아이플래닝",
+    "modifyDate": "2022-05-16"
+  },
+  {
+    "corpCode": "01699315",
+    "corpName": "골드텍",
+    "modifyDate": "2023-02-14"
+  },
+  {
+    "corpCode": "01718300",
+    "corpName": "천보비엘에스",
+    "modifyDate": "2025-08-01"
+  },
+  {
+    "corpCode": "01750157",
+    "corpName": "엔로지스틱스",
+    "modifyDate": "2023-05-10"
+  },
+  {
+    "corpCode": "01925867",
+    "corpName": "한빛코리아",
+    "modifyDate": "2025-05-07"
+  },
+  {
+    "corpCode": "00381534",
+    "corpName": "아하글로벌유동화전문유한회사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01770638",
+    "corpName": "오닉스",
+    "modifyDate": "2023-07-14"
+  },
+  {
+    "corpCode": "00161833",
+    "corpName": "한성홀딩스",
+    "modifyDate": "2022-05-27"
+  },
+  {
+    "corpCode": "01794610",
+    "corpName": "농업회사법인탑앤드팜",
+    "modifyDate": "2023-10-31"
+  },
+  {
+    "corpCode": "01282896",
+    "corpName": "글로벌솔루션제오차",
+    "modifyDate": "2018-06-12"
+  },
+  {
+    "corpCode": "01344619",
+    "corpName": "기은센광안제이차",
+    "modifyDate": "2018-12-21"
+  },
+  {
+    "corpCode": "01637607",
+    "corpName": "윤민개발",
+    "modifyDate": "2022-04-21"
+  },
+  {
+    "corpCode": "01469723",
+    "corpName": "김천베아링",
+    "modifyDate": "2023-02-23"
+  },
+  {
+    "corpCode": "00664622",
+    "corpName": "에스알냉장",
+    "modifyDate": "2019-08-01"
+  },
+  {
+    "corpCode": "01436169",
+    "corpName": "송산디앤씨",
+    "modifyDate": "2022-02-24"
+  },
+  {
+    "corpCode": "00293053",
+    "corpName": "앞으로정보",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01126262",
+    "corpName": "에스제이엘파트너스",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00569497",
+    "corpName": "대현상공",
+    "modifyDate": "2022-02-28"
+  },
+  {
+    "corpCode": "00424398",
+    "corpName": "남성유통",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01087176",
+    "corpName": "우정통상",
+    "modifyDate": "2024-06-28"
+  },
+  {
+    "corpCode": "01788257",
+    "corpName": "동하기업",
+    "modifyDate": "2023-09-27"
+  },
+  {
+    "corpCode": "01468681",
+    "corpName": "듀폰스페셜티머터리얼스코리아",
+    "modifyDate": "2024-08-12"
+  },
+  {
+    "corpCode": "01821862",
+    "corpName": "지케이디",
+    "modifyDate": "2024-05-13"
+  },
+  {
+    "corpCode": "00867584",
+    "corpName": "위드윈디앤씨",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01435629",
+    "corpName": "제주여객자동차",
+    "modifyDate": "2022-02-25"
+  },
+  {
+    "corpCode": "01616163",
+    "corpName": "웰컴페이먼츠",
+    "modifyDate": "2025-10-02"
+  },
+  {
+    "corpCode": "01603901",
+    "corpName": "네이버문화재단",
+    "modifyDate": "2022-05-17"
+  },
+  {
+    "corpCode": "01430509",
+    "corpName": "케이더블유퍼스트",
+    "modifyDate": "2020-01-30"
+  },
+  {
+    "corpCode": "01822588",
+    "corpName": "지인약품",
+    "modifyDate": "2024-04-25"
+  },
+  {
+    "corpCode": "01872015",
+    "corpName": "케이더블씨제일차",
+    "modifyDate": "2024-09-30"
+  },
+  {
+    "corpCode": "00244260",
+    "corpName": "케이디파인켐",
+    "modifyDate": "2022-08-12"
+  },
+  {
+    "corpCode": "01127447",
+    "corpName": "효성캐피탈제이십일차유동화전문유한회사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01843688",
+    "corpName": "글로벌자산운용",
+    "modifyDate": "2024-05-09"
+  },
+  {
+    "corpCode": "01839320",
+    "corpName": "케이에프엘이사공일",
+    "modifyDate": "2024-05-02"
+  },
+  {
+    "corpCode": "00922386",
+    "corpName": "이수씨엔피",
+    "modifyDate": "2023-02-20"
+  },
+  {
+    "corpCode": "00493422",
+    "corpName": "아이원산업개발",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00447991",
+    "corpName": "용진철강",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01738270",
+    "corpName": "스마트에스",
+    "modifyDate": "2023-05-08"
+  },
+  {
+    "corpCode": "01651786",
+    "corpName": "서현공영",
+    "modifyDate": "2022-05-06"
+  },
+  {
+    "corpCode": "00529976",
+    "corpName": "청담피엔유동화전문유한회사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01154706",
+    "corpName": "구비테크",
+    "modifyDate": "2022-04-21"
+  },
+  {
+    "corpCode": "01798421",
+    "corpName": "신한사랑제11차",
+    "modifyDate": "2023-11-21"
+  },
+  {
+    "corpCode": "00857833",
+    "corpName": "미래개발전문자기관리부동산투자회사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01665187",
+    "corpName": "월드씨엔에스",
+    "modifyDate": "2022-05-18"
+  },
+  {
+    "corpCode": "01833186",
+    "corpName": "이룸피엘케이",
+    "modifyDate": "2024-04-29"
+  },
+  {
+    "corpCode": "01540842",
+    "corpName": "옥정제일1차피에프브이",
+    "modifyDate": "2022-06-08"
+  },
+  {
+    "corpCode": "00145598",
+    "corpName": "이연제약",
+    "stockCode": "102460",
+    "modifyDate": "2023-08-02"
+  },
+  {
+    "corpCode": "01331873",
+    "corpName": "원창개발",
+    "modifyDate": "2023-02-23"
+  },
+  {
+    "corpCode": "00325723",
+    "corpName": "케이티렌탈",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00833082",
+    "corpName": "구민",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01631791",
+    "corpName": "에스앤디파트너스",
+    "modifyDate": "2022-05-03"
+  },
+  {
+    "corpCode": "01658558",
+    "corpName": "진흥철강",
+    "modifyDate": "2022-05-12"
+  },
+  {
+    "corpCode": "01622252",
+    "corpName": "비아이티글로벌",
+    "modifyDate": "2022-03-23"
+  },
+  {
+    "corpCode": "01962530",
+    "corpName": "씨앤기업",
+    "modifyDate": "2025-10-30"
+  },
+  {
+    "corpCode": "01385759",
+    "corpName": "써밋크로스",
+    "modifyDate": "2022-02-24"
+  },
+  {
+    "corpCode": "00323585",
+    "corpName": "한국정보시스템",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01953772",
+    "corpName": "와이마트물류",
+    "modifyDate": "2025-09-08"
+  },
+  {
+    "corpCode": "01844924",
+    "corpName": "성산글로벌",
+    "modifyDate": "2024-05-14"
+  },
+  {
+    "corpCode": "00411695",
+    "corpName": "해원엠티아이",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01574928",
+    "corpName": "더시너지2",
+    "modifyDate": "2025-04-17"
+  },
+  {
+    "corpCode": "00673806",
+    "corpName": "델타마린",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01619513",
+    "corpName": "엔에이치기업인수목적23호",
+    "stockCode": "422040",
+    "modifyDate": "2025-02-10"
+  },
+  {
+    "corpCode": "01042049",
+    "corpName": "월자제지",
+    "modifyDate": "2024-06-28"
+  },
+  {
+    "corpCode": "00363671",
+    "corpName": "아이패스",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00581754",
+    "corpName": "여의도파크센터제삼차유동화전문유한회사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01789618",
+    "corpName": "삼원개발",
+    "modifyDate": "2023-10-10"
+  },
+  {
+    "corpCode": "01404461",
+    "corpName": "와이케이에이치디",
+    "modifyDate": "2019-09-05"
+  },
+  {
+    "corpCode": "00810434",
+    "corpName": "글로지스",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01311444",
+    "corpName": "코리아시스템",
+    "modifyDate": "2022-02-25"
+  },
+  {
+    "corpCode": "00496678",
+    "corpName": "원오토건",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00812344",
+    "corpName": "서울에프엔비",
+    "modifyDate": "2024-06-28"
+  },
+  {
+    "corpCode": "00617642",
+    "corpName": "성산시네마",
+    "modifyDate": "2020-02-26"
+  },
+  {
+    "corpCode": "00997441",
+    "corpName": "디와이장전3유동화전문유한회사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01830000",
+    "corpName": "태성에스텍",
+    "modifyDate": "2024-04-25"
+  },
+  {
+    "corpCode": "00915924",
+    "corpName": "플랫폼",
+    "modifyDate": "2022-02-25"
+  },
+  {
+    "corpCode": "00170798",
+    "corpName": "조양주택",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00768894",
+    "corpName": "에이치앤아이피",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00208675",
+    "corpName": "원우유통",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00656234",
+    "corpName": "삼호아이엔디",
+    "modifyDate": "2024-06-28"
+  },
+  {
+    "corpCode": "00136846",
+    "corpName": "크레신",
+    "modifyDate": "2025-04-22"
+  },
+  {
+    "corpCode": "01636273",
+    "corpName": "선우에스피",
+    "modifyDate": "2023-02-13"
+  },
+  {
+    "corpCode": "01572498",
+    "corpName": "오산베스트제일차",
+    "modifyDate": "2021-06-17"
+  },
+  {
+    "corpCode": "00644628",
+    "corpName": "에이치앤큐엔피에스트러스트제일호",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00117337",
+    "corpName": "동양",
+    "stockCode": "001520",
+    "modifyDate": "2025-04-01"
+  },
+  {
+    "corpCode": "00774479",
+    "corpName": "에스케이임업",
+    "modifyDate": "2023-05-31"
+  },
+  {
+    "corpCode": "00676317",
+    "corpName": "워터파크앤스파코리아",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01145896",
+    "corpName": "삼림",
+    "modifyDate": "2022-02-28"
+  },
+  {
+    "corpCode": "01328879",
+    "corpName": "성림개발",
+    "modifyDate": "2019-02-26"
+  },
+  {
+    "corpCode": "00843955",
+    "corpName": "지에스티산업",
+    "modifyDate": "2022-02-21"
+  },
+  {
+    "corpCode": "00497491",
+    "corpName": "천오개발",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01333358",
+    "corpName": "워머신제십차",
+    "modifyDate": "2019-01-11"
+  },
+  {
+    "corpCode": "01591350",
+    "corpName": "위니언",
+    "modifyDate": "2023-02-09"
+  },
+  {
+    "corpCode": "01544927",
+    "corpName": "모위코리아",
+    "modifyDate": "2021-05-04"
+  },
+  {
+    "corpCode": "00968926",
+    "corpName": "대성개발",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00674018",
+    "corpName": "우남하우징",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01776942",
+    "corpName": "키스에스에프제십이차",
+    "modifyDate": "2023-07-28"
+  },
+  {
+    "corpCode": "01910111",
+    "corpName": "마드라스체크",
+    "modifyDate": "2025-04-11"
+  },
+  {
+    "corpCode": "01338894",
+    "corpName": "마이원이글제삼차",
+    "modifyDate": "2018-11-08"
+  },
+  {
+    "corpCode": "00940586",
+    "corpName": "상훈인더스트리",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01085965",
+    "corpName": "유니",
+    "modifyDate": "2023-02-21"
+  },
+  {
+    "corpCode": "00141176",
+    "corpName": "영진종합건설",
+    "modifyDate": "2025-02-27"
+  },
+  {
+    "corpCode": "00206075",
+    "corpName": "일흥조선",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00610311",
+    "corpName": "유니크앤베스트",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00907509",
+    "corpName": "플러스원",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01403356",
+    "corpName": "일호기업",
+    "modifyDate": "2019-09-04"
+  },
+  {
+    "corpCode": "01471685",
+    "corpName": "엠스틸",
+    "modifyDate": "2022-02-24"
+  },
+  {
+    "corpCode": "01407361",
+    "corpName": "동천디앤시",
+    "modifyDate": "2021-06-01"
+  },
+  {
+    "corpCode": "00911450",
+    "corpName": "문주하드웨어",
+    "modifyDate": "2023-02-17"
+  },
+  {
+    "corpCode": "01459771",
+    "corpName": "에스제이파워마린제이차",
+    "modifyDate": "2020-04-22"
+  },
+  {
+    "corpCode": "00939623",
+    "corpName": "에스제이나무",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01394562",
+    "corpName": "트리니티에쿼티",
+    "modifyDate": "2022-01-18"
+  },
+  {
+    "corpCode": "00637381",
+    "corpName": "에이치알원제사차",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00255992",
+    "corpName": "삼웅인테리전트",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00491637",
+    "corpName": "중부리츠",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00527862",
+    "corpName": "포디스건축",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01530021",
+    "corpName": "블루홀스튜디오",
+    "modifyDate": "2023-01-20"
+  },
+  {
+    "corpCode": "00521062",
+    "corpName": "세신실업",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01086928",
+    "corpName": "원신레미콘",
+    "modifyDate": "2023-02-22"
+  },
+  {
+    "corpCode": "00334749",
+    "corpName": "메뉴판닷컴",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00361372",
+    "corpName": "이글스투윈",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01508022",
+    "corpName": "아이엔지스토리",
+    "modifyDate": "2022-10-27"
+  },
+  {
+    "corpCode": "01474327",
+    "corpName": "디에스쉽핑",
+    "modifyDate": "2021-02-23"
+  },
+  {
+    "corpCode": "01237018",
+    "corpName": "유일제이차유동화전문유한회사",
+    "modifyDate": "2018-02-13"
+  },
+  {
+    "corpCode": "01461183",
+    "corpName": "이터널그룹",
+    "modifyDate": "2022-02-25"
+  },
+  {
+    "corpCode": "01405460",
+    "corpName": "와이제이피",
+    "modifyDate": "2019-09-09"
+  },
+  {
+    "corpCode": "01089439",
+    "corpName": "원푸드림",
+    "modifyDate": "2024-06-28"
+  },
+  {
+    "corpCode": "01452431",
+    "corpName": "로비스",
+    "modifyDate": "2022-02-17"
+  },
+  {
+    "corpCode": "01733576",
+    "corpName": "에스제이파트너스",
+    "modifyDate": "2023-05-04"
+  },
+  {
+    "corpCode": "00144614",
+    "corpName": "유성종합설비",
+    "modifyDate": "2023-02-23"
+  },
+  {
+    "corpCode": "01051144",
+    "corpName": "케이디비트리니티디에이치아이씨사모투자전문회사",
+    "modifyDate": "2020-03-10"
+  },
+  {
+    "corpCode": "00497899",
+    "corpName": "한국로이코",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01069693",
+    "corpName": "성신엠테크",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00191588",
+    "corpName": "삼원강재",
+    "stockCode": "023000",
+    "modifyDate": "2023-03-23"
+  },
+  {
+    "corpCode": "01673326",
+    "corpName": "컨시드제십이차",
+    "modifyDate": "2022-07-05"
+  },
+  {
+    "corpCode": "00219574",
+    "corpName": "코스맥스비티아이",
+    "stockCode": "044820",
+    "modifyDate": "2025-03-28"
+  },
+  {
+    "corpCode": "00833824",
+    "corpName": "지엔에프",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01758991",
+    "corpName": "동하이엔지",
+    "modifyDate": "2023-05-12"
+  },
+  {
+    "corpCode": "01262023",
+    "corpName": "루트락",
+    "stockCode": "253610",
+    "modifyDate": "2021-12-09"
+  },
+  {
+    "corpCode": "01589249",
+    "corpName": "부성디앤씨",
+    "modifyDate": "2024-02-21"
+  },
+  {
+    "corpCode": "00641445",
+    "corpName": "에스제이테크",
+    "modifyDate": "2023-02-24"
+  },
+  {
+    "corpCode": "01403198",
+    "corpName": "제이앤티지",
+    "modifyDate": "2023-02-14"
+  },
+  {
+    "corpCode": "01885134",
+    "corpName": "문창신용협동조합",
+    "modifyDate": "2024-12-20"
+  },
+  {
+    "corpCode": "00876306",
+    "corpName": "중앙플라텍",
+    "modifyDate": "2022-02-25"
+  },
+  {
+    "corpCode": "00222286",
+    "corpName": "파라다이스글로벌",
+    "modifyDate": "2024-05-28"
+  },
+  {
+    "corpCode": "00147125",
+    "corpName": "아그네스수산",
+    "modifyDate": "2023-01-26"
+  },
+  {
+    "corpCode": "00653389",
+    "corpName": "미래세움",
+    "modifyDate": "2022-02-22"
+  },
+  {
+    "corpCode": "00877581",
+    "corpName": "이에프엠네트웍스",
+    "modifyDate": "2023-02-21"
+  },
+  {
+    "corpCode": "01850606",
+    "corpName": "의정부동부새마을금고",
+    "modifyDate": "2024-06-10"
+  },
+  {
+    "corpCode": "01255458",
+    "corpName": "골든트리개발",
+    "modifyDate": "2023-02-22"
+  },
+  {
+    "corpCode": "01629486",
+    "corpName": "노앤파트너스",
+    "modifyDate": "2022-05-13"
+  },
+  {
+    "corpCode": "00921767",
+    "corpName": "대강선재",
+    "modifyDate": "2023-02-22"
+  },
+  {
+    "corpCode": "01431571",
+    "corpName": "케이아이에스프로메테우스제이차",
+    "modifyDate": "2020-02-05"
+  },
+  {
+    "corpCode": "01462632",
+    "corpName": "파스텔",
+    "modifyDate": "2022-02-25"
+  },
+  {
+    "corpCode": "01928563",
+    "corpName": "히어로크리에이티브",
+    "modifyDate": "2025-05-09"
+  },
+  {
+    "corpCode": "00661096",
+    "corpName": "에스에이치기업",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01701036",
+    "corpName": "자마이카휘트니스",
+    "modifyDate": "2025-05-12"
+  },
+  {
+    "corpCode": "01545430",
+    "corpName": "에이치엠씨",
+    "modifyDate": "2022-02-15"
+  },
+  {
+    "corpCode": "00977003",
+    "corpName": "신보2013제9차유동화전문유한회사",
+    "modifyDate": "2017-08-31"
+  },
+  {
+    "corpCode": "01958810",
+    "corpName": "시원파트너스",
+    "modifyDate": "2025-10-21"
+  },
+  {
+    "corpCode": "01595921",
+    "corpName": "안테나",
+    "modifyDate": "2023-02-21"
+  },
+  {
+    "corpCode": "01877311",
+    "corpName": "에이치엘제3호위탁관리부동산투자회사",
+    "modifyDate": "2025-08-08"
+  },
+  {
+    "corpCode": "00520328",
+    "corpName": "케이지프레시",
+    "modifyDate": "2022-07-18"
+  },
+  {
+    "corpCode": "00832302",
+    "corpName": "에스엠상선광양터미널",
+    "modifyDate": "2021-09-29"
+  },
+  {
+    "corpCode": "01596966",
+    "corpName": "아이엠엠이에스지1호",
+    "modifyDate": "2021-11-12"
+  },
+  {
+    "corpCode": "01825390",
+    "corpName": "인터패스",
+    "modifyDate": "2024-04-26"
+  },
+  {
+    "corpCode": "00178082",
+    "corpName": "대현실업",
+    "modifyDate": "2019-02-26"
+  },
+  {
+    "corpCode": "00564924",
+    "corpName": "합동전자",
+    "modifyDate": "2022-02-21"
+  },
+  {
+    "corpCode": "01282407",
+    "corpName": "엠케이에이치제일차",
+    "modifyDate": "2018-10-11"
+  },
+  {
+    "corpCode": "00845139",
+    "corpName": "생각대로티제삼차유동화전문유한회사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00322425",
+    "corpName": "스탁폴즈",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00805007",
+    "corpName": "대양케이블",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01715978",
+    "corpName": "뉴마레제이십이차",
+    "modifyDate": "2023-02-03"
+  },
+  {
+    "corpCode": "00873585",
+    "corpName": "스마트에스제사차유동화전문유한회사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01931114",
+    "corpName": "라스준스",
+    "modifyDate": "2025-05-14"
+  },
+  {
+    "corpCode": "01857265",
+    "corpName": "현대오토펀딩이에스지제일차유동화전문유한회사",
+    "modifyDate": "2024-07-29"
+  },
+  {
+    "corpCode": "01261316",
+    "corpName": "반석공조시스템",
+    "modifyDate": "2018-05-14"
+  },
+  {
+    "corpCode": "00424316",
+    "corpName": "한국부동산신탁제이차유동화전문유한회사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01137806",
+    "corpName": "명광산업",
+    "modifyDate": "2020-02-26"
+  },
+  {
+    "corpCode": "01773051",
+    "corpName": "증금타임제십일차",
+    "modifyDate": "2023-07-19"
+  },
+  {
+    "corpCode": "00161727",
+    "corpName": "모아저축은행",
+    "modifyDate": "2025-03-21"
+  },
+  {
+    "corpCode": "01357701",
+    "corpName": "퓨처네이처",
+    "modifyDate": "2019-03-14"
+  },
+  {
+    "corpCode": "01064777",
+    "corpName": "피와이지오",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00960401",
+    "corpName": "풍천엔지니어링",
+    "modifyDate": "2025-04-22"
+  },
+  {
+    "corpCode": "01839515",
+    "corpName": "센토피아군포",
+    "modifyDate": "2024-05-03"
+  },
+  {
+    "corpCode": "01303977",
+    "corpName": "칼라원",
+    "modifyDate": "2019-03-14"
+  },
+  {
+    "corpCode": "00385877",
+    "corpName": "미조투자개발",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00799089",
+    "corpName": "비젯",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00388388",
+    "corpName": "디비에이치브이이천일대시일유동화전문유한회사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01357224",
+    "corpName": "이알에스제오차",
+    "modifyDate": "2019-03-04"
+  },
+  {
+    "corpCode": "01322662",
+    "corpName": "에이블모우제삼차",
+    "modifyDate": "2018-11-26"
+  },
+  {
+    "corpCode": "01416031",
+    "corpName": "디앤비",
+    "modifyDate": "2019-10-30"
+  },
+  {
+    "corpCode": "01787869",
+    "corpName": "두원파트너스",
+    "modifyDate": "2023-09-26"
+  },
+  {
+    "corpCode": "00146418",
+    "corpName": "일신하이폴리",
+    "modifyDate": "2024-02-23"
+  },
+  {
+    "corpCode": "00252074",
+    "corpName": "삼성전자판매",
+    "modifyDate": "2024-01-24"
+  },
+  {
+    "corpCode": "01656648",
+    "corpName": "누메로우노",
+    "modifyDate": "2022-05-12"
+  },
+  {
+    "corpCode": "01359189",
+    "corpName": "유영티엔에스",
+    "modifyDate": "2023-02-03"
+  },
+  {
+    "corpCode": "00591052",
+    "corpName": "비엠씨골드",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00137793",
+    "corpName": "신화산업",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01769544",
+    "corpName": "드림구삼송림제일차",
+    "modifyDate": "2023-07-06"
+  },
+  {
+    "corpCode": "01658309",
+    "corpName": "예슬건설",
+    "modifyDate": "2022-05-13"
+  },
+  {
+    "corpCode": "01551857",
+    "corpName": "오엠티",
+    "modifyDate": "2021-04-26"
+  },
+  {
+    "corpCode": "01466036",
+    "corpName": "포롤텍",
+    "modifyDate": "2023-02-06"
+  },
+  {
+    "corpCode": "01153877",
+    "corpName": "플린트",
+    "modifyDate": "2023-02-22"
+  },
+  {
+    "corpCode": "01565984",
+    "corpName": "한국신에츠첨단재료",
+    "modifyDate": "2023-02-14"
+  },
+  {
+    "corpCode": "01755374",
+    "corpName": "젠코리아스틸",
+    "modifyDate": "2023-05-09"
+  },
+  {
+    "corpCode": "01353291",
+    "corpName": "코너스톤제십오차",
+    "modifyDate": "2019-02-11"
+  },
+  {
+    "corpCode": "00641436",
+    "corpName": "오르비스인터내셔날패션",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01259171",
+    "corpName": "아이린에셋",
+    "modifyDate": "2017-10-24"
+  },
+  {
+    "corpCode": "01303038",
+    "corpName": "햇빛일루콤",
+    "modifyDate": "2023-02-20"
+  },
+  {
+    "corpCode": "01051302",
+    "corpName": "비에프에이",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00762702",
+    "corpName": "상도코포레이션",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00263274",
+    "corpName": "코오롱코람오토1차유동화전문유한회사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00579041",
+    "corpName": "디오픈",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01960921",
+    "corpName": "제트원제일차",
+    "modifyDate": "2025-10-20"
+  },
+  {
+    "corpCode": "00444408",
+    "corpName": "대원전광",
+    "modifyDate": "2023-02-23"
+  },
+  {
+    "corpCode": "01011845",
+    "corpName": "쿡앱스",
+    "modifyDate": "2022-10-07"
+  },
+  {
+    "corpCode": "01104279",
+    "corpName": "오토웰",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01235597",
+    "corpName": "라바꼬레아",
+    "modifyDate": "2019-02-26"
+  },
+  {
+    "corpCode": "00677200",
+    "corpName": "지산메디칼",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01014435",
+    "corpName": "델타컴퍼니",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00536967",
+    "corpName": "트위디,브라우니컴퍼니엘엘씨",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01477403",
+    "corpName": "고양교통",
+    "modifyDate": "2022-03-04"
+  },
+  {
+    "corpCode": "00459534",
+    "corpName": "호크아이즈홀딩스",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00189714",
+    "corpName": "신라개발산업",
+    "modifyDate": "2023-02-20"
+  },
+  {
+    "corpCode": "01572045",
+    "corpName": "베스트웨이이천",
+    "modifyDate": "2021-06-14"
+  },
+  {
+    "corpCode": "01523128",
+    "corpName": "지아이롱제비티",
+    "modifyDate": "2025-08-12"
+  },
+  {
+    "corpCode": "00378868",
+    "corpName": "브레인테크",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01040324",
+    "corpName": "에프케이1409유동화전문유한회사",
+    "modifyDate": "2019-02-13"
+  },
+  {
+    "corpCode": "00341767",
+    "corpName": "육천건설",
+    "modifyDate": "2017-07-24"
+  },
+  {
+    "corpCode": "01142808",
+    "corpName": "와이즈글로벌",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01586729",
+    "corpName": "허큘리스홀딩스",
+    "modifyDate": "2024-01-25"
+  },
+  {
+    "corpCode": "00970693",
+    "corpName": "파인컴퍼니",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01828935",
+    "corpName": "국토건설",
+    "modifyDate": "2024-04-30"
+  },
+  {
+    "corpCode": "01685880",
+    "corpName": "프리마논현알파제이호",
+    "modifyDate": "2022-09-08"
+  },
+  {
+    "corpCode": "01099126",
+    "corpName": "굿맨프리미어파트너스",
+    "modifyDate": "2024-02-28"
+  },
+  {
+    "corpCode": "01410657",
+    "corpName": "경흥아이앤씨",
+    "modifyDate": "2023-02-22"
+  },
+  {
+    "corpCode": "00359483",
+    "corpName": "연일주택",
+    "modifyDate": "2019-05-14"
+  },
+  {
+    "corpCode": "01205286",
+    "corpName": "레이크백운제일차",
+    "modifyDate": "2018-04-11"
+  },
+  {
+    "corpCode": "01336559",
+    "corpName": "에이원갤럭시",
+    "modifyDate": "2018-11-14"
+  },
+  {
+    "corpCode": "00918532",
+    "corpName": "씨아이엠",
+    "modifyDate": "2022-02-22"
+  },
+  {
+    "corpCode": "00941707",
+    "corpName": "이아스물류",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00367756",
+    "corpName": "미래생활",
+    "modifyDate": "2024-02-20"
+  },
+  {
+    "corpCode": "01569315",
+    "corpName": "클로브클럽",
+    "modifyDate": "2023-03-29"
+  },
+  {
+    "corpCode": "00390897",
+    "corpName": "쓰리메이저유동화전문유한회사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01110049",
+    "corpName": "단동홍룬로봇과학기술유한공사",
+    "modifyDate": "2018-06-19"
+  },
+  {
+    "corpCode": "01086955",
+    "corpName": "세화정밀공업",
+    "modifyDate": "2022-02-24"
+  },
+  {
+    "corpCode": "00868200",
+    "corpName": "우진이엔피",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01479164",
+    "corpName": "티제이탕정제일차",
+    "modifyDate": "2020-05-14"
+  },
+  {
+    "corpCode": "00643081",
+    "corpName": "푸른솔",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00134097",
+    "corpName": "세연산업",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01015638",
+    "corpName": "하이텍산업개발",
+    "modifyDate": "2020-04-23"
+  },
+  {
+    "corpCode": "01399886",
+    "corpName": "경동정밀공업",
+    "modifyDate": "2023-02-23"
+  },
+  {
+    "corpCode": "01885596",
+    "corpName": "하나투어비즈니스",
+    "modifyDate": "2025-02-25"
+  },
+  {
+    "corpCode": "01024399",
+    "corpName": "에이엠에스",
+    "modifyDate": "2023-03-30"
+  },
+  {
+    "corpCode": "01694107",
+    "corpName": "신보2022제21차유동화전문유한회사",
+    "modifyDate": "2022-10-17"
+  },
+  {
+    "corpCode": "01551714",
+    "corpName": "제이케이인터내셔널",
+    "modifyDate": "2022-02-28"
+  },
+  {
+    "corpCode": "01753385",
+    "corpName": "마루약품",
+    "modifyDate": "2023-05-10"
+  },
+  {
+    "corpCode": "00228031",
+    "corpName": "동광화섬",
+    "modifyDate": "2019-03-04"
+  },
+  {
+    "corpCode": "00579342",
+    "corpName": "영광",
+    "modifyDate": "2025-08-20"
+  },
+  {
+    "corpCode": "00915687",
+    "corpName": "부산신항제이배후도로",
+    "modifyDate": "2023-02-14"
+  },
+  {
+    "corpCode": "00405676",
+    "corpName": "평안",
+    "modifyDate": "2024-02-08"
+  },
+  {
+    "corpCode": "01824081",
+    "corpName": "대인이에스티",
+    "modifyDate": "2024-04-23"
+  },
+  {
+    "corpCode": "01491023",
+    "corpName": "라오스베이",
+    "modifyDate": "2020-07-28"
+  },
+  {
+    "corpCode": "01618550",
+    "corpName": "퍼즐에이아이",
+    "modifyDate": "2024-11-22"
+  },
+  {
+    "corpCode": "00258722",
+    "corpName": "반포골프백화점",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01749027",
+    "corpName": "에스에이치",
+    "modifyDate": "2023-05-10"
+  },
+  {
+    "corpCode": "00477257",
+    "corpName": "지나인제약",
+    "stockCode": "078650",
+    "modifyDate": "2024-12-02"
+  },
+  {
+    "corpCode": "01825169",
+    "corpName": "오더퀸",
+    "modifyDate": "2024-04-15"
+  },
+  {
+    "corpCode": "00592088",
+    "corpName": "시사티앤이",
+    "modifyDate": "2021-02-09"
+  },
+  {
+    "corpCode": "00493909",
+    "corpName": "한양건설",
+    "modifyDate": "2025-04-14"
+  },
+  {
+    "corpCode": "00138701",
+    "corpName": "아세아",
+    "stockCode": "002030",
+    "modifyDate": "2022-12-09"
+  },
+  {
+    "corpCode": "00534002",
+    "corpName": "광주제2순환도로",
+    "modifyDate": "2023-02-14"
+  },
+  {
+    "corpCode": "01680779",
+    "corpName": "케펠자산운용",
+    "modifyDate": "2023-02-17"
+  },
+  {
+    "corpCode": "01924257",
+    "corpName": "수옵틱스",
+    "modifyDate": "2025-05-08"
+  },
+  {
+    "corpCode": "01576810",
+    "corpName": "엘지마그나이파워트레인",
+    "modifyDate": "2025-12-01"
+  },
+  {
+    "corpCode": "01308325",
+    "corpName": "다오요트",
+    "modifyDate": "2020-02-25"
+  },
+  {
+    "corpCode": "01366709",
+    "corpName": "큐베스트바이오",
+    "modifyDate": "2025-04-25"
+  },
+  {
+    "corpCode": "01928943",
+    "corpName": "신보2025제8차유동화전문유한회사",
+    "modifyDate": "2025-05-09"
+  },
+  {
+    "corpCode": "00427313",
+    "corpName": "한국존슨다이버시",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00687678",
+    "corpName": "볼리투자회사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01417696",
+    "corpName": "여의제삼차",
+    "modifyDate": "2019-11-08"
+  },
+  {
+    "corpCode": "00630236",
+    "corpName": "장성디에스랜드마크제일차",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01539280",
+    "corpName": "우인어패럴",
+    "modifyDate": "2023-02-17"
+  },
+  {
+    "corpCode": "00140177",
+    "corpName": "GS리테일",
+    "stockCode": "007070",
+    "modifyDate": "2025-03-21"
+  },
+  {
+    "corpCode": "01019795",
+    "corpName": "에이브이티",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01766200",
+    "corpName": "하나플랜트제이차",
+    "modifyDate": "2023-06-12"
+  },
+  {
+    "corpCode": "00936653",
+    "corpName": "아르피나",
+    "modifyDate": "2021-04-16"
+  },
+  {
+    "corpCode": "00505408",
+    "corpName": "맥켄리인터내셔널",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01307168",
+    "corpName": "비와이텍",
+    "modifyDate": "2019-02-08"
+  },
+  {
+    "corpCode": "01873537",
+    "corpName": "이지홈개발",
+    "modifyDate": "2024-10-17"
+  },
+  {
+    "corpCode": "00330053",
+    "corpName": "노무라증권서울지점",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00813848",
+    "corpName": "구보종합건설",
+    "modifyDate": "2024-01-29"
+  },
+  {
+    "corpCode": "01651519",
+    "corpName": "휴데이터스",
+    "modifyDate": "2022-05-02"
+  },
+  {
+    "corpCode": "00773188",
+    "corpName": "삼천리자산운용",
+    "modifyDate": "2025-08-06"
+  },
+  {
+    "corpCode": "00452230",
+    "corpName": "케이비티모바일",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01502347",
+    "corpName": "농업회사법인써니너스",
+    "modifyDate": "2023-02-14"
+  },
+  {
+    "corpCode": "00530228",
+    "corpName": "성원디앤씨",
+    "modifyDate": "2020-02-26"
+  },
+  {
+    "corpCode": "01757886",
+    "corpName": "네이처앤컬처",
+    "modifyDate": "2024-06-28"
+  },
+  {
+    "corpCode": "00917667",
+    "corpName": "나우스",
+    "modifyDate": "2023-02-15"
+  },
+  {
+    "corpCode": "01502037",
+    "corpName": "대우여객자동차",
+    "modifyDate": "2022-04-11"
+  },
+  {
+    "corpCode": "00514187",
+    "corpName": "칸서스자산운용",
+    "modifyDate": "2025-05-09"
+  },
+  {
+    "corpCode": "01735778",
+    "corpName": "남정아이앤티",
+    "modifyDate": "2023-05-04"
+  },
+  {
+    "corpCode": "00605993",
+    "corpName": "터보파워텍",
+    "modifyDate": "2023-02-23"
+  },
+  {
+    "corpCode": "00860819",
+    "corpName": "하이에어공조",
+    "modifyDate": "2022-02-25"
+  },
+  {
+    "corpCode": "00217169",
+    "corpName": "한국램리서치",
+    "modifyDate": "2024-12-11"
+  },
+  {
+    "corpCode": "01870363",
+    "corpName": "케이에스피발텍",
+    "modifyDate": "2024-09-30"
+  },
+  {
+    "corpCode": "00835044",
+    "corpName": "서해에너지",
+    "modifyDate": "2019-09-09"
+  },
+  {
+    "corpCode": "01829271",
+    "corpName": "호경",
+    "modifyDate": "2024-04-22"
+  },
+  {
+    "corpCode": "01670125",
+    "corpName": "피엘오식스",
+    "modifyDate": "2022-06-16"
+  },
+  {
+    "corpCode": "01333640",
+    "corpName": "아이맘",
+    "modifyDate": "2023-02-22"
+  },
+  {
+    "corpCode": "01646438",
+    "corpName": "케이엔더블유매터리얼스",
+    "modifyDate": "2023-02-13"
+  },
+  {
+    "corpCode": "00534118",
+    "corpName": "건진기업",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00896115",
+    "corpName": "에듀해피니스",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01373693",
+    "corpName": "웰마커바이오",
+    "modifyDate": "2022-12-16"
+  },
+  {
+    "corpCode": "01379439",
+    "corpName": "대양하이테크",
+    "modifyDate": "2022-02-25"
+  },
+  {
+    "corpCode": "00527747",
+    "corpName": "에프씨산업",
+    "modifyDate": "2022-02-24"
+  },
+  {
+    "corpCode": "00126645",
+    "corpName": "삼송캐스터",
+    "modifyDate": "2025-03-19"
+  },
+  {
+    "corpCode": "00144377",
+    "corpName": "유닉스",
+    "modifyDate": "2025-10-31"
+  },
+  {
+    "corpCode": "00347318",
+    "corpName": "옵셔널벤처인코퍼레이션",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00866637",
+    "corpName": "엘켐",
+    "modifyDate": "2019-08-30"
+  },
+  {
+    "corpCode": "00891396",
+    "corpName": "파주도시개발",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01360440",
+    "corpName": "농업회사법인나우리",
+    "modifyDate": "2019-04-18"
+  },
+  {
+    "corpCode": "01012330",
+    "corpName": "아이비에스제십사차",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01466753",
+    "corpName": "프롬스",
+    "modifyDate": "2022-02-28"
+  },
+  {
+    "corpCode": "00409733",
+    "corpName": "하남전기",
+    "modifyDate": "2022-03-28"
+  },
+  {
+    "corpCode": "01593190",
+    "corpName": "피아이엠개발",
+    "modifyDate": "2022-02-24"
+  },
+  {
+    "corpCode": "01695054",
+    "corpName": "캡스톤일반부동산사모투자회사3호전문",
+    "modifyDate": "2022-10-19"
+  },
+  {
+    "corpCode": "01757956",
+    "corpName": "바다푸드",
+    "modifyDate": "2023-05-12"
+  },
+  {
+    "corpCode": "00876698",
+    "corpName": "도남정공",
+    "modifyDate": "2023-04-25"
+  },
+  {
+    "corpCode": "01294217",
+    "corpName": "주)브이알월드",
+    "modifyDate": "2018-09-06"
+  },
+  {
+    "corpCode": "01277469",
+    "corpName": "케이씨앤아이스타바이오1호사모투자",
+    "modifyDate": "2018-02-21"
+  },
+  {
+    "corpCode": "01754861",
+    "corpName": "세종반곡주유소",
+    "modifyDate": "2023-05-08"
+  },
+  {
+    "corpCode": "00106669",
+    "corpName": "세아베스틸지주",
+    "stockCode": "001430",
+    "modifyDate": "2023-03-30"
+  },
+  {
+    "corpCode": "00363307",
+    "corpName": "아이클러스터",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01154654",
+    "corpName": "경림에이치티시",
+    "modifyDate": "2025-02-26"
+  },
+  {
+    "corpCode": "00656526",
+    "corpName": "마팔하이테코",
+    "modifyDate": "2023-02-13"
+  },
+  {
+    "corpCode": "01229532",
+    "corpName": "신영시티디벨로퍼",
+    "modifyDate": "2023-02-17"
+  },
+  {
+    "corpCode": "01217810",
+    "corpName": "로이714",
+    "modifyDate": "2022-02-25"
+  },
+  {
+    "corpCode": "00891828",
+    "corpName": "지엔티",
+    "modifyDate": "2022-02-25"
+  },
+  {
+    "corpCode": "01953365",
+    "corpName": "아이피에스에스제이차유동화전문유한회사",
+    "modifyDate": "2025-09-04"
+  },
+  {
+    "corpCode": "00467427",
+    "corpName": "엠지비엔도스코피",
+    "modifyDate": "2019-07-23"
+  },
+  {
+    "corpCode": "01855753",
+    "corpName": "웨스트수원",
+    "modifyDate": "2024-07-17"
+  },
+  {
+    "corpCode": "00153870",
+    "corpName": "블루원",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00871338",
+    "corpName": "금마",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01926990",
+    "corpName": "미르앤에셋",
+    "modifyDate": "2025-05-13"
+  },
+  {
+    "corpCode": "00268358",
+    "corpName": "에스브이에이치",
+    "stockCode": "046240",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00917065",
+    "corpName": "제이텍",
+    "modifyDate": "2024-06-28"
+  },
+  {
+    "corpCode": "01326853",
+    "corpName": "어반라이프",
+    "modifyDate": "2024-06-28"
+  },
+  {
+    "corpCode": "01823037",
+    "corpName": "세헌건설",
+    "modifyDate": "2024-04-09"
+  },
+  {
+    "corpCode": "00126201",
+    "corpName": "삼성공조",
+    "stockCode": "006660",
+    "modifyDate": "2023-05-26"
+  },
+  {
+    "corpCode": "01887646",
+    "corpName": "국민챔피온제십이차",
+    "modifyDate": "2025-01-06"
+  },
+  {
+    "corpCode": "01296145",
+    "corpName": "비앤에이치에셋",
+    "modifyDate": "2020-02-24"
+  },
+  {
+    "corpCode": "00641913",
+    "corpName": "아이에프글로벌",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01934865",
+    "corpName": "에이치에프더블유오이유동화전문유한회사",
+    "modifyDate": "2025-06-11"
+  },
+  {
+    "corpCode": "01473805",
+    "corpName": "누리마루세븐",
+    "modifyDate": "2020-05-07"
+  },
+  {
+    "corpCode": "01478314",
+    "corpName": "화일산기",
+    "modifyDate": "2023-02-06"
+  },
+  {
+    "corpCode": "01696813",
+    "corpName": "경남도시개발",
+    "modifyDate": "2023-02-22"
+  },
+  {
+    "corpCode": "01024274",
+    "corpName": "대한건설",
+    "modifyDate": "2022-02-24"
+  },
+  {
+    "corpCode": "00273891",
+    "corpName": "하나로제3차유동화전문회사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01402603",
+    "corpName": "한아름건설",
+    "modifyDate": "2022-02-21"
+  },
+  {
+    "corpCode": "01088014",
+    "corpName": "선화기업",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01351831",
+    "corpName": "에스비에스아프리카티비",
+    "modifyDate": "2019-01-25"
+  },
+  {
+    "corpCode": "01572027",
+    "corpName": "비엠케이푸드",
+    "modifyDate": "2021-06-14"
+  },
+  {
+    "corpCode": "00644530",
+    "corpName": "홍익에너지",
+    "modifyDate": "2021-05-06"
+  },
+  {
+    "corpCode": "01360927",
+    "corpName": "경안개발",
+    "modifyDate": "2023-02-21"
+  },
+  {
+    "corpCode": "01091151",
+    "corpName": "디케이이앤엠",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01922985",
+    "corpName": "건축이상",
+    "modifyDate": "2025-05-12"
+  },
+  {
+    "corpCode": "00450852",
+    "corpName": "용산미쓰이화학",
+    "modifyDate": "2022-03-21"
+  },
+  {
+    "corpCode": "01572966",
+    "corpName": "더블에스와이제이차",
+    "modifyDate": "2021-06-23"
+  },
+  {
+    "corpCode": "01946587",
+    "corpName": "에이알솔루션제이차",
+    "modifyDate": "2025-08-13"
+  },
+  {
+    "corpCode": "01479474",
+    "corpName": "지아이비에이치에스제이차",
+    "modifyDate": "2020-05-14"
+  },
+  {
+    "corpCode": "01013816",
+    "corpName": "성호리조트",
+    "modifyDate": "2022-03-04"
+  },
+  {
+    "corpCode": "01796812",
+    "corpName": "뉴스타와이피제일차",
+    "modifyDate": "2023-11-09"
+  },
+  {
+    "corpCode": "01146460",
+    "corpName": "카카오스페이스",
+    "modifyDate": "2023-02-03"
+  },
+  {
+    "corpCode": "01177336",
+    "corpName": "미산",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01890084",
+    "corpName": "아스마라제이차",
+    "modifyDate": "2025-01-14"
+  },
+  {
+    "corpCode": "01510656",
+    "corpName": "하이도미네이션제십칠차",
+    "modifyDate": "2020-11-04"
+  },
+  {
+    "corpCode": "01248573",
+    "corpName": "태건종합건설",
+    "modifyDate": "2024-02-27"
+  },
+  {
+    "corpCode": "00548360",
+    "corpName": "중부복합물류",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01386086",
+    "corpName": "로엄버컴퍼니",
+    "modifyDate": "2019-05-14"
+  },
+  {
+    "corpCode": "01023859",
+    "corpName": "이제이텍",
+    "modifyDate": "2023-02-17"
+  },
+  {
+    "corpCode": "00607803",
+    "corpName": "크라운",
+    "modifyDate": "2022-03-07"
+  },
+  {
+    "corpCode": "00369301",
+    "corpName": "근영전자통신",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01928192",
+    "corpName": "지에스에스서울청량중",
+    "modifyDate": "2025-05-14"
+  },
+  {
+    "corpCode": "00452212",
+    "corpName": "가나종합건설",
+    "modifyDate": "2019-07-29"
+  },
+  {
+    "corpCode": "01089749",
+    "corpName": "아델",
+    "modifyDate": "2021-03-02"
+  },
+  {
+    "corpCode": "01708747",
+    "corpName": "전북지역대학연합기술지주회사",
+    "modifyDate": "2022-12-28"
+  },
+  {
+    "corpCode": "00766498",
+    "corpName": "한빛케이에스이",
+    "modifyDate": "2022-02-22"
+  },
+  {
+    "corpCode": "00241573",
+    "corpName": "한국지반기술",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01082339",
+    "corpName": "재원비앤씨",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01493553",
+    "corpName": "브이핀테크",
+    "modifyDate": "2020-08-20"
+  },
+  {
+    "corpCode": "00356662",
+    "corpName": "세이에이스플러스혼합형펀드",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00491318",
+    "corpName": "신도시개발",
+    "modifyDate": "2019-02-25"
+  },
+  {
+    "corpCode": "01639793",
+    "corpName": "쎄닉",
+    "modifyDate": "2022-09-14"
+  },
+  {
+    "corpCode": "00105536",
+    "corpName": "테크노플러스(구,금광)",
+    "modifyDate": "2023-02-16"
+  },
+  {
+    "corpCode": "00162647",
+    "corpName": "한원정기",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00255619",
+    "corpName": "강원랜드",
+    "stockCode": "035250",
+    "modifyDate": "2023-12-06"
+  },
+  {
+    "corpCode": "01851766",
+    "corpName": "유레카필름프로덕션",
+    "modifyDate": "2024-10-15"
+  },
+  {
+    "corpCode": "01456844",
+    "corpName": "세르파물류",
+    "modifyDate": "2020-04-27"
+  },
+  {
+    "corpCode": "01331730",
+    "corpName": "더조은건설",
+    "modifyDate": "2022-02-24"
+  },
+  {
+    "corpCode": "01891117",
+    "corpName": "엠디엠오에프피제1호사모투자",
+    "modifyDate": "2025-01-21"
+  },
+  {
+    "corpCode": "01290822",
+    "corpName": "쓰리에이치",
+    "modifyDate": "2023-02-21"
+  },
+  {
+    "corpCode": "01907870",
+    "corpName": "조은가족",
+    "modifyDate": "2025-08-24"
+  },
+  {
+    "corpCode": "01544361",
+    "corpName": "코스파인",
+    "modifyDate": "2022-02-25"
+  },
+  {
+    "corpCode": "01893212",
+    "corpName": "로이움지젤일차",
+    "modifyDate": "2025-02-04"
+  },
+  {
+    "corpCode": "00206747",
+    "corpName": "씨제이지엘에스",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01764071",
+    "corpName": "라인페이플러스",
+    "modifyDate": "2023-08-14"
+  },
+  {
+    "corpCode": "01873467",
+    "corpName": "에이덴트",
+    "modifyDate": "2024-10-23"
+  },
+  {
+    "corpCode": "01777978",
+    "corpName": "알파도시개발",
+    "modifyDate": "2023-08-04"
+  },
+  {
+    "corpCode": "01088786",
+    "corpName": "제이에이치글로벌",
+    "modifyDate": "2020-02-26"
+  },
+  {
+    "corpCode": "00591265",
+    "corpName": "알티산업개발",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01220735",
+    "corpName": "태산기연",
+    "modifyDate": "2020-02-28"
+  },
+  {
+    "corpCode": "01150685",
+    "corpName": "경신전선",
+    "modifyDate": "2023-02-23"
+  },
+  {
+    "corpCode": "01279704",
+    "corpName": "유아이제십구차유동화전문유한회사",
+    "modifyDate": "2025-11-18"
+  },
+  {
+    "corpCode": "00227616",
+    "corpName": "농업회사법인농협에코아그로",
+    "modifyDate": "2023-07-20"
+  },
+  {
+    "corpCode": "01453050",
+    "corpName": "신한항업",
+    "modifyDate": "2024-06-28"
+  },
+  {
+    "corpCode": "01095306",
+    "corpName": "에스더블유에스코리아",
+    "modifyDate": "2022-05-17"
+  },
+  {
+    "corpCode": "01326561",
+    "corpName": "더블에스엔제이차",
+    "modifyDate": "2018-09-19"
+  },
+  {
+    "corpCode": "00426846",
+    "corpName": "한빛아이앤비유동화전문유한회사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01819751",
+    "corpName": "해오름주택",
+    "modifyDate": "2024-04-15"
+  },
+  {
+    "corpCode": "00480950",
+    "corpName": "이아이디",
+    "stockCode": "093230",
+    "modifyDate": "2025-09-11"
+  },
+  {
+    "corpCode": "00562351",
+    "corpName": "훌루테크",
+    "modifyDate": "2023-02-17"
+  },
+  {
+    "corpCode": "00455538",
+    "corpName": "플랙트우즈코리아",
+    "modifyDate": "2018-05-14"
+  },
+  {
+    "corpCode": "01629422",
+    "corpName": "마이크로웍스코리아",
+    "modifyDate": "2023-02-08"
+  },
+  {
+    "corpCode": "01750333",
+    "corpName": "광장산업개발",
+    "modifyDate": "2023-05-08"
+  },
+  {
+    "corpCode": "00679068",
+    "corpName": "썬샤인에너지",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01769298",
+    "corpName": "퍼스트이지라이프",
+    "modifyDate": "2023-07-05"
+  },
+  {
+    "corpCode": "01402524",
+    "corpName": "용진테크",
+    "modifyDate": "2020-02-28"
+  },
+  {
+    "corpCode": "01155839",
+    "corpName": "지에스알코리아",
+    "modifyDate": "2024-11-01"
+  },
+  {
+    "corpCode": "01026847",
+    "corpName": "대진정공",
+    "modifyDate": "2019-02-28"
+  },
+  {
+    "corpCode": "00568452",
+    "corpName": "폴카",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01481895",
+    "corpName": "에이피로지스틱스",
+    "modifyDate": "2023-02-23"
+  },
+  {
+    "corpCode": "00124364",
+    "corpName": "부옥산업",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00155124",
+    "corpName": "평화홀딩스",
+    "stockCode": "010770",
+    "modifyDate": "2025-01-09"
+  },
+  {
+    "corpCode": "01810680",
+    "corpName": "맥시머스",
+    "modifyDate": "2024-02-16"
+  },
+  {
+    "corpCode": "01552555",
+    "corpName": "씨엔티솔루션",
+    "modifyDate": "2022-02-14"
+  },
+  {
+    "corpCode": "01073720",
+    "corpName": "메이트플러스",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00613187",
+    "corpName": "정림종합건설",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01374382",
+    "corpName": "경인오토",
+    "modifyDate": "2023-02-17"
+  },
+  {
+    "corpCode": "01675175",
+    "corpName": "부경기업",
+    "modifyDate": "2022-07-25"
+  },
+  {
+    "corpCode": "01556445",
+    "corpName": "노엘컴퍼니",
+    "modifyDate": "2021-09-17"
+  },
+  {
+    "corpCode": "00683052",
+    "corpName": "케빅",
+    "modifyDate": "2022-02-28"
+  },
+  {
+    "corpCode": "01096989",
+    "corpName": "체인지김포원제이차",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00419989",
+    "corpName": "클루넷",
+    "stockCode": "067130",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01569421",
+    "corpName": "알에스에스테크윈",
+    "modifyDate": "2021-05-26"
+  },
+  {
+    "corpCode": "01679825",
+    "corpName": "유진산업개발",
+    "modifyDate": "2022-08-29"
+  },
+  {
+    "corpCode": "01411717",
+    "corpName": "슈프림괴정",
+    "modifyDate": "2019-10-02"
+  },
+  {
+    "corpCode": "01160585",
+    "corpName": "상지",
+    "modifyDate": "2023-02-21"
+  },
+  {
+    "corpCode": "01234172",
+    "corpName": "세진프리시젼",
+    "modifyDate": "2022-02-28"
+  },
+  {
+    "corpCode": "01634497",
+    "corpName": "용덕로직스",
+    "modifyDate": "2023-02-23"
+  },
+  {
+    "corpCode": "01635645",
+    "corpName": "더퍼블릭자산운용",
+    "modifyDate": "2022-04-19"
+  },
+  {
+    "corpCode": "00819550",
+    "corpName": "오담문화기획",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00420259",
+    "corpName": "NortheastAsiaInvestmentsPte.Ltd.",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00928751",
+    "corpName": "아이티씨에스남부",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00455103",
+    "corpName": "예지정보기술",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01712421",
+    "corpName": "리얼픽",
+    "modifyDate": "2023-01-10"
+  },
+  {
+    "corpCode": "01056918",
+    "corpName": "가디언제일차",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00676636",
+    "corpName": "인천북항벌크터미널",
+    "modifyDate": "2022-02-22"
+  },
+  {
+    "corpCode": "01308787",
+    "corpName": "지비코리아홀딩스",
+    "modifyDate": "2021-09-07"
+  },
+  {
+    "corpCode": "01018705",
+    "corpName": "아이스파이프",
+    "modifyDate": "2023-02-10"
+  },
+  {
+    "corpCode": "00129323",
+    "corpName": "삼화제지",
+    "modifyDate": "2024-06-28"
+  },
+  {
+    "corpCode": "00920962",
+    "corpName": "아성공조",
+    "modifyDate": "2023-02-14"
+  },
+  {
+    "corpCode": "01367106",
+    "corpName": "호감",
+    "modifyDate": "2023-02-10"
+  },
+  {
+    "corpCode": "01404993",
+    "corpName": "피에스씨컨설팅",
+    "modifyDate": "2019-09-10"
+  },
+  {
+    "corpCode": "01913400",
+    "corpName": "부영홀딩스",
+    "modifyDate": "2025-08-26"
+  },
+  {
+    "corpCode": "01659812",
+    "corpName": "신영개발",
+    "modifyDate": "2023-02-23"
+  },
+  {
+    "corpCode": "01169595",
+    "corpName": "스마트고덕제일차",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01098914",
+    "corpName": "주)홍준",
+    "modifyDate": "2023-01-10"
+  },
+  {
+    "corpCode": "00533067",
+    "corpName": "정우레미콘",
+    "modifyDate": "2023-02-23"
+  },
+  {
+    "corpCode": "00596066",
+    "corpName": "한국베트남15-1유전해외자원개발투자회사",
+    "stockCode": "093820",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01353246",
+    "corpName": "대진씨앤씨",
+    "modifyDate": "2022-11-01"
+  },
+  {
+    "corpCode": "01501357",
+    "corpName": "엠디청량리역제일차",
+    "modifyDate": "2020-09-18"
+  },
+  {
+    "corpCode": "00246921",
+    "corpName": "흥한산업",
+    "modifyDate": "2022-02-28"
+  },
+  {
+    "corpCode": "01027606",
+    "corpName": "풍신",
+    "modifyDate": "2023-02-15"
+  },
+  {
+    "corpCode": "01481901",
+    "corpName": "쌍금",
+    "modifyDate": "2020-05-27"
+  },
+  {
+    "corpCode": "00521008",
+    "corpName": "흙",
+    "modifyDate": "2023-02-17"
+  },
+  {
+    "corpCode": "00414197",
+    "corpName": "파워맥스",
+    "modifyDate": "2022-02-28"
+  },
+  {
+    "corpCode": "00237543",
+    "corpName": "대명화성",
+    "modifyDate": "2023-02-21"
+  },
+  {
+    "corpCode": "00590345",
+    "corpName": "대림랜드아이",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00559898",
+    "corpName": "우남엔지니어링",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00985783",
+    "corpName": "삼영지이티",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01493535",
+    "corpName": "모비데이즈",
+    "stockCode": "363260",
+    "modifyDate": "2023-04-27"
+  },
+  {
+    "corpCode": "01471746",
+    "corpName": "장오기계",
+    "modifyDate": "2024-02-21"
+  },
+  {
+    "corpCode": "00875033",
+    "corpName": "아산엠알아이",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01326118",
+    "corpName": "에이치에프아이팔삼유동화전문유한회사",
+    "modifyDate": "2023-02-14"
+  },
+  {
+    "corpCode": "01469015",
+    "corpName": "대경",
+    "modifyDate": "2023-02-22"
+  },
+  {
+    "corpCode": "01074020",
+    "corpName": "NHF제3호공공임대개발전문위탁관리부동산투자회사",
+    "modifyDate": "2023-02-23"
+  },
+  {
+    "corpCode": "00173892",
+    "corpName": "우성화학공업",
+    "modifyDate": "2019-03-29"
+  },
+  {
+    "corpCode": "01751253",
+    "corpName": "영진통운",
+    "modifyDate": "2023-05-02"
+  },
+  {
+    "corpCode": "01906631",
+    "corpName": "기린뉴시니어라이프",
+    "modifyDate": "2025-04-16"
+  },
+  {
+    "corpCode": "00374075",
+    "corpName": "후후",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01257146",
+    "corpName": "고성금속",
+    "modifyDate": "2017-10-13"
+  },
+  {
+    "corpCode": "01366417",
+    "corpName": "위드홀딩스",
+    "modifyDate": "2020-02-26"
+  },
+  {
+    "corpCode": "00475772",
+    "corpName": "엔타즈",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00454539",
+    "corpName": "피에이치와이",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00625775",
+    "corpName": "에이디건설",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01326525",
+    "corpName": "스튜디오엔",
+    "modifyDate": "2022-02-25"
+  },
+  {
+    "corpCode": "01922833",
+    "corpName": "유앤지파트너스",
+    "modifyDate": "2025-04-29"
+  },
+  {
+    "corpCode": "01752410",
+    "corpName": "경방테크롤",
+    "modifyDate": "2023-05-03"
+  },
+  {
+    "corpCode": "00623652",
+    "corpName": "대양플러스",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00451879",
+    "corpName": "씨에스피산업",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01153655",
+    "corpName": "한영티엔에스",
+    "modifyDate": "2022-02-28"
+  },
+  {
+    "corpCode": "00386715",
+    "corpName": "세흥에스피",
+    "modifyDate": "2023-04-12"
+  },
+  {
+    "corpCode": "00447645",
+    "corpName": "부사린상사",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01402357",
+    "corpName": "호존인터내셔날",
+    "modifyDate": "2019-09-09"
+  },
+  {
+    "corpCode": "00941132",
+    "corpName": "현경통신",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00458119",
+    "corpName": "스카이더블유",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00101600",
+    "corpName": "경문통상",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00384726",
+    "corpName": "삼디이모션",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01687019",
+    "corpName": "이지케이",
+    "modifyDate": "2023-02-22"
+  },
+  {
+    "corpCode": "00331487",
+    "corpName": "예스닉",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01021240",
+    "corpName": "정일글로벌",
+    "modifyDate": "2023-02-23"
+  },
+  {
+    "corpCode": "01844207",
+    "corpName": "보람패밀리",
+    "modifyDate": "2024-05-13"
+  },
+  {
+    "corpCode": "01295517",
+    "corpName": "에이아이에이생명보험",
+    "modifyDate": "2025-01-07"
+  },
+  {
+    "corpCode": "01758724",
+    "corpName": "더블유지엘",
+    "modifyDate": "2023-05-10"
+  },
+  {
+    "corpCode": "00843849",
+    "corpName": "제일비엠시",
+    "modifyDate": "2022-12-27"
+  },
+  {
+    "corpCode": "00663890",
+    "corpName": "해담은세상",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01052037",
+    "corpName": "티케이스틸",
+    "modifyDate": "2022-05-25"
+  },
+  {
+    "corpCode": "00868769",
+    "corpName": "파미",
+    "modifyDate": "2023-02-20"
+  },
+  {
+    "corpCode": "01012604",
+    "corpName": "씨스존",
+    "modifyDate": "2024-02-14"
+  },
+  {
+    "corpCode": "00452726",
+    "corpName": "경주조선호텔",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01382798",
+    "corpName": "동성금속기술",
+    "modifyDate": "2020-02-28"
+  },
+  {
+    "corpCode": "01347272",
+    "corpName": "엔에스광명제일차",
+    "modifyDate": "2019-01-03"
+  },
+  {
+    "corpCode": "01132634",
+    "corpName": "하이세종제일차",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01151356",
+    "corpName": "태광판지",
+    "modifyDate": "2023-02-22"
+  },
+  {
+    "corpCode": "01394377",
+    "corpName": "이지스밸류플러스리츠",
+    "stockCode": "334890",
+    "modifyDate": "2022-10-13"
+  },
+  {
+    "corpCode": "01927342",
+    "corpName": "리조이스",
+    "modifyDate": "2025-05-08"
+  },
+  {
+    "corpCode": "00453220",
+    "corpName": "우림",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00530468",
+    "corpName": "주)제4기한국",
+    "modifyDate": "2024-02-14"
+  },
+  {
+    "corpCode": "01565072",
+    "corpName": "지안디벨롭먼트",
+    "modifyDate": "2022-02-28"
+  },
+  {
+    "corpCode": "01158030",
+    "corpName": "우주판넬데크",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00362159",
+    "corpName": "웰크론",
+    "stockCode": "065950",
+    "modifyDate": "2022-10-11"
+  },
+  {
+    "corpCode": "00836618",
+    "corpName": "유진에너지",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01759741",
+    "corpName": "아이알디앤씨",
+    "modifyDate": "2023-05-12"
+  },
+  {
+    "corpCode": "00927062",
+    "corpName": "브리조",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01679612",
+    "corpName": "비케이회원제일차",
+    "modifyDate": "2022-08-26"
+  },
+  {
+    "corpCode": "01364756",
+    "corpName": "트리플에스",
+    "modifyDate": "2019-04-30"
+  },
+  {
+    "corpCode": "01097146",
+    "corpName": "선훈",
+    "modifyDate": "2019-02-26"
+  },
+  {
+    "corpCode": "01109715",
+    "corpName": "DSC인베스트먼트",
+    "stockCode": "241520",
+    "modifyDate": "2025-06-18"
+  },
+  {
+    "corpCode": "01381726",
+    "corpName": "스베드럽스틸코리아",
+    "modifyDate": "2023-02-14"
+  },
+  {
+    "corpCode": "01590449",
+    "corpName": "에스타이거하이",
+    "modifyDate": "2021-10-07"
+  },
+  {
+    "corpCode": "01679241",
+    "corpName": "유신모자",
+    "modifyDate": "2022-08-31"
+  },
+  {
+    "corpCode": "00318547",
+    "corpName": "영진종합건설",
+    "modifyDate": "2022-02-14"
+  },
+  {
+    "corpCode": "01791093",
+    "corpName": "신보2023제21차유동화전문유한회사",
+    "modifyDate": "2023-10-13"
+  },
+  {
+    "corpCode": "00876078",
+    "corpName": "지에스교역",
+    "modifyDate": "2023-02-23"
+  },
+  {
+    "corpCode": "01482618",
+    "corpName": "케이플러스유",
+    "modifyDate": "2020-05-28"
+  },
+  {
+    "corpCode": "01477494",
+    "corpName": "디지센트럴로드",
+    "modifyDate": "2020-05-12"
+  },
+  {
+    "corpCode": "00187822",
+    "corpName": "한국피자헛",
+    "modifyDate": "2024-06-28"
+  },
+  {
+    "corpCode": "01764178",
+    "corpName": "중진공2023제1차스케일업유동화전문유한회사",
+    "modifyDate": "2023-05-25"
+  },
+  {
+    "corpCode": "01492217",
+    "corpName": "엑셀세라퓨틱스",
+    "stockCode": "373110",
+    "modifyDate": "2024-07-15"
+  },
+  {
+    "corpCode": "01289297",
+    "corpName": "성지알펙스",
+    "modifyDate": "2023-03-27"
+  },
+  {
+    "corpCode": "00177320",
+    "corpName": "대성미생물",
+    "stockCode": "036480",
+    "modifyDate": "2023-03-27"
+  },
+  {
+    "corpCode": "00414559",
+    "corpName": "호성산업개발",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01369052",
+    "corpName": "지엘스포월드피에프브이",
+    "modifyDate": "2023-01-18"
+  },
+  {
+    "corpCode": "00976970",
+    "corpName": "수원순환도로",
+    "modifyDate": "2022-02-22"
+  },
+  {
+    "corpCode": "01532144",
+    "corpName": "그래핀랩",
+    "modifyDate": "2022-05-02"
+  },
+  {
+    "corpCode": "00592981",
+    "corpName": "아산씨앤아이",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01085211",
+    "corpName": "보부식품",
+    "modifyDate": "2024-06-28"
+  },
+  {
+    "corpCode": "01253195",
+    "corpName": "태원주택",
+    "modifyDate": "2020-02-27"
+  },
+  {
+    "corpCode": "01661002",
+    "corpName": "에트로코리아",
+    "modifyDate": "2023-02-22"
+  },
+  {
+    "corpCode": "00875051",
+    "corpName": "구택",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01478439",
+    "corpName": "이티엠에스",
+    "modifyDate": "2024-11-11"
+  },
+  {
+    "corpCode": "01449516",
+    "corpName": "우리에스제이에스제일차",
+    "modifyDate": "2020-04-08"
+  },
+  {
+    "corpCode": "01381595",
+    "corpName": "엔비스",
+    "modifyDate": "2022-02-28"
+  },
+  {
+    "corpCode": "00261391",
+    "corpName": "넥스텍",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01590616",
+    "corpName": "에이엔엠유동화제일차",
+    "modifyDate": "2021-10-08"
+  },
+  {
+    "corpCode": "01481558",
+    "corpName": "밸류플러스제사십일차",
+    "modifyDate": "2020-05-27"
+  },
+  {
+    "corpCode": "01159862",
+    "corpName": "대한제1호뉴스테이위탁관리부동산투자회사",
+    "modifyDate": "2022-10-14"
+  },
+  {
+    "corpCode": "00445452",
+    "corpName": "에이치리더스",
+    "modifyDate": "2022-03-15"
+  },
+  {
+    "corpCode": "00637655",
+    "corpName": "솔트웍스씨엔에프",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01952913",
+    "corpName": "에코트레이딩",
+    "modifyDate": "2025-09-04"
+  },
+  {
+    "corpCode": "01449145",
+    "corpName": "진명테크",
+    "modifyDate": "2021-02-25"
+  },
+  {
+    "corpCode": "00367695",
+    "corpName": "에이전트AI",
+    "stockCode": "060900",
+    "modifyDate": "2025-11-28"
+  },
+  {
+    "corpCode": "01333321",
+    "corpName": "성현물류",
+    "modifyDate": "2022-06-07"
+  },
+  {
+    "corpCode": "00115694",
+    "corpName": "DB증권",
+    "stockCode": "016610",
+    "modifyDate": "2025-06-04"
+  },
+  {
+    "corpCode": "01827963",
+    "corpName": "세승주택건설",
+    "modifyDate": "2024-04-24"
+  },
+  {
+    "corpCode": "01243693",
+    "corpName": "와이케이에이피티제이차",
+    "modifyDate": "2017-08-09"
+  },
+  {
+    "corpCode": "00976314",
+    "corpName": "바다원",
+    "modifyDate": "2022-02-16"
+  },
+  {
+    "corpCode": "01216176",
+    "corpName": "지오락",
+    "modifyDate": "2020-02-26"
+  },
+  {
+    "corpCode": "01247112",
+    "corpName": "이니코프",
+    "modifyDate": "2017-08-29"
+  },
+  {
+    "corpCode": "00995920",
+    "corpName": "뉴스타디케이이차",
+    "modifyDate": "2018-12-28"
+  },
+  {
+    "corpCode": "01911378",
+    "corpName": "고스트스튜디오",
+    "modifyDate": "2025-04-17"
+  },
+  {
+    "corpCode": "01739899",
+    "corpName": "동원정밀",
+    "modifyDate": "2023-04-24"
+  },
+  {
+    "corpCode": "01599006",
+    "corpName": "하이브솔루션코리아",
+    "modifyDate": "2021-12-13"
+  },
+  {
+    "corpCode": "01650769",
+    "corpName": "코코넛필터",
+    "modifyDate": "2024-06-28"
+  },
+  {
+    "corpCode": "01336902",
+    "corpName": "플라워마트",
+    "modifyDate": "2022-11-01"
+  },
+  {
+    "corpCode": "01603008",
+    "corpName": "사회복지법인삼성생명공익재단",
+    "modifyDate": "2022-12-23"
+  },
+  {
+    "corpCode": "00390028",
+    "corpName": "코오롱인터내셔널",
+    "stockCode": "063510",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01032033",
+    "corpName": "베를리네타제일차",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00253578",
+    "corpName": "세원테크",
+    "modifyDate": "2022-11-15"
+  },
+  {
+    "corpCode": "00131568",
+    "corpName": "SK임업",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00806635",
+    "corpName": "한국플랜트서비스",
+    "modifyDate": "2025-04-02"
+  },
+  {
+    "corpCode": "00651497",
+    "corpName": "푸른산",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00153834",
+    "corpName": "태양철관공업",
+    "modifyDate": "2022-02-24"
+  },
+  {
+    "corpCode": "01456127",
+    "corpName": "평강프라자",
+    "modifyDate": "2023-02-21"
+  },
+  {
+    "corpCode": "01439519",
+    "corpName": "얼터너티브자산운용",
+    "modifyDate": "2020-03-10"
+  },
+  {
+    "corpCode": "00981608",
+    "corpName": "신카와한국",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01792968",
+    "corpName": "씨씨엘인터내셔날",
+    "modifyDate": "2023-10-24"
+  },
+  {
+    "corpCode": "01299966",
+    "corpName": "에스앤케이인스티튜트",
+    "modifyDate": "2024-08-23"
+  },
+  {
+    "corpCode": "01215335",
+    "corpName": "디더블유",
+    "modifyDate": "2019-03-18"
+  },
+  {
+    "corpCode": "00492548",
+    "corpName": "담양온천",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01062636",
+    "corpName": "울산와이로하스센시티",
+    "modifyDate": "2017-07-14"
+  },
+  {
+    "corpCode": "01603497",
+    "corpName": "롯데복지재단",
+    "modifyDate": "2021-12-20"
+  },
+  {
+    "corpCode": "00986816",
+    "corpName": "석천기업",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00532305",
+    "corpName": "쎄븐산업개발",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01917220",
+    "corpName": "레드애플자산운용",
+    "modifyDate": "2025-04-23"
+  },
+  {
+    "corpCode": "01329948",
+    "corpName": "맨투맨써비스",
+    "modifyDate": "2022-03-25"
+  },
+  {
+    "corpCode": "00336057",
+    "corpName": "부암테크",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01494464",
+    "corpName": "단디자산운용",
+    "modifyDate": "2020-09-01"
+  },
+  {
+    "corpCode": "01594171",
+    "corpName": "전자신문인터넷",
+    "modifyDate": "2021-10-28"
+  },
+  {
+    "corpCode": "01915134",
+    "corpName": "코비코리아",
+    "modifyDate": "2025-05-08"
+  },
+  {
+    "corpCode": "01947513",
+    "corpName": "빅페스타",
+    "modifyDate": "2025-08-25"
+  },
+  {
+    "corpCode": "00575328",
+    "corpName": "한맥디앤에스",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01344488",
+    "corpName": "성신레미컨",
+    "modifyDate": "2023-02-22"
+  },
+  {
+    "corpCode": "01687532",
+    "corpName": "엠케이타운",
+    "modifyDate": "2022-09-16"
+  },
+  {
+    "corpCode": "00429250",
+    "corpName": "AllianzFinanceB.V.",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01684580",
+    "corpName": "쓰리씨",
+    "modifyDate": "2022-09-07"
+  },
+  {
+    "corpCode": "01477087",
+    "corpName": "더블유에이치컴퍼니",
+    "modifyDate": "2022-02-28"
+  },
+  {
+    "corpCode": "00346805",
+    "corpName": "엔플러스엠닷컴",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01799855",
+    "corpName": "케이에스부산제일차",
+    "modifyDate": "2023-11-30"
+  },
+  {
+    "corpCode": "01099117",
+    "corpName": "동방하이테크",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01885806",
+    "corpName": "이지스일반사모부동산모투자회사제517호",
+    "modifyDate": "2024-12-24"
+  },
+  {
+    "corpCode": "01589258",
+    "corpName": "그레이트디비제삼차",
+    "modifyDate": "2021-09-30"
+  },
+  {
+    "corpCode": "01361379",
+    "corpName": "유창로보텍",
+    "modifyDate": "2022-02-28"
+  },
+  {
+    "corpCode": "01077498",
+    "corpName": "미르철강",
+    "modifyDate": "2021-06-30"
+  },
+  {
+    "corpCode": "00531324",
+    "corpName": "아천개발",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01513194",
+    "corpName": "더에스에이치제칠차",
+    "modifyDate": "2020-11-19"
+  },
+  {
+    "corpCode": "00613895",
+    "corpName": "동신기업",
+    "modifyDate": "2023-02-22"
+  },
+  {
+    "corpCode": "01577387",
+    "corpName": "지에스솔루션제일차",
+    "modifyDate": "2021-08-04"
+  },
+  {
+    "corpCode": "00523981",
+    "corpName": "삼광씨스템",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01137514",
+    "corpName": "가원",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00241111",
+    "corpName": "신흥캐피탈",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01150621",
+    "corpName": "판토스홀딩스",
+    "modifyDate": "2025-06-19"
+  },
+  {
+    "corpCode": "00264529",
+    "corpName": "엔플렉스",
+    "stockCode": "040130",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01891481",
+    "corpName": "밸류라이트",
+    "modifyDate": "2025-10-30"
+  },
+  {
+    "corpCode": "00310110",
+    "corpName": "거양",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01225208",
+    "corpName": "TongguangGroupCo.,Ltd.",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00346018",
+    "corpName": "유니시티네트워크코리아",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00430414",
+    "corpName": "우원개발",
+    "modifyDate": "2023-02-22"
+  },
+  {
+    "corpCode": "00319485",
+    "corpName": "호야코리아",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01812040",
+    "corpName": "원세미콘",
+    "modifyDate": "2024-02-26"
+  },
+  {
+    "corpCode": "01789238",
+    "corpName": "메인",
+    "modifyDate": "2023-10-06"
+  },
+  {
+    "corpCode": "01100529",
+    "corpName": "아이엘엘에스코리아",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01392999",
+    "corpName": "호윤건설",
+    "modifyDate": "2022-05-12"
+  },
+  {
+    "corpCode": "00441632",
+    "corpName": "한국문학사",
+    "modifyDate": "2023-02-23"
+  },
+  {
+    "corpCode": "00386706",
+    "corpName": "가농바이오",
+    "modifyDate": "2025-07-14"
+  },
+  {
+    "corpCode": "01498053",
+    "corpName": "새두레회계법인",
+    "modifyDate": "2020-09-09"
+  },
+  {
+    "corpCode": "01455605",
+    "corpName": "제주스토리",
+    "modifyDate": "2023-02-22"
+  },
+  {
+    "corpCode": "00595207",
+    "corpName": "엘리파트너스",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01176434",
+    "corpName": "제이에이치원제일차",
+    "modifyDate": "2020-09-04"
+  },
+  {
+    "corpCode": "00118691",
+    "corpName": "삼호에너지",
+    "modifyDate": "2023-02-14"
+  },
+  {
+    "corpCode": "01295270",
+    "corpName": "모어랜드광주",
+    "modifyDate": "2022-02-28"
+  },
+  {
+    "corpCode": "00923224",
+    "corpName": "에스엔에이시스템",
+    "modifyDate": "2023-05-04"
+  },
+  {
+    "corpCode": "01322389",
+    "corpName": "뉴스타우암",
+    "modifyDate": "2019-01-14"
+  },
+  {
+    "corpCode": "00918824",
+    "corpName": "은석",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01391237",
+    "corpName": "토미닉제일차",
+    "modifyDate": "2019-06-28"
+  },
+  {
+    "corpCode": "00230887",
+    "corpName": "동아대리석",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01772140",
+    "corpName": "지프렉스",
+    "modifyDate": "2023-07-24"
+  },
+  {
+    "corpCode": "01745261",
+    "corpName": "루브루수원",
+    "modifyDate": "2023-04-28"
+  },
+  {
+    "corpCode": "01531978",
+    "corpName": "르본씨앤디",
+    "modifyDate": "2023-02-15"
+  },
+  {
+    "corpCode": "01362572",
+    "corpName": "제일기건",
+    "modifyDate": "2022-03-24"
+  },
+  {
+    "corpCode": "01361537",
+    "corpName": "이레산업",
+    "modifyDate": "2019-11-12"
+  },
+  {
+    "corpCode": "01458772",
+    "corpName": "휴먼리더스",
+    "modifyDate": "2020-04-24"
+  },
+  {
+    "corpCode": "00616883",
+    "corpName": "호리바코리아",
+    "modifyDate": "2023-02-16"
+  },
+  {
+    "corpCode": "01652475",
+    "corpName": "성지토목기술공사",
+    "modifyDate": "2023-02-22"
+  },
+  {
+    "corpCode": "00561282",
+    "corpName": "금정",
+    "modifyDate": "2023-02-13"
+  },
+  {
+    "corpCode": "01253557",
+    "corpName": "썬에프엘",
+    "modifyDate": "2024-06-28"
+  },
+  {
+    "corpCode": "01916586",
+    "corpName": "브리온건설",
+    "modifyDate": "2025-04-28"
+  },
+  {
+    "corpCode": "00553247",
+    "corpName": "케마스",
+    "modifyDate": "2020-02-21"
+  },
+  {
+    "corpCode": "00511223",
+    "corpName": "인텍투자",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00223179",
+    "corpName": "교원교육",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01011562",
+    "corpName": "우성아이비",
+    "stockCode": "194610",
+    "modifyDate": "2023-02-23"
+  },
+  {
+    "corpCode": "01101847",
+    "corpName": "메이슨인터내셔날",
+    "modifyDate": "2023-02-20"
+  },
+  {
+    "corpCode": "01871876",
+    "corpName": "제이투개발",
+    "modifyDate": "2024-09-30"
+  },
+  {
+    "corpCode": "01536779",
+    "corpName": "(의)백상의료재단가족사랑요양병원",
+    "modifyDate": "2021-03-31"
+  },
+  {
+    "corpCode": "01633300",
+    "corpName": "케미탑",
+    "modifyDate": "2023-02-23"
+  },
+  {
+    "corpCode": "01278811",
+    "corpName": "에이블연제제일차",
+    "modifyDate": "2018-12-20"
+  },
+  {
+    "corpCode": "01502046",
+    "corpName": "엠에스바이오텍",
+    "modifyDate": "2024-06-28"
+  },
+  {
+    "corpCode": "00661449",
+    "corpName": "에이치비어드바이저스",
+    "modifyDate": "2019-05-14"
+  },
+  {
+    "corpCode": "01634187",
+    "corpName": "신보2022제6차유동화전문유한회사",
+    "modifyDate": "2022-04-19"
+  },
+  {
+    "corpCode": "01675102",
+    "corpName": "청파건설",
+    "modifyDate": "2025-04-02"
+  },
+  {
+    "corpCode": "00470315",
+    "corpName": "성영종합건설",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00289096",
+    "corpName": "미래에셋실크로드자산배분형삼호펀드",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "00991739",
+    "corpName": "동삭하우징",
+    "modifyDate": "2017-06-30"
+  },
+  {
+    "corpCode": "01948682",
+    "corpName": "골드바이브",
+    "modifyDate": "2025-09-04"
+  },
+  {
+    "corpCode": "01612945",
+    "corpName": "에스투에이",
+    "modifyDate": "2023-04-14"
+  },
+  {
+    "corpCode": "00523653",
+    "corpName": "이엠티",
+    "modifyDate": "2023-02-20"
+  },
+  {
+    "corpCode": "01500154",
+    "corpName": "동이에코스",
+    "modifyDate": "2022-02-25"
+  },
+  {
+    "corpCode": "00374109",
+    "corpName": "CyberAgent,Ltd.",
+    "modifyDate": "2017-06-30"
+  }
+]

@@ -41,9 +41,9 @@ fun EtfOhlcv.assertValidOhlcv() {
 }
 
 /**
- * ComprehensiveEtfInfo 유효성 검증
+ * EtfDetailedInfo 유효성 검증
  */
-fun ComprehensiveEtfInfo.assertValidComprehensiveInfo() {
+fun EtfDetailedInfo.assertValidDetailedInfo() {
     assertThat(this.isin).isNotEmpty()
     assertThat(this.name).isNotEmpty()
     assertThat(this.nav).isGreaterThanOrEqualTo(BigDecimal.ZERO)

@@ -1,0 +1,92 @@
+[
+  {
+    "tradeDate": "2025-12-03",
+    "closePrice": 57550,
+    "direction": "UP",
+    "change": 875,
+    "changeRate": 1.54,
+    "volume": 4566672,
+    "tradingValue": 261104189382
+  },
+  {
+    "tradeDate": "2025-12-02",
+    "closePrice": 56675,
+    "direction": "UP",
+    "change": 1100,
+    "changeRate": 1.98,
+    "volume": 10143207,
+    "tradingValue": 573638043545
+  },
+  {
+    "tradeDate": "2025-12-01",
+    "closePrice": 55575,
+    "direction": "DOWN",
+    "change": -75,
+    "changeRate": -0.13,
+    "volume": 9238373,
+    "tradingValue": 513963165427
+  },
+  {
+    "tradeDate": "2025-11-28",
+    "closePrice": 55650,
+    "direction": "DOWN",
+    "change": -825,
+    "changeRate": -1.46,
+    "volume": 11190217,
+    "tradingValue": 624986409800
+  },
+  {
+    "tradeDate": "2025-11-27",
+    "closePrice": 56475,
+    "direction": "UP",
+    "change": 395,
+    "changeRate": 0.7,
+    "volume": 12038706,
+    "tradingValue": 681780144401
+  },
+  {
+    "tradeDate": "2025-11-26",
+    "closePrice": 56080,
+    "direction": "UP",
+    "change": 1475,
+    "changeRate": 2.7,
+    "volume": 14646050,
+    "tradingValue": 815623302174
+  },
+  {
+    "tradeDate": "2025-11-25",
+    "closePrice": 54605,
+    "direction": "UP",
+    "change": 395,
+    "changeRate": 0.73,
+    "volume": 13967143,
+    "tradingValue": 767441433738
+  },
+  {
+    "tradeDate": "2025-11-24",
+    "closePrice": 54210,
+    "direction": "DOWN",
+    "change": -15,
+    "changeRate": -0.03,
+    "volume": 15174652,
+    "tradingValue": 828864560271
+  },
+  {
+    "tradeDate": "2025-11-21",
+    "closePrice": 54225,
+    "direction": "DOWN",
+    "change": -2375,
+    "changeRate": -4.2,
+    "volume": 20274935,
+    "tradingValue": 1099608281548
+  },
+  {
+    "tradeDate": "2025-11-20",
+    "closePrice": 56600,
+    "direction": "UP",
+    "change": 1190,
+    "changeRate": 2.15,
+    "volume": 16962616,
+    "tradingValue": 966872195735
+  }
+]

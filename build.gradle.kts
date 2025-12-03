@@ -56,17 +56,17 @@ kotlin {
 }
 
 // ============================================
-// Live Test Source Set 설정
+// Integration Test Source Set 설정
 // ============================================
 
 sourceSets {
-    // Live Test용 소스 디렉토리 (recorded API responses)
-    create("liveTest") {
+    // Integration Test용 소스 디렉토리 (recorded API responses)
+    create("integrationTest") {
         kotlin {
-            srcDir("src/liveTest/kotlin")
+            srcDir("src/integrationTest/kotlin")
         }
         resources {
-            srcDir("src/liveTest/resources")
+            srcDir("src/integrationTest/resources")
         }
         // Main 출력만 포함 - test와 완전 분리
         compileClasspath += sourceSets.main.get().output
@@ -74,19 +74,19 @@ sourceSets {
     }
 }
 
-// Live Test용 Configuration
-// Complete separation: liveTest has its own dependencies
-val liveTestImplementation by configurations.getting {
+// Integration Test용 Configuration
+// Complete separation: integrationTest has its own dependencies
+val integrationTestImplementation by configurations.getting {
     // Main 의존성을 포함하되, test output은 포함하지 않음
     extendsFrom(configurations.implementation.get())
 }
 
 dependencies {
-    // liveTest는 test 의존성 추가 (test output 제외)
-    liveTestImplementation(libs.junit.jupiter)
-    liveTestImplementation(libs.assertj.core)
-    liveTestImplementation(libs.kotlinx.coroutines.test)
-    liveTestImplementation("com.google.code.gson:gson:2.11.0")
+    // integrationTest는 test 의존성 추가 (test output 제외)
+    integrationTestImplementation(libs.junit.jupiter)
+    integrationTestImplementation(libs.assertj.core)
+    integrationTestImplementation(libs.kotlinx.coroutines.test)
+    integrationTestImplementation("com.google.code.gson:gson:2.11.0")
 }
 
 
@@ -94,8 +94,8 @@ dependencies {
 // Resource Processing Tasks
 // ============================================
 // Note: 완전 분리되었으나, Gradle's resource processing에서 duplicate 감지
-// (liveTest와 test가 별도의 출력 디렉토리를 사용하므로 실제 충돌은 없음)
-tasks.named("processLiveTestResources", Copy::class) {
+// (integrationTest와 test가 별도의 출력 디렉토리를 사용하므로 실제 충돌은 없음)
+tasks.named("processIntegrationTestResources", Copy::class) {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
@@ -103,10 +103,10 @@ tasks.named("processLiveTestResources", Copy::class) {
 // Test Tasks 설정
 // ============================================
 
-// Unit Test Task 설정 (live 태그 제외)
+// Unit Test Task 설정 (integration 태그 제외)
 tasks.test {
     useJUnitPlatform {
-        excludeTags("live")
+        excludeTags("integration")
     }
     // Pass API key from local.properties to test JVM
     localProperties.getProperty("OPENDART_API_KEY")?.let { apiKey ->
@@ -116,24 +116,24 @@ tasks.test {
     outputs.upToDateWhen { false }
 }
 
-// Live Test Task 생성
-val liveTest = tasks.register<Test>("liveTest") {
-    description = "Runs the live tests (actual API calls with recording)"
+// Integration Test Task 생성
+val integrationTest = tasks.register<Test>("integrationTest") {
+    description = "Runs the integration tests (actual API calls with recording)"
     group = "verification"
 
-    testClassesDirs = sourceSets["liveTest"].output.classesDirs
-    classpath = sourceSets["liveTest"].runtimeClasspath
+    testClassesDirs = sourceSets["integrationTest"].output.classesDirs
+    classpath = sourceSets["integrationTest"].runtimeClasspath
 
     useJUnitPlatform {
-        includeTags("live")
+        includeTags("integration")
     }
 
-    // 레코딩 활성화 플래그 전달 (기본값: true)
+    // 레코딩 활성화 플래그 전달 (기본값: true - IntelliJ에서도 기본 활성화)
     systemProperty("record.responses",
         if (project.hasProperty("record.responses")) {
             project.property("record.responses").toString()
         } else {
-            "true"
+            "true"  // IntelliJ Gradle 실행 시에도 레코딩 기본 활성화
         }
     )
 
@@ -142,7 +142,7 @@ val liveTest = tasks.register<Test>("liveTest") {
         environment("OPENDART_API_KEY", apiKey)
     }
 
-    // 타임아웃 설정 (Live Test는 오래 걸림)
+    // 타임아웃 설정 (Integration Test는 오래 걸림)
     timeout.set(Duration.ofMinutes(30))
 
     // 병렬 실행 비활성화 (Rate Limiting 준수)
@@ -152,12 +152,23 @@ val liveTest = tasks.register<Test>("liveTest") {
 
     // 항상 테스트 실행 (캐시 무시)
     outputs.upToDateWhen { false }
+
+    // responses 폴더 삭제 후 테스트 시작 (자동 레코딩)
+    dependsOn(cleanIntegrationTest)
 }
 
-// cleanLiveTest Task 생성 (레코딩 데이터 삭제)
-val cleanLiveTest = tasks.register<Delete>("cleanLiveTest") {
-    description = "Deletes all recorded API responses"
+// cleanIntegrationTest Task 생성 (레코딩 데이터 삭제)
+val cleanIntegrationTest = tasks.register<Delete>("cleanIntegrationTest") {
+    description = "Deletes all recorded API responses for fresh recording"
     group = "verification"
 
-    delete("src/liveTest/resources/responses")
+    delete("src/integrationTest/resources/responses")
+
+    // 삭제 후 디렉토리 재생성
+    doLast {
+        val responsesDir = file("src/integrationTest/resources/responses")
+        responsesDir.mkdirs()
+        println("\n✅ Cleaned responses directory: ${responsesDir.absolutePath}")
+        println("   레코딩이 초기화되었습니다. integrationTest 실행 시 새로운 응답을 기록합니다.\n")
+    }
 }

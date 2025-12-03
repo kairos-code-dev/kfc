@@ -1,0 +1,82 @@
+[
+  {
+    "ticker": "005930",
+    "name": "삼성전자",
+    "cuQuantity": "7143.00",
+    "value": 400008000,
+    "compositionAmount": 413579700,
+    "compositionRatio": "24.49"
+  },
+  {
+    "ticker": "000660",
+    "name": "SK하이닉스",
+    "cuQuantity": "849.00",
+    "value": 150018300,
+    "compositionAmount": 150273000,
+    "compositionRatio": "8.90"
+  },
+  {
+    "ticker": "105560",
+    "name": "KB금융",
+    "cuQuantity": "507.00",
+    "value": 49888800,
+    "compositionAmount": 49686000,
+    "compositionRatio": "2.94"
+  },
+  {
+    "ticker": "005380",
+    "name": "현대차",
+    "cuQuantity": "209.00",
+    "value": 45353000,
+    "compositionAmount": 45771000,
+    "compositionRatio": "2.71"
+  },
+  {
+    "ticker": "068270",
+    "name": "셀트리온",
+    "cuQuantity": "220.00",
+    "value": 38170000,
+    "compositionAmount": 38896000,
+    "compositionRatio": "2.30"
+  },
+  {
+    "ticker": "035420",
+    "name": "NAVER",
+    "cuQuantity": "199.00",
+    "value": 37810000,
+    "compositionAmount": 38446800,
+    "compositionRatio": "2.28"
+  },
+  {
+    "ticker": "055550",
+    "name": "신한지주",
+    "cuQuantity": "656.00",
+    "value": 36539200,
+    "compositionAmount": 36998400,
+    "compositionRatio": "2.19"
+  },
+  {
+    "ticker": "000270",
+    "name": "기아",
+    "cuQuantity": "375.00",
+    "value": 36675000,
+    "compositionAmount": 36450000,
+    "compositionRatio": "2.16"
+  },
+  {
+    "ticker": "005490",
+    "name": "POSCO홀딩스",
+    "cuQuantity": "100.00",
+    "value": 30350000,
+    "compositionAmount": 30150000,
+    "compositionRatio": "1.79"
+  },
+  {
+    "ticker": "086790",
+    "name": "하나금융지주",
+    "cuQuantity": "392.00",
+    "value": 24500000,
+    "compositionAmount": 24656800,
+    "compositionRatio": "1.46"
+  }
+]

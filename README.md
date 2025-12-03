@@ -82,8 +82,8 @@ fun main() = runBlocking {
         opendartApiKey = "YOUR_OPENDART_API_KEY" // 선택적
     )
 
-    // 2. ETF 도메인: ETF 목록 조회 (from KRX)
-    val etfList = kfc.etf.getList()
+    // 2. 펀드/증권상품 도메인: ETF 목록 조회 (from KRX)
+    val etfList = kfc.funds.getList()
     println("총 ETF 개수: ${etfList.size}")
 
     // 첫 번째 ETF 정보 출력
@@ -92,8 +92,8 @@ fun main() = runBlocking {
     println("  ISIN: ${firstEtf.isin}")
     println("  총보수: ${firstEtf.totalExpenseRatio}%")
 
-    // 3. ETF 도메인: ETF OHLCV 조회 (from KRX)
-    val ohlcv = kfc.etf.getOhlcv(
+    // 3. 펀드/증권상품 도메인: ETF OHLCV 조회 (from KRX)
+    val ohlcv = kfc.funds.getOhlcv(
         isin = "KR7152100004", // ARIRANG 200
         fromDate = LocalDate.of(2024, 1, 1),
         toDate = LocalDate.of(2024, 1, 31)
@@ -103,16 +103,16 @@ fun main() = runBlocking {
         println("${data.date}: Open=${data.open}, Close=${data.close}, Volume=${data.volume}")
     }
 
-    // 4. ETF 도메인: 조정주가 조회 (from Naver)
-    val adjustedOhlcv = kfc.etf.getAdjustedOhlcv(
+    // 4. 펀드/증권상품 도메인: 조정주가 조회 (from Naver)
+    val adjustedOhlcv = kfc.funds.getAdjustedOhlcv(
         ticker = "152100",
         fromDate = LocalDate.of(2024, 1, 1),
         toDate = LocalDate.of(2024, 1, 31)
     )
     println("\n조정주가 데이터: ${adjustedOhlcv.size}일")
 
-    // 5. ETF 도메인: 포트폴리오 구성 종목 조회 (from KRX)
-    val portfolio = kfc.etf.getPortfolio(
+    // 5. 펀드/증권상품 도메인: 포트폴리오 구성 종목 조회 (from KRX)
+    val portfolio = kfc.funds.getPortfolio(
         isin = "KR7069500007", // KODEX 200
         date = LocalDate.now()
     )
@@ -185,8 +185,8 @@ suspend fun main() {
     val kfc = KfcClient.create(rateLimitingSettings = customSettings)
 
     // 이제 각 API 호출이 설정된 레이트 제한을 따릅니다
-    val etfList = kfc.etf.getList()   // KRX 레이트 제한 적용
-    val ohlcv = kfc.etf.getAdjustedOhlcv(...)  // Naver 레이트 제한 적용
+    val etfList = kfc.funds.getList()   // KRX 레이트 제한 적용
+    val ohlcv = kfc.funds.getAdjustedOhlcv(...)  // Naver 레이트 제한 적용
 }
 ```
 
@@ -214,12 +214,12 @@ val client = KfcClient.create(rateLimitingSettings = unlimitedSettings)
 
 ## API Examples
 
-### ETF 도메인 API
+### 펀드/증권상품 도메인 API
 
 #### ETF 목록 조회 (from KRX)
 
 ```kotlin
-val etfList = kfc.etf.getList()
+val etfList = kfc.funds.getList()
 etfList.forEach { etf ->
     println("${etf.ticker} ${etf.name} (${etf.totalExpenseRatio}%)")
 }
@@ -228,7 +228,7 @@ etfList.forEach { etf ->
 #### ETF 상세 정보 조회 (from KRX)
 
 ```kotlin
-val detail = kfc.etf.getComprehensiveInfo(
+val detail = kfc.funds.getComprehensiveInfo(
     isin = "KR7069500007",
     tradeDate = LocalDate.now()
 )
@@ -239,7 +239,7 @@ println("NAV: ${detail?.nav}, 시가총액: ${detail?.marketCap}")
 
 ```kotlin
 // 730일 초과 시 자동으로 분할 후 병합
-val ohlcv = kfc.etf.getOhlcv(
+val ohlcv = kfc.funds.getOhlcv(
     isin = "KR7069500007",
     fromDate = LocalDate.of(2020, 1, 1), // 5년치 데이터
     toDate = LocalDate.of(2024, 12, 31)
@@ -250,7 +250,7 @@ println("총 ${ohlcv.size}일치 OHLCV 데이터")
 #### 조정주가 OHLCV 조회 (from Naver)
 
 ```kotlin
-val adjustedOhlcv = kfc.etf.getAdjustedOhlcv(
+val adjustedOhlcv = kfc.funds.getAdjustedOhlcv(
     ticker = "069500",
     fromDate = LocalDate.of(2024, 1, 1),
     toDate = LocalDate.of(2024, 12, 31)
@@ -263,7 +263,7 @@ adjustedOhlcv.forEach { data ->
 #### ETF 포트폴리오 구성 종목 조회 (from KRX)
 
 ```kotlin
-val portfolio = kfc.etf.getPortfolio(
+val portfolio = kfc.funds.getPortfolio(
     isin = "KR7069500007",
     date = LocalDate.now()
 )
@@ -315,7 +315,7 @@ stockSplits?.forEach { split ->
 ```
 ┌─────────────────────────────────────────┐
 │         API Layer (Public)              │
-│  EtfApi (도메인 통합)                    │
+│  FundsApi (도메인 통합)                  │
 │  CorpApi (도메인 통합)                   │
 │  KfcClient (Facade)                     │
 └─────────────────┬───────────────────────┘
@@ -325,8 +325,8 @@ stockSplits?.forEach { split ->
                   │ (반환)
 ┌─────────────────▼───────────────────────┐
 │ Implementation Layer (Internal)         │
-│  EtfApiImpl, CorpApiImpl                │
-│  KrxEtfApiImpl, NaverEtfApiImpl         │
+│  FundsApiImpl, CorpApiImpl              │
+│  KrxFundsApiImpl, NaverFundsApiImpl     │
 │  OpenDartApiImpl                        │
 │  HTTP Client, Parser, Type Converter    │
 └─────────────────────────────────────────┘
@@ -337,7 +337,7 @@ stockSplits?.forEach { split ->
 ```
 dev.kairoscode.kfc/
 ├── api/              # Public API (도메인별)
-│   ├── EtfApi.kt        # ETF 도메인 인터페이스
+│   ├── FundsApi.kt      # 펀드/증권상품 도메인 인터페이스
 │   ├── CorpApi.kt       # 기업 공시 도메인 인터페이스
 │   ├── krx/             # KRX 소스별 인터페이스 (내부 사용)
 │   ├── naver/           # Naver 소스별 인터페이스 (내부 사용)
@@ -351,7 +351,7 @@ dev.kairoscode.kfc/
 │   └── common/
 │
 ├── internal/         # 내부 구현 (internal)
-│   ├── EtfApiImpl.kt        # ETF 도메인 구현체
+│   ├── FundsApiImpl.kt      # 펀드/증권상품 도메인 구현체
 │   ├── CorpApiImpl.kt       # 기업 공시 도메인 구현체
 │   ├── krx/                 # KRX 소스별 구현체
 │   ├── naver/               # Naver 소스별 구현체
@@ -373,7 +373,7 @@ dev.kairoscode.kfc/
 import dev.kairoscode.kfc.exception.*
 
 try {
-    val etfList = kfc.etf.getList()
+    val etfList = kfc.funds.getList()
 } catch (e: KfcException) {
     when (e.errorCode) {
         ErrorCode.NETWORK_CONNECTION_FAILED -> println("네트워크 연결 실패")
@@ -478,7 +478,7 @@ src/
 
 | 도메인 | API 함수 수 | Unit Test | Live Test |
 |--------|------------|-----------|-----------|
-| **EtfApi** | 15 | ✅ 15/15 | ✅ 15/15 |
+| **FundsApi** | 15 | ✅ 15/15 | ✅ 15/15 |
 | **CorpApi** | 4 | ✅ 4/4 | ✅ 4/4 |
 | **총계** | **19** | **✅ 100%** | **✅ 100%** |
 
@@ -507,7 +507,7 @@ class MyEtfTest {
         val kfc = KfcClient.create()
 
         // When: ETF 목록 조회
-        val etfList = kfc.etf.getList()
+        val etfList = kfc.funds.getList()
 
         // Then: 목록이 비어있지 않은지 확인
         assert(etfList.isNotEmpty())

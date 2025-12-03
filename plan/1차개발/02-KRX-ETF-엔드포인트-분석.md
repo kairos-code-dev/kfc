@@ -4,13 +4,15 @@
 
 본 문서는 "증권상품 > ETF" 및 "통계 > 공매도 통계" 섹션에서 사용 가능한 모든 KRX ETF 및 공매도 엔드포인트의 포괄적인 카탈로그를 제공합니다. 각 엔드포인트는 BLD 코드, 목적, 파라미터, 응답 필드, 사용 예제와 함께 문서화되어 있습니다.
 
-**총 엔드포인트**: 15개 (ETF: 13개, 공매도: 2개)
+**총 엔드포인트**: 19개 (ETF: 17개, 공매도: 2개)
+
+**[신규 추가]** 2024-12-02: MDCSTAT04702, MDCSTAT04703, MDCSTAT04704, MDCSTAT04705 (개별종목 종합정보 페이지 + PDF 상위10)
 
 ## 엔드포인트 카테고리
 
 1. **티커 및 기본 정보** (2개 엔드포인트)
-2. **가격 및 시장 데이터** (4개 엔드포인트)
-3. **포트폴리오 구성** (1개 엔드포인트)
+2. **가격 및 시장 데이터** (7개 엔드포인트) **[+3 신규]**
+3. **포트폴리오 구성** (2개 엔드포인트) **[+1 신규]**
 4. **성과 및 추적** (2개 엔드포인트)
 5. **투자자별 거래 패턴** (4개 엔드포인트)
 6. **공매도 데이터** (2개 엔드포인트)
@@ -398,6 +400,326 @@ fun getEtfOhlcvByDate(fromDate: String, toDate: String, ticker: String): List<Ma
 
 ---
 
+### 2.5 MDCSTAT04702 - ETF 분단위 시세 (Intraday Minute Bars) **[신규 2024-12-02]**
+
+**BLD 코드**: `dbms/MDC/STAT/standard/MDCSTAT04702`
+
+**목적**: 장중 1분 단위 OHLCV 데이터 (09:00-14:56, ~330+ 데이터 포인트)
+
+**사용 사례**: 분단위 시장 분석, 기술적 분석, 고주파 거래 전략
+
+**특징**:
+- 09:00부터 14:56까지 1분 간격 데이터 제공
+- 거래일에만 데이터 존재 (비거래일 빈 응답)
+- 약 330개 이상의 minute bar 제공
+
+#### 파라미터
+
+| 파라미터 | 타입 | 필수 | 형식 | 설명 |
+|---------|------|------|------|------|
+| trdDd | String | 예 | YYYYMMDD | 거래 날짜 |
+| isuCd | String | 예 | ISIN | 전체 ISIN 코드 |
+
+#### 응답 필드
+
+| KRX 필드 | 한글명 | 타입 | 설명 | 예시 |
+|---------|--------|------|------|------|
+| TRD_DD | 시간 | String | HH:MM 형식 | 09:00, 10:30, 14:56 |
+| TDD_CLSPRC | 현재가 | String → Int | 분단위 종가 | 30,455 |
+| TDD_OPNPRC | 시가 | String → Int | 분단위 시가 | 30,450 |
+| TDD_HGPRC | 고가 | String → Int | 분단위 고가 | 30,500 |
+| TDD_LWPRC | 저가 | String → Int | 분단위 저가 | 30,400 |
+| ACC_TRDVOL | 누적거래량 | String → Long | 누적 거래량 | 5,234,000 |
+| BAS_PRC | 기준가 | String → Int | 기준 가격 | 30,000 |
+
+#### 응답 샘플
+
+```json
+{
+  "output": [
+    {
+      "TRD_DD": "09:00",
+      "TDD_CLSPRC": "30,455",
+      "TDD_OPNPRC": "30,450",
+      "TDD_HGPRC": "30,500",
+      "TDD_LWPRC": "30,400",
+      "ACC_TRDVOL": "5,234,000",
+      "BAS_PRC": "30,000"
+    },
+    {
+      "TRD_DD": "09:01",
+      "TDD_CLSPRC": "30,460",
+      "TDD_OPNPRC": "30,455",
+      "TDD_HGPRC": "30,510",
+      "TDD_LWPRC": "30,450",
+      "ACC_TRDVOL": "5,567,000",
+      "BAS_PRC": "30,000"
+    }
+  ]
+}
+```
+
+#### Kotlin 구현 예제
+
+```kotlin
+data class EtfIntradayBar(
+    val time: String,
+    val closePrice: Int,
+    val openPrice: Int,
+    val highPrice: Int,
+    val lowPrice: Int,
+    val cumulativeVolume: Long,
+    val basePrice: Int
+)
+
+suspend fun getEtfIntradayBars(
+    isin: String,
+    tradeDate: LocalDate
+): List<EtfIntradayBar> {
+    val resp = client.post("dbms/MDC/STAT/standard/MDCSTAT04702", mapOf(
+        "trdDd" to tradeDate.format(DateTimeFormatter.ofPattern("yyyyMMdd")),
+        "isuCd" to isin
+    ))
+    val rows = (resp["output"] as? List<*>) ?: emptyList()
+    return rows.mapNotNull { it as? Map<*, *> }.map { m ->
+        EtfIntradayBar(
+            time = m["TRD_DD"].toString(),
+            closePrice = m["TDD_CLSPRC"].toString().toKrxInt(),
+            openPrice = m["TDD_OPNPRC"].toString().toKrxInt(),
+            highPrice = m["TDD_HGPRC"].toString().toKrxInt(),
+            lowPrice = m["TDD_LWPRC"].toString().toKrxInt(),
+            cumulativeVolume = m["ACC_TRDVOL"].toString().toKrxLong(),
+            basePrice = m["BAS_PRC"].toString().toKrxInt()
+        )
+    }
+}
+```
+
+---
+
+### 2.6 MDCSTAT04703 - ETF 최근 일별 거래 (Recent Daily Trade Data) **[신규 2024-12-02]**
+
+**BLD 코드**: `dbms/MDC/STAT/standard/MDCSTAT04703`
+
+**목적**: 최근 10거래일의 일별 시세 요약
+
+**사용 사례**: 최근 거래 추세, 기본 시세 확인, 일일 변화 분석
+
+**특징**:
+- 최근 10거래일 데이터만 제공
+- 소규모 데이터셋 (10-20개 레코드)
+- 빠른 응답 시간
+
+#### 파라미터
+
+| 파라미터 | 타입 | 필수 | 형식 | 설명 |
+|---------|------|------|------|------|
+| trdDd | String | 예 | YYYYMMDD | 기준 거래 날짜 |
+| isuCd | String | 예 | ISIN | 전체 ISIN 코드 |
+
+#### 응답 필드
+
+| KRX 필드 | 한글명 | 타입 | 설명 | 예시 |
+|---------|--------|------|------|------|
+| TRD_DD | 거래일 | String → LocalDate | 거래일 | 2024-11-25 |
+| TDD_CLSPRC | 종가 | String → Int | 일별 종가 | 30,455 |
+| FLUC_TP_CD | 등락구분 | String → Int | 1=상승, 2=하락, 3=보합 | 1 |
+| CMPPREVDD_PRC | 대비 | String → Int | 전일대비 변동 | 150 |
+| FLUC_RT | 등락률 | String → Double | 등락률 (%) | 0.50 |
+| ACC_TRDVOL | 거래량 | String → Long | 일별 거래량 | 1,234,567 |
+| ACC_TRDVAL | 거래대금 | String → Long | 일별 거래대금 (원) | 37,654,320,000 |
+
+#### 응답 샘플
+
+```json
+{
+  "output": [
+    {
+      "TRD_DD": "2024/11/25",
+      "TDD_CLSPRC": "30,455",
+      "FLUC_TP_CD": "1",
+      "CMPPREVDD_PRC": "150",
+      "FLUC_RT": "0.50",
+      "ACC_TRDVOL": "1,234,567",
+      "ACC_TRDVAL": "37,654,320,000"
+    },
+    {
+      "TRD_DD": "2024/11/22",
+      "TDD_CLSPRC": "30,305",
+      "FLUC_TP_CD": "2",
+      "CMPPREVDD_PRC": "-180",
+      "FLUC_RT": "-0.59",
+      "ACC_TRDVOL": "1,456,789",
+      "ACC_TRDVAL": "44,123,456,000"
+    }
+  ]
+}
+```
+
+#### Kotlin 구현 예제
+
+```kotlin
+data class EtfRecentDaily(
+    val tradeDate: LocalDate,
+    val closePrice: Int,
+    val direction: Direction,
+    val change: Int,
+    val changeRate: Double,
+    val volume: Long,
+    val tradingValue: Long
+)
+
+suspend fun getEtfRecentDaily(
+    isin: String,
+    tradeDate: LocalDate
+): List<EtfRecentDaily> {
+    val resp = client.post("dbms/MDC/STAT/standard/MDCSTAT04703", mapOf(
+        "trdDd" to tradeDate.format(DateTimeFormatter.ofPattern("yyyyMMdd")),
+        "isuCd" to isin
+    ))
+    val rows = (resp["output"] as? List<*>) ?: emptyList()
+    return rows.mapNotNull { it as? Map<*, *> }.map { m ->
+        EtfRecentDaily(
+            tradeDate = m["TRD_DD"].toString().toKrxDate(),
+            closePrice = m["TDD_CLSPRC"].toString().toKrxInt(),
+            direction = m["FLUC_TP_CD"].toString().toDirection(),
+            change = m["CMPPREVDD_PRC"].toString().toKrxInt(),
+            changeRate = m["FLUC_RT"].toString().toKrxDouble(),
+            volume = m["ACC_TRDVOL"].toString().toKrxLong(),
+            tradingValue = m["ACC_TRDVAL"].toString().toKrxLong()
+        )
+    }.sortedBy { it.tradeDate }
+}
+```
+
+---
+
+### 2.7 MDCSTAT04704 - ETF 상세정보 (ETF Detail Information) **[신규 2024-12-02]**
+
+**BLD 코드**: `dbms/MDC/STAT/standard/MDCSTAT04704`
+
+**목적**: ETF의 메타데이터 및 운용 관련 상세 정보
+
+**사용 사례**: ETF 기본 정보 확인, 운용 정보 조회, 결산/배당 정보
+
+**특징**:
+- MDCSTAT04701과 보완적 역할
+- ETF의 구조적 정보 제공
+- 결산월일, 만기일 등 운용 메타데이터 포함
+
+#### 파라미터
+
+| 파라미터 | 타입 | 필수 | 형식 | 설명 |
+|---------|------|------|------|------|
+| trdDd | String | 예 | YYYYMMDD | 기준 거래 날짜 |
+| isuCd | String | 예 | ISIN | 전체 ISIN 코드 |
+
+#### 응답 필드
+
+| KRX 필드 | 한글명 | 타입 | 설명 | 예시 |
+|---------|--------|------|------|------|
+| ISU_NM | 종목명 | String | ETF 전체 이름 | KODEX 200 |
+| ISU_CD | 종목코드 | String | ISIN 코드 | KR7069500008 |
+| ISU_SRT_CD | 단축코드 | String | 6자리 티커 | 069500 |
+| ISU_ABBRV | 종목약명 | String | 약식 이름 | KODEX 200 |
+| ISU_ENG_NM | 영문명 | String | 영문 이름 | KODEX KOSPI 200 |
+| LIST_DD | 상장일 | String → LocalDate | 상장일 | 2002-06-06 |
+| NETASST_TOTAMT | 순자산총액 | String → Long | 순자산 총액 (원) | 12,345,670,000,000 |
+| PREVDD_NAV | 전일NAV | String → BigDecimal | 이전 거래일 NAV | 35,450.50 |
+| LIST_SHRS | 상장주식수 | String → Long | 상장 주식 수 | 345,678,900 |
+| ETF_TP_CD | ETF유형코드 | String | ETF 유형 구분 | 1=주식, 2=채권 등 |
+| SETL_MMDD | 결산월일 | String | 결산월일 (MMDD) | 1231 |
+| EXPD_DD | 만기일 | String → LocalDate? | 만기일 (영구형은 null) | null 또는 2030-12-31 |
+| PAR | 액면가 | String → Int | ETF 액면가 | 50,000 |
+| ETF_DIVI_DD | 배당기준일 | String → LocalDate? | 배당기준일 | 2024-12-15 |
+| OBJ_STKPRC_IDX | 기초지수 | String → BigDecimal | 기초지수값 | 435.67 |
+| TRACE_YD_MULT | 추적배수 | String → BigDecimal | 추적 배수 (1배 또는 -1배) | 1.0 |
+| RGT_NETASST_TOTAMT | 권리NAV총액 | String → Long | 권리NAV 총액 | 12,234,560,000,000 |
+| RGT_NAV | 권리NAV | String → BigDecimal | 권리NAV (계산된 NAV) | 35,420.30 |
+
+#### 응답 샘플
+
+```json
+{
+  "output": [
+    {
+      "ISU_NM": "KODEX 200",
+      "ISU_CD": "KR7069500008",
+      "ISU_SRT_CD": "069500",
+      "ISU_ABBRV": "KODEX 200",
+      "ISU_ENG_NM": "KODEX KOSPI 200",
+      "LIST_DD": "2002/06/06",
+      "NETASST_TOTAMT": "12,345,670,000,000",
+      "PREVDD_NAV": "35,450.50",
+      "LIST_SHRS": "345,678,900",
+      "ETF_TP_CD": "1",
+      "SETL_MMDD": "1231",
+      "EXPD_DD": "",
+      "PAR": "50,000",
+      "ETF_DIVI_DD": "2024/12/15",
+      "OBJ_STKPRC_IDX": "435.67",
+      "TRACE_YD_MULT": "1.0",
+      "RGT_NETASST_TOTAMT": "12,234,560,000,000",
+      "RGT_NAV": "35,420.30"
+    }
+  ]
+}
+```
+
+#### Kotlin 구현 예제
+
+```kotlin
+data class EtfDetailInfo(
+    val name: String,
+    val isin: String,
+    val ticker: String,
+    val shortName: String,
+    val englishName: String,
+    val listingDate: LocalDate,
+    val totalNetAssets: Long,
+    val previousNav: BigDecimal,
+    val listedShares: Long,
+    val etfType: String,
+    val settlementMonthDay: String,
+    val expirationDate: LocalDate?,
+    val parValue: Int,
+    val dividendBaseDate: LocalDate?,
+    val indexValue: BigDecimal,
+    val trackingMultiple: BigDecimal,
+    val rightNetAssets: Long,
+    val rightNav: BigDecimal
+)
+
+fun EtfDetailInfo.fromRaw(raw: Map<*, *>): EtfDetailInfo {
+    return EtfDetailInfo(
+        name = raw["ISU_NM"].toString(),
+        isin = raw["ISU_CD"].toString(),
+        ticker = raw["ISU_SRT_CD"].toString(),
+        shortName = raw["ISU_ABBRV"].toString(),
+        englishName = raw["ISU_ENG_NM"].toString(),
+        listingDate = raw["LIST_DD"].toString().toKrxDate(),
+        totalNetAssets = raw["NETASST_TOTAMT"].toString().toKrxLong(),
+        previousNav = raw["PREVDD_NAV"].toString().toKrxBigDecimal(),
+        listedShares = raw["LIST_SHRS"].toString().toKrxLong(),
+        etfType = raw["ETF_TP_CD"].toString(),
+        settlementMonthDay = raw["SETL_MMDD"].toString(),
+        expirationDate = raw["EXPD_DD"].toString().let {
+            if (it.isEmpty() || it == "-") null else it.toKrxDate()
+        },
+        parValue = raw["PAR"].toString().toKrxInt(),
+        dividendBaseDate = raw["ETF_DIVI_DD"].toString().let {
+            if (it.isEmpty() || it == "-") null else it.toKrxDate()
+        },
+        indexValue = raw["OBJ_STKPRC_IDX"].toString().toKrxBigDecimal(),
+        trackingMultiple = raw["TRACE_YD_MULT"].toString().toKrxBigDecimal(),
+        rightNetAssets = raw["RGT_NETASST_TOTAMT"].toString().toKrxLong(),
+        rightNav = raw["RGT_NAV"].toString().toKrxBigDecimal()
+    )
+}
+```
+
+---
+
 ## 카테고리 3: 포트폴리오 구성
 
 ### 3.1 MDCSTAT05001 - PDF (Portfolio Deposit File)
@@ -431,6 +753,120 @@ fun getEtfOhlcvByDate(fromDate: String, toDate: String, ticker: String): List<Ma
 - KRX는 `COMPST_ISU_CD`에 혼합 ISIN 및 티커 형식 반환
 - 가치가 0인 구성 종목 필터링: `VALU_AMT != 0`
 - ISIN에서 티커 추출: ISIN 형식에 대해 `substring(3, 9)`
+
+---
+
+### 3.2 MDCSTAT04705 - PDF 상위 10 종목 (Portfolio Top 10) **[신규 2024-12-02]**
+
+**BLD 코드**: `dbms/MDC/STAT/standard/MDCSTAT04705`
+
+**목적**: ETF 포트폴리오 상위 10개 구성 종목의 요약 정보
+
+**사용 사례**: 빠른 포트폴리오 개요, 핵심 구성 종목 확인, 모바일/경량 UI
+
+**특징**:
+- MDCSTAT05001 (전체 PDF)의 상위 10개 요약 버전
+- 전체 종목 대신 주요 종목만 반환으로 응답 시간 단축
+- 소규모 데이터셋 (항상 10개 이하)
+- 거래일당 1회만 업데이트
+
+#### 파라미터
+
+| 파라미터 | 타입 | 필수 | 형식 | 설명 |
+|---------|------|------|------|------|
+| trdDd | String | 예 | YYYYMMDD | 거래 날짜 |
+| isuCd | String | 예 | ISIN | ETF ISIN 코드 |
+
+#### 응답 필드
+
+| KRX 필드 | 한글명 | 타입 | 설명 | 예시 |
+|---------|--------|------|------|------|
+| ISU_CD | 종목코드 | String | 구성 종목 코드 | 066970 |
+| ISU_ABBRV | 종목명 | String | 구성 종목명 | 엘앤에프 |
+| COMPST_ISU_CU1_SHRS | CU당수량 | String → BigDecimal | CU당 주식 수 | 321.00 |
+| VALU_AMT | 가치 | String → Long | 현재 가치 (원) | 41,120,100 |
+| COMPST_AMT | 구성금액 | String → Long | 구성 금액 | 41,441,100 |
+| COMPST_RTO | 비중 | String → BigDecimal | 구성 비중 (%) | 8.77 |
+
+#### 응답 샘플
+
+```json
+{
+  "output": [
+    {
+      "ISU_CD": "066970",
+      "ISU_ABBRV": "엘앤에프",
+      "COMPST_ISU_CU1_SHRS": "321.00",
+      "VALU_AMT": "41,120,100",
+      "COMPST_AMT": "41,441,100",
+      "COMPST_RTO": "8.77"
+    },
+    {
+      "ISU_CD": "086520",
+      "ISU_ABBRV": "에코프로",
+      "COMPST_ISU_CU1_SHRS": "349.00",
+      "VALU_AMT": "32,457,000",
+      "COMPST_AMT": "32,840,900",
+      "COMPST_RTO": "6.95"
+    },
+    {
+      "ISU_CD": "014680",
+      "ISU_ABBRV": "한솔케미칼",
+      "COMPST_ISU_CU1_SHRS": "133.00",
+      "VALU_AMT": "32,984,000",
+      "COMPST_AMT": "32,651,500",
+      "COMPST_RTO": "6.91"
+    }
+  ],
+  "CURRENT_DATETIME": "2025.12.02 PM 03:44:48"
+}
+```
+
+#### Kotlin 구현 예제
+
+```kotlin
+data class PortfolioTopItem(
+    val isin: String,
+    val name: String,
+    val cuQuantity: BigDecimal,
+    val value: Long,
+    val compositionAmount: Long,
+    val compositionRatio: BigDecimal
+)
+
+suspend fun getEtfPortfolioTop10(
+    isin: String,
+    tradeDate: LocalDate
+): List<PortfolioTopItem> {
+    val resp = client.post("dbms/MDC/STAT/standard/MDCSTAT04705", mapOf(
+        "trdDd" to tradeDate.format(DateTimeFormatter.ofPattern("yyyyMMdd")),
+        "isuCd" to isin
+    ))
+    val rows = (resp["output"] as? List<*>) ?: emptyList()
+    return rows.mapNotNull { it as? Map<*, *> }
+        .filter { (it["VALU_AMT"] as? String)?.toKrxLong() ?: 0 > 0 }
+        .map { m ->
+            PortfolioTopItem(
+                isin = m["ISU_CD"].toString(),
+                name = m["ISU_ABBRV"].toString(),
+                cuQuantity = m["COMPST_ISU_CU1_SHRS"].toString().toKrxBigDecimal(),
+                value = m["VALU_AMT"].toString().toKrxLong(),
+                compositionAmount = m["COMPST_AMT"].toString().toKrxLong(),
+                compositionRatio = m["COMPST_RTO"].toString().toKrxBigDecimal()
+            )
+        }
+}
+```
+
+#### MDCSTAT05001과 비교
+
+| 특성 | MDCSTAT05001 (전체) | MDCSTAT04705 (상위10) |
+|------|------------------|-------------------|
+| 데이터 | 모든 구성 종목 | 상위 10개만 |
+| 응답 크기 | 대규모 (수백 개 종목) | 소규모 (최대 10개) |
+| 응답 시간 | 길음 | 빠름 |
+| 비중 합계 | 100% | 보통 70-80% |
+| 사용 사례 | 정확한 분석, 복제 | 빠른 개요, 핵심 구성 |
 
 ---
 
@@ -823,7 +1259,11 @@ fun getShortSellingBalance(
 | 4 | MDCSTAT04401 | 전종목 등락률 | ✅ | ✅ | 중간 |
 | 5 | MDCSTAT04501 | 개별종목 시세 추이 (OHLCV) | ✅ | ✅ | **필수** |
 | **6** | **MDCSTAT04701** | **개별종목 종합정보** | **❌** | **🚧 TODO** | **🔥 최우선** |
-| 7 | MDCSTAT05001 | PDF (포트폴리오) | ✅ | ✅ | 높음 |
+| **6-1** | **MDCSTAT04702** | **분단위 시세** | **❌** | **🚧 TODO (신규)** | **높음** |
+| **6-2** | **MDCSTAT04703** | **최근 일별 거래** | **❌** | **🚧 TODO (신규)** | **높음** |
+| **6-3** | **MDCSTAT04704** | **ETF 상세정보** | **❌** | **🚧 TODO (신규)** | **높음** |
+| **7** | **MDCSTAT05001** | **PDF (포트폴리오 전체)** | **✅** | **✅** | **높음** |
+| **7-1** | **MDCSTAT04705** | **PDF 상위 10 종목** | **❌** | **🚧 TODO (신규)** | **중간** |
 | 8 | MDCSTAT05901 | 추적오차율 추이 | ✅ | ✅ | 중간 |
 | 9 | MDCSTAT06001 | 괴리율 추이 | ✅ | ✅ | 중간 |
 | 10 | MDCSTAT04801 | 투자자별 거래 (기간합계) | ✅ | ✅ | 중간 |
@@ -852,7 +1292,7 @@ fun getShortSellingBalance(
 | **날짜 범위** | strtDd, endDd | 04401, 04501, 05901, 06001 | 과거 시계열 |
 | **날짜 범위 + ISIN** | strtDd, endDd, isuCd | 04501, 05901, 06001, 04901, 04902 | 개별 ETF 과거 데이터 |
 | **날짜 범위 + 쿼리 유형** | strtDd, endDd, inqCondTpCd1, inqCondTpCd2 | 04802, 04902, 07002 | 투자자 거래 분석 |
-| **단일 날짜 + ISIN** | trdDd, isuCd | **04701**, 05001 | 상세 스냅샷 |
+| **단일 날짜 + ISIN** | trdDd, isuCd | **04701, 04702, 04703, 04704**, 05001 | 상세 스냅샷 및 상세정보 |
 
 ---
 
@@ -916,15 +1356,83 @@ fun String.toKrxDate(): LocalDate {
 5. **투자자 데이터에서 소계/합계를 위해 CONV_OBJ_TP_CD == "TS" 필터링**
 6. **엔드포인트 호출 전 날짜 범위 검증**
 7. **MDCSTAT04601 결과 캐싱** (기본 정보는 자주 변경되지 않음)
-8. **상세 페이지에는 MDCSTAT04701 사용** (종합 데이터를 위한 단일 요청)
+8. **상세 페이지에는 MDCSTAT04701, 04702, 04703, 04704 조합 사용** (종합 데이터 + 분단위 + 최근 일별 + 상세정보)
 9. **백테스팅에는 MDCSTAT04501 사용** (날짜 범위 지원)
-10. **속도 제한을 위한 지수 백오프 구현**
+10. **MDCSTAT04702 (분단위)는 거래일에만 데이터 존재**, 비거래일 빈 응답 처리
+11. **MDCSTAT04704의 만기일/배당기준일은 nullable**, 영구형 ETF는 null
+12. **속도 제한을 위한 지수 백오프 구현**
 
 ---
 
 ## 다음 단계
 
-1. **MDCSTAT04701 구현** (`03-MDCSTAT04701-상세명세.md` 참조)
-2. **포괄적인 매핑 테이블 생성** (`04-데이터-매핑-명세.md` 참조)
-3. **모든 엔드포인트에 대한 통합 테스트 작성** (`07-테스트-전략.md` 참조)
-4. **백테스트 중심 API 문서화** (`06-API-설계.md` 참조)
+### 즉시 구현 필요 (신규 4개 API)
+
+1. **MDCSTAT04702 구현** - 분단위 시세
+   - 모델: `EtfIntradayBar` 생성
+   - API: `KrxEtfApi.getEtfIntradayBars()` 추가
+   - LiveTest: `EtfIntradayLiveTest` 작성
+   - 라이브 데이터 레코딩 필요 (~330+ bars/trading day)
+
+2. **MDCSTAT04703 구현** - 최근 일별 거래
+   - 모델: `EtfRecentDaily` 생성
+   - API: `KrxEtfApi.getEtfRecentDaily()` 추가
+   - LiveTest: `EtfRecentDailyLiveTest` 작성
+   - 소규모 데이터셋 (10-20 records)
+
+3. **MDCSTAT04704 구현** - ETF 상세정보
+   - 모델: `EtfDetailInfo` 생성
+   - API: `KrxEtfApi.getEtfDetailInfo()` 추가
+   - LiveTest: `EtfDetailInfoLiveTest` 작성
+   - Nullable 필드 처리 (expirationDate, dividendBaseDate)
+
+4. **MDCSTAT04705 구현** - PDF 상위 10 종목
+   - 모델: `PortfolioTopItem` 생성
+   - API: `KrxEtfApi.getEtfPortfolioTop10()` 추가
+   - LiveTest: `EtfPortfolioTop10LiveTest` 작성
+   - MDCSTAT05001과 보완적 사용 (속도 vs 정확도 트레이드오프)
+
+### 기존 구현 계획
+
+4. **MDCSTAT04701 구현** (`03-MDCSTAT04701-상세명세.md` 참조)
+5. **포괄적인 매핑 테이블 생성** (`04-데이터-매핑-명세.md` 참조)
+6. **모든 엔드포인트에 대한 통합 테스트 작성** (`07-테스트-전략.md` 참조)
+7. **백테스트 중심 API 문서화** (`06-API-설계.md` 참조)
+
+---
+
+## 신규 추가 내용 요약
+
+**2024-12-02 추가된 4개 엔드포인트**:
+
+**카테고리 2 (가격 및 시장 데이터) - 3개 신규**:
+
+- **MDCSTAT04702**: 장중 1분 단위 OHLCV 데이터 (09:00-14:56)
+  - 사용 사례: 분단위 기술적 분석, 고주파 거래 전략
+  - 데이터 크기: 거래일당 ~330+ bars
+  - 특징: 거래일에만 데이터 존재
+
+- **MDCSTAT04703**: 최근 10거래일 시세 요약
+  - 사용 사례: 최근 추세 빠른 확인, 기본 시세
+  - 데이터 크기: 10-20 records
+  - 특징: 빠른 응답, 소규모 데이터셋
+
+- **MDCSTAT04704**: ETF 메타데이터 및 운용 정보
+  - 사용 사례: ETF 기본 정보, 결산월일, 배당기준일
+  - 데이터 크기: 1 record (single object)
+  - 특징: MDCSTAT04701과 보완적 역할
+
+**카테고리 3 (포트폴리오 구성) - 1개 신규**:
+
+- **MDCSTAT04705**: PDF 상위 10 종목 요약
+  - 사용 사례: 빠른 포트폴리오 개요, 핵심 구성 종목 확인
+  - 데이터 크기: 최대 10개 records
+  - 특징: MDCSTAT05001의 축약 버전, 응답 시간 단축 (속도 우선)
+  - 비중 합계: 보통 70-80% (상위 10개만 제공)
+
+**개별종목 종합정보 페이지는 4개 API 조합 호출**:
+1. MDCSTAT04702 (분단위) + MDCSTAT04701 (종합) + MDCSTAT04703 (최근) + MDCSTAT04704 (상세) 조합으로 완전한 ETF 정보 제공
+
+**포트폴리오 조회 선택지**:
+- **정확도 우선**: MDCSTAT05001 (전체 포트폴리오, 100% 비중)
+- **속도 우선**: MDCSTAT04705 (상위 10개, 빠른 응답)
