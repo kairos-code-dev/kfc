@@ -1,0 +1,367 @@
+package dev.kairoscode.kfc.integration.utils
+
+import dev.kairoscode.kfc.api.KfcClient
+import dev.kairoscode.kfc.infrastructure.common.recording.ResponseRecordingContext
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.withContext
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Tag
+import org.junit.jupiter.api.TestInstance
+import java.io.File
+import java.util.Properties
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
+
+/**
+ * Integration Test의 공통 베이스 클래스
+ *
+ * 실제 API 호출을 수행하며, 선택적으로 응답을 레코딩합니다.
+ * - @Tag("integration"): JUnit 5 태그로 Integration Test 식별
+ * - @TestInstance(PER_CLASS): 클래스당 하나의 인스턴스로 KfcClient 재사용
+ * - local.properties에서 OPENDART_API_KEY 로드
+ * - RecordingConfig.isRecordingEnabled로 레코딩 모드 확인
+ *
+ * ## 제공 메서드
+ *
+ * ### 기본 테스트 실행
+ * - [integrationTest]: 기본 Integration Test 실행 (타임아웃 설정)
+ *
+ * ### 자동 레코딩 헬퍼
+ * - [integrationTestWithRecording]: Raw JSON 응답 자동 캡처 및 레코딩
+ * - [integrationTestWithSmartRecording]: 데이터 크기에 따른 스마트 레코딩
+ *
+ * ## 사용 예제
+ * ```kotlin
+ * class MyApiSpec : IntegrationTestBase() {
+ *
+ *     @Test
+ *     fun `기본 테스트`() = integrationTest {
+ *         val result = client.someApi.getData()
+ *         assertNotNull(result)
+ *     }
+ *
+ *     @Test
+ *     fun `Raw JSON 레코딩`() = integrationTestWithRecording(
+ *         category = "api/data",
+ *         fileName = "sample_response"
+ *     ) {
+ *         client.someApi.getData()  // 응답이 자동으로 캡처됨
+ *     }
+ *
+ *     @Test
+ *     fun `스마트 레코딩`() {
+ *         val data = mutableListOf<DataItem>()
+ *         integrationTestWithSmartRecording(
+ *             data = data,
+ *             category = "api/list",
+ *             fileName = "all_items"
+ *         ) {
+ *             data.addAll(client.someApi.getList())
+ *         }
+ *     }
+ * }
+ * ```
+ */
+@Tag("integration")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+abstract class IntegrationTestBase {
+
+    protected lateinit var client: KfcClient
+
+    // 메모리 모니터링용
+    private var initialMemoryUsed: Long = 0
+
+    @BeforeAll
+    fun setUp() {
+        // 초기 메모리 사용량 기록
+        initialMemoryUsed = getUsedMemoryMB()
+
+        val apiKey = loadApiKey()
+
+        // OPENDART API 키가 필요한 경우만 체크
+        // KRX, Naver는 API 키 불필요
+
+        client = if (apiKey != null) {
+            KfcClient.create(opendartApiKey = apiKey)
+        } else {
+            println("[IntegrationTest] OPENDART_API_KEY가 설정되지 않았습니다. Corp API 테스트는 skip됩니다.")
+            KfcClient.create(opendartApiKey = null) // Funds API는 키 없이도 동작
+        }
+
+        println("[IntegrationTest] Integration Test 시작")
+        println("[IntegrationTest] Recording 활성화: ${RecordingConfig.isRecordingEnabled}")
+        if (RecordingConfig.isRecordingEnabled) {
+            println("[IntegrationTest] 레코딩 경로: ${RecordingConfig.baseOutputPath}")
+            println("[IntegrationTest] 사용 가능한 헬퍼 메서드:")
+            println("[IntegrationTest]   - integrationTest(): 기본 테스트 실행")
+            println("[IntegrationTest]   - integrationTestWithRecording(): Raw JSON 자동 캡처")
+            println("[IntegrationTest]   - integrationTestWithSmartRecording(): 스마트 레코딩")
+        }
+        println("[IntegrationTest] 초기 메모리: ${initialMemoryUsed}MB")
+    }
+
+    @AfterAll
+    fun tearDown() {
+        if (::client.isInitialized) {
+            val finalMemoryUsed = getUsedMemoryMB()
+            val maxMemory = getMaxMemoryMB()
+            println("[IntegrationTest] Integration Test 종료")
+            println("[IntegrationTest] Memory usage: ${finalMemoryUsed}/${maxMemory} MB (초기: ${initialMemoryUsed}MB, 증가: ${finalMemoryUsed - initialMemoryUsed}MB)")
+        }
+    }
+
+    /**
+     * API 키를 local.properties에서 로드
+     */
+    private fun loadApiKey(): String? {
+        val localPropertiesFile = File("local.properties")
+        if (localPropertiesFile.exists()) {
+            val properties = Properties()
+            localPropertiesFile.inputStream().use { properties.load(it) }
+            return properties.getProperty("OPENDART_API_KEY")
+        }
+        return null
+    }
+
+    // ========================================
+    // 메모리 모니터링 유틸리티
+    // ========================================
+
+    /**
+     * 현재 사용 중인 메모리를 MB 단위로 반환
+     */
+    private fun getUsedMemoryMB(): Long {
+        val runtime = Runtime.getRuntime()
+        return (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024)
+    }
+
+    /**
+     * 최대 사용 가능 메모리를 MB 단위로 반환
+     */
+    private fun getMaxMemoryMB(): Long {
+        return Runtime.getRuntime().maxMemory() / (1024 * 1024)
+    }
+
+    // ========================================
+    // 기본 테스트 실행 헬퍼
+    // ========================================
+
+    /**
+     * 테스트 실행 헬퍼 (타임아웃 설정)
+     *
+     * 기본적인 Integration Test 실행을 위한 헬퍼 메서드입니다.
+     * 레코딩이 필요 없는 단순 테스트에 사용합니다.
+     *
+     * @param timeout 테스트 타임아웃 (기본값: 30초)
+     * @param block 실행할 테스트 블록
+     *
+     * ## 사용 예제
+     * ```kotlin
+     * @Test
+     * fun `펀드 목록 조회`() = integrationTest {
+     *     val fundsList = client.funds.getList()
+     *     assertNotNull(fundsList)
+     *     assertTrue(fundsList.isNotEmpty())
+     * }
+     * ```
+     */
+    protected fun integrationTest(
+        timeout: Duration = 30.seconds,
+        block: suspend () -> Unit
+    ) = runTest(timeout = timeout) {
+        block()
+    }
+
+    // ========================================
+    // 자동 레코딩 헬퍼 메서드
+    // ========================================
+
+    /**
+     * Raw JSON 응답을 자동으로 캡처하여 레코딩하는 테스트 헬퍼
+     *
+     * [ResponseRecordingContext]를 사용하여 API 응답을 자동으로 캡처하고,
+     * [ResponseRecorder.recordRaw]를 통해 파일로 저장합니다.
+     *
+     * HTTP 클라이언트가 ResponseRecordingContext를 인식하여 응답 body를 자동으로 캡처합니다.
+     * 캡처된 응답은 테스트 종료 후 지정된 경로에 JSON 파일로 저장됩니다.
+     *
+     * @param category 레코딩 카테고리 경로 (예: "eodhd/exchange", "opendart/corp")
+     * @param fileName 저장할 파일명 (확장자 제외)
+     * @param timeout 테스트 타임아웃 (기본값: 30초)
+     * @param block 실행할 테스트 블록 (API 호출 포함)
+     *
+     * ## 동작 원리
+     * 1. ResponseRecordingContext를 코루틴 컨텍스트에 추가
+     * 2. block 내에서 API 호출 실행
+     * 3. HTTP 클라이언트가 응답 body를 컨텍스트에 저장
+     * 4. 테스트 종료 후 캡처된 JSON을 파일로 저장
+     *
+     * ## 사용 예제
+     * ```kotlin
+     * @Test
+     * fun `거래소 심볼 목록 조회 및 레코딩`() = integrationTestWithRecording(
+     *     category = "eodhd/exchange",
+     *     fileName = "symbols_us"
+     * ) {
+     *     val symbols = client.eodhd.getExchangeSymbols("US")
+     *     assertNotNull(symbols)
+     * }
+     * ```
+     *
+     * ## 주의사항
+     * - 블록 내에서 여러 API 호출이 있으면 마지막 응답만 캡처됩니다
+     * - RecordingConfig.isRecordingEnabled가 false이면 레코딩은 스킵됩니다
+     *
+     * @see ResponseRecordingContext
+     * @see ResponseRecorder.recordRaw
+     */
+    protected inline fun integrationTestWithRecording(
+        category: String,
+        fileName: String,
+        timeout: Duration = 30.seconds,
+        crossinline block: suspend () -> Unit
+    ): Unit = runTest(timeout = timeout) {
+        val recordingContext = ResponseRecordingContext()
+        withContext(recordingContext) {
+            block()
+
+            // 캡처된 응답 body가 있으면 레코딩
+            val responseBody = recordingContext.getResponseBody()
+            if (responseBody != null) {
+                ResponseRecorder.recordRaw(
+                    jsonString = responseBody,
+                    category = category,
+                    fileName = fileName
+                )
+            } else if (RecordingConfig.isRecordingEnabled) {
+                println("[IntegrationTest] Warning: 캡처된 응답이 없습니다. ($category/$fileName)")
+            }
+        }
+    }
+
+    /**
+     * 데이터 크기에 따라 자동으로 최적의 레코딩 전략을 선택하는 테스트 헬퍼
+     *
+     * [SmartRecorder]를 사용하여 데이터 크기에 따라 적절한 레코딩 전략을 자동 선택합니다:
+     * - Tier 1 (<=10,000): 전체 레코딩
+     * - Tier 2 (10,001~100,000): 처음 10,000개만 (_limited suffix)
+     * - Tier 3 (>100,000): 랜덤 1,000개 샘플링 (_sample suffix)
+     *
+     * @param T 데이터 아이템 타입
+     * @param data 레코딩할 데이터 리스트 (block 실행 후 채워져야 함)
+     * @param category 레코딩 카테고리 경로
+     * @param fileName 저장할 파일명 (확장자 제외, 전략에 따라 suffix 자동 추가)
+     * @param timeout 테스트 타임아웃 (기본값: 30초)
+     * @param block 실행할 테스트 블록 (data 리스트를 채우는 로직 포함)
+     *
+     * ## 사용 예제
+     * ```kotlin
+     * @Test
+     * fun `전체 펀드 목록 스마트 레코딩`() {
+     *     val fundsList = mutableListOf<Fund>()
+     *
+     *     integrationTestWithSmartRecording(
+     *         data = fundsList,
+     *         category = RecordingConfig.Paths.FundsList.ALL,
+     *         fileName = "funds_list_all"
+     *     ) {
+     *         fundsList.addAll(client.funds.getList())
+     *         assertTrue(fundsList.isNotEmpty())
+     *     }
+     * }
+     * ```
+     *
+     * ## 파일명 예시
+     * - 500개 데이터 -> etf_list_all.json
+     * - 50,000개 데이터 -> etf_list_all_limited.json
+     * - 200,000개 데이터 -> etf_list_all_sample.json
+     *
+     * @see SmartRecorder
+     * @see SmartRecorder.RecordingStrategy
+     */
+    protected inline fun <reified T> integrationTestWithSmartRecording(
+        data: List<T>,
+        category: String,
+        fileName: String,
+        timeout: Duration = 30.seconds,
+        crossinline block: suspend () -> Unit
+    ): Unit = runTest(timeout = timeout) {
+        // 테스트 블록 실행 (data 리스트가 채워짐)
+        block()
+
+        // 스마트 레코딩 수행
+        SmartRecorder.recordSmartly(
+            data = data,
+            category = category,
+            fileName = fileName
+        )
+    }
+
+    /**
+     * Raw JSON 응답을 캡처하고 결과 데이터도 함께 스마트 레코딩하는 복합 헬퍼
+     *
+     * Raw JSON 캡처와 스마트 레코딩을 동시에 수행해야 할 때 사용합니다.
+     * Raw JSON은 디버깅용으로, 파싱된 데이터는 테스트용으로 각각 저장됩니다.
+     *
+     * @param T 데이터 아이템 타입
+     * @param data 레코딩할 데이터 리스트
+     * @param rawCategory Raw JSON 저장 카테고리
+     * @param rawFileName Raw JSON 파일명
+     * @param smartCategory 스마트 레코딩 카테고리
+     * @param smartFileName 스마트 레코딩 파일명
+     * @param timeout 테스트 타임아웃 (기본값: 30초)
+     * @param block 실행할 테스트 블록
+     *
+     * ## 사용 예제
+     * ```kotlin
+     * @Test
+     * fun `거래소 심볼 목록 복합 레코딩`() {
+     *     val symbols = mutableListOf<Symbol>()
+     *
+     *     integrationTestWithDualRecording(
+     *         data = symbols,
+     *         rawCategory = "eodhd/exchange/raw",
+     *         rawFileName = "symbols_us_raw",
+     *         smartCategory = "eodhd/exchange",
+     *         smartFileName = "symbols_us"
+     *     ) {
+     *         symbols.addAll(client.eodhd.getExchangeSymbols("US"))
+     *     }
+     * }
+     * ```
+     */
+    protected inline fun <reified T> integrationTestWithDualRecording(
+        data: MutableList<T>,
+        rawCategory: String,
+        rawFileName: String,
+        smartCategory: String,
+        smartFileName: String,
+        timeout: Duration = 30.seconds,
+        crossinline block: suspend () -> List<T>
+    ): Unit = runTest(timeout = timeout) {
+        val recordingContext = ResponseRecordingContext()
+        withContext(recordingContext) {
+            // 테스트 블록 실행 및 결과 수집
+            val result = block()
+            data.addAll(result)
+
+            // Raw JSON 레코딩
+            val responseBody = recordingContext.getResponseBody()
+            if (responseBody != null) {
+                ResponseRecorder.recordRaw(
+                    jsonString = responseBody,
+                    category = rawCategory,
+                    fileName = rawFileName
+                )
+            }
+
+            // 스마트 레코딩
+            SmartRecorder.recordSmartly(
+                data = data,
+                category = smartCategory,
+                fileName = smartFileName
+            )
+        }
+    }
+}
