@@ -1,7 +1,7 @@
 package dev.kairoscode.kfc.utils
 
-import dev.kairoscode.kfc.model.krx.*
-import dev.kairoscode.kfc.model.opendart.*
+import dev.kairoscode.kfc.funds.internal.krx.model.*
+import dev.kairoscode.kfc.corp.internal.opendart.model.*
 import org.assertj.core.api.Assertions.assertThat
 import java.math.BigDecimal
 
@@ -17,22 +17,22 @@ import java.math.BigDecimal
 // ================================
 
 /**
- * EtfListItem 유효성 검증
+ * FundListItem 유효성 검증
  *
  * ISIN, 티커, 이름이 비어있지 않은지 확인합니다.
  */
-fun EtfListItem.assertValidEtfListItem() {
+fun FundListItem.assertValidFundListItem() {
     assertThat(this.isin).isNotEmpty()
     assertThat(this.ticker).isNotEmpty()
     assertThat(this.name).isNotEmpty()
 }
 
 /**
- * EtfOhlcv 유효성 검증
+ * Ohlcv 유효성 검증
  *
  * 날짜, OHLCV 값의 유효성을 확인합니다.
  */
-fun EtfOhlcv.assertValidOhlcv() {
+fun Ohlcv.assertValidOhlcv() {
     assertThat(this.tradeDate).isNotNull()
     assertThat(this.openPrice).isGreaterThan(0)
     assertThat(this.highPrice).isGreaterThanOrEqualTo(this.lowPrice)
@@ -41,18 +41,18 @@ fun EtfOhlcv.assertValidOhlcv() {
 }
 
 /**
- * EtfDetailedInfo 유효성 검증
+ * DetailedInfo 유효성 검증
  */
-fun EtfDetailedInfo.assertValidDetailedInfo() {
+fun DetailedInfo.assertValidDetailedInfo() {
     assertThat(this.isin).isNotEmpty()
     assertThat(this.name).isNotEmpty()
     assertThat(this.nav).isGreaterThanOrEqualTo(BigDecimal.ZERO)
 }
 
 /**
- * EtfDailyPrice 유효성 검증
+ * DailyPrice 유효성 검증
  */
-fun EtfDailyPrice.assertValidDailyPrice() {
+fun DailyPrice.assertValidDailyPrice() {
     assertThat(this.ticker).isNotEmpty()
     assertThat(this.name).isNotEmpty()
     assertThat(this.closePrice).isGreaterThan(0)

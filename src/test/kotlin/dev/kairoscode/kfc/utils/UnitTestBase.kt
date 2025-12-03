@@ -1,8 +1,9 @@
 package dev.kairoscode.kfc.utils
 
 import dev.kairoscode.kfc.KfcClient
-import dev.kairoscode.kfc.api.FundsApi
-import dev.kairoscode.kfc.api.CorpApi
+import dev.kairoscode.kfc.funds.FundsApi
+import dev.kairoscode.kfc.price.PriceApi
+import dev.kairoscode.kfc.corp.CorpApi
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.TestInstance
@@ -43,6 +44,7 @@ abstract class UnitTestBase {
 
     protected lateinit var client: KfcClient
     protected var mockFundsApi: FundsApi? = null
+    protected var mockPriceApi: PriceApi? = null
     protected var mockCorpApi: CorpApi? = null
 
     /**
@@ -56,32 +58,32 @@ abstract class UnitTestBase {
             "mockFundsApi 또는 mockCorpApi를 먼저 설정해야 합니다"
         }
 
-        // KfcClient 생성자는 funds가 필수이고 corp는 optional이므로
+        // KfcClient 생성자는 funds가 필수이고 price, corp는 optional이므로
         // mockFundsApi가 없으면 dummy FundsApi 생성
         val dummyFundsApi = object : FundsApi {
-            override suspend fun getList(type: dev.kairoscode.kfc.model.FundType?) = emptyList<dev.kairoscode.kfc.model.krx.EtfListItem>()
+            override suspend fun getList(type: dev.kairoscode.kfc.model.FundType?) = emptyList<dev.kairoscode.kfc.funds.internal.krx.model.FundListItem>()
             override suspend fun getDetailedInfo(isin: String, tradeDate: java.time.LocalDate) = null
-            override suspend fun getIntradayBars(isin: String, tradeDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.EtfIntradayBar>()
-            override suspend fun getRecentDaily(isin: String, tradeDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.EtfRecentDaily>()
             override suspend fun getGeneralInfo(isin: String, tradeDate: java.time.LocalDate) = null
-            override suspend fun getAllDailyPrices(date: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.EtfDailyPrice>()
-            override suspend fun getOhlcv(isin: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.EtfOhlcv>()
-            override suspend fun getAdjustedOhlcv(ticker: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.naver.NaverEtfOhlcv>()
-            override suspend fun getPriceChanges(fromDate: java.time.LocalDate, toDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.EtfPriceChange>()
-            override suspend fun getPortfolio(isin: String, date: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.PortfolioConstituent>()
-            override suspend fun getPortfolioTop10(isin: String, date: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.PortfolioTopItem>()
-            override suspend fun getTrackingError(isin: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.TrackingError>()
-            override suspend fun getDivergenceRate(isin: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.DivergenceRate>()
-            override suspend fun getAllInvestorTrading(date: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.InvestorTrading>()
-            override suspend fun getAllInvestorTradingByPeriod(fromDate: java.time.LocalDate, toDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.InvestorTradingByDate>()
-            override suspend fun getInvestorTrading(isin: String, date: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.InvestorTrading>()
-            override suspend fun getInvestorTradingByPeriod(isin: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.model.krx.InvestorTradingByDate>()
-            override suspend fun getShortSelling(isin: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate, type: dev.kairoscode.kfc.model.FundType) = emptyList<dev.kairoscode.kfc.model.krx.ShortSelling>()
-            override suspend fun getShortBalance(isin: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate, type: dev.kairoscode.kfc.model.FundType) = emptyList<dev.kairoscode.kfc.model.krx.ShortBalance>()
+            override suspend fun getPortfolio(isin: String, date: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.funds.internal.krx.model.PortfolioConstituent>()
+            override suspend fun getPortfolioTop10(isin: String, date: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.funds.internal.krx.model.PortfolioTopItem>()
+            override suspend fun getTrackingError(isin: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.funds.internal.krx.model.TrackingError>()
+            override suspend fun getDivergenceRate(isin: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.funds.internal.krx.model.DivergenceRate>()
+            override suspend fun getAllInvestorTrading(date: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.funds.internal.krx.model.InvestorTrading>()
+            override suspend fun getAllInvestorTradingByPeriod(fromDate: java.time.LocalDate, toDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.funds.internal.krx.model.InvestorTradingByDate>()
+            override suspend fun getInvestorTrading(isin: String, date: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.funds.internal.krx.model.InvestorTrading>()
+            override suspend fun getInvestorTradingByPeriod(isin: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.funds.internal.krx.model.InvestorTradingByDate>()
+            override suspend fun getShortSelling(isin: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate, type: dev.kairoscode.kfc.model.FundType) = emptyList<dev.kairoscode.kfc.funds.internal.krx.model.ShortSelling>()
+            override suspend fun getShortBalance(isin: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate, type: dev.kairoscode.kfc.model.FundType) = emptyList<dev.kairoscode.kfc.funds.internal.krx.model.ShortBalance>()
+        }
+
+        val dummyPriceApi = object : PriceApi {
+            override suspend fun getIntradayBars(isin: String, tradeDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.funds.internal.krx.model.IntradayBar>()
+            override suspend fun getRecentDaily(isin: String, tradeDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.funds.internal.krx.model.RecentDaily>()
         }
 
         client = KfcClient(
             funds = mockFundsApi ?: dummyFundsApi,
+            price = mockPriceApi ?: dummyPriceApi,
             corp = mockCorpApi
         )
     }
@@ -101,17 +103,17 @@ abstract class UnitTestBase {
     protected fun loadEtfListResponse(fileName: String) =
         loadMockResponse("etf/list", fileName)
 
-    protected fun loadEtfDetailedInfoResponse(fileName: String) =
+    protected fun loadDetailedInfoResponse(fileName: String) =
         loadMockResponse("etf/metrics/detailed_info", fileName)
 
-    @Deprecated("Use loadEtfDetailedInfoResponse instead", ReplaceWith("loadEtfDetailedInfoResponse(fileName)"))
+    @Deprecated("Use loadDetailedInfoResponse instead", ReplaceWith("loadDetailedInfoResponse(fileName)"))
     protected fun loadEtfComprehensiveResponse(fileName: String) =
         loadMockResponse("etf/comprehensive", fileName)
 
-    protected fun loadEtfDailyPricesResponse(fileName: String) =
+    protected fun loadDailyPricesResponse(fileName: String) =
         loadMockResponse("etf/daily_prices", fileName)
 
-    protected fun loadEtfOhlcvResponse(fileName: String) =
+    protected fun loadOhlcvResponse(fileName: String) =
         loadMockResponse("etf/ohlcv", fileName)
 
     protected fun loadEtfAdjustedOhlcvResponse(fileName: String) =

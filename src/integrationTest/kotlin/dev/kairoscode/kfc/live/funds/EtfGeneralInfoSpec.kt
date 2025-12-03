@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
  * getGeneralInfo() 함수의 실제 API 호출 테스트 및 응답 레코딩
  * ETF의 상세 메타데이터 및 운용 정보 조회 (정적 데이터)
  */
-class EtfGeneralInfoSpec : IntegrationTestBase() {
+class GeneralInfoSpec : IntegrationTestBase() {
 
     @Test
     @DisplayName("TIGER 200 기본정보를 거래일에 조회할 수 있다")

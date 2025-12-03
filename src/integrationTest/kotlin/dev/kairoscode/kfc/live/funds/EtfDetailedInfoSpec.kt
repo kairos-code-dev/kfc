@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
  *
  * getDetailedInfo() 함수의 실제 API 호출 테스트 및 응답 레코딩
  */
-class EtfDetailedInfoSpec : IntegrationTestBase() {
+class DetailedInfoSpec : IntegrationTestBase() {
 
     @Test
     @DisplayName("TIGER 200 상세 정보를 거래일에 조회할 수 있다")

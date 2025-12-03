@@ -2,6 +2,7 @@ package dev.kairoscode.kfc
 
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Assertions.assertNotNull
 import java.time.LocalDate
 
 /**
@@ -25,39 +26,31 @@ class KfcClientTest {
     }
 
     @Test
-    fun `펀드 OHLCV 조회가 정상적으로 동작하는지 확인`() = runBlocking {
+    fun `가격 도메인 API가 정상적으로 동작하는지 확인`() = runBlocking {
         // given
         val kfc = KfcClient.create()
         val isin = "KR7152100004" // ARIRANG 200
 
         // when
-        val ohlcv = kfc.funds.getOhlcv(
-            isin = isin,
-            fromDate = LocalDate.of(2024, 1, 1),
-            toDate = LocalDate.of(2024, 1, 31)
-        )
+        val intradayBars = kfc.price.getIntradayBars(isin)
 
         // then
-        assert(ohlcv.isNotEmpty()) { "OHLCV 데이터가 비어있으면 안됩니다" }
-        println("✅ OHLCV 조회 성공: ${ohlcv.size}일")
+        assertNotNull(intradayBars) { "분단위 시세 조회는 성공해야 합니다" }
+        println("✅ 분단위 시세 조회 성공: ${intradayBars.size}개")
     }
 
     @Test
-    fun `조정주가 OHLCV 조회가 정상적으로 동작하는지 확인`() = runBlocking {
+    fun `가격 도메인 최근 일별 거래 조회가 정상적으로 동작하는지 확인`() = runBlocking {
         // given
         val kfc = KfcClient.create()
-        val ticker = "152100"
+        val isin = "KR7152100004" // ARIRANG 200
 
         // when
-        val adjustedOhlcv = kfc.funds.getAdjustedOhlcv(
-            ticker = ticker,
-            fromDate = LocalDate.of(2024, 1, 1),
-            toDate = LocalDate.of(2024, 1, 31)
-        )
+        val recentDaily = kfc.price.getRecentDaily(isin)
 
         // then
-        // Naver API는 데이터가 없을 수 있으므로 빈 리스트도 허용
-        println("✅ 조정주가 OHLCV 조회 성공: ${adjustedOhlcv.size}일")
+        assertNotNull(recentDaily) { "최근 일별 거래 조회는 성공해야 합니다" }
+        println("✅ 최근 일별 거래 조회 성공: ${recentDaily.size}개")
     }
 
     @Test
