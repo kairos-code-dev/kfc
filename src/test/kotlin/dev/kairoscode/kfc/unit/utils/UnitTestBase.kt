@@ -4,9 +4,14 @@ import dev.kairoscode.kfc.api.KfcClient
 import dev.kairoscode.kfc.api.FundsApi
 import dev.kairoscode.kfc.api.PriceApi
 import dev.kairoscode.kfc.api.CorpApi
+import dev.kairoscode.kfc.api.FinancialsApi
+import dev.kairoscode.kfc.domain.stock.Market
+import dev.kairoscode.kfc.domain.stock.ListingStatus
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.TestInstance
+import java.time.LocalDate
 import kotlin.time.Duration.Companion.seconds
 
 /**
@@ -44,6 +49,7 @@ import kotlin.time.Duration.Companion.seconds
  * ./gradlew liveTest -Precord.responses=true
  * ```
  */
+@Tag("unit")
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 abstract class UnitTestBase {
 
@@ -51,16 +57,17 @@ abstract class UnitTestBase {
     protected var fakeFundsApi: FundsApi? = null
     protected var fakePriceApi: PriceApi? = null
     protected var fakeCorpApi: CorpApi? = null
+    protected var fakeFinancialsApi: FinancialsApi? = null
 
     /**
      * Fake API를 주입하여 KfcClient 생성
      *
-     * 테스트 케이스에서 fakeFundsApi 또는 fakeCorpApi를 설정한 후
+     * 테스트 케이스에서 fakeFundsApi, fakeCorpApi, fakeFinancialsApi를 설정한 후
      * 이 메서드를 호출하여 client를 초기화합니다.
      */
     protected fun initClient() {
-        require(fakeFundsApi != null || fakeCorpApi != null) {
-            "fakeFundsApi 또는 fakeCorpApi를 먼저 설정해야 합니다"
+        require(fakeFundsApi != null || fakeCorpApi != null || fakeFinancialsApi != null) {
+            "fakeFundsApi, fakeCorpApi 또는 fakeFinancialsApi를 먼저 설정해야 합니다"
         }
 
         // KfcClient 생성자는 funds가 필수이고 price, corp는 optional이므로
@@ -86,10 +93,21 @@ abstract class UnitTestBase {
             override suspend fun getRecentDaily(isin: String, tradeDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.domain.price.RecentDaily>()
         }
 
+        val dummyStockApi = object : dev.kairoscode.kfc.api.StockApi {
+            override suspend fun getStockList(market: Market, listingStatus: ListingStatus) = emptyList<dev.kairoscode.kfc.domain.stock.StockListItem>()
+            override suspend fun getStockInfo(ticker: String) = null
+            override suspend fun getStockName(ticker: String) = null
+            override suspend fun getSectorClassifications(date: LocalDate, market: Market) = emptyList<dev.kairoscode.kfc.domain.stock.StockSectorInfo>()
+            override suspend fun getIndustryGroups(date: LocalDate, market: Market) = emptyList<dev.kairoscode.kfc.domain.stock.IndustryClassification>()
+            override suspend fun searchStocks(keyword: String, market: Market) = emptyList<dev.kairoscode.kfc.domain.stock.StockListItem>()
+        }
+
         client = KfcClient(
             funds = fakeFundsApi ?: dummyFundsApi,
             price = fakePriceApi ?: dummyPriceApi,
-            corp = fakeCorpApi
+            stock = dummyStockApi,
+            corp = fakeCorpApi,
+            financials = fakeFinancialsApi
         )
     }
 

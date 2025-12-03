@@ -137,6 +137,37 @@ object RecordingConfig {
         }
 
         // ========================================
+        // Financials API 네임스페이스
+        // ========================================
+
+        /**
+         * 재무제표 API
+         */
+        object Financials {
+            const val BASE = "financials"
+            const val INCOME_STATEMENT = "$BASE/income_statement"
+            const val BALANCE_SHEET = "$BASE/balance_sheet"
+            const val CASH_FLOW = "$BASE/cash_flow"
+            const val ALL_FINANCIALS = "$BASE/all"
+        }
+
+        // ========================================
+        // Stock API 네임스페이스
+        // ========================================
+
+        /**
+         * 주식 종목 정보 API
+         */
+        object Stock {
+            const val BASE = "stock"
+            const val LIST = "$BASE/list"
+            const val INFO = "$BASE/info"
+            const val SECTOR = "$BASE/sector"
+            const val INDUSTRY = "$BASE/industry"
+            const val SEARCH = "$BASE/search"
+        }
+
+        // ========================================
         // 공통
         // ========================================
 

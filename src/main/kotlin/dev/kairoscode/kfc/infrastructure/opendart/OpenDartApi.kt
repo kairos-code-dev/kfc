@@ -90,4 +90,24 @@ interface OpenDartApi {
         pageNo: Int = 1,
         pageCount: Int = 100
     ): List<DisclosureItem>
+
+    /**
+     * 단일회사 전체 재무제표 조회
+     *
+     * 특정 법인의 재무제표 원시 데이터를 조회합니다.
+     * 손익계산서, 재무상태표, 현금흐름표 등의 데이터를 포함합니다.
+     *
+     * @param corpCode OPENDART 고유번호 (8자리)
+     * @param year 사업연도 (2015년 이후)
+     * @param reportCode 보고서 코드 (11011: 사업보고서, 11012: 반기, 11013: 1분기, 11014: 3분기)
+     * @param fsDiv 재무제표 구분 (CFS: 연결, OFS: 별도)
+     * @return 재무제표 원시 데이터 목록
+     * @throws dev.kairoscode.kfc.exception.KfcException 네트워크 에러, 파싱 실패, API 에러 발생 시
+     */
+    suspend fun getAllFinancialStatements(
+        corpCode: String,
+        year: Int,
+        reportCode: String = "11011",
+        fsDiv: String = "CFS"
+    ): List<dev.kairoscode.kfc.infrastructure.opendart.model.FinancialStatementRaw>
 }

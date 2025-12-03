@@ -198,6 +198,36 @@ object SmartRecorder {
     }
 
     /**
+     * 단일 객체를 레코딩합니다.
+     *
+     * List가 아닌 단일 객체(예: FinancialStatements)를 레코딩할 때 사용합니다.
+     *
+     * @param T 저장할 데이터의 타입 (Serializable)
+     * @param data 저장할 단일 객체
+     * @param category API 카테고리 경로 (RecordingConfig.Paths 사용)
+     * @param fileName 파일명 (확장자 제외)
+     */
+    inline fun <reified T> recordSmartly(
+        data: T,
+        category: String,
+        fileName: String
+    ) {
+        // 레코딩이 비활성화된 경우 조기 반환
+        if (!RecordingConfig.isRecordingEnabled) {
+            logger.debug("레코딩이 비활성화되어 있습니다. 스킵합니다.")
+            return
+        }
+
+        // ResponseRecorder를 통해 실제 레코딩 수행
+        ResponseRecorder.record(data, category, fileName)
+
+        logger.info(
+            "[SmartRecorder] 단일 객체 레코딩: {}/{}",
+            category, fileName
+        )
+    }
+
+    /**
      * 전략별 로깅 메시지를 출력합니다.
      *
      * @param strategy 선택된 레코딩 전략

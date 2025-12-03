@@ -9,6 +9,8 @@ import dev.kairoscode.kfc.infrastructure.common.ratelimit.RateLimiter
 import dev.kairoscode.kfc.infrastructure.common.ratelimit.RateLimitingSettings
 import dev.kairoscode.kfc.infrastructure.common.ratelimit.TokenBucketRateLimiter
 import dev.kairoscode.kfc.infrastructure.opendart.model.*
+import dev.kairoscode.kfc.infrastructure.opendart.model.FinancialStatementRaw
+import dev.kairoscode.kfc.infrastructure.opendart.model.FinancialStatementResponse
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -182,6 +184,27 @@ internal class OpenDartApiImpl(
         return response.list?.map { it.toDisclosureItem() } ?: emptyList()
     }
 
+    override suspend fun getAllFinancialStatements(
+        corpCode: String,
+        year: Int,
+        reportCode: String,
+        fsDiv: String
+    ): List<FinancialStatementRaw> {
+        rateLimiter.acquire()
+        logger.debug { "Fetching financial statements: corpCode=$corpCode, year=$year, reportCode=$reportCode, fsDiv=$fsDiv" }
+
+        val url = "$BASE_URL/fnlttSinglAcntAll.json"
+
+        val response = fetchJson<FinancialStatementResponse>(url, mapOf(
+            "corp_code" to corpCode,
+            "bsns_year" to year.toString(),
+            "reprt_code" to reportCode,
+            "fs_div" to fsDiv
+        ))
+
+        return response.list ?: emptyList()
+    }
+
     /**
      * JSON API 호출 공통 로직
      */
@@ -218,6 +241,20 @@ internal class OpenDartApiImpl(
                                 )
                             }
                         } else if (body is DisclosureListResponse) {
+                            when (body.status) {
+                                "000" -> body
+                                "013" -> body
+                                else -> throw KfcException(
+                                    ErrorCode.OPENDART_API_ERROR,
+                                    "OPENDART API 오류",
+                                    context = mapOf(
+                                        "url" to url,
+                                        "statusCode" to body.status,
+                                        "message" to (body.message ?: "Unknown error")
+                                    )
+                                )
+                            }
+                        } else if (body is FinancialStatementResponse) {
                             when (body.status) {
                                 "000" -> body
                                 "013" -> body

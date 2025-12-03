@@ -171,4 +171,17 @@ internal object KrxApiFields {
         const val BALANCE_VALUE = "BAL_AMT"  // 공매도 잔고 금액
         const val BALANCE_RATIO = "BAL_RTO"  // 공매도 잔고 비율 (%)
     }
+
+    /**
+     * 주식 종목 정보 (Stock Finder API용)
+     *
+     * finder_stkisu, finder_listdelisu 응답에서 사용되는 필드명
+     */
+    object Stock {
+        const val FULL_CODE = "full_code"      // ISIN 코드 (12자리, 예: KR7005930003)
+        const val SHORT_CODE = "short_code"    // 종목 코드 (6자리, 예: 005930)
+        const val CODE_NAME = "codeName"       // 종목명 (예: 삼성전자)
+        const val MARKET_CODE = "marketCode"   // 시장 코드 (예: STK, KSQ, KNX)
+        const val MARKET_NAME = "marketName"   // 시장명 (예: 코스피, 코스닥)
+    }
 }
