@@ -26,9 +26,10 @@ class CorpApiCodeSpec : IntegrationTestBase() {
     @DisplayName("전체 법인 고유번호 목록을 조회할 수 있다")
     fun testGetCorpCodeList() = integrationTest(timeout = 2.minutes) {
         // Given: KfcClient with OPENDART API Key
+        requireOpendartApiKey()
 
         // When: 고유번호 목록 조회
-        val corpCodeList = client.corp?.getCorpCodeList() ?: return@integrationTest
+        val corpCodeList = client.corp!!.getCorpCodeList()
 
         // Then: 10,000개 이상의 법인 정보 반환
         assertTrue(corpCodeList.size >= 10000, "법인 정보는 최소 10,000개 이상이어야 합니다. 실제: ${corpCodeList.size}개")
@@ -58,9 +59,10 @@ class CorpApiCodeSpec : IntegrationTestBase() {
     @DisplayName("ZIP 압축 해제와 XML 파싱이 자동으로 처리된다")
     fun testAutoDecompressionAndParsing() = integrationTest(timeout = 2.minutes) {
         // Given: OPENDART API는 ZIP 파일 반환
+        requireOpendartApiKey()
 
         // When: getCorpCodeList() 호출
-        val corpCodeList = client.corp?.getCorpCodeList() ?: return@integrationTest
+        val corpCodeList = client.corp!!.getCorpCodeList()
 
         // Then: 자동으로 압축 해제 및 XML 파싱
         assertTrue(corpCodeList.isNotEmpty(), "압축 해제 및 파싱이 성공해야 합니다")
@@ -74,7 +76,8 @@ class CorpApiCodeSpec : IntegrationTestBase() {
     @DisplayName("[활용] 종목코드로 OPENDART 고유번호를 찾을 수 있다")
     fun testFindCorpCodeByStockCode() = integrationTest(timeout = 2.minutes) {
         // Given: 고유번호 목록 조회
-        val corpCodeList = client.corp?.getCorpCodeList() ?: return@integrationTest
+        requireOpendartApiKey()
+        val corpCodeList = client.corp!!.getCorpCodeList()
 
         // When: stock_code로 필터링 (예: "005930" 삼성전자)
         val samsung = corpCodeList.find { it.stockCode == "005930" }
@@ -93,7 +96,8 @@ class CorpApiCodeSpec : IntegrationTestBase() {
     @DisplayName("[활용] 법인명으로 고유번호를 검색할 수 있다")
     fun testSearchCorpCodeByName() = integrationTest(timeout = 2.minutes) {
         // Given: 고유번호 목록 조회
-        val corpCodeList = client.corp?.getCorpCodeList() ?: return@integrationTest
+        requireOpendartApiKey()
+        val corpCodeList = client.corp!!.getCorpCodeList()
 
         // When: corp_name에 "삼성" 포함된 법인 검색
         val samsungCorps = corpCodeList.filter {
@@ -113,7 +117,8 @@ class CorpApiCodeSpec : IntegrationTestBase() {
     @DisplayName("[활용] 상장 법인만 필터링할 수 있다")
     fun testFilterListedCorps() = integrationTest(timeout = 2.minutes) {
         // Given: 고유번호 목록 (상장/비상장 모두 포함)
-        val corpCodeList = client.corp?.getCorpCodeList() ?: return@integrationTest
+        requireOpendartApiKey()
+        val corpCodeList = client.corp!!.getCorpCodeList()
 
         // When: stock_code가 null이 아닌 법인 필터링
         val listedCorps = corpCodeList.filter {

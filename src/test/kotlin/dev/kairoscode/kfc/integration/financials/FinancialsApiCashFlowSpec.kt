@@ -28,16 +28,17 @@ class FinancialsApiCashFlowSpec : IntegrationTestBase() {
     @DisplayName("특정 법인의 연결 현금흐름표를 조회할 수 있다")
     fun testGetCashFlowStatement() = integrationTest {
         // Given: 삼성전자 corp_code (고정: 2023년)
+        requireOpendartApiKey()
         val corpCode = TestFixtures.Corp.SAMSUNG_CORP_CODE
         val year = 2023
 
         // When: 현금흐름표 조회
-        val cashFlowStatement = client.financials?.getCashFlowStatement(
+        val cashFlowStatement = client.financials!!.getCashFlowStatement(
             corpCode = corpCode,
             year = year,
             reportType = ReportType.ANNUAL,
             statementType = StatementType.CONSOLIDATED
-        ) ?: return@integrationTest
+        )
 
         // Then: 현금흐름표 데이터 반환
         println("✅ 삼성전자 ${year}년 연결 현금흐름표 항목 개수: ${cashFlowStatement.lineItems.size}")

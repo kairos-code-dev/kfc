@@ -5,6 +5,7 @@ import dev.kairoscode.kfc.infrastructure.common.recording.ResponseRecordingConte
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
 import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.Assumptions
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.TestInstance
@@ -112,9 +113,14 @@ abstract class IntegrationTestBase {
     }
 
     /**
-     * API 키를 local.properties에서 로드
+     * API 키를 환경변수 또는 local.properties에서 로드
+     * 우선순위: 환경변수 > local.properties
      */
     private fun loadApiKey(): String? {
+        // 1. 환경변수에서 먼저 확인 (GitHub Actions용)
+        System.getenv("OPENDART_API_KEY")?.let { return it }
+
+        // 2. local.properties에서 확인 (로컬 개발용)
         val localPropertiesFile = File("local.properties")
         if (localPropertiesFile.exists()) {
             val properties = Properties()
@@ -123,6 +129,36 @@ abstract class IntegrationTestBase {
         }
         return null
     }
+
+    /**
+     * OPENDART API Key 필요한 테스트에서 사용하는 skip 헬퍼
+     *
+     * API Key가 없으면 JUnit 5 Assumptions를 통해 테스트를 skip 처리합니다.
+     * 테스트 결과에서 'passed'가 아닌 'skipped'로 표시됩니다.
+     *
+     * ## 사용 예제
+     * ```kotlin
+     * @Test
+     * fun `법인 정보 조회`() = integrationTest {
+     *     requireOpendartApiKey() // API Key 없으면 skip
+     *     val result = client.corp!!.getCorpCodeList()
+     *     assertNotNull(result)
+     * }
+     * ```
+     */
+    protected fun requireOpendartApiKey() {
+        Assumptions.assumeTrue(
+            hasOpendartApiKey,
+            "OPENDART_API_KEY가 설정되지 않아 테스트를 skip합니다. " +
+                    "(환경변수 또는 local.properties에 설정 필요)"
+        )
+    }
+
+    /**
+     * OPENDART API Key 사용 가능 여부
+     */
+    protected val hasOpendartApiKey: Boolean
+        get() = client.corp != null
 
     // ========================================
     // 메모리 모니터링 유틸리티

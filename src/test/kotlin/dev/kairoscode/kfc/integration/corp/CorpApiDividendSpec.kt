@@ -26,11 +26,12 @@ class CorpApiDividendSpec : IntegrationTestBase() {
     @DisplayName("특정 법인의 배당 정보를 고정 연도로 조회할 수 있다")
     fun testGetDividendInfo() = integrationTest {
         // Given: 삼성전자 corp_code, year (고정: 2023년)
+        requireOpendartApiKey()
         val corpCode = TestFixtures.Corp.SAMSUNG_CORP_CODE
         val year = 2023 // 고정 연도
 
         // When: 배당 정보 조회
-        val dividendInfo = client.corp?.getDividendInfo(corpCode, year) ?: return@integrationTest
+        val dividendInfo = client.corp!!.getDividendInfo(corpCode, year)
 
         // Then: 배당금 정보 반환 (현금배당, 주식배당 등)
         // 주의: 배당이 없는 경우 빈 리스트 반환 가능
@@ -54,11 +55,12 @@ class CorpApiDividendSpec : IntegrationTestBase() {
     @DisplayName("카카오 배당 정보를 고정 연도로 조회할 수 있다")
     fun testGetDividendInfoKakao() = integrationTest {
         // Given: 카카오 corp_code (고정: 2023년)
+        requireOpendartApiKey()
         val corpCode = TestFixtures.Corp.KAKAO_CORP_CODE
         val year = 2023 // 고정 연도
 
         // When: 배당 정보 조회
-        val dividendInfo = client.corp?.getDividendInfo(corpCode, year) ?: return@integrationTest
+        val dividendInfo = client.corp!!.getDividendInfo(corpCode, year)
 
         // Then: 배당 정보 반환
         println("✅ 카카오 ${year}년 배당 정보 개수: ${dividendInfo.size}")
@@ -75,6 +77,7 @@ class CorpApiDividendSpec : IntegrationTestBase() {
     @DisplayName("다양한 보고서 타입으로 고정 연도 기준 조회할 수 있다")
     fun testGetDividendInfoWithDifferentReportCodes() = integrationTest {
         // Given: 삼성전자 corp_code (고정: 2023년)
+        requireOpendartApiKey()
         val corpCode = TestFixtures.Corp.SAMSUNG_CORP_CODE
         val year = 2023 // 고정 연도
 
@@ -88,7 +91,7 @@ class CorpApiDividendSpec : IntegrationTestBase() {
         // When: reportCode를 변경하여 호출
         println("\n=== 보고서 타입별 배당 정보 (${year}년) ===")
         reportCodes.forEach { (reportCode, reportName) ->
-            val dividendInfo = client.corp?.getDividendInfo(corpCode, year, reportCode) ?: return@integrationTest
+            val dividendInfo = client.corp!!.getDividendInfo(corpCode, year, reportCode)
             println("$reportName ($reportCode): ${dividendInfo.size}건")
 
             // Rate Limiting 고려
@@ -100,13 +103,14 @@ class CorpApiDividendSpec : IntegrationTestBase() {
     @DisplayName("[활용] 고정 기간 기준으로 배당 이력을 조회할 수 있다")
     fun testDividendHistory() = integrationTest {
         // Given: 고정 기간 배당 정보 (2021-2023년)
+        requireOpendartApiKey()
         val corpCode = TestFixtures.Corp.SAMSUNG_CORP_CODE
         val years = listOf(2021, 2022, 2023) // 고정 연도 목록
 
         // When: 각 연도별 getDividendInfo() 호출
         println("\n=== 삼성전자 배당 이력 (2021-2023년) ===")
         years.forEach { year ->
-            val dividendInfo = client.corp?.getDividendInfo(corpCode, year) ?: return@integrationTest
+            val dividendInfo = client.corp!!.getDividendInfo(corpCode, year)
             println("${year}년: ${dividendInfo.size}건")
 
             // Rate Limiting 고려

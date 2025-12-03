@@ -28,16 +28,17 @@ class FinancialsApiBalanceSheetSpec : IntegrationTestBase() {
     @DisplayName("특정 법인의 연결 재무상태표를 조회할 수 있다")
     fun testGetBalanceSheet() = integrationTest {
         // Given: 삼성전자 corp_code (고정: 2023년)
+        requireOpendartApiKey()
         val corpCode = TestFixtures.Corp.SAMSUNG_CORP_CODE
         val year = 2023
 
         // When: 재무상태표 조회
-        val balanceSheet = client.financials?.getBalanceSheet(
+        val balanceSheet = client.financials!!.getBalanceSheet(
             corpCode = corpCode,
             year = year,
             reportType = ReportType.ANNUAL,
             statementType = StatementType.CONSOLIDATED
-        ) ?: return@integrationTest
+        )
 
         // Then: 재무상태표 데이터 반환
         println("✅ 삼성전자 ${year}년 연결 재무상태표 항목 개수: ${balanceSheet.lineItems.size}")

@@ -26,16 +26,17 @@ class FinancialsApiAllSpec : IntegrationTestBase() {
     @DisplayName("특정 법인의 모든 재무제표를 한 번에 조회할 수 있다")
     fun testGetAllFinancials() = integrationTest {
         // Given: 삼성전자 corp_code (고정: 2023년)
+        requireOpendartApiKey()
         val corpCode = TestFixtures.Corp.SAMSUNG_CORP_CODE
         val year = 2023
 
         // When: 전체 재무제표 조회
-        val financialStatements = client.financials?.getAllFinancials(
+        val financialStatements = client.financials!!.getAllFinancials(
             corpCode = corpCode,
             year = year,
             reportType = ReportType.ANNUAL,
             statementType = StatementType.CONSOLIDATED
-        ) ?: return@integrationTest
+        )
 
         // Then: 모든 재무제표 데이터 반환
         println("✅ 삼성전자 ${year}년 전체 재무제표 조회 성공")
@@ -55,16 +56,17 @@ class FinancialsApiAllSpec : IntegrationTestBase() {
     @DisplayName("카카오의 전체 재무제표를 조회할 수 있다")
     fun testGetAllFinancialsKakao() = integrationTest {
         // Given: 카카오 corp_code (고정: 2023년)
+        requireOpendartApiKey()
         val corpCode = TestFixtures.Corp.KAKAO_CORP_CODE
         val year = 2023
 
         // When: 전체 재무제표 조회
-        val financialStatements = client.financials?.getAllFinancials(
+        val financialStatements = client.financials!!.getAllFinancials(
             corpCode = corpCode,
             year = year,
             reportType = ReportType.ANNUAL,
             statementType = StatementType.CONSOLIDATED
-        ) ?: return@integrationTest
+        )
 
         // Then: 모든 재무제표 데이터 반환
         println("✅ 카카오 ${year}년 전체 재무제표 조회 성공")

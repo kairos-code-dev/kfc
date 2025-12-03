@@ -26,12 +26,13 @@ class CorpApiDisclosureSpec : IntegrationTestBase() {
     @DisplayName("특정 기간의 공시 목록을 조회할 수 있다")
     fun testSearchDisclosures() = integrationTest {
         // Given: startDate, endDate 지정
+        requireOpendartApiKey()
         val endDate = TestFixtures.Dates.TRADING_DAY
         val startDate = endDate.minusMonths(1)
         val corpCode = TestFixtures.Corp.SAMSUNG_CORP_CODE
 
         // When: 공시 검색
-        val disclosures = client.corp?.searchDisclosures(corpCode, startDate, endDate) ?: return@integrationTest
+        val disclosures = client.corp!!.searchDisclosures(corpCode, startDate, endDate)
 
         // Then: 해당 기간의 공시 목록 반환
         println("✅ 삼성전자 1개월 공시 개수: ${disclosures.size}")
@@ -56,12 +57,13 @@ class CorpApiDisclosureSpec : IntegrationTestBase() {
     @DisplayName("카카오 공시를 조회할 수 있다")
     fun testSearchDisclosuresKakao() = integrationTest {
         // Given: 카카오 corp_code
+        requireOpendartApiKey()
         val corpCode = TestFixtures.Corp.KAKAO_CORP_CODE
         val endDate = TestFixtures.Dates.TRADING_DAY
         val startDate = endDate.minusMonths(1)
 
         // When: 공시 검색
-        val disclosures = client.corp?.searchDisclosures(corpCode, startDate, endDate) ?: return@integrationTest
+        val disclosures = client.corp!!.searchDisclosures(corpCode, startDate, endDate)
 
         // Then: 공시 목록 반환
         println("✅ 카카오 1개월 공시 개수: ${disclosures.size}")
@@ -78,15 +80,16 @@ class CorpApiDisclosureSpec : IntegrationTestBase() {
     @DisplayName("전체 법인의 공시를 조회할 수 있다")
     fun testSearchAllCorpDisclosures() = integrationTest {
         // Given: corpCode = null, 특정 날짜
+        requireOpendartApiKey()
         val date = TestFixtures.Dates.TRADING_DAY
 
         // When: searchDisclosures(null, startDate, endDate) 호출
-        val disclosures = client.corp?.searchDisclosures(
+        val disclosures = client.corp!!.searchDisclosures(
             corpCode = null,
             startDate = date,
             endDate = date,
             pageCount = 100
-        ) ?: return@integrationTest
+        )
 
         // Then: 모든 법인의 공시 반환 (페이징 처리)
         println("✅ 전체 법인 공시 개수 (1일): ${disclosures.size}")
@@ -104,18 +107,19 @@ class CorpApiDisclosureSpec : IntegrationTestBase() {
     @DisplayName("페이징 처리가 가능하다")
     fun testDisclosurePagination() = integrationTest {
         // Given: pageNo, pageCount 지정
+        requireOpendartApiKey()
         val corpCode = TestFixtures.Corp.SAMSUNG_CORP_CODE
         val endDate = TestFixtures.Dates.TRADING_DAY
         val startDate = endDate.minusMonths(3)
 
         // When: searchDisclosures(..., pageNo=1, pageCount=50) 호출
-        val page1 = client.corp?.searchDisclosures(
+        val page1 = client.corp!!.searchDisclosures(
             corpCode = corpCode,
             startDate = startDate,
             endDate = endDate,
             pageNo = 1,
             pageCount = 50
-        ) ?: return@integrationTest
+        )
 
         // Then: 1페이지 결과 반환 (최대 50개)
         println("✅ 1페이지 공시 개수: ${page1.size}")
@@ -126,10 +130,11 @@ class CorpApiDisclosureSpec : IntegrationTestBase() {
     @DisplayName("[활용] 특정 키워드가 포함된 공시를 찾을 수 있다")
     fun testSearchDisclosuresByKeyword() = integrationTest {
         // Given: 공시 목록 조회
+        requireOpendartApiKey()
         val corpCode = TestFixtures.Corp.SAMSUNG_CORP_CODE
         val endDate = TestFixtures.Dates.TRADING_DAY
         val startDate = endDate.minusMonths(6)
-        val disclosures = client.corp?.searchDisclosures(corpCode, startDate, endDate) ?: return@integrationTest
+        val disclosures = client.corp!!.searchDisclosures(corpCode, startDate, endDate)
 
         // When: reportName에 "분기" 포함된 공시 필터링
         val quarterlyReports = disclosures.filter {
@@ -150,10 +155,11 @@ class CorpApiDisclosureSpec : IntegrationTestBase() {
     @DisplayName("[활용] 공시 통계를 분석할 수 있다")
     fun testDisclosureStatistics() = integrationTest {
         // Given: 3개월 공시 데이터
+        requireOpendartApiKey()
         val corpCode = TestFixtures.Corp.SAMSUNG_CORP_CODE
         val endDate = TestFixtures.Dates.TRADING_DAY
         val startDate = endDate.minusMonths(3)
-        val disclosures = client.corp?.searchDisclosures(corpCode, startDate, endDate) ?: return@integrationTest
+        val disclosures = client.corp!!.searchDisclosures(corpCode, startDate, endDate)
 
         // When: 공시 유형별 그룹화
         val disclosureGroups = disclosures

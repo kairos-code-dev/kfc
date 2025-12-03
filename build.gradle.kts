@@ -64,8 +64,11 @@ kotlin {
  * 공통 테스트 설정을 적용하는 확장 함수
  */
 fun Test.configureCommonTestSettings() {
-    // Pass API key from local.properties to test JVM
-    localProperties.getProperty("OPENDART_API_KEY")?.let { apiKey ->
+    // OPENDART API Key 설정 (우선순위: 환경변수 > local.properties)
+    val opendartApiKey = System.getenv("OPENDART_API_KEY")
+        ?: localProperties.getProperty("OPENDART_API_KEY")
+
+    opendartApiKey?.let { apiKey ->
         environment("OPENDART_API_KEY", apiKey)
     }
 

@@ -26,11 +26,12 @@ class CorpApiStockSplitSpec : IntegrationTestBase() {
     @DisplayName("주식 분할/병합 정보를 고정 연도로 조회할 수 있다")
     fun testGetStockSplitInfo() = integrationTest {
         // Given: 특정 법인 corp_code, year (고정: 2023년)
+        requireOpendartApiKey()
         val corpCode = TestFixtures.Corp.SAMSUNG_CORP_CODE
         val year = 2023 // 고정 연도
 
         // When: 주식 분할/병합 정보 조회
-        val stockSplitInfo = client.corp?.getStockSplitInfo(corpCode, year) ?: return@integrationTest
+        val stockSplitInfo = client.corp!!.getStockSplitInfo(corpCode, year)
 
         // Then: 주식 분할/병합 정보 반환 (없을 수 있음)
         println("✅ 삼성전자 ${year}년 주식 분할 정보 개수: ${stockSplitInfo.size}")
@@ -55,11 +56,12 @@ class CorpApiStockSplitSpec : IntegrationTestBase() {
     @DisplayName("카카오 주식 분할 정보를 고정 연도로 조회할 수 있다")
     fun testGetStockSplitInfoKakao() = integrationTest {
         // Given: 카카오 corp_code (고정: 2023년)
+        requireOpendartApiKey()
         val corpCode = TestFixtures.Corp.KAKAO_CORP_CODE
         val year = 2023 // 고정 연도
 
         // When: 주식 분할 정보 조회
-        val stockSplitInfo = client.corp?.getStockSplitInfo(corpCode, year) ?: return@integrationTest
+        val stockSplitInfo = client.corp!!.getStockSplitInfo(corpCode, year)
 
         // Then: 정보 반환
         println("✅ 카카오 ${year}년 주식 분할 정보 개수: ${stockSplitInfo.size}")
@@ -76,11 +78,12 @@ class CorpApiStockSplitSpec : IntegrationTestBase() {
     @DisplayName("액면분할이 없는 경우 빈 결과를 반환한다")
     fun testEmptyStockSplitInfo() = integrationTest {
         // Given: 액면분할이 없을 가능성이 높은 법인 (고정: 2023년)
+        requireOpendartApiKey()
         val corpCode = TestFixtures.Corp.KAKAO_CORP_CODE
         val year = 2023 // 고정 연도
 
         // When: getStockSplitInfo() 호출
-        val stockSplitInfo = client.corp?.getStockSplitInfo(corpCode, year) ?: return@integrationTest
+        val stockSplitInfo = client.corp!!.getStockSplitInfo(corpCode, year)
 
         // Then: 빈 리스트 반환 가능
         println("✅ ${year}년 주식 분할 정보: ${stockSplitInfo.size}건")
@@ -97,13 +100,14 @@ class CorpApiStockSplitSpec : IntegrationTestBase() {
     @DisplayName("[활용] 고정 기간 기준으로 분할 이력을 조회할 수 있다")
     fun testStockSplitHistory() = integrationTest {
         // Given: 고정 5년 분할 정보 (2019-2023년)
+        requireOpendartApiKey()
         val corpCode = TestFixtures.Corp.SAMSUNG_CORP_CODE
         val years = listOf(2019, 2020, 2021, 2022, 2023) // 고정 연도 목록
 
         // When: 각 연도별 getStockSplitInfo() 호출
         println("\n=== 삼성전자 주식 분할 이력 (2019-2023년) ===")
         years.forEach { year ->
-            val stockSplitInfo = client.corp?.getStockSplitInfo(corpCode, year) ?: return@integrationTest
+            val stockSplitInfo = client.corp!!.getStockSplitInfo(corpCode, year)
             println("${year}년: ${stockSplitInfo.size}건")
 
             if (stockSplitInfo.isNotEmpty()) {

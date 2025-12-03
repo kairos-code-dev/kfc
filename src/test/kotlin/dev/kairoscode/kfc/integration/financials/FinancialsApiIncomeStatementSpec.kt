@@ -27,16 +27,17 @@ class FinancialsApiIncomeStatementSpec : IntegrationTestBase() {
     @DisplayName("특정 법인의 연결 손익계산서를 조회할 수 있다")
     fun testGetIncomeStatement() = integrationTest {
         // Given: 삼성전자 corp_code (고정: 2023년)
+        requireOpendartApiKey()
         val corpCode = TestFixtures.Corp.SAMSUNG_CORP_CODE
         val year = 2023
 
         // When: 손익계산서 조회
-        val incomeStatement = client.financials?.getIncomeStatement(
+        val incomeStatement = client.financials!!.getIncomeStatement(
             corpCode = corpCode,
             year = year,
             reportType = ReportType.ANNUAL,
             statementType = StatementType.CONSOLIDATED
-        ) ?: return@integrationTest
+        )
 
         // Then: 손익계산서 데이터 반환
         println("✅ 삼성전자 ${year}년 연결 손익계산서 항목 개수: ${incomeStatement.lineItems.size}")
@@ -59,16 +60,17 @@ class FinancialsApiIncomeStatementSpec : IntegrationTestBase() {
     @DisplayName("분기 손익계산서를 조회할 수 있다")
     fun testGetIncomeStatementQuarterly() = integrationTest {
         // Given: 삼성전자 corp_code, Q1 (고정: 2023년)
+        requireOpendartApiKey()
         val corpCode = TestFixtures.Corp.SAMSUNG_CORP_CODE
         val year = 2023
 
         // When: Q1 손익계산서 조회
-        val incomeStatement = client.financials?.getIncomeStatement(
+        val incomeStatement = client.financials!!.getIncomeStatement(
             corpCode = corpCode,
             year = year,
             reportType = ReportType.Q1,
             statementType = StatementType.CONSOLIDATED
-        ) ?: return@integrationTest
+        )
 
         // Then: 손익계산서 데이터 반환
         println("✅ 삼성전자 ${year}년 1분기 손익계산서 항목 개수: ${incomeStatement.lineItems.size}")
@@ -85,16 +87,17 @@ class FinancialsApiIncomeStatementSpec : IntegrationTestBase() {
     @DisplayName("별도 손익계산서를 조회할 수 있다")
     fun testGetIncomeStatementSeparate() = integrationTest {
         // Given: 삼성전자 corp_code, 별도재무제표 (고정: 2023년)
+        requireOpendartApiKey()
         val corpCode = TestFixtures.Corp.SAMSUNG_CORP_CODE
         val year = 2023
 
         // When: 별도 손익계산서 조회
-        val incomeStatement = client.financials?.getIncomeStatement(
+        val incomeStatement = client.financials!!.getIncomeStatement(
             corpCode = corpCode,
             year = year,
             reportType = ReportType.ANNUAL,
             statementType = StatementType.SEPARATE
-        ) ?: return@integrationTest
+        )
 
         // Then: 손익계산서 데이터 반환
         println("✅ 삼성전자 ${year}년 별도 손익계산서 항목 개수: ${incomeStatement.lineItems.size}")
