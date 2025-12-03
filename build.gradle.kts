@@ -96,8 +96,11 @@ fun Test.configureCommonTestSettings() {
  * test - 전체 테스트 실행 (unit + integration)
  *
  * 사용법:
- *   ./gradlew test                          # 전체 테스트 (병렬)
+ *   ./gradlew test                          # 전체 테스트
  *   ./gradlew test -Precord.responses=true  # 레코딩 활성화
+ *
+ * 주의: Integration 테스트가 포함되어 있으므로 순차 실행됩니다.
+ * Unit 테스트만 병렬로 실행하려면 ./gradlew unitTest를 사용하세요.
  */
 tasks.test {
     description = "Run all tests (unit + integration)"
@@ -106,17 +109,12 @@ tasks.test {
     useJUnitPlatform()
     configureCommonTestSettings()
 
-    // 병렬 실행: CPU 코어 수 기반 (최소 1, 최대 4)
-    maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).coerceIn(1, 4)
-
-    // JUnit 5 병렬 실행 활성화
-    systemProperty("junit.jupiter.execution.parallel.enabled", "true")
-    systemProperty("junit.jupiter.execution.parallel.mode.default", "concurrent")
-    systemProperty("junit.jupiter.execution.parallel.mode.classes.default", "concurrent")
+    // Integration 테스트 포함 시 순차 실행 (KRX API Rate Limiting)
+    maxParallelForks = 1
 
     doFirst {
         println("🧪 Running all tests (unit + integration)")
-        println("   Parallel forks: $maxParallelForks")
+        println("   Mode: Sequential (integration tests require rate limiting)")
     }
 }
 
@@ -164,7 +162,7 @@ val unitTest by tasks.registering(Test::class) {
  * 특징:
  *   - @Tag("integration") 태그가 있는 테스트만 실행
  *   - 실제 외부 API (KRX, OPENDART) 호출
- *   - Rate Limiting 때문에 제한된 병렬 실행 (클래스 단위)
+ *   - 순차 실행 (KRX API가 동시 요청 차단)
  */
 val integrationTest by tasks.registering(Test::class) {
     description = "Run integration tests only"
@@ -175,18 +173,11 @@ val integrationTest by tasks.registering(Test::class) {
     }
     configureCommonTestSettings()
 
-    // Integration 테스트는 Rate Limiting 때문에 클래스 단위 병렬화만 허용
-    // 각 테스트 클래스는 자체 RateLimiter를 가지므로 클래스 간 병렬 실행 가능
-    maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).coerceIn(1, 4)
-
-    // JUnit 5 병렬 실행: 클래스 간 병렬, 메서드는 순차
-    systemProperty("junit.jupiter.execution.parallel.enabled", "true")
-    systemProperty("junit.jupiter.execution.parallel.mode.default", "same_thread")
-    systemProperty("junit.jupiter.execution.parallel.mode.classes.default", "concurrent")
+    // Integration 테스트는 순차 실행 (KRX API가 동시 요청 시 403 반환)
+    maxParallelForks = 1
 
     doFirst {
         println("🌐 Running integration tests only")
-        println("   Parallel forks: $maxParallelForks")
-        println("   Rate limiting: class-level parallelism only")
+        println("   Mode: Sequential (KRX API rate limiting)")
     }
 }
