@@ -91,14 +91,30 @@ internal class OpenDartApiImpl(
                     corpCodes
                 }
                 else -> {
-                    throw KfcException(ErrorCode.HTTP_ERROR_RESPONSE)
+                    throw KfcException(
+                        ErrorCode.HTTP_ERROR_RESPONSE,
+                        "HTTP 요청 실패",
+                        context = mapOf(
+                            "url" to url,
+                            "statusCode" to response.status.value,
+                            "endpoint" to "corpCode.xml"
+                        )
+                    )
                 }
             }
         } catch (e: KfcException) {
             throw e
         } catch (e: Exception) {
             logger.error(e) { "Failed to fetch corp code list" }
-            throw KfcException(ErrorCode.NETWORK_CONNECTION_FAILED, e)
+            throw KfcException(
+                ErrorCode.NETWORK_CONNECTION_FAILED,
+                "네트워크 연결 실패",
+                cause = e,
+                context = mapOf(
+                    "url" to url,
+                    "endpoint" to "corpCode.xml"
+                )
+            )
         }
     }
 
@@ -191,13 +207,29 @@ internal class OpenDartApiImpl(
                             when (body.status) {
                                 "000" -> body // 정상
                                 "013" -> body // 데이터 없음 (빈 리스트 반환)
-                                else -> throw KfcException(ErrorCode.OPENDART_API_ERROR)
+                                else -> throw KfcException(
+                                    ErrorCode.OPENDART_API_ERROR,
+                                    "OPENDART API 오류",
+                                    context = mapOf(
+                                        "url" to url,
+                                        "statusCode" to body.status,
+                                        "message" to (body.message ?: "Unknown error")
+                                    )
+                                )
                             }
                         } else if (body is DisclosureListResponse) {
                             when (body.status) {
                                 "000" -> body
                                 "013" -> body
-                                else -> throw KfcException(ErrorCode.OPENDART_API_ERROR)
+                                else -> throw KfcException(
+                                    ErrorCode.OPENDART_API_ERROR,
+                                    "OPENDART API 오류",
+                                    context = mapOf(
+                                        "url" to url,
+                                        "statusCode" to body.status,
+                                        "message" to (body.message ?: "Unknown error")
+                                    )
+                                )
                             }
                         } else {
                             body
@@ -206,18 +238,42 @@ internal class OpenDartApiImpl(
                         throw e
                     } catch (e: Exception) {
                         logger.error(e) { "Failed to parse JSON response from $url" }
-                        throw KfcException(ErrorCode.JSON_PARSE_ERROR, e)
+                        throw KfcException(
+                            ErrorCode.JSON_PARSE_ERROR,
+                            "응답 JSON 파싱 실패",
+                            cause = e,
+                            context = mapOf(
+                                "url" to url,
+                                "params" to params
+                            )
+                        )
                     }
                 }
                 else -> {
-                    throw KfcException(ErrorCode.HTTP_ERROR_RESPONSE)
+                    throw KfcException(
+                        ErrorCode.HTTP_ERROR_RESPONSE,
+                        "HTTP 요청 실패",
+                        context = mapOf(
+                            "url" to url,
+                            "statusCode" to response.status.value,
+                            "params" to params
+                        )
+                    )
                 }
             }
         } catch (e: KfcException) {
             throw e
         } catch (e: Exception) {
             logger.error(e) { "Network error during request to $url" }
-            throw KfcException(ErrorCode.NETWORK_CONNECTION_FAILED, e)
+            throw KfcException(
+                ErrorCode.NETWORK_CONNECTION_FAILED,
+                "네트워크 연결 실패",
+                cause = e,
+                context = mapOf(
+                    "url" to url,
+                    "params" to params
+                )
+            )
         }
     }
 
@@ -228,7 +284,14 @@ internal class OpenDartApiImpl(
         return zipInputStream.use { zis ->
             try {
                 // ZIP 엔트리 진입
-                zis.nextEntry ?: throw KfcException(ErrorCode.ZIP_PARSE_ERROR)
+                val entry = zis.nextEntry
+                if (entry == null) {
+                    throw KfcException(
+                        ErrorCode.ZIP_PARSE_ERROR,
+                        "ZIP 파일에 엔트리가 없습니다",
+                        context = mapOf("endpoint" to "corpCode.xml")
+                    )
+                }
 
                 // XML 파싱 - DocumentBuilder.parse()는 스트림을 닫지 않도록 설정
                 // InputSource를 사용하여 스트림이 자동으로 닫히지 않도록 방지
@@ -262,7 +325,12 @@ internal class OpenDartApiImpl(
             } catch (e: KfcException) {
                 throw e
             } catch (e: Exception) {
-                throw KfcException(ErrorCode.ZIP_PARSE_ERROR, e)
+                throw KfcException(
+                    ErrorCode.ZIP_PARSE_ERROR,
+                    "ZIP 파일 파싱 실패",
+                    cause = e,
+                    context = mapOf("endpoint" to "corpCode.xml")
+                )
             }
         }
     }

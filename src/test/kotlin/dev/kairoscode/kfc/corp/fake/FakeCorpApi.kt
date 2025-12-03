@@ -1,4 +1,4 @@
-package dev.kairoscode.kfc.corp.mock
+package dev.kairoscode.kfc.corp.fake
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -13,17 +13,22 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 /**
- * Unit Test용 Mock CorpApi 구현체
+ * Unit Test용 Fake CorpApi 구현체
  *
- * JSON 파일 데이터를 파싱하여 반환하는 Mock 구현체입니다.
+ * JSON 파일 데이터를 파싱하여 반환하는 Fake 구현체입니다.
  * Unit Test에서 실제 API 호출 없이 테스트를 수행할 수 있습니다.
+ *
+ * Fake 객체는 실제 구현체와 동일한 동작을 하지만, 네트워크 의존성을 제거하고
+ * 미리 정의된 응답을 반환합니다. 이는 테스트의 안정성과 속도를 향상시킵니다.
  *
  * @property corpCodeResponse 법인 코드 목록 JSON 데이터
  * @property dividendResponse 배당 정보 JSON 데이터
  * @property stockSplitResponse 주식 분할 정보 JSON 데이터
  * @property disclosureResponse 공시 목록 JSON 데이터
+ *
+ * @see CorpApi
  */
-class MockCorpApi(
+class FakeCorpApi(
     private val corpCodeResponse: String? = null,
     private val dividendResponse: String? = null,
     private val stockSplitResponse: String? = null,

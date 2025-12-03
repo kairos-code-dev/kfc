@@ -1,4 +1,4 @@
-package dev.kairoscode.kfc.funds.mock
+package dev.kairoscode.kfc.funds.fake
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -11,10 +11,14 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 /**
- * Unit Test용 Mock FundsApi 구현체
+ * Unit Test용 Fake FundsApi 구현체
  *
- * JSON 파일 데이터를 파싱하여 반환하는 Mock 구현체입니다.
+ * JSON 파일 데이터를 파싱하여 반환하는 Fake 구현체입니다.
  * Unit Test에서 실제 API 호출 없이 테스트를 수행할 수 있습니다.
+ *
+ * Fake는 실제 구현체처럼 동작하지만 프로덕션 의존성(네트워크 호출 등)을 제거한
+ * 경량화된 구현체입니다. 생성자를 통해 미리 준비된 JSON 데이터를 주입받아
+ * 테스트 시나리오에 맞는 응답을 반환합니다.
  *
  * @property listResponse 펀드 목록 JSON 데이터
  * @property comprehensiveResponse 펀드 상세 정보 JSON 데이터 (getDetailedInfo 사용)
@@ -29,7 +33,7 @@ import java.time.format.DateTimeFormatter
  * @property shortSellingResponse 공매도 거래 JSON 데이터
  * @property shortBalanceResponse 공매도 잔고 JSON 데이터
  */
-class MockFundsApi(
+class FakeFundsApi(
     private val listResponse: String? = null,
     private val comprehensiveResponse: String? = null,
     private val dailyPricesResponse: String? = null,
@@ -67,7 +71,7 @@ class MockFundsApi(
     }
 
     override suspend fun getGeneralInfo(isin: String, tradeDate: LocalDate): GeneralInfo? {
-        throw NotImplementedError("Mock에서는 지원하지 않습니다")
+        throw UnsupportedOperationException("Fake에서 지원하지 않는 메서드입니다. 필요시 생성자에서 응답을 설정하세요.")
     }
 
     override suspend fun getPortfolio(isin: String, date: LocalDate): List<PortfolioConstituent> {
@@ -76,7 +80,7 @@ class MockFundsApi(
     }
 
     override suspend fun getPortfolioTop10(isin: String, date: LocalDate): List<PortfolioTopItem> {
-        throw NotImplementedError("Mock에서는 지원하지 않습니다")
+        throw UnsupportedOperationException("Fake에서 지원하지 않는 메서드입니다. 필요시 생성자에서 응답을 설정하세요.")
     }
 
     override suspend fun getTrackingError(isin: String, fromDate: LocalDate, toDate: LocalDate): List<TrackingError> {
@@ -95,7 +99,7 @@ class MockFundsApi(
     }
 
     override suspend fun getAllInvestorTradingByPeriod(fromDate: LocalDate, toDate: LocalDate): List<InvestorTradingByDate> {
-        throw NotImplementedError("Mock에서는 지원하지 않습니다")
+        throw UnsupportedOperationException("Fake에서 지원하지 않는 메서드입니다. 필요시 생성자에서 응답을 설정하세요.")
     }
 
     override suspend fun getInvestorTrading(isin: String, date: LocalDate): List<InvestorTrading> {
@@ -104,7 +108,7 @@ class MockFundsApi(
     }
 
     override suspend fun getInvestorTradingByPeriod(isin: String, fromDate: LocalDate, toDate: LocalDate): List<InvestorTradingByDate> {
-        throw NotImplementedError("Mock에서는 지원하지 않습니다")
+        throw UnsupportedOperationException("Fake에서 지원하지 않는 메서드입니다. 필요시 생성자에서 응답을 설정하세요.")
     }
 
     override suspend fun getShortSelling(isin: String, fromDate: LocalDate, toDate: LocalDate, type: FundType): List<ShortSelling> {

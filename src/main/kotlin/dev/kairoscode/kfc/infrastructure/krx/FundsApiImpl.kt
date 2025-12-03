@@ -174,13 +174,41 @@ internal class FundsApiImpl(
 
         when {
             trimmed.isBlank() ->
-                throw KfcException(ErrorCode.INVALID_PARAMETER, "ISIN 코드는 공백이 아니어야 합니다")
+                throw KfcException(
+                    ErrorCode.INVALID_PARAMETER,
+                    "ISIN 코드는 공백이 아니어야 합니다",
+                    context = mapOf("input" to isin)
+                )
             trimmed.length != ISIN_LENGTH ->
-                throw KfcException(ErrorCode.INVALID_PARAMETER, "ISIN 코드는 정확히 ${ISIN_LENGTH}자여야 합니다 (입력: $trimmed)")
+                throw KfcException(
+                    ErrorCode.INVALID_PARAMETER,
+                    "ISIN 코드는 정확히 ${ISIN_LENGTH}자여야 합니다",
+                    context = mapOf(
+                        "input" to trimmed,
+                        "expectedLength" to ISIN_LENGTH,
+                        "actualLength" to trimmed.length
+                    )
+                )
             !trimmed.startsWith(ISIN_PREFIX) ->
-                throw KfcException(ErrorCode.INVALID_PARAMETER, "ISIN 코드는 ${ISIN_PREFIX}로 시작해야 합니다 (입력: $trimmed)")
+                throw KfcException(
+                    ErrorCode.INVALID_PARAMETER,
+                    "ISIN 코드는 ${ISIN_PREFIX}로 시작해야 합니다",
+                    context = mapOf(
+                        "input" to trimmed,
+                        "expectedPrefix" to ISIN_PREFIX,
+                        "actualPrefix" to trimmed.take(ISIN_PREFIX.length)
+                    )
+                )
             !trimmed.drop(ISIN_PREFIX.length).all { it.isDigit() } ->
-                throw KfcException(ErrorCode.INVALID_PARAMETER, "ISIN 코드는 ${ISIN_PREFIX} 이후 숫자만 포함해야 합니다 (입력: $trimmed)")
+                throw KfcException(
+                    ErrorCode.INVALID_PARAMETER,
+                    "ISIN 코드는 ${ISIN_PREFIX} 이후 숫자만 포함해야 합니다",
+                    context = mapOf(
+                        "input" to trimmed,
+                        "expectedPrefix" to ISIN_PREFIX,
+                        "invalidPart" to trimmed.drop(ISIN_PREFIX.length)
+                    )
+                )
         }
     }
 
@@ -189,9 +217,17 @@ internal class FundsApiImpl(
      * - 현재 또는 과거 날짜만 허용
      */
     private fun validateTradeDate(date: LocalDate) {
+        val now = LocalDate.now()
         when {
-            date > LocalDate.now() ->
-                throw KfcException(ErrorCode.INVALID_PARAMETER, "거래 날짜는 미래 날짜일 수 없습니다 (입력: $date)")
+            date > now ->
+                throw KfcException(
+                    ErrorCode.INVALID_PARAMETER,
+                    "거래 날짜는 미래 날짜일 수 없습니다",
+                    context = mapOf(
+                        "inputDate" to date,
+                        "currentDate" to now
+                    )
+                )
         }
     }
 
@@ -201,11 +237,26 @@ internal class FundsApiImpl(
      * - 둘 다 현재 또는 과거 날짜
      */
     private fun validateDateRange(fromDate: LocalDate, toDate: LocalDate) {
+        val now = LocalDate.now()
         when {
             fromDate > toDate ->
-                throw KfcException(ErrorCode.INVALID_DATE_RANGE, "시작 날짜는 종료 날짜보다 이전이어야 합니다 (fromDate: $fromDate, toDate: $toDate)")
-            toDate > LocalDate.now() ->
-                throw KfcException(ErrorCode.INVALID_PARAMETER, "종료 날짜는 미래 날짜일 수 없습니다 (입력: $toDate)")
+                throw KfcException(
+                    ErrorCode.INVALID_DATE_RANGE,
+                    "시작 날짜는 종료 날짜보다 이전이어야 합니다",
+                    context = mapOf(
+                        "fromDate" to fromDate,
+                        "toDate" to toDate
+                    )
+                )
+            toDate > now ->
+                throw KfcException(
+                    ErrorCode.INVALID_PARAMETER,
+                    "종료 날짜는 미래 날짜일 수 없습니다",
+                    context = mapOf(
+                        "toDate" to toDate,
+                        "currentDate" to now
+                    )
+                )
         }
     }
 }

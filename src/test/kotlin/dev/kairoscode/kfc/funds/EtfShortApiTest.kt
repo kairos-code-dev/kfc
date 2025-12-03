@@ -1,6 +1,8 @@
 package dev.kairoscode.kfc.funds
 
-import dev.kairoscode.kfc.funds.mock.MockFundsApi
+import dev.kairoscode.kfc.funds.fake.FakeFundsApi
+import dev.kairoscode.kfc.utils.KfcAssertions
+import dev.kairoscode.kfc.utils.TestData
 import dev.kairoscode.kfc.utils.UnitTestBase
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -17,21 +19,27 @@ class EtfShortApiTest : UnitTestBase() {
 
         @Test
         @DisplayName("공매도 거래 현황을 조회할 수 있다")
-        fun `can retrieve short selling`() = unitTest {
-            // Given
+        fun getShortSelling_withValidPeriod_returnsData() = unitTest {
+            // Given: TIGER 200 ETF의 공매도 거래 조회를 위한 Mock API 설정
             val jsonResponse = loadMockResponse("etf/short", "tiger200_short_selling")
-            mockFundsApi = MockFundsApi(shortSellingResponse = jsonResponse)
+            fakeFundsApi = FakeFundsApi(shortSellingResponse = jsonResponse)
             initClient()
 
-            // When
+            val isin = "KR7069500007"
+            val fromDate = LocalDate.of(2024, 11, 1)
+            val toDate = LocalDate.of(2024, 11, 14)
+
+            // When: 지정된 기간의 공매도 거래 현황을 조회
             val shortSelling = client.funds.getShortSelling(
-                isin = "KR7069500007",
-                fromDate = LocalDate.of(2024, 11, 1),
-                toDate = LocalDate.of(2024, 11, 14)
+                isin = isin,
+                fromDate = fromDate,
+                toDate = toDate
             )
 
-            // Then
-            assertThat(shortSelling).isNotEmpty
+            // Then: 공매도 거래 데이터가 반환되어야 함
+            assertThat(shortSelling)
+                .describedAs("공매도 거래 결과가 비어있습니다 (ISIN: %s, 기간: %s ~ %s)", isin, fromDate, toDate)
+                .isNotEmpty
             println("공매도 거래: ${shortSelling.size}개")
         }
     }
@@ -42,21 +50,27 @@ class EtfShortApiTest : UnitTestBase() {
 
         @Test
         @DisplayName("공매도 잔고 현황을 조회할 수 있다")
-        fun `can retrieve short balance`() = unitTest {
-            // Given
+        fun getShortBalance_withValidPeriod_returnsData() = unitTest {
+            // Given: TIGER 200 ETF의 공매도 잔고 조회를 위한 Mock API 설정
             val jsonResponse = loadMockResponse("etf/short", "tiger200_short_balance")
-            mockFundsApi = MockFundsApi(shortBalanceResponse = jsonResponse)
+            fakeFundsApi = FakeFundsApi(shortBalanceResponse = jsonResponse)
             initClient()
 
-            // When
+            val isin = "KR7069500007"
+            val fromDate = LocalDate.of(2024, 11, 1)
+            val toDate = LocalDate.of(2024, 11, 14)
+
+            // When: 지정된 기간의 공매도 잔고 현황을 조회
             val shortBalance = client.funds.getShortBalance(
-                isin = "KR7069500007",
-                fromDate = LocalDate.of(2024, 11, 1),
-                toDate = LocalDate.of(2024, 11, 14)
+                isin = isin,
+                fromDate = fromDate,
+                toDate = toDate
             )
 
-            // Then
-            assertThat(shortBalance).isNotEmpty
+            // Then: 공매도 잔고 데이터가 반환되어야 함
+            assertThat(shortBalance)
+                .describedAs("공매도 잔고 결과가 비어있습니다 (ISIN: %s, 기간: %s ~ %s)", isin, fromDate, toDate)
+                .isNotEmpty
             println("공매도 잔고: ${shortBalance.size}개")
         }
     }

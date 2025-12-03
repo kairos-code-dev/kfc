@@ -1,6 +1,8 @@
 package dev.kairoscode.kfc.funds
 
-import dev.kairoscode.kfc.funds.mock.MockFundsApi
+import dev.kairoscode.kfc.funds.fake.FakeFundsApi
+import dev.kairoscode.kfc.utils.KfcAssertions
+import dev.kairoscode.kfc.utils.TestData
 import dev.kairoscode.kfc.utils.UnitTestBase
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -13,26 +15,31 @@ import org.junit.jupiter.api.Test
  * ETF 목록 조회 API의 동작을 검증하는 Unit Test입니다.
  * Live Test에서 레코딩된 JSON 응답을 사용하여 테스트합니다.
  */
-@DisplayName("EtfApi - getList()")
+@DisplayName("FundsApi - getList()")
 class EtfListApiTest : UnitTestBase() {
 
+    // =========================================
+    // 정상 케이스
+    // =========================================
     @Nested
-    @DisplayName("getList() 사용법")
-    inner class GetListUsage {
+    @DisplayName("정상 케이스")
+    inner class SuccessCases {
 
         @Test
-        @DisplayName("기본 사용법 - 전체 ETF 목록을 간단히 조회할 수 있다")
-        fun `basic usage - can retrieve all ETF list`() = unitTest {
-            // Given: Mock API 설정
+        @DisplayName("전체 ETF 목록을 조회할 수 있다")
+        fun getList_noFilter_returnsAllEtfs() = unitTest {
+            // Given: Fake API 설정 - 레코딩된 ETF 목록 응답 사용
             val jsonResponse = loadEtfListResponse("etf_list")
-            mockFundsApi = MockFundsApi(listResponse = jsonResponse)
+            fakeFundsApi = FakeFundsApi(listResponse = jsonResponse)
             initClient()
 
-            // When: ETF 목록 조회
+            // When: ETF 목록 전체 조회
             val etfList = client.funds.getList()
 
-            // Then: ETF 목록이 반환됨
-            assertThat(etfList).isNotEmpty
+            // Then: 유효한 ETF 목록이 반환됨
+            assertThat(etfList)
+                .describedAs("ETF 목록이 비어있습니다 (size: %d)", etfList.size)
+                .isNotEmpty
 
             // 예제: 첫 번째 ETF 정보 출력
             val first = etfList.first()
@@ -43,19 +50,22 @@ class EtfListApiTest : UnitTestBase() {
         }
 
         @Test
-        @DisplayName("필터링 예제 - 특정 자산구분의 ETF만 조회할 수 있다")
-        fun `filtering example - can filter ETFs by asset class`() = unitTest {
-            // Given: Mock API 설정
+        @DisplayName("특정 자산구분의 ETF만 필터링할 수 있다")
+        fun getList_filterByAssetClass_returnsFilteredEtfs() = unitTest {
+            // Given: Fake API 설정 - 레코딩된 ETF 목록 응답 사용
             val jsonResponse = loadEtfListResponse("etf_list")
-            mockFundsApi = MockFundsApi(listResponse = jsonResponse)
+            fakeFundsApi = FakeFundsApi(listResponse = jsonResponse)
             initClient()
 
             // When: 전체 목록 조회 후 주식형만 필터링
             val etfList = client.funds.getList()
             val stockEtfs = etfList.filter { it.assetClass == "주식" }
 
-            // Then: 주식형 ETF만 포함
-            assertThat(stockEtfs).allMatch { it.assetClass == "주식" }
+            // Then: 주식형 ETF만 포함되어 있음
+            assertThat(stockEtfs)
+                .describedAs("주식형 ETF가 없습니다 (전체: %d)", etfList.size)
+                .isNotEmpty
+                .allMatch { it.assetClass == "주식" }
 
             // 예제: 주식형 ETF 목록 출력
             println("주식형 ETF 개수: ${stockEtfs.size}")
@@ -65,19 +75,22 @@ class EtfListApiTest : UnitTestBase() {
         }
 
         @Test
-        @DisplayName("검색 예제 - 이름으로 ETF를 검색할 수 있다")
-        fun `search example - can search ETFs by name`() = unitTest {
-            // Given: Mock API 설정
+        @DisplayName("이름으로 ETF를 검색할 수 있다")
+        fun getList_searchByName_returnsMatchingEtfs() = unitTest {
+            // Given: Fake API 설정 - 레코딩된 ETF 목록 응답 사용
             val jsonResponse = loadEtfListResponse("etf_list")
-            mockFundsApi = MockFundsApi(listResponse = jsonResponse)
+            fakeFundsApi = FakeFundsApi(listResponse = jsonResponse)
             initClient()
 
             // When: 이름에 'TIGER' 포함된 ETF 검색
             val etfList = client.funds.getList()
             val tigerEtfs = etfList.filter { it.name.contains("TIGER") }
 
-            // Then: TIGER ETF들만 반환
-            assertThat(tigerEtfs).allMatch { it.name.contains("TIGER") }
+            // Then: TIGER ETF들만 반환됨
+            assertThat(tigerEtfs)
+                .describedAs("TIGER ETF가 없습니다 (전체: %d)", etfList.size)
+                .isNotEmpty
+                .allMatch { it.name.contains("TIGER") }
 
             // 예제: 검색 결과 출력
             println("TIGER ETF 검색 결과: ${tigerEtfs.size}개")
@@ -87,62 +100,75 @@ class EtfListApiTest : UnitTestBase() {
         }
     }
 
+    // =========================================
+    // API 명세 검증
+    // =========================================
     @Nested
-    @DisplayName("getList() API 명세")
-    inner class GetListSpecification {
+    @DisplayName("API 명세")
+    inner class ApiSpecification {
 
         @Test
-        @DisplayName("[명세] 반환 타입은 List<FundListItem>이다")
-        fun `specification - returns list of FundListItem`() = unitTest {
-            // Given
+        @DisplayName("반환 타입은 List<FundListItem>이다")
+        fun getList_specification_returnsListOfFundListItem() = unitTest {
+            // Given: Fake API 설정 - 레코딩된 ETF 목록 응답 사용
             val jsonResponse = loadEtfListResponse("etf_list")
-            mockFundsApi = MockFundsApi(listResponse = jsonResponse)
+            fakeFundsApi = FakeFundsApi(listResponse = jsonResponse)
             initClient()
 
-            // When
+            // When: ETF 목록 조회
             val result = client.funds.getList()
 
-            // Then: 반환 타입 확인
-            assertThat(result).isInstanceOf(List::class.java)
-            assertThat(result).isNotEmpty
+            // Then: 반환 타입이 List이며 비어있지 않음
+            assertThat(result)
+                .describedAs("반환 타입이 List가 아닙니다")
+                .isInstanceOf(List::class.java)
+            assertThat(result)
+                .describedAs("반환된 목록이 비어있습니다")
+                .isNotEmpty
         }
 
         @Test
-        @DisplayName("[명세] 각 ETF는 ISIN, 티커, 이름, 자산구분을 포함한다")
-        fun `specification - each ETF contains required fields`() = unitTest {
-            // Given
+        @DisplayName("각 ETF는 ISIN, 티커, 이름, 자산구분을 포함한다")
+        fun getList_specification_containsRequiredFields() = unitTest {
+            // Given: Fake API 설정 - 레코딩된 ETF 목록 응답 사용
             val jsonResponse = loadEtfListResponse("etf_list")
-            mockFundsApi = MockFundsApi(listResponse = jsonResponse)
+            fakeFundsApi = FakeFundsApi(listResponse = jsonResponse)
             initClient()
 
-            // When
+            // When: ETF 목록 조회
             val etfList = client.funds.getList()
 
-            // Then: 필수 필드 존재 및 비어있지 않음
+            // Then: 모든 ETF가 필수 필드를 포함하고 비어있지 않음
             etfList.forEach { etf ->
-                assertThat(etf.isin).isNotBlank
-                assertThat(etf.ticker).isNotBlank
-                assertThat(etf.name).isNotBlank
-                assertThat(etf.assetClass).isNotBlank
+                assertThat(etf.isin)
+                    .describedAs("ISIN이 비어있습니다 (ETF: %s)", etf.name)
+                    .isNotBlank
+                assertThat(etf.ticker)
+                    .describedAs("티커가 비어있습니다 (ETF: %s)", etf.name)
+                    .isNotBlank
+                assertThat(etf.name)
+                    .describedAs("이름이 비어있습니다 (ISIN: %s)", etf.isin)
+                    .isNotBlank
+                assertThat(etf.assetClass)
+                    .describedAs("자산구분이 비어있습니다 (ETF: %s)", etf.name)
+                    .isNotBlank
             }
         }
 
         @Test
-        @DisplayName("[명세] ISIN 코드는 'KR7'로 시작하는 12자리 문자열이다")
-        fun `specification - ISIN code format validation`() = unitTest {
-            // Given
+        @DisplayName("ISIN 코드는 'KR7'로 시작하는 12자리 문자열이다")
+        fun getList_specification_validIsinFormat() = unitTest {
+            // Given: Fake API 설정 - 레코딩된 ETF 목록 응답 사용
             val jsonResponse = loadEtfListResponse("etf_list")
-            mockFundsApi = MockFundsApi(listResponse = jsonResponse)
+            fakeFundsApi = FakeFundsApi(listResponse = jsonResponse)
             initClient()
 
-            // When
+            // When: ETF 목록 조회
             val etfList = client.funds.getList()
 
-            // Then: ISIN 형식 검증
+            // Then: 모든 ISIN이 올바른 형식을 갖춤
             etfList.forEach { etf ->
-                assertThat(etf.isin)
-                    .hasSize(12)
-                    .startsWith("KR7")
+                KfcAssertions.assertValidIsin(etf.isin, "(ETF: ${etf.name})")
             }
         }
     }

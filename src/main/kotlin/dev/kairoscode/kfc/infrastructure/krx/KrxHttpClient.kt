@@ -127,20 +127,47 @@ internal class KrxHttpClient {
                         body
                     } catch (e: Exception) {
                         logger.error(e) { "Failed to parse response from $url" }
-                        throw KfcException(ErrorCode.JSON_PARSE_ERROR, e)
+                        throw KfcException(
+                            ErrorCode.JSON_PARSE_ERROR,
+                            "응답 JSON 파싱 실패",
+                            cause = e,
+                            context = mapOf(
+                                "url" to url,
+                                "method" to "POST",
+                                "bld" to (parameters["bld"] ?: "unknown")
+                            )
+                        )
                     }
                 }
                 else -> {
                     val statusCode = response.status.value
                     logger.error { "POST request failed: HTTP $statusCode from $url" }
-                    throw KfcException(ErrorCode.HTTP_ERROR_RESPONSE)
+                    throw KfcException(
+                        ErrorCode.HTTP_ERROR_RESPONSE,
+                        "HTTP 요청 실패",
+                        context = mapOf(
+                            "url" to url,
+                            "method" to "POST",
+                            "statusCode" to statusCode,
+                            "bld" to (parameters["bld"] ?: "unknown")
+                        )
+                    )
                 }
             }
         } catch (e: KfcException) {
             throw e
         } catch (e: Exception) {
             logger.error(e) { "Network error during POST to $url" }
-            throw KfcException(ErrorCode.NETWORK_CONNECTION_FAILED, e)
+            throw KfcException(
+                ErrorCode.NETWORK_CONNECTION_FAILED,
+                "네트워크 연결 실패",
+                cause = e,
+                context = mapOf(
+                    "url" to url,
+                    "method" to "POST",
+                    "bld" to (parameters["bld"] ?: "unknown")
+                )
+            )
         }
     }
 
@@ -179,20 +206,44 @@ internal class KrxHttpClient {
                         body
                     } catch (e: Exception) {
                         logger.error(e) { "Failed to parse response from $url" }
-                        throw KfcException(ErrorCode.JSON_PARSE_ERROR, e)
+                        throw KfcException(
+                            ErrorCode.JSON_PARSE_ERROR,
+                            "응답 JSON 파싱 실패",
+                            cause = e,
+                            context = mapOf(
+                                "url" to url,
+                                "method" to "GET"
+                            )
+                        )
                     }
                 }
                 else -> {
                     val statusCode = response.status.value
                     logger.error { "GET request failed: HTTP $statusCode from $url" }
-                    throw KfcException(ErrorCode.HTTP_ERROR_RESPONSE)
+                    throw KfcException(
+                        ErrorCode.HTTP_ERROR_RESPONSE,
+                        "HTTP 요청 실패",
+                        context = mapOf(
+                            "url" to url,
+                            "method" to "GET",
+                            "statusCode" to statusCode
+                        )
+                    )
                 }
             }
         } catch (e: KfcException) {
             throw e
         } catch (e: Exception) {
             logger.error(e) { "Network error during GET to $url" }
-            throw KfcException(ErrorCode.NETWORK_CONNECTION_FAILED, e)
+            throw KfcException(
+                ErrorCode.NETWORK_CONNECTION_FAILED,
+                "네트워크 연결 실패",
+                cause = e,
+                context = mapOf(
+                    "url" to url,
+                    "method" to "GET"
+                )
+            )
         }
     }
 

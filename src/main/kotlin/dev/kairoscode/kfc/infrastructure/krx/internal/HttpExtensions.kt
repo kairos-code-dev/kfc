@@ -54,7 +54,15 @@ internal fun Map<String, Any?>.extractOutput(): List<Map<String, Any?>> {
             }
         }
         else -> {
-            throw KfcException(ErrorCode.FIELD_TYPE_MISMATCH)
+            throw KfcException(
+                ErrorCode.FIELD_TYPE_MISMATCH,
+                "'output' 필드의 타입이 예상과 다릅니다",
+                context = mapOf(
+                    "expectedType" to "List",
+                    "actualType" to output::class.simpleName,
+                    "actualValue" to output
+                )
+            )
         }
     }
 }
@@ -77,7 +85,15 @@ internal fun Map<String, Any?>.extractResult(): Map<String, Any?> {
             emptyMap()
         }
         else -> {
-            throw KfcException(ErrorCode.FIELD_TYPE_MISMATCH)
+            throw KfcException(
+                ErrorCode.FIELD_TYPE_MISMATCH,
+                "'result' 필드의 타입이 예상과 다릅니다",
+                context = mapOf(
+                    "expectedType" to "Map",
+                    "actualType" to result::class.simpleName,
+                    "actualValue" to result
+                )
+            )
         }
     }
 }
@@ -108,7 +124,15 @@ internal fun Map<String, Any?>.checkForErrors() {
 
         logger.error { "API returned error: [$errorCode] $errorMessage" }
 
-        throw KfcException(ErrorCode.KRX_API_ERROR)
+        throw KfcException(
+            ErrorCode.KRX_API_ERROR,
+            "KRX API 응답 오류",
+            context = mapOf(
+                "apiErrorCode" to errorCode,
+                "apiErrorMessage" to errorMessage,
+                "status" to status
+            )
+        )
     }
 }
 
@@ -124,7 +148,14 @@ internal fun Map<String, Any?>.requireField(key: String): String {
 
     return when {
         value == null -> {
-            throw KfcException(ErrorCode.REQUIRED_FIELD_MISSING)
+            throw KfcException(
+                ErrorCode.REQUIRED_FIELD_MISSING,
+                "필수 필드가 없습니다",
+                context = mapOf(
+                    "missingField" to key,
+                    "availableFields" to this.keys
+                )
+            )
         }
         else -> value.toString()
     }

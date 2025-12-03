@@ -13,15 +13,20 @@ import kotlin.time.Duration.Companion.seconds
  * Unit Test의 공통 베이스 클래스
  *
  * 실제 API 호출 없이 레코딩된 JSON 응답을 사용하여 테스트합니다.
- * Mock API 구현체를 주입하여 KfcClient를 생성합니다.
+ * Fake API 구현체를 주입하여 KfcClient를 생성합니다.
+ *
+ * ## Fake 패턴에 대해
+ * Fake는 실제 구현을 갖고 있지만 프로덕션에 적합하지 않은 간단한 구현입니다.
+ * 여기서는 레코딩된 JSON 응답을 반환하는 Fake API를 사용하여
+ * 외부 의존성 없이 빠르고 안정적인 테스트를 수행합니다.
  *
  * ## 사용 예제
  * ```kotlin
  * class FundsApiTest : UnitTestBase() {
  *     @Test
  *     fun `펀드 목록 조회 테스트`() = unitTest {
- *         // Mock 응답 설정
- *         mockFundsApi = MockFundsApi(
+ *         // Fake 응답 설정
+ *         fakeFundsApi = FakeFundsApi(
  *             listResponse = JsonResponseLoader.load("etf/list", "etf_list_all")
  *         )
  *         initClient()
@@ -43,23 +48,23 @@ import kotlin.time.Duration.Companion.seconds
 abstract class UnitTestBase {
 
     protected lateinit var client: KfcClient
-    protected var mockFundsApi: FundsApi? = null
-    protected var mockPriceApi: PriceApi? = null
-    protected var mockCorpApi: CorpApi? = null
+    protected var fakeFundsApi: FundsApi? = null
+    protected var fakePriceApi: PriceApi? = null
+    protected var fakeCorpApi: CorpApi? = null
 
     /**
-     * Mock API를 주입하여 KfcClient 생성
+     * Fake API를 주입하여 KfcClient 생성
      *
-     * 테스트 케이스에서 mockFundsApi 또는 mockCorpApi를 설정한 후
+     * 테스트 케이스에서 fakeFundsApi 또는 fakeCorpApi를 설정한 후
      * 이 메서드를 호출하여 client를 초기화합니다.
      */
     protected fun initClient() {
-        require(mockFundsApi != null || mockCorpApi != null) {
-            "mockFundsApi 또는 mockCorpApi를 먼저 설정해야 합니다"
+        require(fakeFundsApi != null || fakeCorpApi != null) {
+            "fakeFundsApi 또는 fakeCorpApi를 먼저 설정해야 합니다"
         }
 
         // KfcClient 생성자는 funds가 필수이고 price, corp는 optional이므로
-        // mockFundsApi가 없으면 dummy FundsApi 생성
+        // fakeFundsApi가 없으면 dummy FundsApi 생성
         val dummyFundsApi = object : FundsApi {
             override suspend fun getList(type: dev.kairoscode.kfc.domain.FundType?) = emptyList<dev.kairoscode.kfc.domain.funds.FundListItem>()
             override suspend fun getDetailedInfo(isin: String, tradeDate: java.time.LocalDate) = null
@@ -82,14 +87,14 @@ abstract class UnitTestBase {
         }
 
         client = KfcClient(
-            funds = mockFundsApi ?: dummyFundsApi,
-            price = mockPriceApi ?: dummyPriceApi,
-            corp = mockCorpApi
+            funds = fakeFundsApi ?: dummyFundsApi,
+            price = fakePriceApi ?: dummyPriceApi,
+            corp = fakeCorpApi
         )
     }
 
     /**
-     * JSON 파일을 로드하여 Mock 응답으로 설정하는 헬퍼 메서드
+     * JSON 파일을 로드하여 Fake 응답으로 설정하는 헬퍼 메서드
      *
      * @param category 응답 카테고리 (etf/list, corp/dividend 등)
      * @param fileName 파일명 (.json 확장자 제외)
@@ -99,7 +104,7 @@ abstract class UnitTestBase {
         return JsonResponseLoader.load(category, fileName)
     }
 
-    // ETF API Mock 헬퍼 - JSON 파일 로드
+    // ETF API Fake 헬퍼 - JSON 파일 로드
     protected fun loadEtfListResponse(fileName: String) =
         loadMockResponse("etf/list", fileName)
 
@@ -125,7 +130,7 @@ abstract class UnitTestBase {
     protected fun loadEtfPortfolioResponse(fileName: String) =
         loadMockResponse("etf/portfolio", fileName)
 
-    // Corp API Mock 헬퍼 - JSON 파일 로드
+    // Corp API Fake 헬퍼 - JSON 파일 로드
     protected fun loadCorpCodeResponse(fileName: String) =
         loadMockResponse("corp/corp_code", fileName)
 
@@ -140,7 +145,7 @@ abstract class UnitTestBase {
 
     @AfterEach
     fun tearDown() {
-        // Mock API는 close 불필요
+        // Fake API는 close 불필요
         // 실제 리소스를 사용하지 않음
     }
 
