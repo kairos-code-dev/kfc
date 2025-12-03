@@ -17,6 +17,7 @@ internal object KrxApiFields {
         const val NAME_SHORT = "ISU_ABBRV"  // 종목 약명 (예: KODEX 200)
         const val NAME_FULL = "ISU_NM"  // 종목명 (전체) (예: KODEX 200)
         const val NAME_ENGLISH = "ISU_ENG_NM"  // 종목 영문명
+        const val SECURITY_GROUP = "SECUGRP_NM"  // 증권구분 (예: ETF)
     }
 
     /**
@@ -25,9 +26,10 @@ internal object KrxApiFields {
     object DateTime {
         const val TRADE_DATE = "TRD_DD"  // 거래일자 (예: 20240102)
         const val LISTING_DATE = "LIST_DD"  // 상장일자
-        const val WEEK52_HIGH_DATE = "WK52_HGPR_DD"  // 52주 최고가 일자
-        const val WEEK52_LOW_DATE = "WK52_LWPR_DD"  // 52주 최저가 일자
+        const val WEEK52_HIGH_DATE = "WK52_HGPR_DD"  // 52주 최고가 일자 (MDCSTAT04701에서는 미제공)
+        const val WEEK52_LOW_DATE = "WK52_LWPR_DD"  // 52주 최저가 일자 (MDCSTAT04701에서는 미제공)
         const val REPORT_DATE = "RPT_DUTY_OCCR_DD"  // 보고의무발생일 (공매도용)
+        const val CURRENT_DATETIME = "CURRENT_DATETIME"  // 현재 시간 (MDCSTAT04701에서 제공)
     }
 
     /**
@@ -54,6 +56,10 @@ internal object KrxApiFields {
         const val DIRECTION = "FLUC_TP_CD"  // 등락 구분 코드 (2: 상한, 1: 상승, 0: 보합, -1: 하락, -2: 하한)
         const val INDEX_RATE_ALT = "FLUC_RT1"  // 등락률1 (지수용 대체)
         const val INDEX_DIRECTION = "FLUC_TP_CD1"  // 등락 구분 코드1 (지수용)
+        const val RATE_ALT1 = "FLUC_RT1"  // 등락률1 (MDCSTAT04701에서 ETF의 등락률)
+        const val DIRECTION_ALT1 = "FLUC_TP_CD1"  // 등락 구분 코드1 (MDCSTAT04701에서 ETF의 등락구분)
+        const val RATE_ALT2 = "FLUC_RT2"  // 등락률2 (MDCSTAT04701에서 지수의 등락률)
+        const val DIRECTION_ALT2 = "FLUC_TP_CD2"  // 등락 구분 코드2 (MDCSTAT04701에서 지수의 등락구분)
     }
 
     /**
@@ -104,15 +110,19 @@ internal object KrxApiFields {
      * ETF 메타데이터 및 기본 정보
      */
     object EtfMetadata {
-        const val BENCHMARK_INDEX = "ETF_OBJ_IDX_NM"  // ETF 목적 지수명 (추적 지수)
-        const val REPLICATION_METHOD = "ETF_REPLICA_METHD_TP_CD"  // ETF 복제방법 유형코드 (완전복제, 샘플링 등)
-        const val TOTAL_EXPENSE_RATIO = "ETF_TOT_FEE"  // ETF 총 보수 (%)
+        // MDCSTAT04701 (상세정보)에서 제공하는 필드
+        const val TOTAL_EXPENSE_RATIO = "ETF_TOT_FEE"  // ETF 총 보수 (%) - MDCSTAT04701에서 제공
+        const val ASSET_CLASS = "IDX_ASST_CLSS_NM"  // 자산 분류명 (예: 주식-시장대표) - MDCSTAT04701에서 제공
+        const val ASSET_CLASS_ID = "IDX_ASST_CLSS_ID"  // 자산 분류 ID (예: 010100) - MDCSTAT04701에서 제공
+        const val BENCHMARK_INDEX = "TRACE_IDX_NM"  // 추적 지수명 (예: 코스피 200) - MDCSTAT04701에서 제공
+
+        // MDCSTAT04704 (일반정보)에서만 제공하는 필드들
+        const val REPLICATION_METHOD = "ETF_REPLICA_METHD_TP_CD"  // ETF 복제방법 유형코드
         const val CREATION_UNIT = "CU_QTY"  // 생성/소멸 단위 (CU) 수량
         const val ASSET_MANAGER = "COM_ABBRV"  // 회사 약명 (운용사)
         const val INDEX_PROVIDER = "IDX_CALC_INST_NM1"  // 지수 산출기관명1 (지수 제공자)
         const val LEVERAGE_TYPE = "IDX_CALC_INST_NM2"  // 지수 산출기관명2 (레버리지/인버스 정보)
         const val MARKET_CLASSIFICATION = "IDX_MKT_CLSS_NM"  // 지수 시장 분류명 (국내, 해외 등)
-        const val ASSET_CLASS = "IDX_ASST_CLSS_NM"  // 지수 자산 분류명 (주식, 채권 등)
         const val TAX_TYPE = "TAX_TP_CD"  // 과세 유형코드
         const val MARKET_NAME = "MKT_NM"  // 시장명
     }

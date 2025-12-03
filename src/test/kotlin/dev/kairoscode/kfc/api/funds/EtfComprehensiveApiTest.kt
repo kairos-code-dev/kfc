@@ -20,7 +20,7 @@ class EtfComprehensiveApiTest : UnitTestBase() {
     inner class GetDetailedInfoUsage {
 
         @Test
-        @DisplayName("기본 사용법 - ETF 종합 정보를 조회할 수 있다")
+        @DisplayName("기본 사용법 - ETF 상세 정보를 조회할 수 있다")
         fun `basic usage - can retrieve comprehensive ETF info`() = unitTest {
             // Given
             val jsonResponse = loadEtfComprehensiveResponse("tiger200")
@@ -35,8 +35,8 @@ class EtfComprehensiveApiTest : UnitTestBase() {
             assertThat(info!!.name).isNotBlank
             assertThat(info.closePrice).isPositive
 
-            println("ETF 종합 정보: ${info.name}")
-            println("  종가: ${info.closePrice}, 괴리율: ${info.divergenceRate}%")
+            println("ETF 상세 정보: ${info.name}")
+            println("  종가: ${info.closePrice}, 괴리율: ${info.calculateDivergenceRate()}%")
             println("  52주 고가: ${info.week52High}, 52주 저가: ${info.week52Low}")
         }
 
@@ -53,10 +53,11 @@ class EtfComprehensiveApiTest : UnitTestBase() {
 
             // Then
             assertThat(info).isNotNull
-            assertThat(info!!.divergenceRate).isNotNull
+            val divergenceRate = info!!.calculateDivergenceRate()
+            assertThat(divergenceRate).isNotNull
 
             println("NAV: ${info.nav}, 종가: ${info.closePrice}")
-            println("괴리율: ${info.divergenceRate}%")
+            println("괴리율: ${divergenceRate}%")
         }
     }
 

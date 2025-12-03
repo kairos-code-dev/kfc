@@ -36,7 +36,7 @@ class EtfDetailedInfoSpec : IntegrationTestBase() {
         println("✅ TIGER 200 상세 정보 (거래일: $tradeDate)")
         println("  - 종가: ${info?.closePrice}원")
         println("  - NAV: ${info?.nav}원")
-        println("  - 괴리율: ${info?.divergenceRate}%")
+        println("  - 괴리율: ${info?.calculateDivergenceRate()}%")
         println("  - 52주 고가: ${info?.week52High}원")
         println("  - 52주 저가: ${info?.week52Low}원")
 
@@ -82,7 +82,7 @@ class EtfDetailedInfoSpec : IntegrationTestBase() {
         println("✅ KODEX 200 상세 정보 (거래일: $tradeDate)")
         println("  - 종가: ${info?.closePrice}원")
         println("  - NAV: ${info?.nav}원")
-        println("  - 괴리율: ${info?.divergenceRate}%")
+        println("  - 괴리율: ${info?.calculateDivergenceRate()}%")
 
         // 응답 레코딩 (단일 객체)
         ResponseRecorder.record(
@@ -120,17 +120,14 @@ class EtfDetailedInfoSpec : IntegrationTestBase() {
 
         assertNotNull(info, "거래일에는 상세 정보가 반환되어야 합니다")
 
-        // When: NAV와 종가 비교
-        val calculatedDivergence = info?.let {
-            ((it.closePrice.toDouble() - it.nav.toDouble()) / it.nav.toDouble()) * 100
-        } ?: 0.0
+        // When: NAV와 종가 비교로 괴리율 계산
+        val calculatedDivergence = info?.calculateDivergenceRate()
 
         // Then: 괴리율 계산
         println("\n=== NAV 대비 괴리율 분석 (거래일: $tradeDate) ===")
         println("종가: ${info?.closePrice}원")
         println("NAV: ${info?.nav}원")
-        println("괴리율(API): ${info?.divergenceRate}%")
-        println("괴리율(계산): ${"%.2f".format(calculatedDivergence)}%")
+        println("괴리율(계산): ${calculatedDivergence}%")
     }
 
     @Test
@@ -143,11 +140,14 @@ class EtfDetailedInfoSpec : IntegrationTestBase() {
 
         assertNotNull(info, "거래일에는 상세 정보가 반환되어야 합니다")
 
-        // When: 현재가와 52주 고/저가 비교
+        // When: 현재가와 52주 고/저가 비교 (52주 고저가 범위 내에서의 위치)
         val position = info?.let {
             val highLowRange = it.week52High.subtract(it.week52Low)
             if (highLowRange.compareTo(java.math.BigDecimal.ZERO) > 0) {
-                it.closePrice.subtract(it.week52Low).divide(highLowRange, 4, java.math.RoundingMode.HALF_UP).multiply(java.math.BigDecimal("100")).toDouble()
+                it.closePrice.subtract(it.week52Low)
+                    .divide(highLowRange, 4, java.math.RoundingMode.HALF_UP)
+                    .multiply(java.math.BigDecimal("100"))
+                    .toDouble()
             } else {
                 50.0
             }
@@ -159,5 +159,7 @@ class EtfDetailedInfoSpec : IntegrationTestBase() {
         println("현재가: ${info?.closePrice}원")
         println("52주 저가: ${info?.week52Low}원")
         println("위치: ${"%.1f".format(position)}% (0%=저가, 100%=고가)")
+        println("52주 고가 근처?: ${info?.isNear52WeekHigh()}")
+        println("52주 저가 근처?: ${info?.isNear52WeekLow()}")
     }
 }

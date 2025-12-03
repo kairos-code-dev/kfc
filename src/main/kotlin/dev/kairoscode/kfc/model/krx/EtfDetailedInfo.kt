@@ -8,57 +8,48 @@ import java.time.LocalDate
 /**
  * MDCSTAT04701 - ETF 상세정보 (시간 의존 데이터)
  *
- * ETF의 모든 주요 정보를 단일 요청으로 제공하는 상세 데이터 모델입니다.
- * OHLCV, NAV, 시가총액, 52주 고가/저가, 기본 정보 등을 포함합니다.
+ * ETF의 주요 거래 정보를 단일 요청으로 제공하는 상세 데이터 모델입니다.
+ * OHLCV, NAV, 시가총액, 52주 고가/저가, 총보수 등을 포함합니다.
  *
  * 이 모델은 KRX API의 MDCSTAT04701 엔드포인트 응답을 나타냅니다.
- * 거래일 기준으로 변하는 시간 의존 데이터를 포함하며,
- * 다른 엔드포인트에서는 얻을 수 없는 중요한 데이터(52주 고가/저가, 총보수)를 포함합니다.
+ * 거래일 기준으로 변하는 시간 의존 데이터만을 포함합니다.
  *
  * 참고: EtfGeneralInfo(MDCSTAT04704)는 상장 후 거의 변하지 않는 정적 메타데이터를 제공합니다.
  *
  * @property tradeDate 거래일자
- * @property isin 종목코드 (ISIN)
- * @property ticker 단축코드 (티커)
- * @property name 종목약명
- * @property fullName 종목명 (전체)
- * @property openPrice 시가
- * @property highPrice 고가
- * @property lowPrice 저가
- * @property closePrice 종가
- * @property priceChange 전일대비
- * @property priceChangeDirection 등락구분 (1=상승, 2=하락, 3=보합)
- * @property priceChangeRate 등락률 (%)
- * @property volume 거래량
- * @property tradingValue 거래대금
- * @property nav NAV (순자산가치)
- * @property navChange NAV변화금액
- * @property navChangeRate NAV변화율 (%)
- * @property divergenceRate 괴리율 (%)
- * @property marketCap 시가총액
- * @property netAssetValue 순자산총액
- * @property listedShares 상장주식수
- * @property week52High 52주최고가 (중요 - 다른 엔드포인트에 없음)
- * @property week52HighDate 52주최고가일자
- * @property week52Low 52주최저가 (중요 - 다른 엔드포인트에 없음)
- * @property week52LowDate 52주최저가일자
- * @property indexValue 기초지수
- * @property indexName 지수명
- * @property indexChange 지수전일대비
- * @property indexChangeDirection 지수등락구분
- * @property indexChangeRate 지수등락률 (%)
- * @property listingDate 상장일
- * @property assetManager 운용사
- * @property totalFee 총보수 (%) (중요 - 다른 엔드포인트에 없음)
- * @property creationUnit CU수량
- * @property benchmarkIndex 기초지수명 (전체)
- * @property indexProvider 지수산출기관
- * @property marketClassification 시장구분 (국내/해외)
- * @property assetClass 자산구분 (주식/채권/상품/파생)
- * @property replicationMethod 복제방법 (실물/합성)
- * @property leverageType 레버리지/인버스구분 (일반/레버리지/인버스)
- * @property taxType 과세유형
- * @property marketName 시장명
+ * @property isin 종목코드 (ISU_CD)
+ * @property ticker 단축코드 (ISU_SRT_CD)
+ * @property name 종목약명 (ISU_ABBRV)
+ * @property securityGroup 증권구분 (SECUGRP_NM) - 예: ETF
+ *
+ * @property openPrice 시가 (TDD_OPNPRC)
+ * @property highPrice 고가 (TDD_HGPRC)
+ * @property lowPrice 저가 (TDD_LWPRC)
+ * @property closePrice 종가 (TDD_CLSPRC)
+ * @property priceChange 전일대비 (CMPPREVDD_PRC)
+ * @property priceChangeDirection 등락구분 (FLUC_TP_CD1) - 1=상승, 2=하락, 3=보합
+ * @property priceChangeRate 등락률 (FLUC_RT1) (%)
+ *
+ * @property volume 거래량 (ACC_TRDVOL)
+ * @property tradingValue 거래대금 (ACC_TRDVAL)
+ *
+ * @property nav 최근 NAV (LST_NAV)
+ * @property marketCap 시가총액 (MKTCAP)
+ *
+ * @property week52High 52주최고가 (WK52_HGST_PRC) - 중요: 날짜는 API에서 제공 안함
+ * @property week52Low 52주최저가 (WK52_LWST_PRC) - 중요: 날짜는 API에서 제공 안함
+ *
+ * @property assetClass 자산분류 (IDX_ASST_CLSS_NM) - 예: 주식-시장대표
+ * @property assetClassId 자산분류 ID (IDX_ASST_CLSS_ID)
+ * @property totalFee 총보수 (ETF_TOT_FEE) (%) - 중요: 다른 엔드포인트에 없음
+ * @property benchmarkIndex 기초지수명 (TRACE_IDX_NM)
+ *
+ * @property indexValue 기초지수값 (OBJ_STKPRC_IDX)
+ * @property indexChange 지수전일대비 (CMPPREVDD_IDX)
+ * @property indexChangeDirection 지수등락구분 (FLUC_TP_CD2) - 1=상승, 2=하락, 3=보합
+ * @property indexChangeRate 지수등락률 (FLUC_RT2) (%)
+ *
+ * @property currentDateTime 현재시간 (CURRENT_DATETIME)
  */
 data class EtfDetailedInfo(
     // 기본 식별 정보
@@ -66,9 +57,9 @@ data class EtfDetailedInfo(
     val isin: String,
     val ticker: String,
     val name: String,
-    val fullName: String,
+    val securityGroup: String,  // 예: ETF
 
-    // 가격 데이터 (OHLCV) - 모두 BigDecimal
+    // 가격 데이터 (OHLCV)
     val openPrice: BigDecimal,
     val highPrice: BigDecimal,
     val lowPrice: BigDecimal,
@@ -81,105 +72,105 @@ data class EtfDetailedInfo(
     val volume: Long,
     val tradingValue: BigDecimal,
 
-    // NAV 정보
+    // NAV 및 시가총액
     val nav: BigDecimal,
-    val navChange: BigDecimal,
-    val navChangeRate: BigDecimal,
-    val divergenceRate: BigDecimal,  // 괴리율
-
-    // 시가총액 및 주식 수
     val marketCap: BigDecimal,
-    val netAssetValue: BigDecimal,
-    val listedShares: Long,
 
     // 52주 고가/저가 (핵심 필드 - 다른 엔드포인트에 없음)
     val week52High: BigDecimal,
-    val week52HighDate: LocalDate,
     val week52Low: BigDecimal,
-    val week52LowDate: LocalDate,
+
+    // 자산분류 및 보수
+    val assetClass: String,
+    val assetClassId: String,
+    val totalFee: BigDecimal,  // 핵심 필드 - 다른 엔드포인트에 없음
+    val benchmarkIndex: String,
 
     // 지수 정보
     val indexValue: BigDecimal,
-    val indexName: String,
     val indexChange: BigDecimal,
     val indexChangeDirection: Int,
     val indexChangeRate: BigDecimal,
 
-    // ETF 기본 정보
-    val listingDate: LocalDate,
-    val assetManager: String,
-    val totalFee: BigDecimal,  // 핵심 필드 - 다른 엔드포인트에 없음
-    val creationUnit: Long,
-    val benchmarkIndex: String,
-    val indexProvider: String,
-    val marketClassification: String,  // 국내/해외
-    val assetClass: String,  // 주식/채권/상품/파생
-    val replicationMethod: String,  // 실물/합성
-    val leverageType: String,  // 일반/레버리지/인버스
-    val taxType: String,
-    val marketName: String
+    // 조회 시간
+    val currentDateTime: String
 ) {
     companion object {
         /**
          * KRX API 원시 응답으로부터 EtfDetailedInfo 생성
          *
-         * @param raw KRX API 응답 Map
+         * @param raw KRX API 응답 Map (MDCSTAT04701 엔드포인트)
          * @param tradeDateOverride 거래일자 override (API 응답에 TRD_DD가 없을 경우 사용)
          * @return EtfDetailedInfo 인스턴스
          */
         fun fromRaw(raw: Map<*, *>, tradeDateOverride: LocalDate? = null): EtfDetailedInfo {
             return EtfDetailedInfo(
+                // 기본 식별 정보
                 tradeDate = tradeDateOverride ?: raw[KrxApiFields.DateTime.TRADE_DATE].toStringSafe().toKrxDate(),
                 isin = raw[KrxApiFields.Identity.ISIN].toStringSafe(),
                 ticker = raw[KrxApiFields.Identity.TICKER].toStringSafe(),
                 name = raw[KrxApiFields.Identity.NAME_SHORT].toStringSafe(),
-                fullName = raw[KrxApiFields.Identity.NAME_FULL].toStringSafe(),
+                securityGroup = raw[KrxApiFields.Identity.SECURITY_GROUP].toStringSafe(),
 
+                // 가격 데이터
                 openPrice = raw[KrxApiFields.Price.OPEN].toStringSafe().toKrxPrice(),
                 highPrice = raw[KrxApiFields.Price.HIGH].toStringSafe().toKrxPrice(),
                 lowPrice = raw[KrxApiFields.Price.LOW].toStringSafe().toKrxPrice(),
                 closePrice = raw[KrxApiFields.Price.CLOSE].toStringSafe().toKrxPrice(),
                 priceChange = raw[KrxApiFields.PriceChange.AMOUNT].toStringSafe().toKrxPrice(),
                 priceChangeDirection = raw[KrxApiFields.PriceChange.DIRECTION].toStringSafe().toIntOrNull() ?: 3,
-                priceChangeRate = raw[KrxApiFields.PriceChange.RATE].toStringSafe().toKrxRate(),
+                priceChangeRate = raw[KrxApiFields.PriceChange.RATE_ALT1].toStringSafe().toKrxRate(),
 
+                // 거래량 및 거래대금
                 volume = raw[KrxApiFields.Volume.ACCUMULATED].toStringSafe().toKrxLong(),
                 tradingValue = raw[KrxApiFields.Volume.TRADING_VALUE].toStringSafe().toKrxAmount(),
 
+                // NAV 및 시가총액
                 nav = raw[KrxApiFields.Nav.VALUE_LAST].toStringSafe().toKrxBigDecimal(),
-                navChange = raw[KrxApiFields.Nav.CHANGE_AMOUNT].toStringSafe().toKrxBigDecimal(),
-                navChangeRate = raw[KrxApiFields.Nav.CHANGE_RATE].toStringSafe().toKrxRate(),
-                divergenceRate = raw[KrxApiFields.Nav.DIVERGENCE_RATE].toStringSafe().toKrxRate(),
-
                 marketCap = raw[KrxApiFields.Asset.MARKET_CAP].toStringSafe().toKrxAmount(),
-                netAssetValue = raw[KrxApiFields.Asset.NET_ASSET_TOTAL].toStringSafe().toKrxAmount(),
-                listedShares = raw[KrxApiFields.Asset.LISTED_SHARES].toStringSafe().toKrxLong(),
 
+                // 52주 고가/저가 (날짜는 API에서 제공 안함)
                 week52High = raw[KrxApiFields.Price.WEEK52_HIGH].toStringSafe().toKrxPrice(),
-                week52HighDate = raw[KrxApiFields.DateTime.WEEK52_HIGH_DATE].toStringSafe().toKrxDate(),
                 week52Low = raw[KrxApiFields.Price.WEEK52_LOW].toStringSafe().toKrxPrice(),
-                week52LowDate = raw[KrxApiFields.DateTime.WEEK52_LOW_DATE].toStringSafe().toKrxDate(),
 
-                indexValue = raw[KrxApiFields.Index.VALUE].toStringSafe().toKrxBigDecimal(),
-                indexName = raw[KrxApiFields.Index.NAME].toStringSafe(),
-                indexChange = raw[KrxApiFields.Index.CHANGE_AMOUNT].toStringSafe().toKrxBigDecimal(),
-                indexChangeDirection = raw[KrxApiFields.PriceChange.INDEX_DIRECTION].toStringSafe().toIntOrNull() ?: 3,
-                indexChangeRate = raw[KrxApiFields.Index.CHANGE_RATE].toStringSafe().toKrxRate(),
-
-                listingDate = raw[KrxApiFields.DateTime.LISTING_DATE].toStringSafe().toKrxDate(),
-                assetManager = raw[KrxApiFields.EtfMetadata.ASSET_MANAGER].toStringSafe(),
-                totalFee = raw[KrxApiFields.EtfMetadata.TOTAL_EXPENSE_RATIO].toStringSafe().toKrxRate(),
-                creationUnit = raw[KrxApiFields.EtfMetadata.CREATION_UNIT].toStringSafe().toKrxLong(),
-                benchmarkIndex = raw[KrxApiFields.EtfMetadata.BENCHMARK_INDEX].toStringSafe(),
-                indexProvider = raw[KrxApiFields.EtfMetadata.INDEX_PROVIDER].toStringSafe(),
-                marketClassification = raw[KrxApiFields.EtfMetadata.MARKET_CLASSIFICATION].toStringSafe(),
+                // 자산분류 및 보수
                 assetClass = raw[KrxApiFields.EtfMetadata.ASSET_CLASS].toStringSafe(),
-                replicationMethod = raw[KrxApiFields.EtfMetadata.REPLICATION_METHOD].toStringSafe(),
-                leverageType = raw[KrxApiFields.EtfMetadata.LEVERAGE_TYPE].toStringSafe(),
-                taxType = raw[KrxApiFields.EtfMetadata.TAX_TYPE].toStringSafe(),
-                marketName = raw[KrxApiFields.EtfMetadata.MARKET_NAME].toStringSafe()
+                assetClassId = raw[KrxApiFields.EtfMetadata.ASSET_CLASS_ID].toStringSafe(),
+                totalFee = raw[KrxApiFields.EtfMetadata.TOTAL_EXPENSE_RATIO].toStringSafe().toKrxRate(),
+                benchmarkIndex = raw[KrxApiFields.EtfMetadata.BENCHMARK_INDEX].toStringSafe(),
+
+                // 지수 정보
+                indexValue = raw[KrxApiFields.Index.VALUE].toStringSafe().toKrxBigDecimal(),
+                indexChange = raw[KrxApiFields.Index.CHANGE_AMOUNT].toStringSafe().toKrxBigDecimal(),
+                indexChangeDirection = raw[KrxApiFields.PriceChange.DIRECTION_ALT2].toStringSafe().toIntOrNull() ?: 3,
+                indexChangeRate = raw[KrxApiFields.PriceChange.RATE_ALT2].toStringSafe().toKrxRate(),
+
+                // 조회 시간
+                currentDateTime = raw[KrxApiFields.DateTime.CURRENT_DATETIME].toStringSafe()
             )
         }
+    }
+
+    /**
+     * 괴리율 계산 (NAV 대비 종가의 괴리율)
+     * divergenceRate = (closePrice - nav) / nav * 100
+     *
+     * @return 괴리율 (%)
+     */
+    fun calculateDivergenceRate(): BigDecimal {
+        if (nav == BigDecimal.ZERO) return BigDecimal.ZERO
+        return closePrice.subtract(nav)
+            .divide(nav, 4, java.math.RoundingMode.HALF_UP)
+            .multiply(BigDecimal("100"))
+    }
+
+    /**
+     * 괴리율이 과도한지 확인 (절대값 1% 이상)
+     *
+     * @return 괴리율의 절대값이 1.0% 이상이면 true
+     */
+    fun hasExcessiveDivergence(): Boolean {
+        return calculateDivergenceRate().abs() >= BigDecimal("1.0")
     }
 
     /**
@@ -202,15 +193,6 @@ data class EtfDetailedInfo(
         if (week52Low == BigDecimal.ZERO) return false
         val threshold = week52Low.multiply(BigDecimal("1.05"))
         return closePrice <= threshold
-    }
-
-    /**
-     * 괴리율이 과도한지 확인 (절대값 1% 이상)
-     *
-     * @return 괴리율의 절대값이 1.0% 이상이면 true
-     */
-    fun hasExcessiveDivergence(): Boolean {
-        return divergenceRate.abs() >= BigDecimal("1.0")
     }
 
     /**
