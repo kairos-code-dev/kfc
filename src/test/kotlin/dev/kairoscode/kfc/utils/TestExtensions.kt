@@ -1,7 +1,7 @@
 package dev.kairoscode.kfc.utils
 
-import dev.kairoscode.kfc.funds.internal.krx.model.*
-import dev.kairoscode.kfc.corp.internal.opendart.model.*
+import dev.kairoscode.kfc.domain.funds.*
+import dev.kairoscode.kfc.domain.corp.*
 import org.assertj.core.api.Assertions.assertThat
 import java.math.BigDecimal
 

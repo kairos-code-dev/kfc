@@ -1,5 +1,6 @@
 package dev.kairoscode.kfc
 
+import dev.kairoscode.kfc.api.KfcClient
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.assertNotNull

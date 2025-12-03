@@ -3,11 +3,11 @@ package dev.kairoscode.kfc.corp.mock
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializer
-import dev.kairoscode.kfc.corp.CorpApi
-import dev.kairoscode.kfc.corp.internal.opendart.model.CorpCode
-import dev.kairoscode.kfc.corp.internal.opendart.model.DividendInfo
-import dev.kairoscode.kfc.corp.internal.opendart.model.DisclosureItem
-import dev.kairoscode.kfc.corp.internal.opendart.model.StockSplitInfo
+import dev.kairoscode.kfc.api.CorpApi
+import dev.kairoscode.kfc.domain.corp.CorpCode
+import dev.kairoscode.kfc.domain.corp.DividendInfo
+import dev.kairoscode.kfc.domain.corp.DisclosureItem
+import dev.kairoscode.kfc.domain.corp.StockSplitInfo
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter

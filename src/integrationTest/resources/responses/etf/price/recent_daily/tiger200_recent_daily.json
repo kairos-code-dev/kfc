@@ -1,12 +1,12 @@
 [
   {
     "tradeDate": "2025-12-03",
-    "closePrice": 57585,
+    "closePrice": 57360,
     "direction": "UP",
-    "change": 860,
-    "changeRate": 1.52,
-    "volume": 2017533,
-    "tradingValue": 115490003038
+    "change": 635,
+    "changeRate": 1.12,
+    "volume": 2989394,
+    "tradingValue": 171368550597
   },
   {
     "tradeDate": "2025-12-02",

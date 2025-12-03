@@ -1,7 +1,7 @@
 package dev.kairoscode.kfc.utils
 
-import dev.kairoscode.kfc.KfcClient
-import dev.kairoscode.kfc.internal.ResponseRecordingContext
+import dev.kairoscode.kfc.api.KfcClient
+import dev.kairoscode.kfc.infrastructure.common.recording.ResponseRecordingContext
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
 import org.junit.jupiter.api.AfterAll

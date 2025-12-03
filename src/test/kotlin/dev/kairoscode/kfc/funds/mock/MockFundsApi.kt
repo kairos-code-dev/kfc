@@ -3,9 +3,9 @@ package dev.kairoscode.kfc.funds.mock
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializer
-import dev.kairoscode.kfc.funds.FundsApi
-import dev.kairoscode.kfc.model.FundType
-import dev.kairoscode.kfc.funds.internal.krx.model.*
+import dev.kairoscode.kfc.api.FundsApi
+import dev.kairoscode.kfc.domain.FundType
+import dev.kairoscode.kfc.domain.funds.*
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
