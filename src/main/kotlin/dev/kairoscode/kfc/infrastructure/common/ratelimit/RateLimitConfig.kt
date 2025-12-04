@@ -24,20 +24,43 @@ data class RateLimitConfig(
 /**
  * 모든 데이터 소스의 Rate Limiting 설정을 통합한 설정 클래스
  *
- * @param krx KRX API Rate Limiting 설정
+ * ## Rate Limit 기준 (테스트 결과 기반)
+ *
+ * ### KRX API
+ * - **제한 방식**: 초당 요청 수 (RPS) 제한
+ * - **한계**: 약 25 RPS (초당 25개 요청)
+ * - **테스트 결과**: RPS 25까지 100% 성공, RPS 30부터 실패 시작
+ * - **권장 설정**: capacity=25, refillRate=25
+ *
+ * ### OPENDART API
+ * - **제한 방식**: 일일 요청 할당량
+ * - **한계**: 하루 40,000건
+ *
+ * ## 동작 방식
+ * 이 설정은 [GlobalRateLimiters]를 통해 JVM 프로세스별 싱글톤 Rate Limiter를 초기화하는 데 사용됩니다.
+ * **첫 번째 [dev.kairoscode.kfc.api.KfcClient.create] 호출 시 전달된 설정이 해당 프로세스의 Rate Limiter를 초기화하며,
+ * 이후 호출에서는 동일한 Rate Limiter 인스턴스가 재사용됩니다.**
+ *
+ * @param krx KRX API Rate Limiting 설정 (기본값: 25 RPS)
  * @param naver Naver API Rate Limiting 설정
  * @param opendart OPENDART API Rate Limiting 설정
+ *
+ * @see GlobalRateLimiters
  */
 data class RateLimitingSettings(
-    val krx: RateLimitConfig = RateLimitConfig(),
+    val krx: RateLimitConfig = RateLimitConfig(capacity = 25, refillRate = 25),
     val naver: RateLimitConfig = RateLimitConfig(),
     val opendart: RateLimitConfig = RateLimitConfig()
 ) {
     companion object {
         /**
-         * KRX API 기본 설정 (capacity=50, refillRate=50 req/sec)
+         * KRX API 기본 설정
+         *
+         * 테스트 결과 KRX는 초당 약 25개 요청까지 허용합니다.
+         * - RPS 25: 100% 성공
+         * - RPS 30: 72% 성공 (한계 초과)
          */
-        fun krxDefault(): RateLimitConfig = RateLimitConfig(capacity = 50, refillRate = 50)
+        fun krxDefault(): RateLimitConfig = RateLimitConfig(capacity = 25, refillRate = 25)
 
         /**
          * Naver API 기본 설정 (capacity=50, refillRate=50 req/sec)
@@ -46,6 +69,8 @@ data class RateLimitingSettings(
 
         /**
          * OPENDART API 기본 설정 (capacity=50, refillRate=50 req/sec)
+         *
+         * 참고: OPENDART는 일일 40,000건 할당량 제한이 있습니다.
          */
         fun openDartDefault(): RateLimitConfig = RateLimitConfig(capacity = 50, refillRate = 50)
 

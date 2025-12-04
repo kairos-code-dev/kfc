@@ -5,9 +5,8 @@ import dev.kairoscode.kfc.domain.exception.ErrorCode
 import dev.kairoscode.kfc.domain.exception.KfcException
 import dev.kairoscode.kfc.domain.corp.*
 import dev.kairoscode.kfc.infrastructure.common.recording.installResponseRecording
+import dev.kairoscode.kfc.infrastructure.common.ratelimit.GlobalRateLimiters
 import dev.kairoscode.kfc.infrastructure.common.ratelimit.RateLimiter
-import dev.kairoscode.kfc.infrastructure.common.ratelimit.RateLimitingSettings
-import dev.kairoscode.kfc.infrastructure.common.ratelimit.TokenBucketRateLimiter
 import dev.kairoscode.kfc.infrastructure.opendart.model.*
 import dev.kairoscode.kfc.infrastructure.opendart.model.FinancialStatementRaw
 import dev.kairoscode.kfc.infrastructure.opendart.model.FinancialStatementResponse
@@ -34,12 +33,12 @@ import javax.xml.parsers.DocumentBuilderFactory
 /**
  * OPENDART API 구현체
  *
- * @property apiKey OPENDART API 인증키
- * @property rateLimiter Rate Limiting 관리자
+ * @param apiKey OPENDART API 인증키
+ * @param rateLimiter OPENDART API Rate Limiter (기본값: GlobalRateLimiters의 OPENDART 싱글톤)
  */
 internal class OpenDartApiImpl(
     private val apiKey: String,
-    private val rateLimiter: RateLimiter = TokenBucketRateLimiter(RateLimitingSettings.openDartDefault())
+    private val rateLimiter: RateLimiter = GlobalRateLimiters.getOpendartLimiter()
 ) : OpenDartApi {
 
     private val httpClient = HttpClient(CIO) {

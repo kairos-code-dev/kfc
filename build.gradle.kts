@@ -160,7 +160,7 @@ val unitTest by tasks.registering(Test::class) {
  *
  * 사용법:
  *   ./gradlew integrationTest                          # 통합 테스트 실행
- *   ./gradlew integrationTest -Precord.responses=true  # 레코딩 활성화
+ *   ./gradlew integrationTest -Precord.responses=true  # 레코딩 활성화fdg
  *
  * 특징:
  *   - @Tag("integration") 태그가 있는 테스트만 실행
@@ -176,7 +176,10 @@ val integrationTest by tasks.registering(Test::class) {
     }
     configureCommonTestSettings()
 
-    // Integration 테스트는 순차 실행 (KRX API가 동시 요청 시 403 반환)
+    // Integration 테스트는 순차 실행 필수
+    // 이유: GlobalRateLimiters는 JVM 프로세스별로 독립적이므로
+    //       maxParallelForks > 1이면 각 fork마다 별도 RateLimiter 생성
+    //       → 총 RPS = forks × limitPerProcess (KRX 25 RPS 제한 초과)
     maxParallelForks = 1
 
     doFirst {

@@ -1,9 +1,8 @@
 package dev.kairoscode.kfc.infrastructure.krx
 
 import dev.kairoscode.kfc.domain.stock.*
+import dev.kairoscode.kfc.infrastructure.common.ratelimit.GlobalRateLimiters
 import dev.kairoscode.kfc.infrastructure.common.ratelimit.RateLimiter
-import dev.kairoscode.kfc.infrastructure.common.ratelimit.RateLimitingSettings
-import dev.kairoscode.kfc.infrastructure.common.ratelimit.TokenBucketRateLimiter
 import dev.kairoscode.kfc.infrastructure.common.util.*
 import dev.kairoscode.kfc.infrastructure.krx.internal.*
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -17,10 +16,13 @@ private val logger = KotlinLogging.logger {}
  *
  * KrxStockApi 인터페이스의 내부 구현입니다.
  * HTTP 클라이언트를 사용하여 실제 KRX API와 통신합니다.
+ *
+ * @param httpClient KRX HTTP 클라이언트
+ * @param rateLimiter KRX API Rate Limiter (기본값: GlobalRateLimiters의 KRX 싱글톤)
  */
 internal class KrxStockApiImpl(
     private val httpClient: KrxHttpClient = KrxHttpClient(),
-    private val rateLimiter: RateLimiter = TokenBucketRateLimiter(RateLimitingSettings.krxDefault())
+    private val rateLimiter: RateLimiter = GlobalRateLimiters.getKrxLimiter()
 ) : KrxStockApi {
 
     companion object {

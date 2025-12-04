@@ -8,6 +8,7 @@ import dev.kairoscode.kfc.infrastructure.krx.KrxStockApiImpl
 import dev.kairoscode.kfc.infrastructure.opendart.CorpApiImpl
 import dev.kairoscode.kfc.infrastructure.opendart.FinancialsApiImpl
 import dev.kairoscode.kfc.infrastructure.opendart.OpenDartApiImpl
+import dev.kairoscode.kfc.infrastructure.common.ratelimit.GlobalRateLimiters
 import dev.kairoscode.kfc.infrastructure.common.ratelimit.RateLimitingSettings
 import dev.kairoscode.kfc.infrastructure.common.ratelimit.TokenBucketRateLimiter
 
@@ -85,18 +86,41 @@ class KfcClient internal constructor(
         /**
          * KfcClient 인스턴스 생성
          *
+         * Rate Limiting은 [GlobalRateLimiters] 싱글톤을 통해 관리되며,
+         * 동일 JVM 프로세스 내의 모든 KfcClient 인스턴스가 소스별(KRX, Naver, OPENDART) Rate Limiter를 공유합니다.
+         *
+         * **중요**: 첫 번째 `create()` 호출 시 전달된 [rateLimitingSettings]가 해당 JVM 프로세스의
+         * Rate Limiter 설정으로 영구 적용됩니다. 이후 호출에서 다른 설정을 전달해도 무시됩니다.
+         *
+         * ## 사용 예제
+         * ```kotlin
+         * // 첫 번째 생성 (이 설정이 적용됨)
+         * val client1 = KfcClient.create(
+         *     rateLimitingSettings = RateLimitingSettings(
+         *         krx = RateLimitConfig(capacity = 25, refillRate = 25)
+         *     )
+         * )
+         *
+         * // 두 번째 생성 (client1과 동일한 Rate Limiter 공유)
+         * val client2 = KfcClient.create() // client1과 동일한 KRX Rate Limiter 사용
+         * ```
+         *
          * @param opendartApiKey OPENDART API 인증키 (선택 사항)
-         * @param rateLimitingSettings Rate Limiting 설정 (기본값: 모든 소스 초당 50 req/sec)
+         * @param rateLimitingSettings Rate Limiting 설정 (기본값: KRX 25 RPS, Naver/OPENDART 50 RPS)
+         *                              **주의**: 첫 번째 호출의 설정만 적용됨
          * @return KfcClient 인스턴스
+         *
+         * @see GlobalRateLimiters
+         * @see RateLimitingSettings
          */
         fun create(
             opendartApiKey: String? = null,
             rateLimitingSettings: RateLimitingSettings = RateLimitingSettings()
         ): KfcClient {
-            // Rate Limiter 인스턴스 생성
-            val krxRateLimiter = TokenBucketRateLimiter(rateLimitingSettings.krx)
-            val naverRateLimiter = TokenBucketRateLimiter(rateLimitingSettings.naver)
-            val opendartRateLimiter = TokenBucketRateLimiter(rateLimitingSettings.opendart)
+            // 글로벌 싱글톤 Rate Limiter 사용 (모든 KfcClient 인스턴스가 공유)
+            val krxRateLimiter = GlobalRateLimiters.getKrxLimiter(rateLimitingSettings.krx)
+            val naverRateLimiter = GlobalRateLimiters.getNaverLimiter(rateLimitingSettings.naver)
+            val opendartRateLimiter = GlobalRateLimiters.getOpendartLimiter(rateLimitingSettings.opendart)
 
             // 소스별 API 구현체 생성 (Funds 도메인)
             val krxFundsApi = KrxFundsApiImpl(rateLimiter = krxRateLimiter)

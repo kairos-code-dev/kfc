@@ -3,9 +3,8 @@ package dev.kairoscode.kfc.infrastructure.naver
 import dev.kairoscode.kfc.domain.exception.ErrorCode
 import dev.kairoscode.kfc.domain.exception.KfcException
 import dev.kairoscode.kfc.infrastructure.common.recording.installResponseRecording
+import dev.kairoscode.kfc.infrastructure.common.ratelimit.GlobalRateLimiters
 import dev.kairoscode.kfc.infrastructure.common.ratelimit.RateLimiter
-import dev.kairoscode.kfc.infrastructure.common.ratelimit.RateLimitingSettings
-import dev.kairoscode.kfc.infrastructure.common.ratelimit.TokenBucketRateLimiter
 import dev.kairoscode.kfc.infrastructure.naver.model.NaverEtfOhlcv
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.client.*
@@ -27,9 +26,11 @@ import javax.xml.parsers.DocumentBuilderFactory
  * Naver 증권 펀드/증권상품 API 구현체
  *
  * 네이버 증권 차트 API를 통해 조정주가 데이터를 조회합니다.
+ *
+ * @param rateLimiter Naver API Rate Limiter (기본값: GlobalRateLimiters의 Naver 싱글톤)
  */
 internal class NaverFundsApiImpl(
-    private val rateLimiter: RateLimiter = TokenBucketRateLimiter(RateLimitingSettings.naverDefault())
+    private val rateLimiter: RateLimiter = GlobalRateLimiters.getNaverLimiter()
 ) : NaverFundsApi {
 
     private val httpClient = HttpClient(CIO) {
