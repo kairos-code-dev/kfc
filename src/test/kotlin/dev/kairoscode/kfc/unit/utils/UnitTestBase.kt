@@ -5,6 +5,7 @@ import dev.kairoscode.kfc.api.FundsApi
 import dev.kairoscode.kfc.api.PriceApi
 import dev.kairoscode.kfc.api.CorpApi
 import dev.kairoscode.kfc.api.FinancialsApi
+import dev.kairoscode.kfc.api.FutureApi
 import dev.kairoscode.kfc.domain.stock.Market
 import dev.kairoscode.kfc.domain.stock.ListingStatus
 import kotlinx.coroutines.test.runTest
@@ -58,6 +59,7 @@ abstract class UnitTestBase {
     protected var fakePriceApi: PriceApi? = null
     protected var fakeCorpApi: CorpApi? = null
     protected var fakeFinancialsApi: FinancialsApi? = null
+    protected var fakeFutureApi: FutureApi? = null
 
     /**
      * Fake API를 주입하여 KfcClient 생성
@@ -102,10 +104,17 @@ abstract class UnitTestBase {
             override suspend fun searchStocks(keyword: String, market: Market) = emptyList<dev.kairoscode.kfc.domain.stock.StockListItem>()
         }
 
+        val dummyFutureApi = object : FutureApi {
+            override suspend fun getFutureTickerList() = emptyList<dev.kairoscode.kfc.domain.future.FutureProduct>()
+            override suspend fun getFutureName(productId: String) = null
+            override suspend fun getOhlcvByTicker(date: LocalDate, productId: String, alternative: Boolean, previousBusiness: Boolean) = emptyList<dev.kairoscode.kfc.domain.future.FutureOhlcv>()
+        }
+
         client = KfcClient(
             funds = fakeFundsApi ?: dummyFundsApi,
             price = fakePriceApi ?: dummyPriceApi,
             stock = dummyStockApi,
+            future = fakeFutureApi ?: dummyFutureApi,
             corp = fakeCorpApi,
             financials = fakeFinancialsApi
         )

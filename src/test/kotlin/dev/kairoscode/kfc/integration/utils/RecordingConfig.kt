@@ -168,6 +168,19 @@ object RecordingConfig {
         }
 
         // ========================================
+        // Future API 네임스페이스
+        // ========================================
+
+        /**
+         * 선물 정보 API
+         */
+        object Future {
+            const val BASE = "future"
+            const val LIST = "$BASE/list"
+            const val OHLCV = "$BASE/ohlcv"
+        }
+
+        // ========================================
         // 공통
         // ========================================
 
