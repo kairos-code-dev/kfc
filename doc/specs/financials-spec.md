@@ -15,8 +15,7 @@
 5. [인프라 레이어 설계](#5-인프라-레이어-설계)
 6. [구현 우선순위](#6-구현-우선순위)
 7. [예외 처리](#7-예외-처리)
-8. [테스트 전략](#8-테스트-전략)
-9. [참고 자료](#9-참고-자료)
+8. [참고 자료](#8-참고-자료)
 
 ---
 
@@ -860,101 +859,25 @@ try {
 
 ---
 
-## 8. 테스트 전략
+## 8. 참고 자료
 
-### 8.1. 단위 테스트 (Unit Test)
-
-#### 8.1.1. 테스트 대상
-
-| 테스트 클래스 | 테스트 대상 | 테스트 수 |
-|-------------|------------|----------|
-| `FinancialLineItemTest` | 도메인 모델 생성 및 검증 | 3 |
-| `IncomeStatementTest` | 손익계산서 모델 및 헬퍼 함수 | 5 |
-| `BalanceSheetTest` | 재무상태표 모델 및 헬퍼 함수 | 5 |
-| `CashFlowStatementTest` | 현금흐름표 모델 및 헬퍼 함수 | 3 |
-| `OpenDartFinancialsParserTest` | JSON 파싱 로직 | 5 |
-| `OpenDartFinancialsMapperTest` | 도메인 모델 매핑 | 5 |
-| `OpenDartAccountMappingTest` | 계정과목 매핑 로직 | 4 |
-| **합계** | | **30** |
-
-#### 8.1.2. Mock 데이터
-
-실제 OPENDART API 응답을 기반으로 Mock JSON 파일 작성:
-
-```
-src/test/resources/
-└── mock/
-    └── opendart/
-        ├── financials_samsung_2024_annual.json
-        ├── financials_samsung_2024_q1.json
-        └── financials_empty_response.json
-```
-
-### 8.2. 통합 테스트 (Integration Test)
-
-#### 8.2.1. 테스트 시나리오
-
-| 시나리오 | 검증 항목 | API 호출 |
-|---------|----------|----------|
-| 연간 재무제표 조회 | 손익계산서/재무상태표/현금흐름표 | 1회 |
-| 분기 재무제표 조회 | Q1 데이터 조회 | 1회 |
-| 여러 연도 조회 | 2023, 2024 연속 조회 | 2회 |
-| 에러 처리 | 잘못된 법인코드로 404 처리 | 1회 |
-| Rate Limiting | 연속 호출 시 대기 동작 | 3회 |
-
-### 8.3. Live 테스트 (Live Test)
-
-실제 OPENDART API를 호출하는 테스트:
-
-```kotlin
-class FinancialsLiveTest {
-    @Test
-    fun `삼성전자 2024년 연결 손익계산서 조회`() = runBlocking {
-        val kfc = KfcClient.create(opendartApiKey = getApiKey())
-
-        val incomeStatement = kfc.financials.getIncomeStatement(
-            corpCode = "00126380",
-            year = 2024,
-            reportType = ReportType.ANNUAL,
-            statementType = StatementType.CONSOLIDATED
-        )
-
-        assertNotNull(incomeStatement)
-        assertTrue(incomeStatement.lineItems.isNotEmpty())
-    }
-}
-```
-
-### 8.4. 테스트 커버리지 목표
-
-| 항목 | 목표 |
-|------|------|
-| 전체 코드 커버리지 | 80% 이상 |
-| 도메인 모델 | 90% 이상 |
-| 인프라 레이어 | 80% 이상 |
-| API 레이어 | 90% 이상 |
-
----
-
-## 9. 참고 자료
-
-### 9.1. 공식 문서
+### 8.1. 공식 문서
 
 - [OPENDART 개발가이드 - 단일회사 전체 재무제표](https://opendart.fss.or.kr/guide/detail.do?apiGrpCd=DS003&apiId=2019016)
 - [OPENDART 오픈API 소개](https://opendart.fss.or.kr/intro/main.do)
 - [OPENDART 재무정보 일괄다운로드](https://opendart.fss.or.kr/disclosureinfo/fnltt/dwld/main.do)
 
-### 9.2. 오픈소스 라이브러리
+### 8.2. 오픈소스 라이브러리
 
 - [dart-fss](https://dart-fss.readthedocs.io/en/latest/dart_fs.html) - Python DART 라이브러리
 - [OpenDartReader](https://github.com/FinanceData/OpenDartReader) - Python DART API 도구
 
-### 9.3. 기술 블로그
+### 8.3. 기술 블로그
 
 - [퀀티랩 블로그 - 파이썬으로 DART에서 재무제표 수집하기](https://blog.quantylab.com/2021-03-28-dart_fs.html)
 - [데이터로 보는 세상 - DART API 3개년 재무제표 자동 수집](https://lovsun.github.io/quant/2021/08/07/quant-dartfs.html)
 
-### 9.4. 내부 문서
+### 8.4. 내부 문서
 
 - [네임스페이스 표준](/home/ulalax/project/kairos/kfc/doc/네임스페이스.md)
 - [KFC README.md](/home/ulalax/project/kairos/kfc/README.md)

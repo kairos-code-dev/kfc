@@ -15,8 +15,9 @@
 5. [인프라 레이어 설계](#5-인프라-레이어-설계)
 6. [구현 우선순위](#6-구현-우선순위)
 7. [예외 처리](#7-예외-처리)
-8. [테스트 전략](#8-테스트-전략)
-9. [참고 자료](#9-참고-자료)
+8. [참고 자료](#8-참고-자료)
+
+> **Note**: BLD 코드는 pykrx 소스 코드 (`pykrx/website/krx/bond/core.py`)를 기준으로 검증되었습니다. MDCSTAT04301/04302는 ETF 코드이므로 채권에는 MDCSTAT11401/11402를 사용합니다.
 
 ---
 
@@ -85,7 +86,7 @@ Accept-Language: ko-KR,ko;q=0.9
 Referer: http://data.krx.co.kr/
 Origin: http://data.krx.co.kr
 
-bld=dbms/MDC/STAT/standard/MDCSTAT04301&trdDd=20220204
+bld=dbms/MDC/STAT/standard/MDCSTAT11401&inqTpCd=T&trdDd=20220204
 ```
 
 **응답 구조**:
@@ -120,18 +121,19 @@ bld=dbms/MDC/STAT/standard/MDCSTAT04301&trdDd=20220204
 
 #### 2.1.4. 주요 API 엔드포인트
 
-##### A. 장외채권 수익률 조회 (특정일) - MDCSTAT04301
+##### A. 장외채권 수익률 조회 (특정일) - MDCSTAT11401
 
 | 항목 | 내용 |
 |------|------|
-| **bld** | `dbms/MDC/STAT/standard/MDCSTAT04301` |
+| **bld** | `dbms/MDC/STAT/standard/MDCSTAT11401` |
 | **용도** | 특정 일자의 전체 채권 수익률 조회 |
-| **요청 파라미터** | `trdDd` (거래일, YYYYMMDD) |
-| **응답 필드** | `BND_KIND_TP_NM` (채권종류명), `BND_SRTN_YILD` (수익률), `DIFF` (대비) |
+| **요청 파라미터** | `inqTpCd` (조회 타입: T=전종목), `trdDd` (거래일, YYYYMMDD) |
+| **응답 필드** | `BND_TP_NM` (채권종류명), `SRTN_YD` (수익률), `CMPPREVDD_YD` (대비) |
 
 **요청 예시**:
 ```
-bld=dbms/MDC/STAT/standard/MDCSTAT04301
+bld=dbms/MDC/STAT/standard/MDCSTAT11401
+inqTpCd=T
 trdDd=20220204
 ```
 
@@ -206,18 +208,19 @@ trdDd=20220204
 | `BND_SRTN_YILD` | STRING | 수익률 (%) | `1.467` |
 | `DIFF` | STRING | 전일 대비 변동폭 (bp) | `0.015` |
 
-##### B. 장외채권 수익률 조회 (기간별) - MDCSTAT04302
+##### B. 장외채권 수익률 조회 (기간별) - MDCSTAT11402
 
 | 항목 | 내용 |
 |------|------|
-| **bld** | `dbms/MDC/STAT/standard/MDCSTAT04302` |
+| **bld** | `dbms/MDC/STAT/standard/MDCSTAT11402` |
 | **용도** | 특정 채권의 기간별 수익률 추이 조회 |
-| **요청 파라미터** | `strtDd` (시작일), `endDd` (종료일), `bndKindTpCd` (채권종류코드) |
-| **응답 필드** | `TRD_DD` (일자), `BND_SRTN_YILD` (수익률), `DIFF` (대비) |
+| **요청 파라미터** | `inqTpCd` (조회 타입: E=개별추이), `strtDd` (시작일), `endDd` (종료일), `bndKindTpCd` (채권종류코드) |
+| **응답 필드** | `TRD_DD` (일자), `SRTN_YD` (수익률), `CMPPREVDD_YD` (대비) |
 
 **요청 예시**:
 ```
-bld=dbms/MDC/STAT/standard/MDCSTAT04302
+bld=dbms/MDC/STAT/standard/MDCSTAT11402
+inqTpCd=E
 strtDd=20220104
 endDd=20220204
 bndKindTpCd=국고채2년
@@ -294,10 +297,10 @@ bndKindTpCd=국고채2년
 
 pykrx는 KRX API를 Python으로 래핑한 라이브러리로, 다음 함수를 제공합니다:
 
-| pykrx 함수 | KRX API bld | 용도 |
-|-----------|------------|------|
-| `get_otc_treasury_yields(date)` | `MDCSTAT04301` | 특정일 전체 채권 수익률 |
-| `get_otc_treasury_yields(startDd, endDd, bndKindTpCd)` | `MDCSTAT04302` | 특정 채권 기간별 수익률 |
+| pykrx 함수 | pykrx 클래스명 | KRX API bld | 용도 |
+|-----------|--------------|------------|------|
+| `get_otc_treasury_yields(date)` | 장외채권수익률전종목 | `MDCSTAT11401` | 특정일 전체 채권 수익률 |
+| `get_otc_treasury_yields(startDd, endDd, bndKindTpCd)` | 장외채권수익률개별추이 | `MDCSTAT11402` | 특정 채권 기간별 수익률 |
 
 **참고**: KFC에서는 pykrx를 직접 사용하지 않고, 동일한 KRX API를 Kotlin으로 구현합니다.
 
@@ -569,8 +572,8 @@ KRX Bond API는 일관된 응답 구조를 사용합니다:
 
 | API | 응답 필드 |
 |-----|---------|
-| MDCSTAT04301 (특정일) | `OutBlock_1` (List) |
-| MDCSTAT04302 (기간별) | `OutBlock_1` (List) |
+| MDCSTAT11401 (특정일) | `output` (List) |
+| MDCSTAT11402 (기간별) | `output` (List) |
 
 ---
 
@@ -647,90 +650,19 @@ KRX Bond API는 일관된 응답 구조를 사용합니다:
 
 ---
 
-## 8. 테스트 전략
+## 8. 참고 자료
 
-[아키텍처 가이드](/home/ulalax/project/kairos/kfc/doc/archtecture-guide.md) 기준을 따릅니다.
-
-### 8.1. 단위 테스트 (Unit Test)
-
-도메인 모델의 비즈니스 규칙을 검증합니다. 테스트 코드가 **스펙 문서**처럼 읽혀야 합니다.
-
-#### 테스트 시나리오
-
-| 카테고리 | 시나리오 |
-|---------|---------|
-| **BondType** | 채권 종류 코드로 BondType enum 조회 |
-| | 한글명으로 BondType enum 조회 |
-| | 카테고리별 채권 필터링 (국고채, 회사채 등) |
-| **BondYield** | 수익률 변동 방향 판별 (상승/하락) |
-| | 채권 카테고리 확인 (`isTreasury()`, `isCorporate()`) |
-| **BondYieldSnapshot** | 국고채만 필터링 (`getTreasuryYields()`) |
-| | 회사채만 필터링 (`getCorporateYields()`) |
-| | 특정 채권 수익률 조회 |
-| **헬퍼 함수** | 수익률 곡선 생성 (`toYieldCurve()`) |
-| | 장단기 스프레드 계산 (`calculateSpread()`) |
-
-### 8.2. 통합 테스트 (Integration Test)
-
-API 레이어의 동작을 검증합니다. 테스트 코드가 **API 문서**처럼 읽혀야 합니다.
-
-#### 테스트 카테고리
-
-**1. 기본 동작 (Basic Operations)**
-- 특정 일자의 전체 채권 수익률 조회 시 11개 채권 데이터 반환 (국고채 7개 + 특수채 1개 + 회사채 2개 + CD 1개)
-- 국고채 10년물 기간별 수익률 조회 성공
-- 회사채 AA- 기간별 수익률 조회 성공
-
-**2. 응답 데이터 검증 (Response Validation)**
-- 수익률은 양수 값 (0% 이상)
-- 변동폭은 정상 범위 (-1% ~ +1%)
-- 날짜는 요청한 기간 내 영업일만 포함
-
-**3. 입력 파라미터 검증 (Input Validation)**
-- 날짜 파라미터 미지정 시 오늘 날짜 사용
-- 시작일이 종료일보다 늦은 경우 빈 리스트 반환
-- 지원되지 않는 채권 종류 조회 시 예외 발생
-
-**4. 엣지 케이스 (Edge Cases)**
-- 휴장일 데이터 조회 시 빈 리스트 반환
-- 과거 날짜 조회 시 정상 동작
-- 미래 날짜 조회 시 빈 리스트 반환
-
-**5. 실무 활용 예제 (Usage Examples)**
-- 장단기 금리 스프레드 계산 (10년-2년)
-- 회사채 신용 스프레드 계산 (AA- - 국고채 3년)
-- 수익률 곡선 역전 감지 (경기 침체 신호)
-- 채권 카테고리별 평균 수익률 계산
-
-### 8.3. 테스트 데이터
-
-**테스트 원칙**:
-- Fake 객체 우선 사용 (Mock 프레임워크 최소화)
-- 의미 있는 테스트 데이터: `treasury_10y`, `corporate_aa` 등
-- 실제 KRX 응답을 JSON 파일로 저장하여 재사용
-
-**테스트 데이터 파일 경로**:
-
-| 데이터 유형 | 파일 경로 |
-|----------|---------|
-| 특정일 전체 채권 수익률 | `src/integrationTest/resources/responses/bond/yields_by_date_20220204.json` |
-| 국고채 10년 기간별 수익률 | `src/integrationTest/resources/responses/bond/yields_by_period_treasury_10y.json` |
-
----
-
-## 9. 참고 자료
-
-### 9.1. 공식 문서
+### 8.1. 공식 문서
 
 - [KRX 정보데이터시스템](https://data.krx.co.kr)
 - [KRX 채권정보](https://data.krx.co.kr/contents/MDC/MDI/mdiLoader/index.cmd?menuId=MDC0201020201)
 
-### 9.2. 오픈소스 라이브러리
+### 8.2. 오픈소스 라이브러리
 
 - [pykrx](https://github.com/sharebook-kr/pykrx) - Python KRX API 래퍼
 - [pykrx bond.py](https://github.com/sharebook-kr/pykrx/blob/master/pykrx/bond/bond.py) - 채권 API 구현 참고
 
-### 9.3. 내부 문서
+### 8.3. 내부 문서
 
 - [아키텍처 가이드](/home/ulalax/project/kairos/kfc/doc/archtecture-guide.md)
 - [네임스페이스 표준](/home/ulalax/project/kairos/kfc/doc/네임스페이스.md)
@@ -738,7 +670,7 @@ API 레이어의 동작을 검증합니다. 테스트 코드가 **API 문서**�
 - [stock 기술명세서](/home/ulalax/project/kairos/kfc/doc/specs/stock-기술명세서.md)
 - [KFC README.md](/home/ulalax/project/kairos/kfc/README.md)
 
-### 9.4. 기존 구현체 참고
+### 8.4. 기존 구현체 참고
 
 - `/home/ulalax/project/kairos/kfc/src/main/kotlin/dev/kairoscode/kfc/infrastructure/krx/KrxHttpClient.kt`
 - `/home/ulalax/project/kairos/kfc/src/main/kotlin/dev/kairoscode/kfc/infrastructure/krx/KrxStockApiImpl.kt`
@@ -768,8 +700,8 @@ API 레이어의 동작을 검증합니다. 테스트 코드가 **API 문서**�
 
 | 기능 | bld | 요청 파라미터 | 응답 필드 (주요) |
 |------|-----|-------------|----------------|
-| 특정일 수익률 | `MDCSTAT04301` | `trdDd` | `BND_KIND_TP_NM`, `BND_SRTN_YILD`, `DIFF` |
-| 기간별 수익률 | `MDCSTAT04302` | `strtDd`, `endDd`, `bndKindTpCd` | `TRD_DD`, `BND_SRTN_YILD`, `DIFF` |
+| 특정일 수익률 | `MDCSTAT11401` | `inqTpCd=T`, `trdDd` | `BND_KIND_TP_NM`, `BND_SRTN_YILD`, `DIFF` |
+| 기간별 수익률 | `MDCSTAT11402` | `inqTpCd=E`, `strtDd`, `endDd`, `bndKindTpCd` | `TRD_DD`, `BND_SRTN_YILD`, `DIFF` |
 
 ### C. 수익률 곡선 벤치마크
 

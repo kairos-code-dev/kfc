@@ -16,8 +16,9 @@
 5. [인프라 레이어 설계](#5-인프라-레이어-설계)
 6. [구현 우선순위](#6-구현-우선순위)
 7. [예외 처리](#7-예외-처리)
-8. [테스트 전략](#8-테스트-전략)
-9. [참고 자료](#9-참고-자료)
+8. [참고 자료](#8-참고-자료)
+
+> **Note**: BLD 코드는 pykrx 소스 코드 (`pykrx/website/krx/market/core.py`)를 기준으로 검증되었습니다.
 
 ---
 
@@ -125,19 +126,19 @@ bld=dbms/MDC/STAT/standard/MDCSTAT00301&mktId=1&trdDd=20210104
 
 #### 2.1.4. 주요 API 엔드포인트
 
-##### A. 지수 티커 목록 (MDCSTAT00201)
+##### A. 지수 티커 목록 (MDCSTAT00401)
 
 | 항목 | 내용 |
 |------|------|
-| **bld** | `dbms/MDC/STAT/standard/MDCSTAT00201` |
+| **bld** | `dbms/MDC/STAT/standard/MDCSTAT00401` |
 | **용도** | 특정 시장의 모든 지수 티커 조회 |
-| **요청 파라미터** | `mktId` (1=KOSPI, 2=KOSDAQ, 3=파생) |
-| **응답 필드** | `IDX_IND_CD`, `IDX_NM` |
+| **요청 파라미터** | `idxIndMidclssCd` (01=KRX, 02=KOSPI, 03=KOSDAQ, 04=테마) |
+| **응답 필드** | `IDX_NM`, `IDX_ENG_NM`, `BAS_TM_CONTN`, `ANNC_TM_CONTN`, `BAS_IDX_CONTN`, `CALC_CYCLE_CONTN`, `CALC_TM_CONTN`, `COMPST_ISU_CNT`, `IND_TP_CD`, `IDX_IND_CD` |
 
 **요청 예시**:
 ```
-bld=dbms/MDC/STAT/standard/MDCSTAT00201
-mktId=1
+bld=dbms/MDC/STAT/standard/MDCSTAT00401
+idxIndMidclssCd=02
 ```
 
 **응답 예시**:
@@ -160,20 +161,21 @@ mktId=1
 }
 ```
 
-##### B. 지수 구성 종목 (MDCSTAT00401)
+##### B. 지수 구성 종목 (MDCSTAT00601)
 
 | 항목 | 내용 |
 |------|------|
-| **bld** | `dbms/MDC/STAT/standard/MDCSTAT00401` |
+| **bld** | `dbms/MDC/STAT/standard/MDCSTAT00601` |
 | **용도** | 특정 지수의 구성 종목 조회 |
-| **요청 파라미터** | `trdDd` (거래일, YYYYMMDD), `indIdx` (지수코드) |
+| **요청 파라미터** | `trdDd` (거래일, YYYYMMDD), `indTpCd` (지수 그룹 ID), `indTpCd2` (지수 티커) |
 | **응답 필드** | `ISU_SRT_CD`, `ISU_ABBRV` |
 
 **요청 예시**:
 ```
-bld=dbms/MDC/STAT/standard/MDCSTAT00401
+bld=dbms/MDC/STAT/standard/MDCSTAT00601
 trdDd=20210104
-indIdx=1028
+indTpCd=1
+indTpCd2=028
 ```
 
 **응답 예시**:
@@ -192,21 +194,22 @@ indIdx=1028
 }
 ```
 
-##### C. 지수 OHLCV - 기간별 (MDCSTAT00101)
+##### C. 지수 OHLCV - 기간별 (MDCSTAT00301)
 
 | 항목 | 내용 |
 |------|------|
-| **bld** | `dbms/MDC/STAT/standard/MDCSTAT00101` |
+| **bld** | `dbms/MDC/STAT/standard/MDCSTAT00301` |
 | **용도** | 특정 지수의 기간별 OHLCV 조회 |
-| **요청 파라미터** | `strtDd` (시작일), `endDd` (종료일), `indIdx` (지수코드) |
-| **응답 필드** | `TRD_DD`, `TDD_OPNPRC`, `TDD_HGPRC`, `TDD_LWPRC`, `TDD_CLSPRC`, `ACC_TRDVOL`, `ACC_TRDVAL` |
+| **요청 파라미터** | `strtDd` (시작일), `endDd` (종료일), `indIdx` (지수 그룹 ID), `indIdx2` (지수 티커) |
+| **응답 필드** | `TRD_DD`, `CLSPRC_IDX`, `FLUC_TP_CD`, `PRV_DD_CMPR`, `UPDN_RATE`, `OPNPRC_IDX`, `HGPRC_IDX`, `LWPRC_IDX`, `ACC_TRDVOL`, `ACC_TRDVAL`, `MKTCAP` |
 
 **요청 예시**:
 ```
-bld=dbms/MDC/STAT/standard/MDCSTAT00101
+bld=dbms/MDC/STAT/standard/MDCSTAT00301
 strtDd=20210101
 endDd=20210130
-indIdx=1001
+indIdx=1
+indIdx2=001
 ```
 
 **응답 예시**:
@@ -238,20 +241,20 @@ indIdx=1001
 | `ACC_TRDVOL` | STRING | 거래량 (콤마 포함) | `1,026,510,465` |
 | `ACC_TRDVAL` | STRING | 거래대금 (원, 콤마 포함) | `25,011,393,960,858` |
 
-##### D. 지수 OHLCV - 전체 지수 (MDCSTAT00301)
+##### D. 지수 OHLCV - 전체 지수 (MDCSTAT00101)
 
 | 항목 | 내용 |
 |------|------|
-| **bld** | `dbms/MDC/STAT/standard/MDCSTAT00301` |
+| **bld** | `dbms/MDC/STAT/standard/MDCSTAT00101` |
 | **용도** | 특정 일자 전체 지수 OHLCV 조회 |
-| **요청 파라미터** | `trdDd` (YYYYMMDD), `mktId` (1=KOSPI, 2=KOSDAQ) |
-| **응답 필드** | `IDX_NM`, `TDD_OPNPRC`, `TDD_HGPRC`, `TDD_LWPRC`, `TDD_CLSPRC`, `ACC_TRDVOL`, `ACC_TRDVAL` |
+| **요청 파라미터** | `trdDd` (YYYYMMDD), `idxIndMidclssCd` (01=KRX, 02=KOSPI, 03=KOSDAQ, 04=테마) |
+| **응답 필드** | `IDX_NM`, `CLSPRC_IDX`, `FLUC_TP_CD`, `CMPPREVDD_IDX`, `FLUC_RT`, `OPNPRC_IDX`, `HGPRC_IDX`, `LWPRC_IDX`, `ACC_TRDVOL`, `ACC_TRDVAL`, `MKTCAP` |
 
 **요청 예시**:
 ```
-bld=dbms/MDC/STAT/standard/MDCSTAT00301
+bld=dbms/MDC/STAT/standard/MDCSTAT00101
 trdDd=20210104
-mktId=1
+idxIndMidclssCd=02
 ```
 
 **응답 예시**:
@@ -280,21 +283,22 @@ mktId=1
 }
 ```
 
-##### E. 지수 밸류에이션 - 기간별 (MDCSTAT00601)
+##### E. 지수 밸류에이션 - 기간별 (MDCSTAT00702)
 
 | 항목 | 내용 |
 |------|------|
-| **bld** | `dbms/MDC/STAT/standard/MDCSTAT00601` |
+| **bld** | `dbms/MDC/STAT/standard/MDCSTAT00702` |
 | **용도** | 특정 지수의 기간별 PER/PBR/배당수익률 조회 |
-| **요청 파라미터** | `strtDd` (시작일), `endDd` (종료일), `indIdx` (지수코드) |
-| **응답 필드** | `TRD_DD`, `CLSPRC`, `FLUC_RT`, `PER`, `FWD_PER`, `PBR`, `DVD_YLD` |
+| **요청 파라미터** | `strtDd` (시작일), `endDd` (종료일), `indTpCd` (지수 그룹 ID), `indTpCd2` (지수 티커) |
+| **응답 필드** | `TRD_DD`, `CLSPRC_IDX`, `FLUC_TP_CD`, `PRV_DD_CMPR`, `FLUC_RT`, `WT_PER`, `FWD_PER`, `WT_STKPRC_NETASST_RTO`, `DIV_YD` |
 
 **요청 예시**:
 ```
-bld=dbms/MDC/STAT/standard/MDCSTAT00601
+bld=dbms/MDC/STAT/standard/MDCSTAT00702
 strtDd=20210104
 endDd=20210108
-indIdx=1001
+indTpCd=1
+indTpCd2=001
 ```
 
 **응답 예시**:
@@ -335,21 +339,21 @@ indIdx=1001
 | **요청 파라미터** | `trdDd` (YYYYMMDD), `mktId` (1=KOSPI, 2=KOSDAQ) |
 | **응답 필드** | `IDX_NM`, `CLSPRC`, `FLUC_RT`, `PER`, `FWD_PER`, `PBR`, `DVD_YLD` |
 
-##### G. 지수 등락률 (MDCSTAT00501)
+##### G. 지수 등락률 (MDCSTAT00201)
 
 | 항목 | 내용 |
 |------|------|
-| **bld** | `dbms/MDC/STAT/standard/MDCSTAT00501` |
+| **bld** | `dbms/MDC/STAT/standard/MDCSTAT00201` |
 | **용도** | 특정 기간 전체 지수 등락률 조회 |
-| **요청 파라미터** | `strtDd` (시작일), `endDd` (종료일), `mktId` (1=KOSPI, 2=KOSDAQ) |
-| **응답 필드** | `IDX_NM`, `OPNPRC`, `CLSPRC`, `FLUC_RT`, `ACC_TRDVOL`, `ACC_TRDVAL` |
+| **요청 파라미터** | `strtDd` (시작일), `endDd` (종료일), `idxIndMidclssCd` (01=KRX, 02=KOSPI, 03=KOSDAQ, 04=테마) |
+| **응답 필드** | `IDX_IND_NM`, `OPN_DD_INDX`, `END_DD_INDX`, `FLUC_TP`, `PRV_DD_CMPR`, `FLUC_RT`, `ACC_TRDVOL`, `ACC_TRDVAL` |
 
 **요청 예시**:
 ```
-bld=dbms/MDC/STAT/standard/MDCSTAT00501
+bld=dbms/MDC/STAT/standard/MDCSTAT00201
 strtDd=20210101
 endDd=20210130
-mktId=1
+idxIndMidclssCd=02
 ```
 
 **응답 예시**:
@@ -376,14 +380,14 @@ mktId=1
 }
 ```
 
-##### H. 지수 기본정보 (MDCSTAT00201 + 추가 조회)
+##### H. 지수 기본정보 (MDCSTAT00401)
 
 | 항목 | 내용 |
 |------|------|
-| **bld** | `dbms/MDC/STAT/standard/MDCSTAT00201` (티커 목록에 포함) |
+| **bld** | `dbms/MDC/STAT/standard/MDCSTAT00401` (티커 목록과 동일) |
 | **용도** | 지수별 상장일, 기준지수, 종목수 조회 |
-| **요청 파라미터** | `mktId` (1=KOSPI, 2=KOSDAQ, 3=파생) |
-| **응답 필드** | `IDX_IND_CD`, `IDX_NM`, `BASE_TM`, `ANN_TM`, `BASE_IDX`, `COMPST_ISU_CNT` |
+| **요청 파라미터** | `idxIndMidclssCd` (01=KRX, 02=KOSPI, 03=KOSDAQ, 04=테마) |
+| **응답 필드** | `IDX_NM`, `IDX_ENG_NM`, `BAS_TM_CONTN`, `ANNC_TM_CONTN`, `BAS_IDX_CONTN`, `CALC_CYCLE_CONTN`, `CALC_TM_CONTN`, `COMPST_ISU_CNT`, `IND_TP_CD`, `IDX_IND_CD` |
 
 **응답 예시**:
 ```json
@@ -416,17 +420,17 @@ mktId=1
 
 pykrx는 KRX API를 Python으로 래핑한 라이브러리로, 다음 함수들을 제공합니다:
 
-| pykrx 함수 | KRX API bld | 용도 |
-|-----------|------------|------|
-| `get_index_ticker_list()` | `MDCSTAT00201` | 지수 티커 목록 |
-| `get_index_ticker_name()` | `MDCSTAT00201` | 지수 코드 → 지수명 |
-| `get_index_portfolio_deposit_file()` | `MDCSTAT00401` | 지수 구성 종목 |
-| `get_index_ohlcv_by_date()` | `MDCSTAT00101` | 지수 OHLCV (기간별) |
-| `get_index_ohlcv_by_ticker()` | `MDCSTAT00301` | 지수 OHLCV (전체 지수) |
-| `get_index_fundamental_by_date()` | `MDCSTAT00601` | 지수 밸류에이션 (기간별) |
-| `get_index_fundamental_by_ticker()` | `MDCSTAT00701` | 지수 밸류에이션 (전체 지수) |
-| `get_index_price_change_by_ticker()` | `MDCSTAT00501` | 지수 등락률 |
-| `get_index_listing_date()` | `MDCSTAT00201` | 지수 기본정보 |
+| pykrx 함수 | pykrx 클래스명 | KRX API bld | 용도 |
+|-----------|--------------|------------|------|
+| `get_index_ticker_list()` | 전체지수기본정보 | `MDCSTAT00401` | 지수 티커 목록 |
+| `get_index_ticker_name()` | 전체지수기본정보 | `MDCSTAT00401` | 지수 코드 → 지수명 |
+| `get_index_portfolio_deposit_file()` | 지수구성종목 | `MDCSTAT00601` | 지수 구성 종목 |
+| `get_index_ohlcv_by_date()` | 개별지수시세 | `MDCSTAT00301` | 지수 OHLCV (기간별) |
+| `get_index_ohlcv_by_ticker()` | 전체지수시세 | `MDCSTAT00101` | 지수 OHLCV (전체 지수) |
+| `get_index_fundamental_by_date()` | PER_PBR_배당수익률_개별지수 | `MDCSTAT00702` | 지수 밸류에이션 (기간별) |
+| `get_index_fundamental_by_ticker()` | PER_PBR_배당수익률_전지수 | `MDCSTAT00701` | 지수 밸류에이션 (전체 지수) |
+| `get_index_price_change_by_ticker()` | 전체지수등락률 | `MDCSTAT00201` | 지수 등락률 |
+| `get_index_listing_date()` | 전체지수기본정보 | `MDCSTAT00401` | 지수 기본정보 |
 
 **참고**: KFC에서는 pykrx를 직접 사용하지 않고, 동일한 KRX API를 Kotlin으로 구현합니다.
 
@@ -836,102 +840,29 @@ PER, PBR, 배당수익률 등 지수 밸류에이션 지표입니다.
 
 ---
 
-## 8. 테스트 전략
+## 8. 참고 자료
 
-[아키텍처 가이드](/home/ulalax/project/kairos/kfc/doc/archtecture-guide.md) 기준을 따릅니다.
-
-### 8.1. 단위 테스트 (Unit Test)
-
-도메인 모델의 비즈니스 규칙을 검증합니다. 테스트 코드가 **스펙 문서**처럼 읽혀야 합니다.
-
-#### 테스트 시나리오
-
-| 카테고리 | 시나리오 |
-|---------|---------|
-| **IndexInfo** | 코스피 지수는 `isKospi()` = true |
-| | 기준지수는 100.00이어야 함 |
-| **IndexOhlcv** | 수익률 계산 (종가 / 시가 - 1) |
-| | 상승 여부 판별 (`isPriceRising()`) |
-| **IndexConstituent** | 구성 종목 개수는 양수 |
-| | 구성 종목은 6자리 티커 형식 |
-| **헬퍼 함수** | 시계열 데이터 변환 |
-| | 변동성 계산 (표준편차) |
-
-### 8.2. 통합 테스트 (Integration Test)
-
-API 레이어의 동작을 검증합니다. 테스트 코드가 **API 문서**처럼 읽혀야 합니다.
-
-#### 테스트 카테고리
-
-**1. 기본 동작 (Basic Operations)**
-- 코스피 지수 목록 조회 시 100개 이상 반환
-- 코스닥 지수 목록 조회 시 50개 이상 반환
-- 코스피(1001) 지수명 조회 성공
-
-**2. 응답 데이터 검증 (Response Validation)**
-- 지수 코드는 숫자 형식
-- 지수명은 비어있지 않음
-- OHLCV 데이터는 고가 >= 저가
-- PER/PBR은 양수 값 또는 null
-
-**3. 입력 파라미터 검증 (Input Validation)**
-- 시장 필터 적용 시 해당 시장 지수만 반환
-- 날짜 범위 지정 시 해당 기간 데이터만 반환
-- 날짜 파라미터 미지정 시 오늘 날짜 사용
-
-**4. 엣지 케이스 (Edge Cases)**
-- 존재하지 않는 지수 코드 조회 시 null 반환
-- 휴장일 데이터 조회 시 빈 리스트 또는 직전 영업일 데이터
-- 잘못된 형식의 지수 코드는 `INVALID_INDEX_TICKER` 예외
-
-**5. 실무 활용 예제 (Usage Examples)**
-- 코스피200 구성 종목 조회 후 개별 주식 정보 연계
-- 월별 지수 수익률 계산 및 비교
-- 밸류에이션 역사적 백분위 계산
-
-### 8.3. 테스트 데이터
-
-- Fake 객체 우선 사용 (Mock 프레임워크 최소화)
-- 의미 있는 테스트 데이터: `kospi_index`, `kospi200_index` 등
-- 실제 KRX 응답을 JSON 파일로 저장하여 재사용
-
-### 8.4. 테스트 네임스페이스 구조
-
-테스트는 다음 5개 카테고리로 구성됩니다:
-
-| 카테고리 | 설명 | 예시 테스트 케이스 |
-|---------|------|------------------|
-| 1. 기본 동작 | API 정상 동작 검증 | 코스피 지수 목록 조회 시 100개 이상 반환 |
-| 2. 응답 데이터 검증 | 응답 데이터 무결성 확인 | 지수 OHLCV는 고가 >= 저가 조건 만족 |
-| 3. 입력 파라미터 검증 | 파라미터 처리 확인 | 날짜 범위 지정 시 해당 기간 데이터만 반환 |
-| 4. 엣지 케이스 | 예외 상황 처리 | 존재하지 않는 지수 코드 조회 시 null 반환 |
-| 5. 실무 활용 예제 | 실제 사용 시나리오 | 코스피200 구성 종목 조회 및 시가총액 합계 계산 |
-
----
-
-## 9. 참고 자료
-
-### 9.1. 공식 문서
+### 8.1. 공식 문서
 
 - [KRX 정보데이터시스템](https://data.krx.co.kr)
 - [KRX 지수 정보](https://data.krx.co.kr/contents/MDC/MDI/mdiLoader/index.cmd?menuId=MDC02)
 
-### 9.2. 오픈소스 라이브러리
+### 8.2. 오픈소스 라이브러리
 
 - [pykrx](https://github.com/sharebook-kr/pykrx) - Python KRX API 래퍼
 - [pykrx 문서](https://github.com/sharebook-kr/pykrx/wiki)
 
-### 9.3. 기술 블로그
+### 8.3. 기술 블로그
 
 - [파이썬으로 주식 데이터 수집하기 (pykrx)](https://wikidocs.net/153861)
 
-### 9.4. 내부 문서
+### 8.4. 내부 문서
 
 - [pykrx Gap 분석](/home/ulalax/project/kairos/kfc/doc/pykrx-gap-analysis.md)
 - [아키텍처 가이드](/home/ulalax/project/kairos/kfc/doc/archtecture-guide.md)
 - [Stock 기술명세서](/home/ulalax/project/kairos/kfc/doc/specs/stock-기술명세서.md)
 
-### 9.5. 기존 구현체 참고
+### 8.5. 기존 구현체 참고
 
 - `/home/ulalax/project/kairos/kfc/src/main/kotlin/dev/kairoscode/kfc/infrastructure/krx/KrxHttpClient.kt`
 - `/home/ulalax/project/kairos/kfc/src/main/kotlin/dev/kairoscode/kfc/infrastructure/krx/KrxStockApiImpl.kt`
@@ -963,17 +894,17 @@ API 레이어의 동작을 검증합니다. 테스트 코드가 **API 문서**�
 
 ### C. API 엔드포인트 매핑
 
-| 기능 | KRX API bld | pykrx 함수 | IndexApi 메서드 |
-|------|-------------|-----------|-----------------|
-| 지수 목록 | `MDCSTAT00201` | `get_index_ticker_list()` | `getIndexList()` |
-| 지수명 | `MDCSTAT00201` | `get_index_ticker_name()` | `getIndexName()` |
-| 구성 종목 | `MDCSTAT00401` | `get_index_portfolio_deposit_file()` | `getIndexConstituents()` |
-| OHLCV (기간별) | `MDCSTAT00101` | `get_index_ohlcv_by_date()` | `getOhlcvByDate()` |
-| OHLCV (전체) | `MDCSTAT00301` | `get_index_ohlcv_by_ticker()` | `getOhlcvByTicker()` |
-| 밸류에이션 (기간별) | `MDCSTAT00601` | `get_index_fundamental_by_date()` | `getFundamentalByDate()` |
-| 밸류에이션 (전체) | `MDCSTAT00701` | `get_index_fundamental_by_ticker()` | `getFundamentalByTicker()` |
-| 등락률 | `MDCSTAT00501` | `get_index_price_change_by_ticker()` | `getPriceChange()` |
-| 기본정보 | `MDCSTAT00201` | `get_index_listing_date()` | `getIndexInfo()` |
+| 기능 | KRX API bld | pykrx 클래스 | IndexApi 메서드 |
+|------|-------------|-------------|-----------------|
+| 지수 목록 | `MDCSTAT00401` | 전체지수기본정보 | `getIndexList()` |
+| 지수명 | `MDCSTAT00401` | 전체지수기본정보 | `getIndexName()` |
+| 구성 종목 | `MDCSTAT00601` | 지수구성종목 | `getIndexConstituents()` |
+| OHLCV (기간별) | `MDCSTAT00301` | 개별지수시세 | `getOhlcvByDate()` |
+| OHLCV (전체) | `MDCSTAT00101` | 전체지수시세 | `getOhlcvByTicker()` |
+| 밸류에이션 (기간별) | `MDCSTAT00702` | PER_PBR_배당수익률_개별지수 | `getFundamentalByDate()` |
+| 밸류에이션 (전체) | `MDCSTAT00701` | PER_PBR_배당수익률_전지수 | `getFundamentalByTicker()` |
+| 등락률 | `MDCSTAT00201` | 전체지수등락률 | `getPriceChange()` |
+| 기본정보 | `MDCSTAT00401` | 전체지수기본정보 | `getIndexInfo()` |
 
 ### D. 응답 필드 매핑
 

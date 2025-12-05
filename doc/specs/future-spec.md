@@ -15,8 +15,9 @@
 5. [인프라 레이어 설계](#5-인프라-레이어-설계)
 6. [구현 우선순위](#6-구현-우선순위)
 7. [예외 처리](#7-예외-처리)
-8. [테스트 전략](#8-테스트-전략)
-9. [참고 자료](#9-참고-자료)
+8. [참고 자료](#8-참고-자료)
+
+> **Note**: BLD 코드는 pykrx 소스 코드 (`pykrx/stock/future_api.py`, `pykrx/website/krx/future/core.py`)를 기준으로 검증되었습니다. 티커 목록은 컴포넌트 API(`drv_prod_clss`)를, OHLCV는 `MDCSTAT12501`을 사용합니다.
 
 ---
 
@@ -136,36 +137,36 @@ bld=dbms/MDC/STAT/standard/MDCSTAT40301&locale=ko_KR&trdDd=20220902&prodId=KRDRV
 
 #### 2.1.4. 주요 API 엔드포인트
 
-##### A. 선물 티커 목록 (MDCSTAT40001)
+##### A. 선물 티커 목록 (drv_prod_clss)
 
 | 항목 | 내용 |
 |------|------|
-| **bld** | `dbms/MDC/STAT/standard/MDCSTAT40001` |
+| **bld** | `dbms/comm/component/drv_prod_clss` |
 | **용도** | 거래 가능한 선물 종목 티커 목록 조회 |
-| **요청 파라미터** | `locale=ko_KR` |
-| **응답 필드** | `prodId`, `한글종목명` |
+| **요청 파라미터** | `secugrpId=ALL` |
+| **응답 필드** | `value` (상품 ID), `name` (상품명) |
 
 **요청 예시**:
 ```
-bld=dbms/MDC/STAT/standard/MDCSTAT40001
-locale=ko_KR
+bld=dbms/comm/component/drv_prod_clss
+secugrpId=ALL
 ```
 
 **응답 예시**:
 ```json
 {
-  "OutBlock_1": [
+  "output": [
     {
-      "prodId": "KRDRVFUK2I",
-      "한글종목명": "코스피200 선물"
+      "value": "KRDRVFUK2I",
+      "name": "코스피200 선물"
     },
     {
-      "prodId": "KRDRVFUMKI",
-      "한글종목명": "미니 코스피200 선물"
+      "value": "KRDRVFUMKI",
+      "name": "미니 코스피200 선물"
     },
     {
-      "prodId": "KRDRVFUEST",
-      "한글종목명": "EURO STOXX50 선물"
+      "value": "KRDRVFUEST",
+      "name": "EURO STOXX50 선물"
     }
   ]
 }
@@ -175,32 +176,33 @@ locale=ko_KR
 
 | 필드명 | 타입 | 설명 | 예시 |
 |-------|------|------|------|
-| `prodId` | STRING | 상품 ID (선물 티커) | `KRDRVFUK2I` |
-| `한글종목명` | STRING | 선물 상품 한글명 | `코스피200 선물` |
+| `value` | STRING | 상품 ID (선물 티커) | `KRDRVFUK2I` |
+| `name` | STRING | 선물 상품명 | `코스피200 선물` |
 
-##### B. 선물 OHLCV (MDCSTAT40301)
+##### B. 선물 OHLCV (MDCSTAT12501)
 
 | 항목 | 내용 |
 |------|------|
-| **bld** | `dbms/MDC/STAT/standard/MDCSTAT40301` |
+| **bld** | `dbms/MDC/STAT/standard/MDCSTAT12501` |
 | **용도** | 특정 일자의 특정 선물 상품 전종목(만기별) OHLCV 조회 |
-| **요청 파라미터** | `trdDd` (YYYYMMDD), `prodId` (선물 티커) |
-| **응답 필드** | `ISU_CD`, `ISU_NM`, `TDD_OPNPRC`, `TDD_HGPRC`, `TDD_LWPRC`, `TDD_CLSPRC`, `ACC_TRDVOL`, `ACC_TRDVAL`, `FLUC_RT` |
+| **요청 파라미터** | `trdDd` (YYYYMMDD), `prodId` (선물 티커), `mktTpCd=T`, `rghtTpCd=T` |
+| **응답 필드** | `ISU_SRT_CD`, `ISU_NM`, `TDD_OPNPRC`, `TDD_HGPRC`, `TDD_LWPRC`, `TDD_CLSPRC`, `ACC_TRDVOL`, `ACC_TRDVAL`, `FLUC_TP_CD` |
 
 **요청 예시**:
 ```
-bld=dbms/MDC/STAT/standard/MDCSTAT40301
-locale=ko_KR
+bld=dbms/MDC/STAT/standard/MDCSTAT12501
 trdDd=20220902
 prodId=KRDRVFUEST
+mktTpCd=T
+rghtTpCd=T
 ```
 
 **응답 예시**:
 ```json
 {
-  "OutBlock_1": [
+  "output": [
     {
-      "ISU_CD": "KRDRVFUEST202212",
+      "ISU_SRT_CD": "EST202212",
       "ISU_NM": "EURO STOXX50 선물 2022/12",
       "TDD_OPNPRC": "3565.00",
       "TDD_HGPRC": "3565.00",
@@ -208,12 +210,11 @@ prodId=KRDRVFUEST
       "TDD_CLSPRC": "3555.00",
       "CMPPREVDD_PRC": "15.00",
       "FLUC_TP_CD": "1",
-      "FLUC_RT": "0.42",
       "ACC_TRDVOL": "85",
       "ACC_TRDVAL": "3022250000"
     },
     {
-      "ISU_CD": "KRDRVFUEST202303",
+      "ISU_SRT_CD": "EST202303",
       "ISU_NM": "EURO STOXX50 선물 2023/03",
       "TDD_OPNPRC": "3570.00",
       "TDD_HGPRC": "3570.00",
@@ -221,7 +222,6 @@ prodId=KRDRVFUEST
       "TDD_CLSPRC": "3560.00",
       "CMPPREVDD_PRC": "20.00",
       "FLUC_TP_CD": "1",
-      "FLUC_RT": "0.56",
       "ACC_TRDVOL": "12",
       "ACC_TRDVAL": "427800000"
     }
@@ -233,7 +233,7 @@ prodId=KRDRVFUEST
 
 | 필드명 | 타입 | 설명 | 예시 |
 |-------|------|------|------|
-| `ISU_CD` | STRING | 종목 코드 (만기 포함) | `KRDRVFUEST202212` |
+| `ISU_SRT_CD` | STRING | 종목 단축 코드 (만기 포함) | `EST202212` |
 | `ISU_NM` | STRING | 종목명 (만기 포함) | `EURO STOXX50 선물 2022/12` |
 | `TDD_OPNPRC` | STRING | 시가 (소수점, 콤마 포함) | `3565.00` |
 | `TDD_HGPRC` | STRING | 고가 | `3565.00` |
@@ -241,7 +241,6 @@ prodId=KRDRVFUEST
 | `TDD_CLSPRC` | STRING | 종가 | `3555.00` |
 | `CMPPREVDD_PRC` | STRING | 전일대비 가격 | `15.00` |
 | `FLUC_TP_CD` | STRING | 등락 구분 (1:상승, 2:하락, 3:보합) | `1` |
-| `FLUC_RT` | STRING | 등락률 (%) | `0.42` |
 | `ACC_TRDVOL` | STRING | 거래량 (계약 수) | `85` |
 | `ACC_TRDVAL` | STRING | 거래대금 (원) | `3022250000` |
 
@@ -471,8 +470,8 @@ KRX API를 호출하여 선물 데이터를 조회하는 인프라 레이어 구
 
 | 기능 | bld 경로 | 파라미터 | 응답 필드 |
 |------|---------|---------|----------|
-| 티커 목록 | `MDCSTAT40001` | `locale` | `prodId`, `한글종목명` |
-| OHLCV | `MDCSTAT40301` | `trdDd`, `prodId`, `locale` | `ISU_CD`, `ISU_NM`, `TDD_OPNPRC`, `TDD_HGPRC`, `TDD_LWPRC`, `TDD_CLSPRC`, `ACC_TRDVOL`, `ACC_TRDVAL`, `FLUC_RT` |
+| 티커 목록 | `drv_prod_clss` | `secugrpId=ALL` | `value`, `name` |
+| OHLCV | `MDCSTAT12501` | `trdDd`, `prodId`, `mktTpCd`, `rghtTpCd` | `ISU_SRT_CD`, `ISU_NM`, `TDD_OPNPRC`, `TDD_HGPRC`, `TDD_LWPRC`, `TDD_CLSPRC`, `ACC_TRDVOL`, `ACC_TRDVAL`, `FLUC_TP_CD` |
 
 ### 5.4. 데이터 변환 패턴
 
@@ -490,8 +489,8 @@ KRX API를 호출하여 선물 데이터를 조회하는 인프라 레이어 구
 
 | API | 응답 블록 키 | 데이터 형식 |
 |-----|------------|-----------|
-| MDCSTAT40001 | `OutBlock_1` | List (선물 티커 목록) |
-| MDCSTAT40301 | `OutBlock_1` | List (OHLCV 데이터) |
+| drv_prod_clss | `output` | List (선물 티커 목록) |
+| MDCSTAT12501 | `output` | List (OHLCV 데이터) |
 
 ### 5.5. Rate Limiting
 
@@ -573,100 +572,26 @@ KRX API를 호출하여 선물 데이터를 조회하는 인프라 레이어 구
 
 ---
 
-## 8. 테스트 전략
+## 8. 참고 자료
 
-[아키텍처 가이드](/home/ulalax/project/kairos/kfc/doc/archtecture-guide.md) 기준을 따릅니다.
-
-### 8.1. 단위 테스트 (Unit Test)
-
-도메인 모델의 비즈니스 규칙을 검증합니다. 테스트 코드가 **스펙 문서**처럼 읽혀야 합니다.
-
-#### 테스트 시나리오
-
-| 카테고리 | 시나리오 |
-|---------|---------|
-| **FutureProduct** | 상품 ID와 이름이 올바르게 저장됨 |
-| **FutureOhlcv** | 시가/고가/저가/종가 관계 검증 (low ≤ open/close ≤ high) |
-| | 등락 여부 판별 (`isRising()`, `isFalling()`) |
-| | 종목 코드에서 만기일 추출 가능 |
-| **헬퍼 함수** | 리스트 거래량 순 정렬 |
-| | 특정 상품으로 필터링 |
-
-### 8.2. 통합 테스트 (Integration Test)
-
-API 레이어의 동작을 검증합니다. 테스트 코드가 **API 문서**처럼 읽혀야 합니다.
-
-#### 테스트 카테고리
-
-**1. 기본 동작 (Basic Operations)**
-- 선물 티커 목록 조회 시 1개 이상 반환
-- 코스피200 선물(`KRDRVFUK2I`) 이름 조회 성공
-- 특정 일자/상품의 OHLCV 조회 성공
-
-**2. 응답 데이터 검증 (Response Validation)**
-- 선물 티커는 `KRDRVFU` 접두사로 시작
-- OHLCV의 시가/고가/저가/종가는 양수
-- 거래량은 0 이상
-- 저가 ≤ 시가 ≤ 고가, 저가 ≤ 종가 ≤ 고가
-
-**3. 입력 파라미터 검증 (Input Validation)**
-- 날짜 파라미터 미지정 시 오늘 날짜 사용
-- `alternative=true` 설정 시 휴장일에도 데이터 반환
-- `previousBusiness=false` 설정 시 다음 영업일 데이터 반환
-
-**4. 엣지 케이스 (Edge Cases)**
-- 존재하지 않는 상품 ID 조회 시 빈 리스트 반환
-- 휴장일 데이터 조회 시 (`alternative=false`) 빈 리스트
-- 과거 데이터 조회 시 상장폐지된 만기 종목 포함 가능
-
-**5. 실무 활용 예제 (Usage Examples)**
-- 전체 선물 상품의 당일 OHLCV 일괄 조회
-- 거래량 상위 N개 종목 필터링
-- 특정 상품의 만기별 종목 비교
-
-### 8.3. 테스트 데이터
-
-- Fake 객체 우선 사용 (Mock 프레임워크 최소화)
-- 의미 있는 테스트 데이터: `kospi200_future`, `euro_stoxx50_future` 등
-- 실제 KRX 응답을 JSON 파일로 저장하여 재사용
-
-### 8.4. 테스트 파일 구조
-
-**위치**: `src/integrationTest/kotlin/dev/kairoscode/kfc/api/FutureApiIntegrationTest.kt`
-
-**구조**:
-
-| 레벨 | 항목 | 설명 |
-|------|------|------|
-| Top | `FutureApiIntegrationTest` | 최상위 테스트 클래스 |
-| Nested | `1. 기본 동작` | 기본 기능 검증 (티커 목록, 선물명, OHLCV 조회) |
-| Nested | `2. 응답 데이터 검증` | 응답 필드 유효성 검증 (가격, 거래량, 티커 형식) |
-| Nested | `3. 입력 파라미터 검증` | 파라미터 처리 검증 (기본값, alternative, previousBusiness) |
-| Nested | `4. 엣지 케이스` | 예외 상황 검증 (잘못된 ID, 휴장일, 과거 데이터) |
-| Nested | `5. 실무 활용 예제` | 실무 시나리오 검증 (일괄 조회, 필터링, 정렬) |
-
----
-
-## 9. 참고 자료
-
-### 9.1. 공식 문서
+### 8.1. 공식 문서
 
 - [KRX 정보데이터시스템](https://data.krx.co.kr)
 - [KRX 파생상품 시장정보](https://data.krx.co.kr/contents/MDC/MDI/mdiLoader/index.cmd?menuId=MDC0201020402)
 
-### 9.2. 오픈소스 라이브러리
+### 8.2. 오픈소스 라이브러리
 
 - [pykrx](https://github.com/sharebook-kr/pykrx) - Python KRX API 래퍼
 - [pykrx future_api.py](https://github.com/sharebook-kr/pykrx/blob/master/pykrx/stock/future_api.py) - 선물 API 참고 구현
 
-### 9.3. 내부 문서
+### 8.3. 내부 문서
 
 - [아키텍처 가이드](/home/ulalax/project/kairos/kfc/doc/archtecture-guide.md)
 - [pykrx Gap 분석](/home/ulalax/project/kairos/kfc/doc/pykrx-gap-analysis.md)
 - [Stock 기술명세서](/home/ulalax/project/kairos/kfc/doc/specs/stock-기술명세서.md)
 - [KFC README.md](/home/ulalax/project/kairos/kfc/README.md)
 
-### 9.4. 기존 구현체 참고
+### 8.4. 기존 구현체 참고
 
 - `/home/ulalax/project/kairos/kfc/src/main/kotlin/dev/kairoscode/kfc/infrastructure/krx/KrxHttpClient.kt`
 - `/home/ulalax/project/kairos/kfc/src/main/kotlin/dev/kairoscode/kfc/infrastructure/krx/KrxStockApiImpl.kt`
@@ -693,8 +618,8 @@ API 레이어의 동작을 검증합니다. 테스트 코드가 **API 문서**�
 
 | 기능 | bld | 요청 파라미터 | 응답 필드 (주요) |
 |------|-----|-------------|----------------|
-| 티커 목록 | `MDCSTAT40001` | `locale` | `prodId`, `한글종목명` |
-| OHLCV | `MDCSTAT40301` | `trdDd`, `prodId`, `locale` | `ISU_CD`, `ISU_NM`, `TDD_OPNPRC`, `TDD_HGPRC`, `TDD_LWPRC`, `TDD_CLSPRC`, `ACC_TRDVOL` |
+| 티커 목록 | `drv_prod_clss` | `secugrpId=ALL` | `value`, `name` |
+| OHLCV | `MDCSTAT12501` | `trdDd`, `prodId`, `mktTpCd`, `rghtTpCd` | `ISU_SRT_CD`, `ISU_NM`, `TDD_OPNPRC`, `TDD_HGPRC`, `TDD_LWPRC`, `TDD_CLSPRC`, `ACC_TRDVOL` |
 
 ### C. HTTP 헤더 매핑
 
@@ -724,8 +649,7 @@ API 레이어의 동작을 검증합니다. 테스트 코드가 **API 문서**�
 - pykrx `future_api.py` 기능 동등성 확보
 - 도메인 모델: `FutureProduct`, `FutureOhlcv`
 - API 메서드: `getFutureTickerList`, `getFutureName`, `getOhlcvByTicker`
-- KRX API 엔드포인트 문서화 (MDCSTAT40001, MDCSTAT40301)
-- 테스트 전략: 5개 카테고리 정의
+- KRX API 엔드포인트 문서화 (drv_prod_clss, MDCSTAT12501)
 - 예상 공수: 2.5일 (MVP)
 
 ---

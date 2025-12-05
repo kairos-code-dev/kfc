@@ -16,8 +16,7 @@
 5. [인프라 레이어 설계](#5-인프라-레이어-설계)
 6. [구현 우선순위](#6-구현-우선순위)
 7. [예외 처리](#7-예외-처리)
-8. [테스트 전략](#8-테스트-전략)
-9. [참고 자료](#9-참고-자료)
+8. [참고 자료](#8-참고-자료)
 
 ---
 
@@ -1131,169 +1130,29 @@ try {
 
 ---
 
-## 8. 테스트 전략
+## 8. 참고 자료
 
-### 8.1. 단위 테스트 (Unit Test)
-
-#### 8.1.1. 테스트 대상
-
-| 테스트 클래스 | 테스트 대상 | 테스트 수 |
-|-------------|------------|----------|
-| `StockListItemTest` | 도메인 모델 생성 및 검증 | 3 |
-| `StockInfoTest` | 종목 기본정보 모델 | 3 |
-| `StockSectorInfoTest` | 섹터 정보 모델 및 헬퍼 함수 | 4 |
-| `IndustryClassificationTest` | 산업 분류 모델 | 3 |
-| `MarketEnumTest` | Enum 클래스 검증 | 2 |
-| `StockApiImplTest` | API 레이어 로직 | 5 |
-| **합계** | | **20** |
-
-**변경 사항**: 파서/매퍼 테스트 제거 (단순화)
-
-#### 8.1.2. Mock 데이터
-
-실제 KRX API 응답을 기반으로 Mock JSON 파일 작성:
-
-```
-src/test/resources/
-└── responses/
-    └── stock/
-        ├── listed_stocks_kospi.json
-        ├── listed_stocks_kosdaq.json
-        ├── delisted_stocks.json
-        ├── sector_classifications_kospi_20241204.json
-        └── empty_response.json
-```
-
-**Mock 데이터 예시** (`listed_stocks_kospi.json`):
-```json
-{
-  "block1": [
-    {
-      "full_code": "KR7005930003",
-      "short_code": "005930",
-      "codeName": "삼성전자",
-      "marketCode": "STK",
-      "marketName": "코스피"
-    },
-    {
-      "full_code": "KR7000660001",
-      "short_code": "000660",
-      "codeName": "SK하이닉스",
-      "marketCode": "STK",
-      "marketName": "코스피"
-    }
-  ]
-}
-```
-
-**Mock 데이터 예시** (`sector_classifications_kospi_20241204.json`):
-```json
-{
-  "OutBlock_1": [
-    {
-      "ISU_SRT_CD": "005930",
-      "ISU_ABBRV": "삼성전자",
-      "IDX_IND_NM": "전기전자",
-      "TDD_CLSPRC": "71,500",
-      "MKTCAP": "426,789,000,000,000",
-      "FLUC_TP_CD": "2"
-    }
-  ]
-}
-```
-
-### 8.2. 통합 테스트 (Integration Test)
-
-#### 8.2.1. 테스트 시나리오
-
-| 시나리오 | 검증 항목 | API 호출 |
-|---------|----------|----------|
-| 코스피 종목 리스트 조회 | 종목 수 > 0, 종목 코드 형식 검증 | 1회 |
-| 업종분류 현황 조회 | 산업명 존재, 시가총액 > 0 | 1회 |
-| 종목 검색 | 키워드 부분 일치 검증 | 1회 |
-| 산업별 그룹화 | 그룹 수 > 0, 종목 수 합계 검증 | 1회 |
-| 에러 처리 | 잘못된 파라미터로 예외 발생 | 1회 |
-
-### 8.3. Live 테스트 (Live Test)
-
-실제 KRX API를 호출하는 테스트:
-
-```kotlin
-class StockLiveTest {
-    @Test
-    fun `코스피 전체 종목 리스트 조회`() = runBlocking {
-        val kfc = KfcClient.create()
-
-        val stocks = kfc.stock.getStockList(market = Market.KOSPI)
-
-        assertNotNull(stocks)
-        assertTrue(stocks.isNotEmpty())
-        assertTrue(stocks.size > 700)  // 코스피 종목 수
-        assertTrue(stocks.all { it.ticker.length == 6 })
-    }
-
-    @Test
-    fun `삼성전자 기본정보 조회`() = runBlocking {
-        val kfc = KfcClient.create()
-
-        val info = kfc.stock.getStockInfo("005930")
-
-        assertNotNull(info)
-        assertEquals("삼성전자", info.name)
-        assertEquals("KR7005930003", info.isin)
-        assertEquals(Market.KOSPI, info.market)
-    }
-
-    @Test
-    fun `업종분류 현황 조회`() = runBlocking {
-        val kfc = KfcClient.create()
-
-        val sectors = kfc.stock.getSectorClassifications(
-            date = LocalDate.now().minusDays(1),
-            market = Market.KOSPI
-        )
-
-        assertNotNull(sectors)
-        assertTrue(sectors.isNotEmpty())
-        assertTrue(sectors.all { it.industry.isNotBlank() })
-    }
-}
-```
-
-### 8.4. 테스트 커버리지 목표
-
-| 항목 | 목표 |
-|------|------|
-| 전체 코드 커버리지 | 80% 이상 |
-| 도메인 모델 | 90% 이상 |
-| 인프라 레이어 | 80% 이상 |
-| API 레이어 | 90% 이상 |
-
----
-
-## 9. 참고 자료
-
-### 9.1. 공식 문서
+### 8.1. 공식 문서
 
 - [KRX 정보데이터시스템](https://data.krx.co.kr)
 - [KRX 상장종목 검색](https://data.krx.co.kr/comm/finder/finder_stkisu.jsp)
 
-### 9.2. 오픈소스 라이브러리
+### 8.2. 오픈소스 라이브러리
 
 - [pykrx](https://github.com/sharebook-kr/pykrx) - Python KRX API 래퍼
 - [pykrx 문서](https://github.com/sharebook-kr/pykrx/wiki)
 
-### 9.3. 기술 블로그
+### 8.3. 기술 블로그
 
 - [파이썬으로 주식 데이터 수집하기 (pykrx)](https://wikidocs.net/153861)
 
-### 9.4. 내부 문서
+### 8.4. 내부 문서
 
 - [네임스페이스 표준](/home/ulalax/project/kairos/kfc/doc/네임스페이스.md)
 - [financials 기술명세서](/home/ulalax/project/kairos/kfc/doc/financials-기술명세서.md)
 - [KFC README.md](/home/ulalax/project/kairos/kfc/README.md)
 
-### 9.5. 기존 구현체 참고
+### 8.5. 기존 구현체 참고
 
 - `/home/ulalax/project/kairos/kfc/src/main/kotlin/dev/kairoscode/kfc/infrastructure/krx/KrxHttpClient.kt`
 - `/home/ulalax/project/kairos/kfc/src/main/kotlin/dev/kairoscode/kfc/infrastructure/krx/KrxFundsApiImpl.kt`
