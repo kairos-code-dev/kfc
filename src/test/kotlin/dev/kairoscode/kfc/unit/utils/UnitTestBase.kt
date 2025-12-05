@@ -110,10 +110,24 @@ abstract class UnitTestBase {
             override suspend fun getBondYields(bondType: dev.kairoscode.kfc.domain.bond.BondType, fromDate: LocalDate, toDate: LocalDate) = emptyList<dev.kairoscode.kfc.domain.bond.BondYield>()
         }
 
+        // Dummy FutureApi
         val dummyFutureApi = object : FutureApi {
             override suspend fun getFutureTickerList() = emptyList<dev.kairoscode.kfc.domain.future.FutureProduct>()
             override suspend fun getFutureName(productId: String) = null
             override suspend fun getOhlcvByTicker(date: LocalDate, productId: String, alternative: Boolean, previousBusiness: Boolean) = emptyList<dev.kairoscode.kfc.domain.future.FutureOhlcv>()
+        }
+
+        // Dummy IndexApi
+        val dummyIndexApi = object : dev.kairoscode.kfc.api.IndexApi {
+            override suspend fun getIndexList(market: dev.kairoscode.kfc.domain.index.IndexMarket) = emptyList<dev.kairoscode.kfc.domain.index.IndexInfo>()
+            override suspend fun getIndexName(ticker: String) = null
+            override suspend fun getIndexInfo(ticker: String) = null
+            override suspend fun getIndexConstituents(ticker: String, date: LocalDate) = emptyList<String>()
+            override suspend fun getOhlcvByDate(ticker: String, fromDate: LocalDate, toDate: LocalDate) = emptyList<dev.kairoscode.kfc.domain.index.IndexOhlcv>()
+            override suspend fun getOhlcvByTicker(date: LocalDate, market: dev.kairoscode.kfc.domain.index.IndexMarket) = emptyList<dev.kairoscode.kfc.domain.index.IndexOhlcvSnapshot>()
+            override suspend fun getFundamentalByDate(ticker: String, fromDate: LocalDate, toDate: LocalDate) = emptyList<dev.kairoscode.kfc.domain.index.IndexFundamental>()
+            override suspend fun getFundamentalByTicker(date: LocalDate, market: dev.kairoscode.kfc.domain.index.IndexMarket) = emptyList<dev.kairoscode.kfc.domain.index.IndexFundamentalSnapshot>()
+            override suspend fun getPriceChange(fromDate: LocalDate, toDate: LocalDate, market: dev.kairoscode.kfc.domain.index.IndexMarket) = emptyList<dev.kairoscode.kfc.domain.index.IndexPriceChange>()
         }
 
         client = KfcClient(
@@ -122,6 +136,7 @@ abstract class UnitTestBase {
             stock = dummyStockApi,
             bond = dummyBondApi,
             future = fakeFutureApi ?: dummyFutureApi,
+            index = dummyIndexApi,
             corp = fakeCorpApi,
             financials = fakeFinancialsApi
         )

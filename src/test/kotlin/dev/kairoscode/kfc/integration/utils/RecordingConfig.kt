@@ -194,6 +194,23 @@ object RecordingConfig {
         }
 
         // ========================================
+        // Index API 네임스페이스
+        // ========================================
+
+        /**
+         * 지수 정보 API
+         */
+        object Index {
+            const val BASE = "index"
+            const val LIST = "$BASE/list"
+            const val INFO = "$BASE/info"
+            const val OHLCV = "$BASE/ohlcv"
+            const val FUNDAMENTAL = "$BASE/fundamental"
+            const val CONSTITUENTS = "$BASE/constituents"
+            const val PRICE_CHANGE = "$BASE/price_change"
+        }
+
+        // ========================================
         // 공통
         // ========================================
 
