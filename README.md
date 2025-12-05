@@ -1,9 +1,9 @@
-# KFC (Korea Financial Client)
+# KFC (Korea Free Financial Data Collector)
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.0+-7F52FF.svg?logo=kotlin)](https://kotlinlang.org)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-**한국 금융 데이터를 위한 Kotlin 라이브러리**
+**한국 금융 데이터 수집을 위한 Kotlin 라이브러리**
 
 KFC는 [pykrx](https://github.com/sharebook-kr/pykrx)에서 영감을 받아 만들어진 Kotlin 기반의 한국 금융 데이터 라이브러리입니다. KRX(한국거래소)와 OPENDART의 데이터를 Kotlin/JVM 환경에서 쉽고 안전하게 조회할 수 있습니다.
 
