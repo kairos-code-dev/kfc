@@ -6,28 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="016e1f85-4a44-41b8-a348-827de419e3a3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/archtecture-guide.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/archtecture-guide.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/corp/CorpApiCodeSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/corp/CorpApiCodeSpec.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/corp/CorpApiDisclosureSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/corp/CorpApiDisclosureSpec.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/corp/CorpApiDividendSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/corp/CorpApiDividendSpec.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/corp/CorpApiStockSplitSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/corp/CorpApiStockSplitSpec.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/financials/FinancialsApiAllSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/financials/FinancialsApiAllSpec.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/financials/FinancialsApiBalanceSheetSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/financials/FinancialsApiBalanceSheetSpec.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/financials/FinancialsApiCashFlowSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/financials/FinancialsApiCashFlowSpec.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/financials/FinancialsApiIncomeStatementSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/financials/FinancialsApiIncomeStatementSpec.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiDetailedInfoSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiDetailedInfoSpec.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiGeneralInfoSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiGeneralInfoSpec.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiGetListSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiGetListSpec.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiInvestorTradingSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiInvestorTradingSpec.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiPerformanceSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiPerformanceSpec.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiPortfolioSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiPortfolioSpec.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiPortfolioTop10Spec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiPortfolioTop10Spec.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiShortSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiShortSpec.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/price/PriceApiIntradaySpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/price/PriceApiIntradaySpec.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/price/PriceApiRecentDailySpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/price/PriceApiRecentDailySpec.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/stock/StockApiIntegrationTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/utils/IntegrationTestBase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/utils/IntegrationTestBase.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/stock/StockApiSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/stock/StockApiSpec.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -384,7 +363,7 @@
       <workItem from="1764633819038" duration="10152000" />
       <workItem from="1764653565745" duration="24481000" />
       <workItem from="1764812007559" duration="916000" />
-      <workItem from="1764812922798" duration="20778000" />
+      <workItem from="1764812922798" duration="23436000" />
     </task>
     <servers />
   </component>
