@@ -168,6 +168,19 @@ object RecordingConfig {
         }
 
         // ========================================
+        // Bond API 네임스페이스
+        // ========================================
+
+        /**
+         * 채권 수익률 정보 API
+         */
+        object Bond {
+            const val BASE = "bond"
+            const val YIELDS = "$BASE/yields"
+            const val SNAPSHOT = "$BASE/snapshot"
+        }
+
+        // ========================================
         // 공통
         // ========================================
 

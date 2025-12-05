@@ -184,4 +184,16 @@ internal object KrxApiFields {
         const val MARKET_CODE = "marketCode"   // 시장 코드 (예: STK, KSQ, KNX)
         const val MARKET_NAME = "marketName"   // 시장명 (예: 코스피, 코스닥)
     }
+
+    /**
+     * 채권 수익률 정보 (Bond API용)
+     *
+     * MDCSTAT04301 (특정일 조회), MDCSTAT04302 (기간별 조회) 응답에서 사용되는 필드명
+     */
+    object Bond {
+        const val KIND_NAME = "BND_KIND_TP_NM"  // 채권 종류명 (예: 국고채 1년)
+        const val YIELD = "BND_SRTN_YILD"       // 수익률 (%)
+        const val CHANGE = "DIFF"                // 전일 대비 변동폭 (bp)
+        const val TRADE_DATE = "TRD_DD"         // 거래일 (YYYY/MM/DD)
+    }
 }

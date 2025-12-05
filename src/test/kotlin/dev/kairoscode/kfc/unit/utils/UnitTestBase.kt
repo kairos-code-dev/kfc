@@ -102,10 +102,17 @@ abstract class UnitTestBase {
             override suspend fun searchStocks(keyword: String, market: Market) = emptyList<dev.kairoscode.kfc.domain.stock.StockListItem>()
         }
 
+        // Dummy BondApi
+        val dummyBondApi = object : dev.kairoscode.kfc.api.BondApi {
+            override suspend fun getBondYieldsByDate(date: LocalDate) = dev.kairoscode.kfc.domain.bond.BondYieldSnapshot(date, emptyList())
+            override suspend fun getBondYields(bondType: dev.kairoscode.kfc.domain.bond.BondType, fromDate: LocalDate, toDate: LocalDate) = emptyList<dev.kairoscode.kfc.domain.bond.BondYield>()
+        }
+
         client = KfcClient(
             funds = fakeFundsApi ?: dummyFundsApi,
             price = fakePriceApi ?: dummyPriceApi,
             stock = dummyStockApi,
+            bond = dummyBondApi,
             corp = fakeCorpApi,
             financials = fakeFinancialsApi
         )
