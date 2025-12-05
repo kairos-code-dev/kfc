@@ -4,7 +4,8 @@ import dev.kairoscode.kfc.domain.stock.*
 import dev.kairoscode.kfc.infrastructure.common.ratelimit.GlobalRateLimiters
 import dev.kairoscode.kfc.infrastructure.common.ratelimit.RateLimiter
 import dev.kairoscode.kfc.infrastructure.common.util.*
-import dev.kairoscode.kfc.infrastructure.krx.internal.*
+import dev.kairoscode.kfc.infrastructure.krx.internal.KrxApiFields
+import dev.kairoscode.kfc.infrastructure.krx.internal.checkForErrors
 import io.github.oshai.kotlinlogging.KotlinLogging
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -12,7 +13,7 @@ import java.time.format.DateTimeFormatter
 private val logger = KotlinLogging.logger {}
 
 /**
- * KRX 주식 종목 정보 API 구현체
+ * KRX Stock API 구현체
  *
  * KrxStockApi 인터페이스의 내부 구현입니다.
  * HTTP 클라이언트를 사용하여 실제 KRX API와 통신합니다.
@@ -88,7 +89,7 @@ internal class KrxStockApiImpl(
         val response = httpClient.post(BASE_URL, parameters)
         response.checkForErrors()
 
-        // "block1" 필드 추출 (KRX MDCSTAT03901 응답은 block1 사용)
+        // "block1" 필드 추출 (KRX API 실제 응답 구조)
         val output = (response["block1"] as? List<*>)?.filterIsInstance<Map<String, Any?>>() ?: emptyList()
 
         return output.map { raw ->
@@ -97,44 +98,20 @@ internal class KrxStockApiImpl(
                 name = raw.getString(KrxApiFields.Identity.NAME_SHORT),
                 market = market,
                 industry = raw.getString(KrxApiFields.Index.NAME),
-                closePrice = raw.getString(KrxApiFields.Price.CLOSE)
-                    .replace(",", "").toLongOrNull(),
-                marketCap = raw.getString(KrxApiFields.Asset.MARKET_CAP)
-                    .replace(",", "").toLongOrNull(),
-                priceChangeType = raw.getString(KrxApiFields.PriceChange.DIRECTION).toPriceChangeType()
+                closePrice = raw.getStringOrNull(KrxApiFields.Price.CLOSE)
+                    ?.replace(",", "")?.toLongOrNull(),
+                marketCap = raw.getStringOrNull(KrxApiFields.Asset.MARKET_CAP)
+                    ?.replace(",", "")?.toLongOrNull(),
+                priceChangeType = raw.getStringOrNull(KrxApiFields.PriceChange.DIRECTION)
+                    ?.let { PriceChangeType.fromCode(it) }
             )
         }.also { logger.debug { "Fetched ${it.size} sector classifications" } }
     }
 }
 
 /**
- * String → Market Enum 변환
- *
- * KRX API 시장 코드를 Market enum으로 변환합니다.
- *
- * @return Market enum
+ * String 확장 함수: KRX 시장 코드를 Market Enum으로 변환
  */
 private fun String.toMarket(): Market {
-    return when (this) {
-        "STK" -> Market.KOSPI
-        "KSQ" -> Market.KOSDAQ
-        "KNX" -> Market.KONEX
-        else -> Market.ALL
-    }
-}
-
-/**
- * String → PriceChangeType Enum 변환
- *
- * KRX API 등락 구분 코드를 PriceChangeType enum으로 변환합니다.
- *
- * @return PriceChangeType enum, 매칭 실패 시 null
- */
-private fun String.toPriceChangeType(): PriceChangeType? {
-    return when (this) {
-        "1" -> PriceChangeType.RISE
-        "2" -> PriceChangeType.FALL
-        "3" -> PriceChangeType.UNCHANGED
-        else -> null
-    }
+    return Market.fromCode(this)
 }

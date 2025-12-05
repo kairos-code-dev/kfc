@@ -42,7 +42,7 @@ import org.junit.jupiter.api.Assertions.*
  * - OPENDART API: https://opendart.fss.or.kr/
  * - 계정과목 매핑: src/main/kotlin/dev/kairoscode/kfc/domain/financials/
  */
-@DisplayName("[Financials] FinancialsApi - 재무제표 API")
+@DisplayName("[I][Financials] FinancialsApi - 재무제표 API")
 class FinancialsApiSpec : IntegrationTestBase() {
 
     // ============================================================================

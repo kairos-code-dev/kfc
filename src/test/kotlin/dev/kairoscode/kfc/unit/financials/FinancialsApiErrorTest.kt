@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
  *
  * @see FakeFinancialsApi
  */
-@DisplayName("FinancialsApi - 에러 핸들링")
+@DisplayName("[U][Financials] FinancialsApi - 에러 핸들링")
 class FinancialsApiErrorTest : UnitTestBase() {
 
     @Nested

@@ -21,7 +21,7 @@ import kotlin.math.abs
  * - 기능 그룹 2: 포트폴리오 API (2개 메서드, 17개 테스트)
  * - 기능 그룹 3: 거래 및 공매도 API (6개 메서드, 13개 테스트)
  */
-@DisplayName("[Funds] FundsApi - 펀드 API")
+@DisplayName("[I][Funds] FundsApi - 펀드 API")
 class FundsApiSpec : IntegrationTestBase() {
 
     // ========================================

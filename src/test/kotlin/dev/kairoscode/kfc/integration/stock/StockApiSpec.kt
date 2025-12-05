@@ -17,7 +17,7 @@ import java.time.LocalDate
  * KRX API를 사용한 주식 종목 정보 조회 기능을 검증합니다.
  * API 문서처럼 읽히도록 설계되었습니다.
  */
-@DisplayName("[Stock] StockApi - 주식 종목 정보 API")
+@DisplayName("[I][Stock] StockApi - 주식 종목 정보 API")
 class StockApiSpec : IntegrationTestBase() {
 
     @Nested

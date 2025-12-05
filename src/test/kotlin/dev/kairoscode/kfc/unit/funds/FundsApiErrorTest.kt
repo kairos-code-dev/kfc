@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
  *
  * @see FakeFundsApi
  */
-@DisplayName("FundsApi - 에러 핸들링")
+@DisplayName("[U][Funds] FundsApi - 에러 핸들링")
 class FundsApiErrorTest : UnitTestBase() {
 
     @Nested

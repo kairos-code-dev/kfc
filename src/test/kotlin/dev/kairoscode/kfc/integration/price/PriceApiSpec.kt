@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Assertions.*
  * - API Key 불필요 (네이버 금융 공개 데이터)
  * - KRX 공개 데이터 기반
  */
-@DisplayName("[Price] PriceApi - 가격 정보 API")
+@DisplayName("[I][Price] PriceApi - 가격 정보 API")
 class PriceApiSpec : IntegrationTestBase() {
 
     // ========================================

@@ -15,7 +15,7 @@ import java.time.LocalDate
  * KRX API를 사용한 지수 정보 조회 기능을 검증합니다.
  * API 문서처럼 읽히도록 설계되었습니다.
  */
-@DisplayName("[Index] IndexApi - 지수 정보 API")
+@DisplayName("[I][Index] IndexApi - 지수 정보 API")
 class IndexApiSpec : IntegrationTestBase() {
 
 

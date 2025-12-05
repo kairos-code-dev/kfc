@@ -19,7 +19,7 @@ import java.time.LocalDate
  * KRX API를 사용한 채권 수익률 조회 기능을 검증합니다.
  * API 문서처럼 읽히도록 설계되었습니다.
  */
-@DisplayName("[Bond] BondApi - 채권 수익률 API")
+@DisplayName("[I][Bond] BondApi - 채권 수익률 API")
 class BondApiSpec : IntegrationTestBase() {
 
     @Nested

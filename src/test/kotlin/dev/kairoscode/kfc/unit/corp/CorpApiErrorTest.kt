@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
  *
  * @see FakeCorpApi
  */
-@DisplayName("CorpApi - 에러 핸들링")
+@DisplayName("[U][Corp] CorpApi - 에러 핸들링")
 class CorpApiErrorTest : UnitTestBase() {
 
     @Nested

@@ -1,0 +1,18 @@
+{
+  "block1": [
+    {
+      "full_code": "KR7247540008",
+      "short_code": "247540",
+      "codeName": "에코프로비엠",
+      "marketCode": "KSQ",
+      "marketName": "코스닥"
+    },
+    {
+      "full_code": "KR7086520003",
+      "short_code": "086520",
+      "codeName": "에코프로",
+      "marketCode": "KSQ",
+      "marketName": "코스닥"
+    }
+  ]
+}

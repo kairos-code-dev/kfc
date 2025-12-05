@@ -19,7 +19,7 @@ import kotlin.time.Duration.Companion.seconds
  * KRX API를 사용한 선물 데이터 조회 기능을 검증합니다.
  * API 문서처럼 읽히도록 설계되었습니다.
  */
-@DisplayName("[Future] FutureApi - 선물 API")
+@DisplayName("[I][Future] FutureApi - 선물 API")
 class FutureApiSpec : IntegrationTestBase() {
 
     @Nested

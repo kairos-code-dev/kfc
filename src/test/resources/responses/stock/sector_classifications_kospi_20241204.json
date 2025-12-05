@@ -1,0 +1,28 @@
+{
+  "OutBlock_1": [
+    {
+      "ISU_SRT_CD": "005930",
+      "ISU_ABBRV": "삼성전자",
+      "IDX_IND_NM": "전기전자",
+      "TDD_CLSPRC": "71,500",
+      "MKTCAP": "426,789,000,000,000",
+      "FLUC_TP_CD": "2"
+    },
+    {
+      "ISU_SRT_CD": "000660",
+      "ISU_ABBRV": "SK하이닉스",
+      "IDX_IND_NM": "전기전자",
+      "TDD_CLSPRC": "185,000",
+      "MKTCAP": "134,689,000,000,000",
+      "FLUC_TP_CD": "1"
+    },
+    {
+      "ISU_SRT_CD": "035420",
+      "ISU_ABBRV": "NAVER",
+      "IDX_IND_NM": "서비스업",
+      "TDD_CLSPRC": "225,000",
+      "MKTCAP": "36,925,000,000,000",
+      "FLUC_TP_CD": "3"
+    }
+  ]
+}

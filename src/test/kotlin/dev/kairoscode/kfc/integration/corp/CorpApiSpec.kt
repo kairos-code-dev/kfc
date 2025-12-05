@@ -29,7 +29,7 @@ import kotlin.time.Duration.Companion.minutes
  * - Rate limit: 전역 10 req/sec (GlobalRateLimiters)
  * - 일부 API는 대용량 데이터 처리 (2분 timeout)
  */
-@DisplayName("[Corp] CorpApi - 기업 공시 API")
+@DisplayName("[I][Corp] CorpApi - 기업 공시 API")
 class CorpApiSpec : IntegrationTestBase() {
 
     // ========================================

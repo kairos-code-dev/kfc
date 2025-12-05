@@ -1,0 +1,25 @@
+{
+  "block1": [
+    {
+      "full_code": "KR7005930003",
+      "short_code": "005930",
+      "codeName": "삼성전자",
+      "marketCode": "STK",
+      "marketName": "코스피"
+    },
+    {
+      "full_code": "KR7000660001",
+      "short_code": "000660",
+      "codeName": "SK하이닉스",
+      "marketCode": "STK",
+      "marketName": "코스피"
+    },
+    {
+      "full_code": "KR7035420009",
+      "short_code": "035420",
+      "codeName": "NAVER",
+      "marketCode": "STK",
+      "marketName": "코스피"
+    }
+  ]
+}

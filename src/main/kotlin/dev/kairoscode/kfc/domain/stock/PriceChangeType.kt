@@ -1,34 +1,34 @@
 package dev.kairoscode.kfc.domain.stock
 
 /**
- * 가격 등락 구분
+ * 등락 구분
  *
- * 종목의 전일 대비 가격 변동 방향을 나타냅니다.
+ * 주가의 전일 대비 등락 상태를 구분하는 Enum 클래스입니다.
  *
- * @property code KRX API에서 사용하는 등락 구분 코드
+ * @property code KRX API에서 사용하는 등락 구분 코드 (FLUC_TP_CD)
  */
 enum class PriceChangeType(val code: String) {
     /**
-     * 상승
+     * 상승 (전일 대비 가격 상승)
      */
     RISE("1"),
 
     /**
-     * 하락
+     * 하락 (전일 대비 가격 하락)
      */
     FALL("2"),
 
     /**
-     * 보합 (변동 없음)
+     * 보합 (전일 대비 가격 변동 없음)
      */
     UNCHANGED("3");
 
     companion object {
         /**
-         * KRX API 등락 구분 코드로부터 PriceChangeType enum 생성
+         * KRX API 코드로부터 PriceChangeType Enum 반환
          *
-         * @param code KRX API 등락 구분 코드 (예: "1", "2", "3")
-         * @return 매칭되는 PriceChangeType enum, 없으면 null
+         * @param code KRX API 등락 구분 코드 (1, 2, 3)
+         * @return PriceChangeType Enum, 코드가 유효하지 않으면 null
          */
         fun fromCode(code: String): PriceChangeType? {
             return entries.find { it.code == code }
