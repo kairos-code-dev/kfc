@@ -4,6 +4,8 @@ import java.time.Duration
 plugins {
     kotlin("jvm") version "2.2.21"
     kotlin("plugin.serialization") version "2.2.21"
+    `maven-publish`
+    alias(libs.plugins.dokka)
 }
 
 group = "dev.kairoscode"
@@ -52,6 +54,54 @@ kotlin {
     compilerOptions {
         freeCompilerArgs.add("-Xjsr305=strict")
         jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
+    }
+}
+
+// ============================================
+// Maven Publishing 설정 (JitPack 호환)
+// ============================================
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["java"])
+
+            groupId = project.group.toString()
+            artifactId = "kfc"
+            version = project.version.toString()
+
+            pom {
+                name.set("KFC")
+                description.set("Korea Free Financial Data Collector - Kotlin library for Korean financial data")
+                url.set("https://github.com/kairos-code-dev/kfc")
+
+                licenses {
+                    license {
+                        name.set("The Apache License, Version 2.0")
+                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                    }
+                }
+
+                developers {
+                    developer {
+                        id.set("kairos-code-dev")
+                        name.set("Kairos Code")
+                        email.set("contact@kairoscode.dev")
+                    }
+                }
+
+                scm {
+                    connection.set("scm:git:git://github.com/kairos-code-dev/kfc.git")
+                    developerConnection.set("scm:git:ssh://github.com/kairos-code-dev/kfc.git")
+                    url.set("https://github.com/kairos-code-dev/kfc")
+                }
+            }
+        }
     }
 }
 
@@ -186,4 +236,94 @@ val integrationTest by tasks.registering(Test::class) {
         println("🌐 Running integration tests only")
         println("   Mode: Sequential (KRX API rate limiting)")
     }
+}
+
+// ============================================
+// Dokka API 문서 생성 설정
+// ============================================
+
+tasks.dokkaHtml {
+    outputDirectory.set(layout.buildDirectory.dir("dokka/html"))
+
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("KFC")
+
+            // 문서 설명
+            includes.from("MODULE.md")
+
+            // 소스 링크 설정 (GitHub)
+            sourceLink {
+                localDirectory.set(file("src/main/kotlin"))
+                remoteUrl.set(uri("https://github.com/kairos-code-dev/kfc/tree/main/src/main/kotlin").toURL())
+                remoteLineSuffix.set("#L")
+            }
+
+            // 외부 문서 링크
+            externalDocumentationLink {
+                url.set(uri("https://kotlinlang.org/api/kotlinx.coroutines/").toURL())
+            }
+            externalDocumentationLink {
+                url.set(uri("https://kotlinlang.org/api/kotlinx-datetime/").toURL())
+            }
+            externalDocumentationLink {
+                url.set(uri("https://api.ktor.io/").toURL())
+            }
+
+            // JDK 문서 링크
+            jdkVersion.set(21)
+
+            // 플랫폼 설정
+            platform.set(org.jetbrains.dokka.Platform.jvm)
+
+            // 패키지 문서 옵션
+            documentedVisibilities.set(
+                setOf(
+                    org.jetbrains.dokka.DokkaConfiguration.Visibility.PUBLIC,
+                    org.jetbrains.dokka.DokkaConfiguration.Visibility.PROTECTED
+                )
+            )
+
+            // 샘플 코드 디렉토리
+            samples.from("src/test/kotlin/samples")
+
+            // 억제할 패키지
+            perPackageOption {
+                matchingRegex.set(".*\\.internal.*")
+                suppress.set(true)
+            }
+        }
+    }
+}
+
+/**
+ * dokkaJavadoc - Javadoc 형식의 API 문서 생성
+ *
+ * 사용법:
+ *   ./gradlew dokkaJavadoc
+ *
+ * 출력:
+ *   build/dokka/javadoc/
+ */
+tasks.dokkaJavadoc {
+    outputDirectory.set(layout.buildDirectory.dir("dokka/javadoc"))
+}
+
+/**
+ * dokkaGfm - GitHub Flavored Markdown 형식의 API 문서 생성
+ *
+ * 사용법:
+ *   ./gradlew dokkaGfm
+ *
+ * 출력:
+ *   build/dokka/gfm/
+ */
+tasks.dokkaGfm {
+    outputDirectory.set(layout.buildDirectory.dir("dokka/gfm"))
+}
+
+// Javadoc JAR에 Dokka HTML 문서 포함
+tasks.named<Jar>("javadocJar") {
+    dependsOn(tasks.dokkaHtml)
+    from(tasks.dokkaHtml.flatMap { it.outputDirectory })
 }

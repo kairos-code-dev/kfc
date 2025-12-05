@@ -1,5 +1,8 @@
 # KFC (Korea Free Financial Data Collector)
 
+[![CI](https://github.com/kairos-code-dev/kfc/actions/workflows/ci.yml/badge.svg)](https://github.com/kairos-code-dev/kfc/actions/workflows/ci.yml)
+[![Integration Test](https://github.com/kairos-code-dev/kfc/actions/workflows/integration-test.yml/badge.svg)](https://github.com/kairos-code-dev/kfc/actions/workflows/integration-test.yml)
+[![JitPack](https://jitpack.io/v/kairos-code-dev/kfc.svg)](https://jitpack.io/#kairos-code-dev/kfc)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.0+-7F52FF.svg?logo=kotlin)](https://kotlinlang.org)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
@@ -52,31 +55,81 @@ Python의 pykrx가 한국 금융 데이터 분석의 표준이 되었다면, KFC
 
 ## Installation
 
+KFC는 JitPack을 통해 배포됩니다. 아래 설정을 추가하여 사용할 수 있습니다.
+
 ### Gradle (Kotlin DSL)
 
 ```kotlin
+// settings.gradle.kts
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+        maven { url = uri("https://jitpack.io") }
+    }
+}
+
+// build.gradle.kts
 dependencies {
-    implementation("dev.kairoscode:kfc:1.0.0")
+    implementation("com.github.kairos-code-dev:kfc:v1.0.0")
 }
 ```
 
 ### Gradle (Groovy)
 
 ```groovy
+// settings.gradle
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+// build.gradle
 dependencies {
-    implementation 'dev.kairoscode:kfc:1.0.0'
+    implementation 'com.github.kairos-code-dev:kfc:v1.0.0'
 }
 ```
 
 ### Maven
 
 ```xml
-<dependency>
-    <groupId>dev.kairoscode</groupId>
-    <artifactId>kfc</artifactId>
-    <version>1.0.0</version>
-</dependency>
+<!-- pom.xml -->
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+
+<dependencies>
+    <dependency>
+        <groupId>com.github.kairos-code-dev</groupId>
+        <artifactId>kfc</artifactId>
+        <version>v1.0.0</version>
+    </dependency>
+</dependencies>
 ```
+
+### Version Tags
+
+JitPack은 GitHub 릴리즈 태그를 사용합니다:
+
+- Latest release: `v1.0.0`
+- Specific commit: `commit-hash`
+- Development snapshot: `main-SNAPSHOT`
+
+릴리즈 목록은 [GitHub Releases](https://github.com/kairos-code-dev/kfc/releases)에서 확인할 수 있습니다.
+
+## Documentation
+
+전체 API 문서는 Dokka로 자동 생성되어 GitHub Pages에 호스팅됩니다:
+
+- [API Reference](https://kairos-code-dev.github.io/kfc/) - 전체 API 문서
+- [GitHub Repository](https://github.com/kairos-code-dev/kfc) - 소스 코드
+- [Issue Tracker](https://github.com/kairos-code-dev/kfc/issues) - 버그 리포트 및 기능 요청
+
+API 문서는 태그 푸시 시 자동으로 업데이트됩니다.
 
 ## Quick Start
 

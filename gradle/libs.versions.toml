@@ -9,6 +9,7 @@ logback = "1.4.14"
 junit = "5.10.1"
 assertj = "3.24.0"
 mockk = "1.13.8"
+dokka = "1.9.20"
 
 [libraries]
 # Kotlin
@@ -39,3 +40,4 @@ kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-t
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
