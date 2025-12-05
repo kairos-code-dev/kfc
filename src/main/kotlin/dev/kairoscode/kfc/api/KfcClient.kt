@@ -3,8 +3,10 @@ package dev.kairoscode.kfc.api
 import dev.kairoscode.kfc.infrastructure.krx.FundsApiImpl
 import dev.kairoscode.kfc.infrastructure.krx.PriceApiImpl
 import dev.kairoscode.kfc.infrastructure.krx.StockApiImpl
+import dev.kairoscode.kfc.infrastructure.krx.IndexApiImpl
 import dev.kairoscode.kfc.infrastructure.krx.KrxFundsApiImpl
 import dev.kairoscode.kfc.infrastructure.krx.KrxStockApiImpl
+import dev.kairoscode.kfc.infrastructure.krx.KrxIndexApiImpl
 import dev.kairoscode.kfc.infrastructure.opendart.CorpApiImpl
 import dev.kairoscode.kfc.infrastructure.opendart.FinancialsApiImpl
 import dev.kairoscode.kfc.infrastructure.opendart.OpenDartApiImpl
@@ -21,6 +23,7 @@ import dev.kairoscode.kfc.infrastructure.common.ratelimit.TokenBucketRateLimiter
  * - **펀드/증권상품 도메인**: ETF 및 기타 펀드 관련 메타데이터 (KRX)
  * - **가격 정보 도메인**: 시세 및 OHLCV 데이터 (KRX + Naver 통합)
  * - **주식 종목 도메인**: 종목 리스트, 기본정보, 섹터/산업 분류 (KRX)
+ * - **지수 정보 도메인**: 지수 목록, OHLCV, 밸류에이션, 구성 종목 (KRX)
  * - **기업 공시 도메인**: 기업 공시 관련 데이터 (OPENDART)
  * - **재무제표 도메인**: 손익계산서, 재무상태표, 현금흐름표 (OPENDART)
  *
@@ -55,6 +58,13 @@ import dev.kairoscode.kfc.infrastructure.common.ratelimit.TokenBucketRateLimiter
  * // 주식 종목 리스트 조회 (from KRX)
  * val stocks = kfc.stock.getStockList(market = Market.KOSPI)
  *
+ * // 지수 OHLCV 조회 (from KRX)
+ * val indexOhlcv = kfc.index.getOhlcvByDate(
+ *     ticker = "1001",
+ *     fromDate = LocalDate.of(2024, 1, 1),
+ *     toDate = LocalDate.of(2024, 12, 31)
+ * )
+ *
  * // 배당 정보 조회 (from OPENDART)
  * val dividends = kfc.corp?.getDividendInfo(
  *     corpCode = "00164779",
@@ -71,6 +81,7 @@ import dev.kairoscode.kfc.infrastructure.common.ratelimit.TokenBucketRateLimiter
  * @property funds 펀드/증권상품 도메인 API (펀드 메타데이터, 포트폴리오, 성과 정보)
  * @property price 가격 정보 도메인 API (시세, OHLCV, 조정주가)
  * @property stock 주식 종목 도메인 API (종목 리스트, 기본정보, 섹터/산업 분류)
+ * @property index 지수 정보 도메인 API (지수 목록, OHLCV, 밸류에이션, 구성 종목)
  * @property corp 기업 공시 도메인 API (API Key 제공 시에만 사용 가능)
  * @property financials 재무제표 도메인 API (API Key 제공 시에만 사용 가능)
  */
@@ -78,6 +89,7 @@ class KfcClient internal constructor(
     val funds: FundsApi,
     val price: PriceApi,
     val stock: StockApi,
+    val index: IndexApi,
     val corp: CorpApi?,
     val financials: FinancialsApi?
 ) {
@@ -128,6 +140,9 @@ class KfcClient internal constructor(
             // 소스별 API 구현체 생성 (Stock 도메인)
             val krxStockApi = KrxStockApiImpl(rateLimiter = krxRateLimiter)
 
+            // 소스별 API 구현체 생성 (Index 도메인)
+            val krxIndexApi = KrxIndexApiImpl(rateLimiter = krxRateLimiter)
+
             // 소스별 API 구현체 생성 (Corp 도메인, Financials 도메인)
             val openDartApi = opendartApiKey?.let { OpenDartApiImpl(apiKey = it, rateLimiter = opendartRateLimiter) }
 
@@ -135,6 +150,7 @@ class KfcClient internal constructor(
             val fundsApi = FundsApiImpl(krxFundsApi = krxFundsApi)
             val priceApi = PriceApiImpl(krxFundsApi = krxFundsApi)
             val stockApi = StockApiImpl(krxStockApi = krxStockApi)
+            val indexApi = IndexApiImpl(krxIndexApi = krxIndexApi)
             val corpApi = openDartApi?.let { CorpApiImpl(openDartApi = it) }
             val financialsApi = openDartApi?.let { FinancialsApiImpl(openDartApi = it) }
 
@@ -142,6 +158,7 @@ class KfcClient internal constructor(
                 funds = fundsApi,
                 price = priceApi,
                 stock = stockApi,
+                index = indexApi,
                 corp = corpApi,
                 financials = financialsApi
             )
