@@ -29,9 +29,10 @@ internal class KrxBondApiImpl(
     companion object {
         private const val BASE_URL = "http://data.krx.co.kr/comm/bldAttendant/getJsonData.cmd"
 
-        // BLD 코드 상수
-        private const val BLD_YIELDS_BY_DATE = "dbms/MDC/STAT/standard/MDCSTAT04301"
-        private const val BLD_YIELDS_BY_PERIOD = "dbms/MDC/STAT/standard/MDCSTAT04302"
+        // BLD 코드 상수 (채권 수익률)
+        // 참고: MDCSTAT04301/04302는 ETF 코드이므로 사용 불가
+        private const val BLD_YIELDS_BY_DATE = "dbms/MDC/STAT/standard/MDCSTAT11401"
+        private const val BLD_YIELDS_BY_PERIOD = "dbms/MDC/STAT/standard/MDCSTAT11402"
 
         private val dateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd")
         private val krxDateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd")
@@ -43,15 +44,15 @@ internal class KrxBondApiImpl(
 
         val parameters = mapOf(
             "bld" to BLD_YIELDS_BY_DATE,
+            "inqTpCd" to "T",  // 조회 타입 코드: T = 전종목
             "trdDd" to date.format(dateFormatter)
         )
 
         val response = httpClient.post(BASE_URL, parameters)
         response.checkForErrors()
 
-        // KRX API는 "OutBlock_1" 또는 "block1" 등 다양한 응답 필드명 사용
-        // 기존 ETF/Stock API와 달리 Bond API는 "OutBlock_1" 사용
-        val outBlock = (response["OutBlock_1"] as? List<*>)?.filterIsInstance<Map<String, Any?>>()
+        // Bond API는 "output" 필드명 사용 (MDCSTAT11401)
+        val outBlock = (response["output"] as? List<*>)?.filterIsInstance<Map<String, Any?>>()
             ?: emptyList()
 
         logger.debug { "Response contains ${outBlock.size} bond records" }
@@ -90,16 +91,17 @@ internal class KrxBondApiImpl(
 
         val parameters = mapOf(
             "bld" to BLD_YIELDS_BY_PERIOD,
+            "inqTpCd" to "E",  // 조회 타입 코드: E = 개별추이
             "strtDd" to fromDate.format(dateFormatter),
             "endDd" to toDate.format(dateFormatter),
-            "bndKindTpCd" to bondType.code
+            "bndKindTpCd" to bondType.krxCode
         )
 
         val response = httpClient.post(BASE_URL, parameters)
         response.checkForErrors()
 
-        // "OutBlock_1" 필드 추출
-        val outBlock = (response["OutBlock_1"] as? List<*>)?.filterIsInstance<Map<String, Any?>>() ?: emptyList()
+        // Bond API는 "output" 필드명 사용 (MDCSTAT11402)
+        val outBlock = (response["output"] as? List<*>)?.filterIsInstance<Map<String, Any?>>() ?: emptyList()
 
         val yields = outBlock.map { raw ->
             BondYield(
@@ -108,7 +110,7 @@ internal class KrxBondApiImpl(
                 yield = raw.getString(KrxApiFields.Bond.YIELD).toBigDecimal(),
                 change = raw.getString(KrxApiFields.Bond.CHANGE).toBigDecimal()
             )
-        }
+        }.sortedBy { it.date }  // KRX는 내림차순 반환 → 오름차순으로 정렬
 
         logger.debug { "Fetched ${yields.size} bond yields" }
 

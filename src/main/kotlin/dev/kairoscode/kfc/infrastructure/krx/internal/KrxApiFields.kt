@@ -188,12 +188,13 @@ internal object KrxApiFields {
     /**
      * 채권 수익률 정보 (Bond API용)
      *
-     * MDCSTAT04301 (특정일 조회), MDCSTAT04302 (기간별 조회) 응답에서 사용되는 필드명
+     * MDCSTAT11401 (특정일 전종목 장외채권수익률)
+     * MDCSTAT11402 (개별추이 장외채권수익률) 응답에서 사용되는 필드명
      */
     object Bond {
-        const val KIND_NAME = "BND_KIND_TP_NM"  // 채권 종류명 (예: 국고채 1년)
-        const val YIELD = "BND_SRTN_YILD"       // 수익률 (%)
-        const val CHANGE = "DIFF"                // 전일 대비 변동폭 (bp)
-        const val TRADE_DATE = "TRD_DD"         // 거래일 (YYYY/MM/DD)
+        const val KIND_NAME = "ITM_TP_NM"        // 채권 종류명 (예: 국고채(1년))
+        const val YIELD = "LST_ORD_BAS_YD"       // 기준수익률 (%)
+        const val CHANGE = "CMP_YD"              // 전일 대비 변동폭 (bp)
+        const val TRADE_DATE = "DISCLS_DD"       // 공시일자 (YYYY/MM/DD)
     }
 }

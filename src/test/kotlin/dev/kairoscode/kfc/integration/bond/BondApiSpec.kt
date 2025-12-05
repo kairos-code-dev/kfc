@@ -5,6 +5,7 @@ import dev.kairoscode.kfc.domain.bond.BondType
 import dev.kairoscode.kfc.integration.utils.IntegrationTestBase
 import dev.kairoscode.kfc.integration.utils.RecordingConfig
 import dev.kairoscode.kfc.integration.utils.SmartRecorder
+import dev.kairoscode.kfc.integration.utils.TestFixtures
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -37,7 +38,7 @@ class BondApiSpec : IntegrationTestBase() {
                 @DisplayName("특정 일자의 전체 채권 수익률을 조회할 수 있다")
                 fun get_bond_yields_by_date() = integrationTest {
                     // Given: 조회 날짜
-                    val date = LocalDate.of(2022, 2, 4)
+                    val date = TestFixtures.TRADING_DAY
                     println("\n📘 API: getBondYieldsByDate()")
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
                     println("📥 Input Parameters:")
@@ -52,7 +53,7 @@ class BondApiSpec : IntegrationTestBase() {
                     println("  • Total yields: ${snapshot.yields.size}개")
                     println("  • Sample yields:")
                     snapshot.yields.take(5).forEach { item ->
-                        println("    - ${item.bondType.koreanName}: ${item.yield}% (변동: ${item.change}bp)")
+                        println("    - ${item.bondType.displayName}: ${item.yield}% (변동: ${item.change}bp)")
                     }
 
                     println("\n✅ 테스트 결과: 성공")
@@ -70,17 +71,17 @@ class BondApiSpec : IntegrationTestBase() {
                 }
 
                 @Test
-                @DisplayName("오늘 날짜의 채권 수익률을 조회할 수 있다")
-                fun get_todays_bond_yields() = integrationTest {
-                    // Given: 오늘 날짜
-                    val today = LocalDate.now().minusDays(1)  // 직전 영업일 사용
+                @DisplayName("다른 거래일의 채권 수익률을 조회할 수 있다")
+                fun get_another_trading_day_bond_yields() = integrationTest {
+                    // Given: 이전 거래일
+                    val date = TestFixtures.TRADING_DAY_2
                     println("\n📘 API: getBondYieldsByDate()")
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
                     println("📥 Input Parameters:")
-                    println("  • date: LocalDate = $today (어제)")
+                    println("  • date: LocalDate = $date")
 
                     // When
-                    val snapshot = client.bond.getBondYieldsByDate(today)
+                    val snapshot = client.bond.getBondYieldsByDate(date)
 
                     // Then
                     println("\n📤 Response: BondYieldSnapshot")
@@ -91,7 +92,7 @@ class BondApiSpec : IntegrationTestBase() {
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
 
                     assertNotNull(snapshot)
-                    assertTrue(snapshot.yields.isNotEmpty(), "채권 수익률이 비어있지 않아야 합니다")
+                    assertEquals(11, snapshot.yields.size, "전체 채권 수는 11개여야 합니다")
                 }
             }
 
@@ -103,7 +104,7 @@ class BondApiSpec : IntegrationTestBase() {
                 @DisplayName("수익률은 양수 값이어야 한다")
                 fun yields_should_be_positive() = integrationTest {
                     // Given
-                    val date = LocalDate.of(2022, 2, 4)
+                    val date = TestFixtures.TRADING_DAY
                     println("\n📘 응답 검증: 수익률 양수 확인")
 
                     // When
@@ -120,7 +121,7 @@ class BondApiSpec : IntegrationTestBase() {
                 @DisplayName("변동폭은 정상 범위 내에 있어야 한다")
                 fun change_should_be_in_normal_range() = integrationTest {
                     // Given
-                    val date = LocalDate.of(2022, 2, 4)
+                    val date = TestFixtures.TRADING_DAY
                     println("\n📘 응답 검증: 변동폭 범위 확인")
 
                     // When
@@ -138,7 +139,7 @@ class BondApiSpec : IntegrationTestBase() {
                 @DisplayName("모든 주요 채권 종류가 포함되어 있어야 한다")
                 fun all_major_bond_types_included() = integrationTest {
                     // Given
-                    val date = LocalDate.of(2022, 2, 4)
+                    val date = TestFixtures.TRADING_DAY
                     println("\n📘 응답 검증: 주요 채권 포함 여부")
 
                     // When
@@ -154,7 +155,7 @@ class BondApiSpec : IntegrationTestBase() {
                     )
                     assertTrue(bondTypes.containsAll(majorBonds))
                     println("  • 필수 포함 채권:")
-                    majorBonds.forEach { println("    - ${it.koreanName}: ✅") }
+                    majorBonds.forEach { println("    - ${it.displayName}: ✅") }
                     println("  ✅ 모든 주요 채권이 포함되어 있습니다\n")
                 }
             }
@@ -170,25 +171,39 @@ class BondApiSpec : IntegrationTestBase() {
             inner class EdgeCases {
 
                 @Test
-                @DisplayName("휴장일 데이터 조회 시 빈 데이터 또는 오류 처리")
-                fun weekend_date_returns_empty_or_error() = integrationTest {
-                    // Given: 토요일 날짜
-                    val weekend = LocalDate.of(2022, 2, 5)  // 2022-02-05는 토요일
-                    println("\n📘 엣지 케이스: 주말 데이터 조회")
+                @DisplayName("비거래일(주말)에는 KRX가 빈 결과를 반환하므로 빈 리스트가 반환된다")
+                fun returns_empty_list_for_weekend() = integrationTest {
+                    // Given: 비거래일 (2024-11-30 토요일)
+                    val weekend = TestFixtures.WEEKEND
+                    println("\n📘 엣지 케이스: 비거래일(주말) 조회")
                     println("  • 날짜: $weekend (토요일)")
 
-                    // When
+                    // When: 채권 수익률 조회
                     val snapshot = client.bond.getBondYieldsByDate(weekend)
 
-                    // Then
+                    // Then: KRX API가 빈 결과를 반환하므로 빈 리스트
                     println("  • 결과: ${snapshot.yields.size}개 채권")
-                    println("  ✅ 휴장일 처리 확인\n")
+                    println("  ✅ KRX API 동작: 비거래일은 빈 리스트 반환\n")
 
-                    // 휴장일은 빈 리스트 또는 직전 영업일 데이터 반환
-                    assertTrue(
-                        snapshot.yields.isEmpty() || snapshot.yields.size == 11,
-                        "휴장일은 빈 리스트 또는 11개 채권 데이터를 반환해야 합니다"
-                    )
+                    assertTrue(snapshot.yields.isEmpty(), "비거래일은 빈 리스트를 반환해야 합니다")
+                }
+
+                @Test
+                @DisplayName("미래 날짜는 데이터가 없으므로 빈 리스트가 반환된다")
+                fun returns_empty_list_for_future_date() = integrationTest {
+                    // Given: 미래 날짜
+                    val futureDate = TestFixtures.FUTURE_DATE
+                    println("\n📘 엣지 케이스: 미래 날짜 조회")
+                    println("  • 날짜: $futureDate (미래)")
+
+                    // When: 채권 수익률 조회
+                    val snapshot = client.bond.getBondYieldsByDate(futureDate)
+
+                    // Then: 미래 데이터는 존재하지 않으므로 빈 리스트
+                    println("  • 결과: ${snapshot.yields.size}개 채권")
+                    println("  ✅ KRX API 동작: 미래 날짜는 빈 리스트 반환\n")
+
+                    assertTrue(snapshot.yields.isEmpty(), "미래 날짜는 빈 리스트를 반환해야 합니다")
                 }
             }
 
@@ -203,7 +218,7 @@ class BondApiSpec : IntegrationTestBase() {
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
 
                     // Given
-                    val date = LocalDate.of(2022, 2, 4)
+                    val date = TestFixtures.TRADING_DAY
 
                     // When
                     val snapshot = client.bond.getBondYieldsByDate(date)
@@ -231,7 +246,7 @@ class BondApiSpec : IntegrationTestBase() {
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
 
                     // Given
-                    val date = LocalDate.of(2022, 2, 4)
+                    val date = TestFixtures.TRADING_DAY
 
                     // When
                     val snapshot = client.bond.getBondYieldsByDate(date)
@@ -259,7 +274,7 @@ class BondApiSpec : IntegrationTestBase() {
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
 
                     // Given
-                    val date = LocalDate.of(2022, 2, 4)
+                    val date = TestFixtures.TRADING_DAY
 
                     // When
                     val snapshot = client.bond.getBondYieldsByDate(date)
@@ -268,7 +283,7 @@ class BondApiSpec : IntegrationTestBase() {
                     // Then
                     println("📊 국고채 수익률:")
                     treasuryYields.forEach { item ->
-                        println("  • ${item.bondType.koreanName}: ${item.yield}%")
+                        println("  • ${item.bondType.displayName}: ${item.yield}%")
                     }
 
                     println("\n✅ 테스트 결과: 성공")
@@ -285,7 +300,7 @@ class BondApiSpec : IntegrationTestBase() {
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
 
                     // Given
-                    val date = LocalDate.of(2022, 2, 4)
+                    val date = TestFixtures.TRADING_DAY
 
                     // When
                     val snapshot = client.bond.getBondYieldsByDate(date)
@@ -294,7 +309,7 @@ class BondApiSpec : IntegrationTestBase() {
                     // Then
                     println("📊 회사채 수익률:")
                     corporateYields.forEach { item ->
-                        println("  • ${item.bondType.koreanName}: ${item.yield}%")
+                        println("  • ${item.bondType.displayName}: ${item.yield}%")
                     }
 
                     println("\n✅ 테스트 결과: 성공")
@@ -315,23 +330,23 @@ class BondApiSpec : IntegrationTestBase() {
             inner class BasicOperations {
 
                 @Test
-                @DisplayName("국고채 10년물 기간별 수익률을 조회할 수 있다")
+                @DisplayName("기간 조회 시 시작일부터 종료일까지의 데이터가 날짜순으로 반환된다")
                 fun get_treasury_10y_yields() = integrationTest {
-                    // Given: 조회 기간
+                    // Given: 조회 기간 (2024-11-01 ~ 2024-11-29)
                     val bondType = BondType.TREASURY_10Y
-                    val fromDate = LocalDate.of(2022, 1, 4)
-                    val toDate = LocalDate.of(2022, 2, 4)
+                    val fromDate = TestFixtures.PERIOD_START
+                    val toDate = TestFixtures.PERIOD_END
                     println("\n📘 API: getBondYields()")
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
                     println("📥 Input Parameters:")
-                    println("  • bondType: BondType = $bondType (${bondType.koreanName})")
+                    println("  • bondType: BondType = $bondType (${bondType.displayName})")
                     println("  • fromDate: LocalDate = $fromDate")
                     println("  • toDate: LocalDate = $toDate")
 
-                    // When
+                    // When: 국고채 10년 기간별 수익률 조회
                     val yields = client.bond.getBondYields(bondType, fromDate, toDate)
 
-                    // Then
+                    // Then: 데이터가 존재하고, 모두 동일한 채권 종류이며, 날짜순으로 정렬됨
                     println("\n📤 Response: List<BondYield>")
                     println("  • Total records: ${yields.size}개")
                     println("  • Sample records:")
@@ -358,12 +373,12 @@ class BondApiSpec : IntegrationTestBase() {
                 fun get_corporate_aa_yields() = integrationTest {
                     // Given
                     val bondType = BondType.CORPORATE_AA
-                    val fromDate = LocalDate.of(2022, 1, 4)
-                    val toDate = LocalDate.of(2022, 1, 31)
+                    val fromDate = TestFixtures.PERIOD_START
+                    val toDate = TestFixtures.PERIOD_END
                     println("\n📘 API: getBondYields()")
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
                     println("📥 Input Parameters:")
-                    println("  • bondType: BondType = $bondType (${bondType.koreanName})")
+                    println("  • bondType: BondType = $bondType (${bondType.displayName})")
                     println("  • fromDate: LocalDate = $fromDate")
                     println("  • toDate: LocalDate = $toDate")
 
@@ -391,8 +406,8 @@ class BondApiSpec : IntegrationTestBase() {
                 fun dates_should_be_sorted_ascending() = integrationTest {
                     // Given
                     val bondType = BondType.TREASURY_2Y
-                    val fromDate = LocalDate.of(2022, 1, 4)
-                    val toDate = LocalDate.of(2022, 1, 31)
+                    val fromDate = TestFixtures.PERIOD_START
+                    val toDate = TestFixtures.PERIOD_END
                     println("\n📘 응답 검증: 날짜 정렬 확인")
 
                     // When
@@ -411,8 +426,8 @@ class BondApiSpec : IntegrationTestBase() {
                 fun all_dates_within_requested_period() = integrationTest {
                     // Given
                     val bondType = BondType.TREASURY_5Y
-                    val fromDate = LocalDate.of(2022, 1, 4)
-                    val toDate = LocalDate.of(2022, 1, 31)
+                    val fromDate = TestFixtures.PERIOD_START
+                    val toDate = TestFixtures.PERIOD_END
                     println("\n📘 응답 검증: 기간 범위 확인")
 
                     // When
@@ -435,8 +450,8 @@ class BondApiSpec : IntegrationTestBase() {
                 fun returns_empty_when_from_after_to() = integrationTest {
                     // Given
                     val bondType = BondType.TREASURY_3Y
-                    val fromDate = LocalDate.of(2022, 2, 4)
-                    val toDate = LocalDate.of(2022, 1, 4)
+                    val fromDate = TestFixtures.PERIOD_END
+                    val toDate = TestFixtures.PERIOD_START
                     println("\n📘 입력 검증: 잘못된 기간 범위")
                     println("  • fromDate: $fromDate")
                     println("  • toDate: $toDate")
@@ -489,8 +504,8 @@ class BondApiSpec : IntegrationTestBase() {
 
                     // Given
                     val bondType = BondType.TREASURY_10Y
-                    val fromDate = LocalDate.of(2022, 1, 4)
-                    val toDate = LocalDate.of(2022, 1, 31)
+                    val fromDate = TestFixtures.PERIOD_START
+                    val toDate = TestFixtures.PERIOD_END
 
                     // When
                     val yields = client.bond.getBondYields(bondType, fromDate, toDate)
@@ -501,7 +516,7 @@ class BondApiSpec : IntegrationTestBase() {
 
                     // Then
                     println("📊 수익률 통계:")
-                    println("  • 채권: ${bondType.koreanName}")
+                    println("  • 채권: ${bondType.displayName}")
                     println("  • 기간: $fromDate ~ $toDate")
                     println("  • 최고 수익률: $maxYield%")
                     println("  • 최저 수익률: $minYield%")
@@ -523,8 +538,8 @@ class BondApiSpec : IntegrationTestBase() {
 
                     // Given
                     val bondType = BondType.TREASURY_10Y
-                    val fromDate = LocalDate.of(2022, 1, 4)
-                    val toDate = LocalDate.of(2022, 1, 31)
+                    val fromDate = TestFixtures.PERIOD_START
+                    val toDate = TestFixtures.PERIOD_END
 
                     // When
                     val yields = client.bond.getBondYields(bondType, fromDate, toDate)

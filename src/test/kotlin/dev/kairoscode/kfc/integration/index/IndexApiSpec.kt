@@ -2,8 +2,8 @@ package dev.kairoscode.kfc.integration.index
 
 import dev.kairoscode.kfc.domain.index.IndexMarket
 import dev.kairoscode.kfc.integration.utils.IntegrationTestBase
+import dev.kairoscode.kfc.integration.utils.TestFixtures
 import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.Assumptions.assumeTrue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -18,10 +18,6 @@ import java.time.LocalDate
 @DisplayName("[Index] IndexApi - 지수 정보 API")
 class IndexApiSpec : IntegrationTestBase() {
 
-    companion object {
-        // 테스트용 기준일 (과거 데이터가 확실히 존재하는 날짜)
-        private val TEST_DATE = LocalDate.of(2024, 11, 20)
-    }
 
     @Nested
     @DisplayName("지수 목록 API")
@@ -59,7 +55,7 @@ class IndexApiSpec : IntegrationTestBase() {
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
 
                     assertNotNull(indexes)
-                    assumeTrue(indexes.isNotEmpty(), "⚠️ API에서 데이터를 반환하지 않음 - 테스트 스킵")
+                    assertTrue(indexes.isNotEmpty(), "지수 목록이 비어있지 않아야 합니다")
                     assertTrue(indexes.size >= 10, "코스피 지수는 10개 이상이어야 합니다")
                 }
 
@@ -83,7 +79,7 @@ class IndexApiSpec : IntegrationTestBase() {
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
 
                     assertNotNull(indexes)
-                    assumeTrue(indexes.isNotEmpty(), "⚠️ API에서 데이터를 반환하지 않음 - 테스트 스킵")
+                    assertTrue(indexes.isNotEmpty(), "지수 목록이 비어있지 않아야 합니다")
                 }
             }
 
@@ -131,7 +127,8 @@ class IndexApiSpec : IntegrationTestBase() {
                     println("\n✅ 테스트 결과: 성공")
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
 
-                    assumeTrue(kospiIndexes.isNotEmpty() && kosdaqIndexes.isNotEmpty(), "⚠️ API에서 데이터를 반환하지 않음 - 테스트 스킵")
+                    assertTrue(kospiIndexes.isNotEmpty(), "KOSPI 지수 목록이 비어있지 않아야 합니다")
+                    assertTrue(kosdaqIndexes.isNotEmpty(), "KOSDAQ 지수 목록이 비어있지 않아야 합니다")
                 }
             }
 
@@ -167,8 +164,8 @@ class IndexApiSpec : IntegrationTestBase() {
                     println("\n✅ 테스트 결과: 성공")
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
 
-                    assumeTrue(allIndexes.isNotEmpty(), "⚠️ API에서 데이터를 반환하지 않음 - 테스트 스킵")
-                    assertTrue(kospi200Indexes.isNotEmpty())
+                    assertTrue(allIndexes.isNotEmpty(), "전체 지수 목록이 비어있지 않아야 합니다")
+                    assertTrue(kospi200Indexes.isNotEmpty(), "코스피200 관련 지수가 존재해야 합니다")
                 }
             }
         }
@@ -200,8 +197,8 @@ class IndexApiSpec : IntegrationTestBase() {
                     println("\n✅ 테스트 결과: 성공")
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
 
-                    assumeTrue(name != null, "⚠️ API에서 데이터를 반환하지 않음 - 테스트 스킵")
-                    assertTrue(name!!.contains("코스피") || name.contains("KOSPI"))
+                    assertNotNull(name, "지수명이 조회되어야 합니다")
+                    assertTrue(name!!.contains("코스피") || name.contains("KOSPI"), "코스피 지수명을 포함해야 합니다")
                 }
             }
 
@@ -267,8 +264,7 @@ class IndexApiSpec : IntegrationTestBase() {
                     println("\n✅ 테스트 결과: 성공")
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
 
-                    assumeTrue(tickerToName.values.any { it != null }, "⚠️ API에서 데이터를 반환하지 않음 - 테스트 스킵")
-                    assertTrue(tickerToName.values.all { it != null })
+                    assertTrue(tickerToName.values.all { it != null }, "모든 지수 코드가 유효한 지수명을 반환해야 합니다")
                 }
             }
         }
@@ -287,12 +283,12 @@ class IndexApiSpec : IntegrationTestBase() {
             inner class BasicOperations {
 
                 @Test
-                @DisplayName("코스피 지수의 최근 7일 OHLCV를 조회할 수 있다")
-                fun get_kospi_ohlcv_last_7_days() = integrationTest {
-                    // Given
+                @DisplayName("기간 조회 시 시작일부터 종료일까지의 OHLCV 데이터가 날짜순으로 반환된다")
+                fun get_kospi_ohlcv_one_month() = integrationTest {
+                    // Given: 조회 기간 (2024-11-01 ~ 2024-11-29)
                     val ticker = "1001" // 코스피
-                    val toDate = TEST_DATE
-                    val fromDate = toDate.minusDays(6)
+                    val fromDate = TestFixtures.PERIOD_START
+                    val toDate = TestFixtures.PERIOD_END
 
                     println("\n📘 API: getOhlcvByDate()")
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
@@ -301,10 +297,10 @@ class IndexApiSpec : IntegrationTestBase() {
                     println("  • fromDate: LocalDate = $fromDate")
                     println("  • toDate: LocalDate = $toDate")
 
-                    // When
+                    // When: 코스피 지수 OHLCV 조회
                     val ohlcvList = client.index.getOhlcvByDate(ticker, fromDate, toDate)
 
-                    // Then
+                    // Then: 데이터가 존재하고 날짜순으로 정렬됨
                     println("\n📤 Response: List<IndexOhlcv>")
                     println("  • Total records: ${ohlcvList.size}개")
                     if (ohlcvList.isNotEmpty()) {
@@ -318,7 +314,7 @@ class IndexApiSpec : IntegrationTestBase() {
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
 
                     assertNotNull(ohlcvList)
-                    // 휴장일이 포함될 수 있으므로 비어있을 수 있음
+                    assertTrue(ohlcvList.isNotEmpty(), "한 달 기간 데이터는 비어있지 않아야 합니다")
                 }
             }
 
@@ -331,22 +327,19 @@ class IndexApiSpec : IntegrationTestBase() {
                 fun high_should_be_greater_than_or_equal_to_low() = integrationTest {
                     // Given
                     val ticker = "1001"
-                    val toDate = TEST_DATE
-                    val fromDate = toDate.minusDays(6)
+                    val fromDate = TestFixtures.PERIOD_START
+                    val toDate = TestFixtures.PERIOD_END
                     println("\n📘 응답 검증: 고가/저가 관계")
 
                     // When
                     val ohlcvList = client.index.getOhlcvByDate(ticker, fromDate, toDate)
 
                     // Then
-                    if (ohlcvList.isNotEmpty()) {
-                        assertTrue(ohlcvList.all { it.high >= it.low })
-                        println("  • 검증 대상: ${ohlcvList.size}개 레코드")
-                        println("  • 규칙: high >= low")
-                        println("  ✅ 모든 레코드가 조건을 만족합니다\n")
-                    } else {
-                        println("  • 데이터 없음 (휴장일 기간일 수 있음)\n")
-                    }
+                    assertTrue(ohlcvList.isNotEmpty(), "기간 데이터는 비어있지 않아야 합니다")
+                    assertTrue(ohlcvList.all { it.high >= it.low })
+                    println("  • 검증 대상: ${ohlcvList.size}개 레코드")
+                    println("  • 규칙: high >= low")
+                    println("  ✅ 모든 레코드가 조건을 만족합니다\n")
                 }
             }
 
@@ -359,7 +352,44 @@ class IndexApiSpec : IntegrationTestBase() {
             @Nested
             @DisplayName("4. 엣지 케이스 (Edge Cases)")
             inner class EdgeCases {
-                // 휴장일 데이터 등은 빈 리스트로 처리됨
+
+                @Test
+                @DisplayName("비거래일(주말)에는 KRX가 빈 결과를 반환하므로 빈 리스트가 반환된다")
+                fun returns_empty_list_for_weekend() = integrationTest {
+                    // Given: 비거래일 (토요일)
+                    val ticker = "1001"
+                    val weekend = TestFixtures.WEEKEND
+                    println("\n📘 엣지 케이스: 비거래일(주말) 조회")
+                    println("  • 날짜: $weekend (토요일)")
+
+                    // When: 비거래일의 OHLCV 조회
+                    val ohlcvList = client.index.getOhlcvByDate(ticker, weekend, weekend)
+
+                    // Then: KRX API가 빈 결과를 반환
+                    println("  • 결과: ${ohlcvList.size}개 레코드")
+                    println("  ✅ KRX API 동작: 비거래일은 빈 리스트 반환\n")
+
+                    assertTrue(ohlcvList.isEmpty(), "비거래일은 빈 리스트를 반환해야 합니다")
+                }
+
+                @Test
+                @DisplayName("미래 날짜는 데이터가 없으므로 빈 리스트가 반환된다")
+                fun returns_empty_list_for_future_date() = integrationTest {
+                    // Given: 미래 날짜
+                    val ticker = "1001"
+                    val futureDate = TestFixtures.FUTURE_DATE
+                    println("\n📘 엣지 케이스: 미래 날짜 조회")
+                    println("  • 날짜: $futureDate (미래)")
+
+                    // When: 미래 날짜의 OHLCV 조회
+                    val ohlcvList = client.index.getOhlcvByDate(ticker, futureDate, futureDate)
+
+                    // Then: 미래 데이터는 존재하지 않음
+                    println("  • 결과: ${ohlcvList.size}개 레코드")
+                    println("  ✅ KRX API 동작: 미래 날짜는 빈 리스트 반환\n")
+
+                    assertTrue(ohlcvList.isEmpty(), "미래 날짜는 빈 리스트를 반환해야 합니다")
+                }
             }
 
             @Nested
@@ -374,8 +404,8 @@ class IndexApiSpec : IntegrationTestBase() {
 
                     // Given
                     val ticker = "1001"
-                    val toDate = TEST_DATE
-                    val fromDate = toDate.minusDays(6)
+                    val fromDate = TestFixtures.PERIOD_START
+                    val toDate = TestFixtures.PERIOD_END
 
                     // When
                     val ohlcvList = client.index.getOhlcvByDate(ticker, fromDate, toDate)
@@ -383,17 +413,15 @@ class IndexApiSpec : IntegrationTestBase() {
 
                     // Then
                     println("📊 일별 수익률:")
-                    ohlcvList.zip(returns).forEach { (ohlcv, ret) ->
+                    ohlcvList.zip(returns).take(5).forEach { (ohlcv, ret) ->
                         println("  • ${ohlcv.date}: ${ret}% (open=${ohlcv.open}, close=${ohlcv.close})")
                     }
 
                     println("\n✅ 테스트 결과: 성공")
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
 
-                    // 데이터가 있으면 수익률 계산이 되어야 함
-                    if (ohlcvList.isNotEmpty()) {
-                        assertEquals(ohlcvList.size, returns.size)
-                    }
+                    assertTrue(ohlcvList.isNotEmpty(), "기간 데이터는 비어있지 않아야 합니다")
+                    assertEquals(ohlcvList.size, returns.size)
                 }
             }
         }
@@ -416,7 +444,7 @@ class IndexApiSpec : IntegrationTestBase() {
                 fun get_kospi200_constituents() = integrationTest {
                     // Given
                     val ticker = "1028" // 코스피 200
-                    val date = TEST_DATE
+                    val date = TestFixtures.TRADING_DAY
 
                     println("\n📘 API: getIndexConstituents()")
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
@@ -439,7 +467,7 @@ class IndexApiSpec : IntegrationTestBase() {
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
 
                     assertNotNull(constituents)
-                    assumeTrue(constituents.isNotEmpty(), "⚠️ API에서 데이터를 반환하지 않음 - 테스트 스킵")
+                    assertTrue(constituents.isNotEmpty(), "거래일 데이터는 비어있지 않아야 합니다")
                     assertTrue(constituents.size >= 150, "코스피200은 최소 150개 이상의 종목을 포함해야 합니다")
                 }
             }
@@ -453,13 +481,14 @@ class IndexApiSpec : IntegrationTestBase() {
                 fun all_tickers_are_six_digits() = integrationTest {
                     // Given
                     val ticker = "1028"
-                    val date = TEST_DATE
+                    val date = TestFixtures.TRADING_DAY
                     println("\n📘 응답 검증: 종목 코드 형식")
 
                     // When
                     val constituents = client.index.getIndexConstituents(ticker, date)
 
                     // Then
+                    assertTrue(constituents.isNotEmpty(), "거래일 데이터는 비어있지 않아야 합니다")
                     assertTrue(constituents.all { it.length == 6 })
                     println("  • 검증 대상: ${constituents.size}개 종목")
                     println("  • 규칙: ticker.length == 6")
@@ -476,7 +505,44 @@ class IndexApiSpec : IntegrationTestBase() {
             @Nested
             @DisplayName("4. 엣지 케이스 (Edge Cases)")
             inner class EdgeCases {
-                // 존재하지 않는 지수나 날짜는 빈 리스트 반환
+
+                @Test
+                @DisplayName("비거래일(주말)에는 KRX가 빈 결과를 반환하므로 빈 리스트가 반환된다")
+                fun returns_empty_list_for_weekend() = integrationTest {
+                    // Given: 비거래일 (토요일)
+                    val ticker = "1028"
+                    val weekend = TestFixtures.WEEKEND
+                    println("\n📘 엣지 케이스: 비거래일(주말) 조회")
+                    println("  • 날짜: $weekend (토요일)")
+
+                    // When: 비거래일의 구성 종목 조회
+                    val constituents = client.index.getIndexConstituents(ticker, weekend)
+
+                    // Then: KRX API가 빈 결과를 반환
+                    println("  • 결과: ${constituents.size}개 종목")
+                    println("  ✅ KRX API 동작: 비거래일은 빈 리스트 반환\n")
+
+                    assertTrue(constituents.isEmpty(), "비거래일은 빈 리스트를 반환해야 합니다")
+                }
+
+                @Test
+                @DisplayName("미래 날짜는 데이터가 없으므로 빈 리스트가 반환된다")
+                fun returns_empty_list_for_future_date() = integrationTest {
+                    // Given: 미래 날짜
+                    val ticker = "1028"
+                    val futureDate = TestFixtures.FUTURE_DATE
+                    println("\n📘 엣지 케이스: 미래 날짜 조회")
+                    println("  • 날짜: $futureDate (미래)")
+
+                    // When: 미래 날짜의 구성 종목 조회
+                    val constituents = client.index.getIndexConstituents(ticker, futureDate)
+
+                    // Then: 미래 데이터는 존재하지 않음
+                    println("  • 결과: ${constituents.size}개 종목")
+                    println("  ✅ KRX API 동작: 미래 날짜는 빈 리스트 반환\n")
+
+                    assertTrue(constituents.isEmpty(), "미래 날짜는 빈 리스트를 반환해야 합니다")
+                }
             }
 
             @Nested
@@ -491,7 +557,7 @@ class IndexApiSpec : IntegrationTestBase() {
 
                     // Given
                     val ticker = "1028"
-                    val date = TEST_DATE
+                    val date = TestFixtures.TRADING_DAY
                     val samsungTicker = "005930"
 
                     // When
@@ -507,7 +573,7 @@ class IndexApiSpec : IntegrationTestBase() {
                     println("\n✅ 테스트 결과: 성공")
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
 
-                    assumeTrue(constituents.isNotEmpty(), "⚠️ API에서 데이터를 반환하지 않음 - 테스트 스킵")
+                    assertTrue(constituents.isNotEmpty(), "거래일 데이터는 비어있지 않아야 합니다")
                     assertTrue(containsSamsung, "삼성전자는 코스피200에 포함되어야 합니다")
                 }
             }

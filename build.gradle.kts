@@ -113,7 +113,7 @@ tasks.test {
     configureCommonTestSettings()
 
     // Integration 테스트 포함 시 순차 실행 (KRX API Rate Limiting)
-    maxParallelForks = 1
+    maxParallelForks = 10
 
     doFirst {
         println("🧪 Running all tests (unit + integration)")
@@ -180,7 +180,7 @@ val integrationTest by tasks.registering(Test::class) {
     // 이유: GlobalRateLimiters는 JVM 프로세스별로 독립적이므로
     //       maxParallelForks > 1이면 각 fork마다 별도 RateLimiter 생성
     //       → 총 RPS = forks × limitPerProcess (KRX 25 RPS 제한 초과)
-    maxParallelForks = 1
+    maxParallelForks = 10
 
     doFirst {
         println("🌐 Running integration tests only")

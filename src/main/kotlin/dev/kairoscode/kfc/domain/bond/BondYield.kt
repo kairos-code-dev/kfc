@@ -38,20 +38,20 @@ data class BondYield(
      * 수익률 상승 여부 확인
      */
     fun isYieldRising(): Boolean {
-        return change > BigDecimal.ZERO
+        return change.compareTo(BigDecimal.ZERO) > 0
     }
 
     /**
      * 수익률 하락 여부 확인
      */
     fun isYieldFalling(): Boolean {
-        return change < BigDecimal.ZERO
+        return change.compareTo(BigDecimal.ZERO) < 0
     }
 
     /**
      * 수익률 변동 없음 확인
      */
     fun isYieldUnchanged(): Boolean {
-        return change == BigDecimal.ZERO
+        return change.compareTo(BigDecimal.ZERO) == 0
     }
 }

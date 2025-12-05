@@ -5,6 +5,7 @@ import dev.kairoscode.kfc.domain.future.sortByVolume
 import dev.kairoscode.kfc.integration.utils.IntegrationTestBase
 import dev.kairoscode.kfc.integration.utils.RecordingConfig
 import dev.kairoscode.kfc.integration.utils.SmartRecorder
+import dev.kairoscode.kfc.integration.utils.TestFixtures
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -289,7 +290,7 @@ class FutureApiSpec : IntegrationTestBase() {
                 @DisplayName("EURO STOXX50 선물 OHLCV를 조회할 수 있다")
                 fun get_euro_stoxx50_ohlcv() = integrationTest(timeout = 60.seconds) {
                     // Given
-                    val date = LocalDate.now().minusDays(7) // 일주일 전 데이터
+                    val date = TestFixtures.TRADING_DAY
                     val productId = "KRDRVFUEST"
                     println("\n📘 API: getOhlcvByTicker()")
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
@@ -319,15 +320,13 @@ class FutureApiSpec : IntegrationTestBase() {
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
 
                     assertNotNull(ohlcvList)
-                    // alternative=true이므로 데이터가 있어야 함 (휴장일이 아닌 한)
+                    assertTrue(ohlcvList.isNotEmpty(), "거래일 데이터는 비어있지 않아야 합니다")
 
-                    if (ohlcvList.isNotEmpty()) {
-                        SmartRecorder.recordSmartly(
-                            data = ohlcvList,
-                            category = RecordingConfig.Paths.Future.OHLCV,
-                            fileName = "euro_stoxx50_ohlcv"
-                        )
-                    }
+                    SmartRecorder.recordSmartly(
+                        data = ohlcvList,
+                        category = RecordingConfig.Paths.Future.OHLCV,
+                        fileName = "euro_stoxx50_ohlcv"
+                    )
                 }
             }
 
@@ -340,7 +339,7 @@ class FutureApiSpec : IntegrationTestBase() {
                 fun all_prices_are_positive() = integrationTest {
                     // Given
                     println("\n📘 응답 검증: 가격 양수 (거래가 있는 종목만)")
-                    val date = LocalDate.now().minusDays(7)
+                    val date = TestFixtures.TRADING_DAY
                     val productId = "KRDRVFUEST"
 
                     // When
@@ -351,23 +350,21 @@ class FutureApiSpec : IntegrationTestBase() {
                     )
 
                     // Then
-                    if (ohlcvList.isNotEmpty()) {
-                        // 거래량이 있는 종목만 검증 (volume > 0인 경우에만)
-                        val tradedContracts = ohlcvList.filter { it.volume > 0 }
-                        if (tradedContracts.isNotEmpty()) {
-                            assertTrue(tradedContracts.all { it.open > java.math.BigDecimal.ZERO })
-                            assertTrue(tradedContracts.all { it.high > java.math.BigDecimal.ZERO })
-                            assertTrue(tradedContracts.all { it.low > java.math.BigDecimal.ZERO })
-                            assertTrue(tradedContracts.all { it.close > java.math.BigDecimal.ZERO })
-                            println("  • 검증 대상: ${tradedContracts.size}개 레코드 (거래량 > 0)")
-                            println("  • 전체: ${ohlcvList.size}개 레코드")
-                            println("  • 규칙: open/high/low/close > 0 (거래가 있는 종목만)")
-                            println("  ✅ 모든 가격이 양수입니다\n")
-                        } else {
-                            println("  ⚠️ 거래가 있는 종목이 없어 검증을 skip합니다\n")
-                        }
+                    assertTrue(ohlcvList.isNotEmpty(), "거래일 데이터는 비어있지 않아야 합니다")
+
+                    // 거래량이 있는 종목만 검증 (volume > 0인 경우에만)
+                    val tradedContracts = ohlcvList.filter { it.volume > 0 }
+                    if (tradedContracts.isNotEmpty()) {
+                        assertTrue(tradedContracts.all { it.open > java.math.BigDecimal.ZERO })
+                        assertTrue(tradedContracts.all { it.high > java.math.BigDecimal.ZERO })
+                        assertTrue(tradedContracts.all { it.low > java.math.BigDecimal.ZERO })
+                        assertTrue(tradedContracts.all { it.close > java.math.BigDecimal.ZERO })
+                        println("  • 검증 대상: ${tradedContracts.size}개 레코드 (거래량 > 0)")
+                        println("  • 전체: ${ohlcvList.size}개 레코드")
+                        println("  • 규칙: open/high/low/close > 0 (거래가 있는 종목만)")
+                        println("  ✅ 모든 가격이 양수입니다\n")
                     } else {
-                        println("  ⚠️ 데이터가 없어 검증을 skip합니다\n")
+                        println("  ⚠️ 거래가 있는 종목이 없어 검증을 skip합니다\n")
                     }
                 }
 
@@ -376,7 +373,7 @@ class FutureApiSpec : IntegrationTestBase() {
                 fun price_relationships_are_valid() = integrationTest {
                     // Given
                     println("\n📘 응답 검증: 가격 관계")
-                    val date = LocalDate.now().minusDays(7)
+                    val date = TestFixtures.TRADING_DAY
                     val productId = "KRDRVFUEST"
 
                     // When
@@ -387,15 +384,12 @@ class FutureApiSpec : IntegrationTestBase() {
                     )
 
                     // Then
-                    if (ohlcvList.isNotEmpty()) {
-                        assertTrue(ohlcvList.all { it.low <= it.open && it.open <= it.high })
-                        assertTrue(ohlcvList.all { it.low <= it.close && it.close <= it.high })
-                        println("  • 검증 대상: ${ohlcvList.size}개 레코드")
-                        println("  • 규칙: low <= open/close <= high")
-                        println("  ✅ 모든 가격 관계가 올바릅니다\n")
-                    } else {
-                        println("  ⚠️ 데이터가 없어 검증을 skip합니다\n")
-                    }
+                    assertTrue(ohlcvList.isNotEmpty(), "거래일 데이터는 비어있지 않아야 합니다")
+                    assertTrue(ohlcvList.all { it.low <= it.open && it.open <= it.high })
+                    assertTrue(ohlcvList.all { it.low <= it.close && it.close <= it.high })
+                    println("  • 검증 대상: ${ohlcvList.size}개 레코드")
+                    println("  • 규칙: low <= open/close <= high")
+                    println("  ✅ 모든 가격 관계가 올바릅니다\n")
                 }
             }
 
@@ -404,27 +398,50 @@ class FutureApiSpec : IntegrationTestBase() {
             inner class InputValidation {
 
                 @Test
-                @DisplayName("alternative=false일 때 휴장일은 빈 리스트를 반환한다")
-                fun returns_empty_for_holiday_without_alternative() = integrationTest {
-                    // Given
-                    val holiday = LocalDate.of(2024, 1, 1) // 신정
+                @DisplayName("alternative=false일 때 비거래일(주말)은 KRX가 빈 결과를 반환하므로 빈 리스트가 반환된다")
+                fun returns_empty_for_weekend_without_alternative() = integrationTest {
+                    // Given: 비거래일 (토요일)
+                    val weekend = TestFixtures.WEEKEND
                     val productId = "KRDRVFUEST"
-                    println("\n📘 입력 검증: 휴장일 처리 (alternative=false)")
+                    println("\n📘 입력 검증: 비거래일 처리 (alternative=false)")
 
-                    // When
+                    // When: alternative=false로 조회
                     val ohlcvList = client.future.getOhlcvByTicker(
-                        date = holiday,
+                        date = weekend,
                         productId = productId,
                         alternative = false
                     )
 
-                    // Then
-                    println("  • 날짜: $holiday (휴장일)")
+                    // Then: KRX API가 빈 결과를 반환
+                    println("  • 날짜: $weekend (비거래일)")
                     println("  • alternative: false")
                     println("  • 결과: ${ohlcvList.size}개 레코드")
-                    println("  ✅ 빈 리스트 반환 확인\n")
+                    println("  ✅ KRX API 동작: 비거래일은 빈 리스트 반환\n")
 
-                    assertTrue(ohlcvList.isEmpty())
+                    assertTrue(ohlcvList.isEmpty(), "비거래일은 빈 리스트를 반환해야 합니다")
+                }
+
+                @Test
+                @DisplayName("미래 날짜는 데이터가 없으므로 빈 리스트가 반환된다")
+                fun returns_empty_for_future_date() = integrationTest {
+                    // Given: 미래 날짜
+                    val futureDate = TestFixtures.FUTURE_DATE
+                    val productId = "KRDRVFUEST"
+                    println("\n📘 입력 검증: 미래 날짜 조회")
+
+                    // When: 미래 날짜로 조회
+                    val ohlcvList = client.future.getOhlcvByTicker(
+                        date = futureDate,
+                        productId = productId,
+                        alternative = false
+                    )
+
+                    // Then: 미래 데이터는 존재하지 않음
+                    println("  • 날짜: $futureDate (미래)")
+                    println("  • 결과: ${ohlcvList.size}개 레코드")
+                    println("  ✅ KRX API 동작: 미래 날짜는 빈 리스트 반환\n")
+
+                    assertTrue(ohlcvList.isEmpty(), "미래 날짜는 빈 리스트를 반환해야 합니다")
                 }
             }
 
@@ -436,7 +453,7 @@ class FutureApiSpec : IntegrationTestBase() {
                 @DisplayName("존재하지 않는 상품 ID는 빈 리스트를 반환한다")
                 fun returns_empty_for_invalid_product_id() = integrationTest {
                     // Given
-                    val date = LocalDate.now().minusDays(7)
+                    val date = TestFixtures.TRADING_DAY
                     val invalidProductId = "INVALID999"
                     println("\n📘 엣지 케이스: 존재하지 않는 상품 ID")
 
@@ -452,7 +469,7 @@ class FutureApiSpec : IntegrationTestBase() {
                     println("  • 결과: ${ohlcvList.size}개")
                     println("  ✅ 빈 리스트 반환\n")
 
-                    assertTrue(ohlcvList.isEmpty())
+                    assertTrue(ohlcvList.isEmpty(), "존재하지 않는 상품 ID는 빈 리스트를 반환해야 합니다")
                 }
             }
 
@@ -467,7 +484,7 @@ class FutureApiSpec : IntegrationTestBase() {
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
 
                     // Given
-                    val date = LocalDate.now().minusDays(7)
+                    val date = TestFixtures.TRADING_DAY
                     val productId = "KRDRVFUEST"
 
                     // When
@@ -489,9 +506,8 @@ class FutureApiSpec : IntegrationTestBase() {
                     println("\n✅ 테스트 결과: 성공")
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
 
-                    if (ohlcvList.isNotEmpty()) {
-                        assertTrue(topByVolume.isNotEmpty())
-                    }
+                    assertTrue(ohlcvList.isNotEmpty(), "거래일 데이터는 비어있지 않아야 합니다")
+                    assertTrue(topByVolume.isNotEmpty(), "거래량 상위 종목이 존재해야 합니다")
                 }
 
                 @Test
@@ -501,7 +517,7 @@ class FutureApiSpec : IntegrationTestBase() {
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
 
                     // Given
-                    val date = LocalDate.now().minusDays(7)
+                    val date = TestFixtures.TRADING_DAY
                     val productId = "KRDRVFUEST"
 
                     // When
@@ -522,6 +538,7 @@ class FutureApiSpec : IntegrationTestBase() {
                     println("\n✅ 테스트 결과: 성공")
                     println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
 
+                    assertTrue(ohlcvList.isNotEmpty(), "거래일 데이터는 비어있지 않아야 합니다")
                     assertEquals(ohlcvList.size, filtered.size)
                 }
             }

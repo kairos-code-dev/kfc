@@ -30,11 +30,12 @@ internal interface KrxIndexApi {
      *
      * @param ticker 지수 코드
      * @param date 조회 날짜
+     * @param market 시장 구분 (기본값: KOSPI)
      * @return 구성 종목 티커 리스트
      * @throws dev.kairoscode.kfc.domain.exception.KfcException 네트워크 에러, 파싱 실패, API 에러 발생 시
-     * @source KRX API (MDCSTAT00401)
+     * @source KRX API (MDCSTAT00601)
      */
-    suspend fun getIndexConstituents(ticker: String, date: LocalDate): List<String>
+    suspend fun getIndexConstituents(ticker: String, date: LocalDate, market: IndexMarket = IndexMarket.KOSPI): List<String>
 
     /**
      * 지수 OHLCV 조회 (특정 지수 기간별)
@@ -44,14 +45,16 @@ internal interface KrxIndexApi {
      * @param ticker 지수 코드
      * @param fromDate 시작일
      * @param toDate 종료일
+     * @param market 시장 구분 (기본값: KOSPI)
      * @return 지수 OHLCV 리스트
      * @throws dev.kairoscode.kfc.domain.exception.KfcException 네트워크 에러, 파싱 실패, API 에러 발생 시
-     * @source KRX API (MDCSTAT00101)
+     * @source KRX API (MDCSTAT00301)
      */
     suspend fun getOhlcvByDate(
         ticker: String,
         fromDate: LocalDate,
-        toDate: LocalDate
+        toDate: LocalDate,
+        market: IndexMarket = IndexMarket.KOSPI
     ): List<IndexOhlcv>
 
     /**
@@ -78,14 +81,16 @@ internal interface KrxIndexApi {
      * @param ticker 지수 코드
      * @param fromDate 시작일
      * @param toDate 종료일
+     * @param market 시장 구분 (기본값: KOSPI)
      * @return 지수 밸류에이션 리스트
      * @throws dev.kairoscode.kfc.domain.exception.KfcException 네트워크 에러, 파싱 실패, API 에러 발생 시
-     * @source KRX API (MDCSTAT00601)
+     * @source KRX API (MDCSTAT00702)
      */
     suspend fun getFundamentalByDate(
         ticker: String,
         fromDate: LocalDate,
-        toDate: LocalDate
+        toDate: LocalDate,
+        market: IndexMarket = IndexMarket.KOSPI
     ): List<IndexFundamental>
 
     /**
