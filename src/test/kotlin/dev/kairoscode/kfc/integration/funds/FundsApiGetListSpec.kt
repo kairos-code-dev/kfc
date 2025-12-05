@@ -18,19 +18,29 @@ import org.junit.jupiter.api.Assertions.assertTrue
 class FundsApiGetListSpec : IntegrationTestBase() {
 
     @Nested
-    @DisplayName("기본 동작")
+    @DisplayName("1. 기본 동작")
     inner class BasicBehavior {
 
         @Test
         @DisplayName("전체 ETF 목록을 조회할 수 있다")
-        fun `returns all funds when called without parameters`() = integrationTest {
+        fun returns_all_funds_when_called_without_parameters() = integrationTest {
+            println("\n📘 API: getList()")
+            println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+
+            println("📥 Input Parameters:")
+            println("  • (없음)")
+
             // When
             val etfList = client.funds.getList()
 
             // Then
-            assertTrue(etfList.size >= 1, "ETF 목록은 최소 1개 이상이어야 합니다. 실제: ${etfList.size}개")
+            println("\n📤 Response: List<Fund>")
+            println("  • size: ${etfList.size}")
 
-            println("[IntegrationTest] 전체 ETF 개수: ${etfList.size}")
+            println("\n✅ 테스트 결과: 성공")
+            println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
+
+            assertTrue(etfList.size >= 1, "ETF 목록은 최소 1개 이상이어야 합니다. 실제: ${etfList.size}개")
 
             // 스마트 레코딩
             SmartRecorder.recordSmartly(
@@ -42,12 +52,12 @@ class FundsApiGetListSpec : IntegrationTestBase() {
     }
 
     @Nested
-    @DisplayName("응답 데이터 스펙")
-    inner class ResponseSpec {
+    @DisplayName("2. 응답 데이터 검증")
+    inner class ResponseValidation {
 
         @Test
         @DisplayName("각 항목은 ISIN, 티커, 이름, 자산구분을 포함한다")
-        fun `each item contains required fields`() = integrationTest {
+        fun each_item_contains_required_fields() = integrationTest {
             // Given
             val etfList = client.funds.getList()
 
@@ -62,7 +72,7 @@ class FundsApiGetListSpec : IntegrationTestBase() {
 
         @Test
         @DisplayName("TIGER 200과 KODEX 200이 목록에 포함된다")
-        fun `includes major ETFs like TIGER 200 and KODEX 200`() = integrationTest {
+        fun includes_major_etfs_like_tiger200_and_kodex200() = integrationTest {
             // Given
             val etfList = client.funds.getList()
 
@@ -79,7 +89,7 @@ class FundsApiGetListSpec : IntegrationTestBase() {
 
         @Test
         @DisplayName("다양한 자산구분이 포함된다")
-        fun `contains various asset classes`() = integrationTest {
+        fun contains_various_asset_classes() = integrationTest {
             // Given
             val etfList = client.funds.getList()
 
@@ -100,12 +110,12 @@ class FundsApiGetListSpec : IntegrationTestBase() {
     }
 
     @Nested
-    @DisplayName("활용 예제")
-    inner class UsageExamples {
+    @DisplayName("5. 실무 활용 예제")
+    inner class PracticalExamples {
 
         @Test
         @DisplayName("이름으로 ETF를 검색할 수 있다")
-        fun `search ETF by name`() = integrationTest {
+        fun search_etf_by_name() = integrationTest {
             // Given
             val etfList = client.funds.getList()
             val searchKeyword = "TIGER"
@@ -124,7 +134,7 @@ class FundsApiGetListSpec : IntegrationTestBase() {
 
         @Test
         @DisplayName("자산구분으로 ETF를 필터링할 수 있다")
-        fun `filter ETF by asset class`() = integrationTest {
+        fun filter_etf_by_asset_class() = integrationTest {
             // Given
             val etfList = client.funds.getList()
 

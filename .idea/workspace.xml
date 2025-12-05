@@ -6,99 +6,28 @@
   <component name="ChangeListManager">
     <list default="true" id="016e1f85-4a44-41b8-a348-827de419e3a3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/네임스페이스.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/네임스페이스.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/integrationTest/kotlin/dev/kairoscode/kfc/live/funds/EtfAdjustedOhlcvSpec.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/integrationTest/kotlin/dev/kairoscode/kfc/live/funds/EtfDailyPricesSpec.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/integrationTest/kotlin/dev/kairoscode/kfc/live/funds/EtfDetailedInfoSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/integrationTest/kotlin/dev/kairoscode/kfc/live/funds/EtfDetailedInfoSpec.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/integrationTest/kotlin/dev/kairoscode/kfc/live/funds/EtfGeneralInfoSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/integrationTest/kotlin/dev/kairoscode/kfc/live/funds/EtfGeneralInfoSpec.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/integrationTest/kotlin/dev/kairoscode/kfc/live/funds/EtfIntradayBarsSpec.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/integrationTest/kotlin/dev/kairoscode/kfc/live/funds/EtfOhlcvSpec.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/integrationTest/kotlin/dev/kairoscode/kfc/live/funds/EtfPriceChangesSpec.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/integrationTest/kotlin/dev/kairoscode/kfc/live/funds/EtfRecentDailySpec.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/integrationTest/resources/responses/corp/code/corp_code_list_sample.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/integrationTest/resources/responses/corp/code/corp_code_list_sample.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/integrationTest/resources/responses/etf/list/etf_list.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/integrationTest/resources/responses/etf/list/etf_list.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/integrationTest/resources/responses/etf/metrics/detailed_info/kodex200_detailedInfo.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/integrationTest/resources/responses/etf/metrics/detailed_info/kodex200_detailedInfo.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/integrationTest/resources/responses/etf/metrics/detailed_info/tiger200_detailedInfo.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/integrationTest/resources/responses/etf/metrics/detailed_info/tiger200_detailedInfo.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/integrationTest/resources/responses/etf/price/adjusted/069500_adjusted_1month.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/integrationTest/resources/responses/etf/price/adjusted/102110_adjusted_1month.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/integrationTest/resources/responses/etf/price/changes/price_changes_1month.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/integrationTest/resources/responses/etf/price/changes/price_changes_1year.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/integrationTest/resources/responses/etf/price/daily/all_etf_daily_prices.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/integrationTest/resources/responses/etf/price/ohlcv/tiger200_1month.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/integrationTest/resources/responses/etf/price/ohlcv/tiger200_1year.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/integrationTest/resources/responses/etf/price/ohlcv/tiger200_3months.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/integrationTest/resources/responses/etf/price/recent_daily/kodex200_recent_daily.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/integrationTest/resources/responses/etf/price/recent_daily/kodex200_recent_daily.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/integrationTest/resources/responses/etf/price/recent_daily/tiger200_recent_daily.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/integrationTest/resources/responses/etf/price/recent_daily/tiger200_recent_daily.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/KfcClient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/KfcClient.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/api/CorpApi.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/api/FundsApi.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/api/krx/KrxFundsApi.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/api/naver/NaverFundsApi.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/api/opendart/OpenDartApi.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/exception/ErrorCode.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/exception/KfcException.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/internal/CorpApiImpl.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/internal/FundsApiImpl.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/internal/ResponseRecordingContext.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/internal/ResponseRecordingInterceptor.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/internal/krx/HttpExtensions.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/internal/krx/KrxApiFields.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/internal/krx/KrxApiParams.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/internal/krx/KrxFundsApiImpl.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/internal/krx/KrxHttpClient.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/internal/naver/NaverFundsApiImpl.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/internal/opendart/OpenDartApiImpl.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/internal/ratelimit/RateLimitConfig.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/internal/ratelimit/RateLimitException.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/internal/ratelimit/RateLimiter.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/internal/ratelimit/TokenBucketRateLimiter.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/model/krx/Direction.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/model/krx/DivergenceRate.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/model/krx/EtfAdditionalMetadata.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/model/krx/EtfDailyPrice.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/model/krx/EtfDetailedInfo.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/model/krx/EtfGeneralInfo.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/model/krx/EtfIntradayBar.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/model/krx/EtfListItem.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/model/krx/EtfOhlcv.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/model/krx/EtfPriceChange.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/model/krx/EtfRecentDaily.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/model/krx/EtfTrackingMetrics.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/model/krx/InvestorTrading.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/model/krx/InvestorTradingByDate.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/model/krx/PortfolioConstituent.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/model/krx/PortfolioTopItem.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/model/krx/ShortBalance.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/model/krx/ShortSelling.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/model/krx/TrackingError.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/model/naver/NaverEtfOhlcv.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/model/opendart/CorpCode.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/model/opendart/DisclosureItem.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/model/opendart/DividendInfo.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/model/opendart/OpenDartResponse.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/model/opendart/StockSplitInfo.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/dev/kairoscode/kfc/util/NormalizationExtensions.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/KfcClientTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/KfcClientTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/api/ApiErrorHandlingTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/api/corp/CorpCodeApiTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/api/corp/DisclosureApiTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/api/corp/DividendApiTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/api/corp/StockSplitApiTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/api/funds/EtfAdjustedOhlcvApiTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/api/funds/EtfComprehensiveApiTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/api/funds/EtfDailyPricesApiTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/api/funds/EtfDivergenceRateApiTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/api/funds/EtfInvestorTradingApiTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/api/funds/EtfListApiTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/api/funds/EtfOhlcvApiTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/api/funds/EtfPortfolioApiTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/api/funds/EtfPriceChangesApiTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/api/funds/EtfShortApiTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/api/funds/EtfTrackingErrorApiTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/mock/MockCorpApi.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/mock/MockFundsApi.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/utils/TestExtensions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/utils/TestExtensions.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/utils/UnitTestBase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/utils/UnitTestBase.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/archtecture-guide.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/archtecture-guide.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/corp/CorpApiCodeSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/corp/CorpApiCodeSpec.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/corp/CorpApiDisclosureSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/corp/CorpApiDisclosureSpec.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/corp/CorpApiDividendSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/corp/CorpApiDividendSpec.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/corp/CorpApiStockSplitSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/corp/CorpApiStockSplitSpec.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/financials/FinancialsApiAllSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/financials/FinancialsApiAllSpec.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/financials/FinancialsApiBalanceSheetSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/financials/FinancialsApiBalanceSheetSpec.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/financials/FinancialsApiCashFlowSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/financials/FinancialsApiCashFlowSpec.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/financials/FinancialsApiIncomeStatementSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/financials/FinancialsApiIncomeStatementSpec.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiDetailedInfoSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiDetailedInfoSpec.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiGeneralInfoSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiGeneralInfoSpec.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiGetListSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiGetListSpec.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiInvestorTradingSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiInvestorTradingSpec.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiPerformanceSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiPerformanceSpec.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiPortfolioSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiPortfolioSpec.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiPortfolioTop10Spec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiPortfolioTop10Spec.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiShortSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/funds/FundsApiShortSpec.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/price/PriceApiIntradaySpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/price/PriceApiIntradaySpec.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/price/PriceApiRecentDailySpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/price/PriceApiRecentDailySpec.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/stock/StockApiIntegrationTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/utils/IntegrationTestBase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/dev/kairoscode/kfc/integration/utils/IntegrationTestBase.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,30 +56,6 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="kfc" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="kfc" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="kfc" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="documentation" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="kfc" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="help" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="kfc" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="other" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -229,6 +134,7 @@
     "Gradle.kotlin-krx [clean].executor": "Run",
     "Gradle.kotlin-krx [test].executor": "Run",
     "JUnit.EtfComprehensiveLiveTest.testGetComprehensiveInfoTiger200OnTradingDay.executor": "Run",
+    "JUnit.FundsApiShortSpec.testGetShortSellingKodex200.executor": "Run",
     "JUnit.KrxEtfApiTest.getComprehensiveEtfInfo should return ETF detail with basic fields.executor": "Run",
     "JUnit.KrxEtfApiTest.getComprehensiveEtfInfo_should_return_ETF_detail_with_basic_fields.executor": "Run",
     "JUnit.KrxEtfApiTest.getEtfList should include KODEX 200.executor": "Run",
@@ -237,7 +143,9 @@
     "JUnit.KrxEtfApiTest.getEtfOhlcv should return 1 month data when valid range.executor": "Run",
     "JUnit.KrxEtfApiTest.getEtfOhlcv_should_return_single_day_data_when_same_from_and_to_date.executor": "Run",
     "JUnit.KrxEtfApiTest.getEtfPriceChanges_should_return_price_changes_for_period.executor": "Run",
+    "JUnit.KrxRateLimitSpec.testRpsLimitVerification.executor": "Run",
     "JUnit.NormalizationExtensionsTest.toKrxRate - 음수 부호 유지.executor": "Run",
+    "JUnit.StockApiIntegrationTest$GetIndustryGroupsSpec.returns industry groups.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
@@ -266,8 +174,8 @@
       <window_info id="Commit_Guest" show_stripe_button="false" />
       <window_info id="Pull Requests" />
       <window_info id="Learn" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.5005669" visible="true" weight="0.22276455" />
-      <window_info id="Commit" order="1" sideWeight="0.5005669" weight="0.22276455" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.5005669" visible="true" weight="0.2204217" />
+      <window_info id="Commit" order="1" sideWeight="0.5005669" weight="0.2204217" />
       <window_info id="Structure" order="2" sideWeight="0.4994331" side_tool="true" weight="0.22276455" />
       <window_info anchor="bottom" id="Database Changes" />
       <window_info anchor="bottom" id="TypeScript" />
@@ -282,20 +190,20 @@
       <window_info anchor="bottom" id="Problems View" order="2" />
       <window_info anchor="bottom" id="Services" order="3" />
       <window_info anchor="bottom" id="Build" order="4" weight="0.3298636" />
-      <window_info active="true" anchor="bottom" id="Run" order="5" visible="true" weight="0.3269921" />
+      <window_info active="true" anchor="bottom" id="Run" order="5" visible="true" weight="0.48923188" />
       <window_info anchor="bottom" id="Debug" order="6" weight="0.3298636" />
       <window_info anchor="right" id="Plots" />
       <window_info anchor="right" id="Python Console" />
       <window_info anchor="right" id="SciView" />
       <window_info anchor="right" id="Jupyter Variables" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Notifications" order="0" weight="0.25" />
-      <window_info anchor="right" id="AIAssistant" order="1" weight="0.25" />
-      <window_info anchor="right" id="Database" order="2" weight="0.25" />
-      <window_info anchor="right" id="Gradle" order="3" sideWeight="0.7505787" weight="0.24658337" />
+      <window_info anchor="right" id="AIAssistant" order="1" weight="0.31686842" />
+      <window_info anchor="right" id="Database" order="2" weight="0.31686842" />
+      <window_info anchor="right" id="Gradle" order="3" sideWeight="0.7505787" weight="0.31686842" />
       <window_info anchor="right" id="Maven" order="4" weight="0.25" />
       <window_info anchor="right" id="Coverage" order="5" sideWeight="0.2494213" side_tool="true" weight="0.24424052" />
-      <window_info active="true" anchor="right" id="Terminal" order="6" visible="true" weight="0.24658337" />
-      <window_info anchor="right" id="Endpoints" order="7" weight="0.34615386" />
+      <window_info active="true" anchor="right" id="Terminal" order="6" visible="true" weight="0.31686842" />
+      <window_info anchor="right" id="Endpoints" order="7" weight="0.31882077" />
     </layout>
   </component>
   <component name="RecentsManager">
@@ -303,7 +211,7 @@
       <recent name="$PROJECT_DIR$/plan" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.kfc [integrationTest]">
+  <component name="RunManager" selected="Gradle.kfc [test]">
     <configuration name="KrxEtfApiTest.getEtfList_should_include_KODEX_200" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -328,28 +236,6 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="kfc [cleanLiveTest]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="cleanLiveTest" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
     <configuration name="kfc [integrationTest]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -362,28 +248,6 @@
         <option name="taskNames">
           <list>
             <option value="integrationTest" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="kfc [liveTest]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="liveTest" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -416,17 +280,49 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="EtfDetailedInfoLiveTest.testGetComprehensiveInfoTiger200OnTradingDay" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="kfc.liveTest" />
+    <configuration name="FundsApiShortSpec.testGetShortSellingKodex200" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="kfc.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="dev.kairoscode.kfc.live.etf.*" />
+          <option name="PATTERN" value="dev.kairoscode.kfc.integration.funds.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="dev.kairoscode.kfc.live.etf" />
-      <option name="MAIN_CLASS_NAME" value="dev.kairoscode.kfc.live.etf.EtfDetailedInfoLiveTest" />
-      <option name="METHOD_NAME" value="testGetComprehensiveInfoTiger200OnTradingDay" />
+      <option name="PACKAGE_NAME" value="dev.kairoscode.kfc.integration.funds" />
+      <option name="MAIN_CLASS_NAME" value="dev.kairoscode.kfc.integration.funds.FundsApiShortSpec" />
+      <option name="METHOD_NAME" value="testGetShortSellingKodex200" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="KrxRateLimitSpec.testRpsLimitVerification" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="kfc.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dev.kairoscode.kfc.integration.krx.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="dev.kairoscode.kfc.integration.krx" />
+      <option name="MAIN_CLASS_NAME" value="dev.kairoscode.kfc.integration.krx.KrxRateLimitSpec" />
+      <option name="METHOD_NAME" value="testRpsLimitVerification" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StockApiIntegrationTest$GetIndustryGroupsSpec.returns industry groups" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="kfc.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dev.kairoscode.kfc.integration.stock.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="dev.kairoscode.kfc.integration.stock.StockApiIntegrationTest" />
+      <option name="MAIN_CLASS_NAME" value="dev.kairoscode.kfc.integration.stock.StockApiIntegrationTest$GetIndustryGroupsSpec" />
+      <option name="METHOD_NAME" value="returns industry groups" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -436,17 +332,17 @@
       <item itemvalue="Gradle.KrxEtfApiTest.getEtfList_should_include_KODEX_200" />
       <item itemvalue="Gradle.kfc [integrationTest]" />
       <item itemvalue="Gradle.kfc [test]" />
-      <item itemvalue="Gradle.kfc [cleanLiveTest]" />
-      <item itemvalue="Gradle.kfc [liveTest]" />
-      <item itemvalue="JUnit.EtfDetailedInfoLiveTest.testGetComprehensiveInfoTiger200OnTradingDay" />
+      <item itemvalue="JUnit.FundsApiShortSpec.testGetShortSellingKodex200" />
+      <item itemvalue="JUnit.KrxRateLimitSpec.testRpsLimitVerification" />
+      <item itemvalue="JUnit.StockApiIntegrationTest$GetIndustryGroupsSpec.returns industry groups" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.kfc [integrationTest]" />
         <item itemvalue="Gradle.kfc [test]" />
-        <item itemvalue="Gradle.kfc [liveTest]" />
-        <item itemvalue="JUnit.EtfDetailedInfoLiveTest.testGetComprehensiveInfoTiger200OnTradingDay" />
-        <item itemvalue="Gradle.kfc [cleanLiveTest]" />
+        <item itemvalue="JUnit.KrxRateLimitSpec.testRpsLimitVerification" />
+        <item itemvalue="Gradle.kfc [integrationTest]" />
+        <item itemvalue="JUnit.FundsApiShortSpec.testGetShortSellingKodex200" />
+        <item itemvalue="JUnit.StockApiIntegrationTest$GetIndustryGroupsSpec.returns industry groups" />
       </list>
     </recent_temporary>
   </component>
@@ -487,6 +383,8 @@
       <workItem from="1764604819083" duration="7387000" />
       <workItem from="1764633819038" duration="10152000" />
       <workItem from="1764653565745" duration="24481000" />
+      <workItem from="1764812007559" duration="916000" />
+      <workItem from="1764812922798" duration="20778000" />
     </task>
     <servers />
   </component>

@@ -29,8 +29,7 @@ import kotlin.time.Duration.Companion.seconds
  * - [integrationTest]: 기본 Integration Test 실행 (타임아웃 설정)
  *
  * ### 자동 레코딩 헬퍼
- * - [integrationTestWithRecording]: Raw JSON 응답 자동 캡처 및 레코딩
- * - [integrationTestWithSmartRecording]: 데이터 크기에 따른 스마트 레코딩
+ * - [integrationTest]: Raw JSON 응답 자동 캡처 및 레코딩
  *
  * ## 사용 예제
  * ```kotlin
@@ -48,18 +47,6 @@ import kotlin.time.Duration.Companion.seconds
  *         fileName = "sample_response"
  *     ) {
  *         client.someApi.getData()  // 응답이 자동으로 캡처됨
- *     }
- *
- *     @Test
- *     fun `스마트 레코딩`() {
- *         val data = mutableListOf<DataItem>()
- *         integrationTestWithSmartRecording(
- *             data = data,
- *             category = "api/list",
- *             fileName = "all_items"
- *         ) {
- *             data.addAll(client.someApi.getList())
- *         }
  *     }
  * }
  * ```
@@ -97,7 +84,6 @@ abstract class IntegrationTestBase {
             println("[IntegrationTest] 사용 가능한 헬퍼 메서드:")
             println("[IntegrationTest]   - integrationTest(): 기본 테스트 실행")
             println("[IntegrationTest]   - integrationTestWithRecording(): Raw JSON 자동 캡처")
-            println("[IntegrationTest]   - integrationTestWithSmartRecording(): 스마트 레코딩")
         }
         println("[IntegrationTest] 초기 메모리: ${initialMemoryUsed}MB")
     }
@@ -252,7 +238,7 @@ abstract class IntegrationTestBase {
      * @see ResponseRecordingContext
      * @see ResponseRecorder.recordRaw
      */
-    protected inline fun integrationTestWithRecording(
+    protected inline fun integrationTest(
         category: String,
         fileName: String,
         timeout: Duration = 30.seconds,
@@ -273,131 +259,6 @@ abstract class IntegrationTestBase {
             } else if (RecordingConfig.isRecordingEnabled) {
                 println("[IntegrationTest] Warning: 캡처된 응답이 없습니다. ($category/$fileName)")
             }
-        }
-    }
-
-    /**
-     * 데이터 크기에 따라 자동으로 최적의 레코딩 전략을 선택하는 테스트 헬퍼
-     *
-     * [SmartRecorder]를 사용하여 데이터 크기에 따라 적절한 레코딩 전략을 자동 선택합니다:
-     * - Tier 1 (<=10,000): 전체 레코딩
-     * - Tier 2 (10,001~100,000): 처음 10,000개만 (_limited suffix)
-     * - Tier 3 (>100,000): 랜덤 1,000개 샘플링 (_sample suffix)
-     *
-     * @param T 데이터 아이템 타입
-     * @param data 레코딩할 데이터 리스트 (block 실행 후 채워져야 함)
-     * @param category 레코딩 카테고리 경로
-     * @param fileName 저장할 파일명 (확장자 제외, 전략에 따라 suffix 자동 추가)
-     * @param timeout 테스트 타임아웃 (기본값: 30초)
-     * @param block 실행할 테스트 블록 (data 리스트를 채우는 로직 포함)
-     *
-     * ## 사용 예제
-     * ```kotlin
-     * @Test
-     * fun `전체 펀드 목록 스마트 레코딩`() {
-     *     val fundsList = mutableListOf<Fund>()
-     *
-     *     integrationTestWithSmartRecording(
-     *         data = fundsList,
-     *         category = RecordingConfig.Paths.FundsList.ALL,
-     *         fileName = "funds_list_all"
-     *     ) {
-     *         fundsList.addAll(client.funds.getList())
-     *         assertTrue(fundsList.isNotEmpty())
-     *     }
-     * }
-     * ```
-     *
-     * ## 파일명 예시
-     * - 500개 데이터 -> etf_list_all.json
-     * - 50,000개 데이터 -> etf_list_all_limited.json
-     * - 200,000개 데이터 -> etf_list_all_sample.json
-     *
-     * @see SmartRecorder
-     * @see SmartRecorder.RecordingStrategy
-     */
-    protected inline fun <reified T> integrationTestWithSmartRecording(
-        data: List<T>,
-        category: String,
-        fileName: String,
-        timeout: Duration = 30.seconds,
-        crossinline block: suspend () -> Unit
-    ): Unit = runTest(timeout = timeout) {
-        // 테스트 블록 실행 (data 리스트가 채워짐)
-        block()
-
-        // 스마트 레코딩 수행
-        SmartRecorder.recordSmartly(
-            data = data,
-            category = category,
-            fileName = fileName
-        )
-    }
-
-    /**
-     * Raw JSON 응답을 캡처하고 결과 데이터도 함께 스마트 레코딩하는 복합 헬퍼
-     *
-     * Raw JSON 캡처와 스마트 레코딩을 동시에 수행해야 할 때 사용합니다.
-     * Raw JSON은 디버깅용으로, 파싱된 데이터는 테스트용으로 각각 저장됩니다.
-     *
-     * @param T 데이터 아이템 타입
-     * @param data 레코딩할 데이터 리스트
-     * @param rawCategory Raw JSON 저장 카테고리
-     * @param rawFileName Raw JSON 파일명
-     * @param smartCategory 스마트 레코딩 카테고리
-     * @param smartFileName 스마트 레코딩 파일명
-     * @param timeout 테스트 타임아웃 (기본값: 30초)
-     * @param block 실행할 테스트 블록
-     *
-     * ## 사용 예제
-     * ```kotlin
-     * @Test
-     * fun `거래소 심볼 목록 복합 레코딩`() {
-     *     val symbols = mutableListOf<Symbol>()
-     *
-     *     integrationTestWithDualRecording(
-     *         data = symbols,
-     *         rawCategory = "eodhd/exchange/raw",
-     *         rawFileName = "symbols_us_raw",
-     *         smartCategory = "eodhd/exchange",
-     *         smartFileName = "symbols_us"
-     *     ) {
-     *         symbols.addAll(client.eodhd.getExchangeSymbols("US"))
-     *     }
-     * }
-     * ```
-     */
-    protected inline fun <reified T> integrationTestWithDualRecording(
-        data: MutableList<T>,
-        rawCategory: String,
-        rawFileName: String,
-        smartCategory: String,
-        smartFileName: String,
-        timeout: Duration = 30.seconds,
-        crossinline block: suspend () -> List<T>
-    ): Unit = runTest(timeout = timeout) {
-        val recordingContext = ResponseRecordingContext()
-        withContext(recordingContext) {
-            // 테스트 블록 실행 및 결과 수집
-            val result = block()
-            data.addAll(result)
-
-            // Raw JSON 레코딩
-            val responseBody = recordingContext.getResponseBody()
-            if (responseBody != null) {
-                ResponseRecorder.recordRaw(
-                    jsonString = responseBody,
-                    category = rawCategory,
-                    fileName = rawFileName
-                )
-            }
-
-            // 스마트 레코딩
-            SmartRecorder.recordSmartly(
-                data = data,
-                category = smartCategory,
-                fileName = smartFileName
-            )
         }
     }
 }

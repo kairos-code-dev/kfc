@@ -1,373 +1,514 @@
-# KFC 
-(Korea Financial data Collector)
+# KFC (Korea Financial Client)
 
-> Kotlin library for collecting KRX, Naver, and OPENDART ETF data
+> 🇰🇷 Kotlin library for accessing Korean financial market data from KRX, Naver, and OPENDART
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.2.21-blue.svg)](https://kotlinlang.org)
 [![JDK](https://img.shields.io/badge/JDK-21-orange.svg)](https://openjdk.org/)
 [![Ktor](https://img.shields.io/badge/Ktor-3.3.2-blueviolet.svg)](https://ktor.io/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](LICENSE)
 
-**kotlin-krx** (Korea Finance Collector, KFC)는 한국 금융 데이터를 수집하는 Kotlin 라이브러리입니다. KRX(한국거래소), Naver Finance, OPENDART의 ETF 데이터를 타입 안전하게 수집할 수 있습니다.
+**KFC** (Korea Financial Client)는 한국 금융 시장 데이터를 수집하는 Kotlin 라이브러리입니다. KRX(한국거래소), Naver Finance, OPENDART의 데이터를 타입 안전하고 사용하기 쉬운 API로 제공합니다.
 
 ---
 
-## Features
+## ✨ Features
 
-- ✅ **타입 안전**: 명시적 타입 변환 (`String → Int, BigDecimal, LocalDate`)
-- ✅ **소스별 분류**: KRX, Naver, OPENDART API를 독립적으로 관리
-- ✅ **자동 분할**: KRX API의 730일 제한을 자동으로 처리
-- ✅ **Facade 패턴**: 통합 API 클라이언트로 간편한 사용
-- ✅ **코루틴 지원**: Kotlin Coroutines 기반 비동기 API
-- ✅ **Rate Limiting**: Token Bucket 알고리즘 기반의 내장 속도 제어 (소스별 독립 설정 가능)
-- ✅ **확장 가능**: 새로운 데이터 소스 및 상품 추가 용이
-
----
-
-## Supported APIs
-
-### v1.0.0 (ETF 전용)
-
-| 데이터 소스 | 함수 수 | 주요 기능 |
-|------------|--------|----------|
-| **KRX** | 15 | ETF 목록, OHLCV, 포트폴리오, 추적오차, 괴리율, 투자자거래, 공매도 |
-| **Naver** | 1 | 조정주가 OHLCV (분할/병합 반영) |
-| **OPENDART** | 4 | 법인코드, 배당정보, 분할/병합 정보, 공시목록 |
-| **총계** | **20** | |
+- 🎯 **Type-Safe API**: 명시적 타입 변환으로 런타임 에러 최소화
+- 🚀 **Coroutine Support**: Kotlin Coroutines 기반 비동기 API
+- 🛡️ **Built-in Rate Limiting**: Token Bucket 알고리즘 기반 자동 속도 제어
+- 🔄 **Auto-Retry**: 토큰 부족 시 자동 대기 및 재시도
+- 📦 **Unified Client**: 5개 도메인을 하나의 통합 클라이언트로 제공
+- 🎨 **Clean Architecture**: 도메인별 명확한 책임 분리
+- ⚡ **High Performance**: GlobalRateLimiters를 통한 JVM 전역 속도 제어
+- 🧪 **Well Tested**: 100% API 커버리지 (Unit + Integration Tests)
 
 ---
 
-## Installation
+## 📊 Supported Domains & APIs
 
-### Gradle (Kotlin DSL)
+KFC는 5개의 도메인 API를 제공하며, 총 **29개의 메서드**를 통해 한국 금융 시장 데이터에 접근할 수 있습니다.
+
+| Domain | API Count | Data Sources | Description |
+|--------|-----------|--------------|-------------|
+| **Funds** | 13 | KRX, Naver | ETF 목록, 상세정보, 포트폴리오, 성과지표, 투자자거래, 공매도 |
+| **Price** | 2 | KRX, Naver | 시세, OHLCV, 조정주가 (분할/병합 반영) |
+| **Stock** | 6 | KRX | 주식 종목 리스트, 기본정보, 업종분류, 산업그룹 |
+| **Corp** | 4 | OPENDART | 법인코드, 배당정보, 주식분할/병합, 공시검색 |
+| **Financials** | 4 | OPENDART | 손익계산서, 재무상태표, 현금흐름표, 전체 재무제표 |
+| **Total** | **29** | | |
+
+### Data Sources
+
+- **KRX (한국거래소)**: ETF 메타데이터, 시세, 포트폴리오, 투자자거래 등
+- **Naver Finance**: 조정주가 OHLCV (분할/병합 반영)
+- **OPENDART (금융감독원)**: 법인정보, 공시, 재무제표
+
+---
+
+## 🚀 Quick Start
+
+### Installation
+
+#### Gradle (Kotlin DSL)
 
 ```kotlin
 dependencies {
-    implementation("io.github.ulalax:kotlin-krx:1.0.0")
+    implementation("dev.kairoscode:kfc:1.0.0")
 }
 ```
 
-### Gradle (Groovy)
+#### Gradle (Groovy)
 
 ```groovy
 dependencies {
-    implementation 'io.github.ulalax:kotlin-krx:1.0.0'
+    implementation 'dev.kairoscode:kfc:1.0.0'
 }
 ```
 
-### Maven
+#### Maven
 
 ```xml
 <dependency>
-    <groupId>io.github.ulalax</groupId>
-    <artifactId>kotlin-krx</artifactId>
+    <groupId>dev.kairoscode</groupId>
+    <artifactId>kfc</artifactId>
     <version>1.0.0</version>
 </dependency>
 ```
 
----
-
-## Quick Start
-
-### 도메인별 API 사용 (권장)
+### Basic Usage
 
 ```kotlin
-import dev.kairoscode.kfc.KfcClient
+import dev.kairoscode.kfc.api.KfcClient
 import kotlinx.coroutines.runBlocking
 import java.time.LocalDate
 
 fun main() = runBlocking {
-    // 1. 클라이언트 생성
+    // 1. Create client
     val kfc = KfcClient.create(
-        opendartApiKey = "YOUR_OPENDART_API_KEY" // 선택적
+        opendartApiKey = "YOUR_API_KEY" // Optional, required for Corp/Financials domains
     )
 
-    // 2. 펀드/증권상품 도메인: ETF 목록 조회 (from KRX)
+    // 2. Funds Domain: Get ETF list
     val etfList = kfc.funds.getList()
-    println("총 ETF 개수: ${etfList.size}")
+    println("Total ETFs: ${etfList.size}")
+    println("First ETF: ${etfList.first().name} (${etfList.first().ticker})")
 
-    // 첫 번째 ETF 정보 출력
-    val firstEtf = etfList.first()
-    println("첫 번째 ETF: ${firstEtf.name} (${firstEtf.ticker})")
-    println("  ISIN: ${firstEtf.isin}")
-    println("  총보수: ${firstEtf.totalExpenseRatio}%")
-
-    // 3. 펀드/증권상품 도메인: ETF OHLCV 조회 (from KRX)
-    val ohlcv = kfc.funds.getOhlcv(
-        isin = "KR7152100004", // ARIRANG 200
-        fromDate = LocalDate.of(2024, 1, 1),
-        toDate = LocalDate.of(2024, 1, 31)
-    )
-    println("\nOHLCV 데이터: ${ohlcv.size}일")
-    ohlcv.take(3).forEach { data ->
-        println("${data.date}: Open=${data.open}, Close=${data.close}, Volume=${data.volume}")
-    }
-
-    // 4. 펀드/증권상품 도메인: 조정주가 조회 (from Naver)
-    val adjustedOhlcv = kfc.funds.getAdjustedOhlcv(
-        ticker = "152100",
-        fromDate = LocalDate.of(2024, 1, 1),
-        toDate = LocalDate.of(2024, 1, 31)
-    )
-    println("\n조정주가 데이터: ${adjustedOhlcv.size}일")
-
-    // 5. 펀드/증권상품 도메인: 포트폴리오 구성 종목 조회 (from KRX)
-    val portfolio = kfc.funds.getPortfolio(
+    // 3. Price Domain: Get OHLCV data
+    val ohlcv = kfc.price.getOhlcv(
         isin = "KR7069500007", // KODEX 200
-        date = LocalDate.now()
+        fromDate = LocalDate.of(2024, 1, 1),
+        toDate = LocalDate.of(2024, 1, 31)
     )
-    println("\n포트폴리오 구성 종목: ${portfolio.size}개")
-    portfolio.take(5).forEach { stock ->
-        println("${stock.constituentName}: ${stock.weightPercent}%")
-    }
+    println("OHLCV data: ${ohlcv.size} days")
 
-    // 6. 기업 공시 도메인: 법인코드 목록 조회 (from OPENDART)
+    // 4. Stock Domain: Get stock list
+    val stocks = kfc.stock.getStockList()
+    println("Total stocks: ${stocks.size}")
+
+    // 5. Corp Domain: Get corporate codes
     val corpCodes = kfc.corp?.getCorpCodeList()
-    println("\n총 법인코드 개수: ${corpCodes?.size}")
+    val kodex200Corp = corpCodes?.find { it.stockCode == "069500" }
+    println("KODEX 200 Corp Code: ${kodex200Corp?.corpCode}")
 
-    // KODEX 200 법인코드 찾기
-    val kodex200 = corpCodes?.find { it.stockCode == "069500" }
-    println("KODEX 200 법인코드: ${kodex200?.corpCode}")
-
-    // 7. 기업 공시 도메인: 배당 정보 조회 (from OPENDART)
-    val dividends = kfc.corp?.getDividendInfo(
-        corpCode = "00164779", // KODEX 200
+    // 6. Financials Domain: Get income statement
+    val incomeStatement = kfc.financials?.getIncomeStatement(
+        corpCode = "00126380",
         year = 2024
     )
-    println("\n배당 정보: ${dividends?.size}건")
+    println("Income statement items: ${incomeStatement?.size}")
 }
 ```
 
 ---
 
-## Rate Limiting
+## 📚 API Documentation
 
-KFC는 Token Bucket 알고리즘 기반의 Rate Limiting을 내장하고 있어 API 호출 속도를 자동으로 제어합니다.
+### 1. Funds Domain API
 
-### Rate Limiting 활성화
-
-기본적으로 각 API 소스별로 **초당 50개 요청(req/sec)**의 레이트 제한이 적용됩니다.
+ETF 펀드의 메타데이터, 포트폴리오, 성과지표 등을 조회합니다.
 
 ```kotlin
-// 기본 설정 사용 (KRX/Naver/OPENDART 모두 50 req/sec)
-val client = KfcClient.create()
-```
+val kfc = KfcClient.create()
 
-### 커스텀 Rate Limiting 설정
-
-```kotlin
-import dev.kairoscode.kfc.internal.ratelimit.RateLimitConfig
-import dev.kairoscode.kfc.internal.ratelimit.RateLimitingSettings
-
-suspend fun main() {
-    // 소스별로 다른 레이트 제한 설정
-    val customSettings = RateLimitingSettings(
-        krx = RateLimitConfig(
-            capacity = 100,           // 최대 100개 요청
-            refillRate = 100,         // 초당 100개 토큰 충전
-            enabled = true,
-            waitTimeoutMillis = 60000 // 60초 타임아웃
-        ),
-        naver = RateLimitConfig(
-            capacity = 50,
-            refillRate = 50,
-            enabled = true,
-            waitTimeoutMillis = 60000
-        ),
-        opendart = RateLimitConfig(
-            capacity = 30,
-            refillRate = 30,
-            enabled = true,
-            waitTimeoutMillis = 60000
-        )
-    )
-
-    val kfc = KfcClient.create(rateLimitingSettings = customSettings)
-
-    // 이제 각 API 호출이 설정된 레이트 제한을 따릅니다
-    val etfList = kfc.funds.getList()   // KRX 레이트 제한 적용
-    val ohlcv = kfc.funds.getAdjustedOhlcv(...)  // Naver 레이트 제한 적용
-}
-```
-
-### Rate Limiting 비활성화
-
-```kotlin
-// 모든 API 소스의 레이트 제한을 비활성화
-val unlimitedSettings = RateLimitingSettings(
-    krx = RateLimitConfig(enabled = false),
-    naver = RateLimitConfig(enabled = false),
-    opendart = RateLimitConfig(enabled = false)
-)
-
-val client = KfcClient.create(rateLimitingSettings = unlimitedSettings)
-```
-
-### Rate Limiting 동작 원리
-
-- **Token Bucket Algorithm**: 초기에 최대 용량(capacity)만큼의 토큰으로 시작하며, 시간 경과에 따라 refillRate만큼 토큰이 충전됩니다
-- **자동 대기**: 토큰이 부족하면 필요한 토큰이 충전될 때까지 자동으로 요청을 대기시킵니다
-- **타임아웃**: waitTimeoutMillis를 초과하면 `RateLimitTimeoutException`이 발생합니다
-- **소스 독립성**: 각 API 소스(KRX, Naver, OPENDART)는 독립적인 Rate Limiter를 사용합니다
-
----
-
-## API Examples
-
-### 펀드/증권상품 도메인 API
-
-#### ETF 목록 조회 (from KRX)
-
-```kotlin
+// ETF 목록 조회
 val etfList = kfc.funds.getList()
-etfList.forEach { etf ->
-    println("${etf.ticker} ${etf.name} (${etf.totalExpenseRatio}%)")
-}
-```
 
-#### ETF 상세 정보 조회 (from KRX)
-
-```kotlin
-val detail = kfc.funds.getComprehensiveInfo(
+// ETF 상세 정보 조회
+val detail = kfc.funds.getDetailedInfo(
     isin = "KR7069500007",
     tradeDate = LocalDate.now()
 )
-println("NAV: ${detail?.nav}, 시가총액: ${detail?.marketCap}")
-```
 
-#### ETF OHLCV 조회 (from KRX, 자동 분할 지원)
-
-```kotlin
-// 730일 초과 시 자동으로 분할 후 병합
-val ohlcv = kfc.funds.getOhlcv(
-    isin = "KR7069500007",
-    fromDate = LocalDate.of(2020, 1, 1), // 5년치 데이터
-    toDate = LocalDate.of(2024, 12, 31)
-)
-println("총 ${ohlcv.size}일치 OHLCV 데이터")
-```
-
-#### 조정주가 OHLCV 조회 (from Naver)
-
-```kotlin
-val adjustedOhlcv = kfc.funds.getAdjustedOhlcv(
-    ticker = "069500",
-    fromDate = LocalDate.of(2024, 1, 1),
-    toDate = LocalDate.of(2024, 12, 31)
-)
-adjustedOhlcv.forEach { data ->
-    println("${data.date}: Open=${data.open}, Close=${data.close}")
-}
-```
-
-#### ETF 포트폴리오 구성 종목 조회 (from KRX)
-
-```kotlin
+// 포트폴리오 구성 종목
 val portfolio = kfc.funds.getPortfolio(
     isin = "KR7069500007",
     date = LocalDate.now()
 )
-portfolio.forEach { stock ->
-    println("${stock.constituentCode} ${stock.constituentName}: ${stock.weightPercent}%")
-}
+
+// 추적오차 (Tracking Error)
+val trackingError = kfc.funds.getTrackingError(
+    isin = "KR7069500007",
+    fromDate = LocalDate.of(2024, 1, 1),
+    toDate = LocalDate.of(2024, 12, 31)
+)
+
+// 괴리율 (Divergence Rate)
+val divergenceRate = kfc.funds.getDivergenceRate(
+    isin = "KR7069500007",
+    fromDate = LocalDate.of(2024, 1, 1),
+    toDate = LocalDate.of(2024, 12, 31)
+)
+
+// 투자자별 거래
+val investorTrading = kfc.funds.getInvestorTrading(
+    isin = "KR7069500007",
+    date = LocalDate.now()
+)
+
+// 공매도 잔고
+val shortBalance = kfc.funds.getShortBalance(
+    isin = "KR7069500007",
+    fromDate = LocalDate.of(2024, 1, 1),
+    toDate = LocalDate.of(2024, 12, 31)
+)
+
+// 공매도 거래
+val shortSelling = kfc.funds.getShortSelling(
+    isin = "KR7069500007",
+    fromDate = LocalDate.of(2024, 1, 1),
+    toDate = LocalDate.of(2024, 12, 31)
+)
 ```
 
-### 기업 공시 도메인 API
+### 2. Price Domain API
 
-#### 법인코드 목록 조회 (from OPENDART)
+시세 및 OHLCV 데이터를 조회합니다.
 
 ```kotlin
+// KRX OHLCV (자동 분할 지원: 730일 초과 시 자동 분할 후 병합)
+val ohlcv = kfc.price.getOhlcv(
+    isin = "KR7069500007",
+    fromDate = LocalDate.of(2020, 1, 1), // 5년치 데이터도 자동 처리
+    toDate = LocalDate.of(2024, 12, 31)
+)
+
+// Naver 조정주가 OHLCV (분할/병합 반영)
+val adjustedOhlcv = kfc.price.getAdjustedOhlcv(
+    ticker = "069500",
+    fromDate = LocalDate.of(2024, 1, 1),
+    toDate = LocalDate.of(2024, 12, 31)
+)
+```
+
+### 3. Stock Domain API
+
+주식 종목 리스트, 기본정보, 업종분류 등을 조회합니다.
+
+```kotlin
+// 전체 종목 리스트
+val allStocks = kfc.stock.getStockList()
+
+// 시장별 종목 리스트
+val kospiStocks = kfc.stock.getStockList(market = Market.KOSPI)
+val kosdaqStocks = kfc.stock.getStockList(market = Market.KOSDAQ)
+
+// 종목 정보 조회
+val stockInfo = kfc.stock.getStockInfo(ticker = "005930") // 삼성전자
+
+// 종목명 조회
+val stockName = kfc.stock.getStockName(ticker = "005930")
+
+// 종목 검색
+val searchResults = kfc.stock.searchStocks(keyword = "삼성")
+
+// 업종분류 현황
+val sectors = kfc.stock.getSectorClassifications(market = Market.KOSPI)
+
+// 산업별 그룹화
+val industryGroups = kfc.stock.getIndustryGroups()
+```
+
+### 4. Corp Domain API
+
+기업 공시 관련 데이터를 조회합니다 (OPENDART API Key 필요).
+
+```kotlin
+val kfc = KfcClient.create(opendartApiKey = "YOUR_API_KEY")
+
+// 법인코드 목록 조회
 val corpCodes = kfc.corp?.getCorpCodeList()
 val kodex200 = corpCodes?.find { it.stockCode == "069500" }
-println("법인코드: ${kodex200?.corpCode}")
-```
 
-#### 배당 정보 조회 (from OPENDART)
-
-```kotlin
+// 배당 정보 조회
 val dividends = kfc.corp?.getDividendInfo(
-    corpCode = "00164779", // KODEX 200
+    corpCode = "00164779",
     year = 2024
 )
-dividends?.forEach { div ->
-    println("${div.settlementDate}: ${div.currentYear}원")
-}
-```
 
-#### 주식 분할/병합 정보 조회 (from OPENDART)
-
-```kotlin
+// 주식 분할/병합 정보
 val stockSplits = kfc.corp?.getStockSplitInfo(
     corpCode = "00164779",
     year = 2024
 )
-stockSplits?.forEach { split ->
-    println("${split.eventDate}: ${split.eventType}")
-}
+
+// 공시 검색
+val disclosures = kfc.corp?.searchDisclosures(
+    corpCode = "00164779",
+    fromDate = LocalDate.of(2024, 1, 1),
+    toDate = LocalDate.of(2024, 12, 31)
+)
+```
+
+### 5. Financials Domain API
+
+재무제표 데이터를 조회합니다 (OPENDART API Key 필요).
+
+```kotlin
+// 손익계산서
+val incomeStatement = kfc.financials?.getIncomeStatement(
+    corpCode = "00126380",
+    year = 2024,
+    reportCode = ReportCode.Q1 // 분기별 또는 연간
+)
+
+// 재무상태표
+val balanceSheet = kfc.financials?.getBalanceSheet(
+    corpCode = "00126380",
+    year = 2024
+)
+
+// 현금흐름표
+val cashFlowStatement = kfc.financials?.getCashFlowStatement(
+    corpCode = "00126380",
+    year = 2024
+)
+
+// 전체 재무제표 (손익계산서 + 재무상태표 + 현금흐름표)
+val allFinancials = kfc.financials?.getAllFinancials(
+    corpCode = "00126380",
+    year = 2024
+)
 ```
 
 ---
 
-## Architecture
+## ⚙️ Rate Limiting
 
-### 레이어 구조
+KFC는 **Token Bucket 알고리즘** 기반의 Rate Limiting을 내장하여 API 호출 속도를 자동으로 제어합니다.
 
-```
-┌─────────────────────────────────────────┐
-│         API Layer (Public)              │
-│  FundsApi (도메인 통합)                  │
-│  CorpApi (도메인 통합)                   │
-│  KfcClient (Facade)                     │
-└─────────────────┬───────────────────────┘
-                  │ (사용)
-        Model (Data Transfer Objects)
-      EtfListItem, EtfOhlcv, NaverEtfOhlcv
-                  │ (반환)
-┌─────────────────▼───────────────────────┐
-│ Implementation Layer (Internal)         │
-│  FundsApiImpl, CorpApiImpl              │
-│  KrxFundsApiImpl, NaverFundsApiImpl     │
-│  OpenDartApiImpl                        │
-│  HTTP Client, Parser, Type Converter    │
-└─────────────────────────────────────────┘
+### Default Configuration
+
+각 API 소스별 기본 설정은 실제 테스트를 통해 측정된 한계값을 기준으로 설정되어 있습니다:
+
+| API Source | Rate Limit | Test Result | Default Config |
+|------------|------------|-------------|----------------|
+| **KRX** | ~25 RPS | RPS 25: 100% ✓ / RPS 30: 72% | `capacity=25, refillRate=25` |
+| **Naver** | TBD | - | `capacity=50, refillRate=50` |
+| **OPENDART** | 40,000 req/day | - | `capacity=50, refillRate=50` |
+
+### Basic Usage (Default Settings)
+
+```kotlin
+// 기본 설정 사용 (권장)
+val client = KfcClient.create()
 ```
 
-### 패키지 구조 (도메인별 분류)
+### Custom Rate Limiting
+
+소스별로 다른 Rate Limit을 설정할 수 있습니다:
+
+```kotlin
+import dev.kairoscode.kfc.infrastructure.common.ratelimit.RateLimitConfig
+import dev.kairoscode.kfc.infrastructure.common.ratelimit.RateLimitingSettings
+
+val customSettings = RateLimitingSettings(
+    krx = RateLimitConfig(
+        capacity = 25,            // 최대 버스트 크기
+        refillRate = 25,          // 초당 토큰 충전 속도 (RPS)
+        enabled = true,
+        waitTimeoutMillis = 60000 // 대기 타임아웃 (60초)
+    ),
+    naver = RateLimitConfig(capacity = 50, refillRate = 50),
+    opendart = RateLimitConfig(capacity = 50, refillRate = 50)
+)
+
+val client = KfcClient.create(rateLimitingSettings = customSettings)
+```
+
+### How It Works
+
+1. **Token Bucket Algorithm**: 초기에 최대 용량(`capacity`)만큼의 토큰으로 시작
+2. **Auto Refill**: 시간 경과에 따라 `refillRate`(초당 토큰 수)만큼 자동 충전
+3. **Auto Wait**: 토큰 부족 시 충전될 때까지 자동 대기 (10ms 간격 재시도)
+4. **Timeout**: `waitTimeoutMillis` 초과 시 `RateLimitTimeoutException` 발생
+5. **Global Singleton**: 동일 JVM 프로세스 내 모든 `KfcClient` 인스턴스가 소스별 Rate Limiter 공유
+
+### GlobalRateLimiters
+
+KFC는 `GlobalRateLimiters` 싱글톤을 사용하여 JVM 프로세스 전역에서 Rate Limiter를 공유합니다:
+
+```kotlin
+// 첫 번째 클라이언트 생성 (이 설정이 전역으로 적용됨)
+val client1 = KfcClient.create(
+    rateLimitingSettings = RateLimitingSettings(
+        krx = RateLimitConfig(capacity = 25, refillRate = 25)
+    )
+)
+
+// 두 번째 클라이언트 생성 (위와 동일한 Rate Limiter 공유)
+val client2 = KfcClient.create()
+// ✅ client1과 client2는 동일한 KRX Rate Limiter를 공유
+// → 두 클라이언트의 API 호출이 합쳐져도 25 RPS를 초과하지 않음
+```
+
+**중요**: 첫 번째 `KfcClient.create()` 호출 시 전달된 `rateLimitingSettings`가 해당 JVM 프로세스의 Rate Limiter를 초기화합니다. 이후 호출에서는 동일한 Rate Limiter 인스턴스가 재사용됩니다.
+
+### Disable Rate Limiting
+
+```kotlin
+// 모든 소스의 Rate Limiting 비활성화 (권장하지 않음)
+val unlimitedSettings = RateLimitingSettings.unlimited()
+val client = KfcClient.create(rateLimitingSettings = unlimitedSettings)
+```
+
+---
+
+## 🧪 Testing
+
+KFC는 **Unit Test**와 **Integration Test**를 통해 API 안정성을 보장합니다.
+
+### Test Structure
+
+```
+src/test/kotlin/
+├── unit/                     # Unit Tests (40 tests)
+│   ├── corp/                 # CorpApi unit tests
+│   ├── financials/           # FinancialsApi unit tests
+│   ├── funds/                # FundsApi unit tests
+│   └── ratelimit/            # GlobalRateLimiters unit tests
+│
+└── integration/              # Integration Tests (95 tests)
+    ├── krx/                  # KRX API integration tests
+    ├── opendart/             # OPENDART API integration tests
+    └── utils/                # Test utilities
+```
+
+### Run Tests
+
+#### Unit Tests (Fast, No API Key Required)
+
+```bash
+./gradlew unitTest
+```
+
+- **실행 시간**: ~5초
+- **테스트 수**: 40개
+- **특징**: Mock 데이터 사용, API 키 불필요
+
+#### Integration Tests (Live API Calls)
+
+```bash
+# 1. Set OPENDART API Key (optional, for Corp/Financials tests)
+echo "OPENDART_API_KEY=your_key_here" > local.properties
+
+# 2. Run integration tests
+./gradlew integrationTest
+```
+
+- **실행 시간**: ~90초
+- **테스트 수**: 95개 (1개 skip)
+- **특징**: 실제 API 호출, Rate Limiting 자동 적용
+
+#### All Tests
+
+```bash
+./gradlew test
+```
+
+### Test Coverage
+
+| Domain | API Methods | Unit Tests | Integration Tests |
+|--------|-------------|------------|-------------------|
+| **Funds** | 13 | ✅ 13/13 | ✅ 13/13 |
+| **Price** | 2 | ✅ 2/2 | ✅ 2/2 |
+| **Stock** | 6 | - | ✅ 6/6 |
+| **Corp** | 4 | ✅ 4/4 | ✅ 4/4 |
+| **Financials** | 4 | ✅ 4/4 | ✅ 4/4 |
+| **RateLimiting** | - | ✅ 10/10 | - |
+| **Total** | **29** | **✅ 40 tests** | **✅ 95 tests** |
+
+---
+
+## 🏗️ Architecture
+
+### Layered Architecture
+
+KFC는 레이어드 아키텍처를 기반으로 비즈니스 영역별로 API를 구분하여 제공합니다:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    KfcClient (Facade)                       │
+│   - Unified entry point for all domains                    │
+│   - GlobalRateLimiters integration                         │
+└────────────┬────────────────────────────────────────────────┘
+             │
+    ┌────────┴────────┬───────────┬──────────┬──────────────┐
+    │                 │           │          │              │
+┌───▼────┐  ┌────────▼──┐  ┌─────▼────┐  ┌─▼──────┐  ┌───▼────────┐
+│ Funds  │  │  Price    │  │  Stock   │  │  Corp  │  │ Financials │
+│ Domain │  │  Domain   │  │  Domain  │  │ Domain │  │  Domain    │
+└───┬────┘  └────┬──────┘  └─────┬────┘  └─┬──────┘  └───┬────────┘
+    │            │               │         │             │
+┌───▼────────────▼───────────────▼─────────▼─────────────▼────────┐
+│            Infrastructure Layer                                  │
+│  - KrxFundsApiImpl, KrxStockApiImpl                             │
+│  - NaverFundsApiImpl                                            │
+│  - OpenDartApiImpl                                              │
+│  - GlobalRateLimiters (Singleton)                               │
+│  - HTTP Client, Parser, Type Converter                          │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+### Package Structure
 
 ```
 dev.kairoscode.kfc/
-├── api/              # Public API (도메인별)
-│   ├── FundsApi.kt      # 펀드/증권상품 도메인 인터페이스
-│   ├── CorpApi.kt       # 기업 공시 도메인 인터페이스
-│   ├── krx/             # KRX 소스별 인터페이스 (내부 사용)
-│   ├── naver/           # Naver 소스별 인터페이스 (내부 사용)
-│   ├── opendart/        # OPENDART 소스별 인터페이스 (내부 사용)
-│   └── KfcClient.kt     # Facade
+├── api/                          # Public API
+│   ├── FundsApi.kt               # Funds domain interface
+│   ├── PriceApi.kt               # Price domain interface
+│   ├── StockApi.kt               # Stock domain interface
+│   ├── CorpApi.kt                # Corp domain interface
+│   ├── FinancialsApi.kt          # Financials domain interface
+│   └── KfcClient.kt              # Facade
 │
-├── model/            # 데이터 클래스
-│   ├── krx/
-│   ├── naver/
-│   ├── opendart/
+├── model/                        # Data models
+│   ├── krx/                      # KRX models
+│   ├── naver/                    # Naver models
+│   ├── opendart/                 # OPENDART models
+│   └── common/                   # Common models
+│
+├── infrastructure/               # Implementation layer
+│   ├── krx/                      # KRX API implementations
+│   ├── naver/                    # Naver API implementations
+│   ├── opendart/                 # OPENDART API implementations
 │   └── common/
+│       └── ratelimit/            # Rate limiting
+│           ├── GlobalRateLimiters.kt
+│           ├── TokenBucketRateLimiter.kt
+│           └── RateLimitConfig.kt
 │
-├── internal/         # 내부 구현 (internal)
-│   ├── FundsApiImpl.kt      # 펀드/증권상품 도메인 구현체
-│   ├── CorpApiImpl.kt       # 기업 공시 도메인 구현체
-│   ├── krx/                 # KRX 소스별 구현체
-│   ├── naver/               # Naver 소스별 구현체
-│   ├── opendart/            # OPENDART 소스별 구현체
-│   └── ratelimit/           # Rate Limiting
-│
-└── exception/        # 예외 클래스
+└── exception/                    # Exception handling
+    ├── KfcException.kt
+    └── ErrorCode.kt
 ```
 
 ---
 
-## Exception Handling
+## 🔧 Exception Handling
 
 모든 예외는 `KfcException`으로 통합되며, `ErrorCode`를 통해 에러 종류를 구분합니다.
 
-### 사용 예시
+### Example
 
 ```kotlin
 import dev.kairoscode.kfc.exception.*
@@ -376,47 +517,38 @@ try {
     val etfList = kfc.funds.getList()
 } catch (e: KfcException) {
     when (e.errorCode) {
-        ErrorCode.NETWORK_CONNECTION_FAILED -> println("네트워크 연결 실패")
-        ErrorCode.HTTP_ERROR_RESPONSE -> println("HTTP 오류 응답")
-        ErrorCode.JSON_PARSE_ERROR -> println("JSON 파싱 실패")
-        ErrorCode.XML_PARSE_ERROR -> println("XML 파싱 실패")
-        ErrorCode.KRX_API_ERROR -> println("KRX API 오류")
-        ErrorCode.RATE_LIMIT_EXCEEDED -> println("API 호출 제한 초과")
-        ErrorCode.INVALID_DATE_RANGE -> println("잘못된 날짜 범위")
-        else -> println("오류: ${e.message}")
+        ErrorCode.NETWORK_CONNECTION_FAILED -> println("Network error")
+        ErrorCode.HTTP_ERROR_RESPONSE -> println("HTTP error: ${e.message}")
+        ErrorCode.RATE_LIMIT_EXCEEDED -> println("Rate limit exceeded")
+        ErrorCode.KRX_API_ERROR -> println("KRX API error")
+        else -> println("Unknown error: ${e.message}")
     }
 }
 ```
 
-### 에러 코드 목록
+### Error Codes
 
-| 코드 | 번대 | 에러 코드 | 메시지 |
-|------|------|---------|--------|
-| 1001 | 1000번대 (네트워크) | `NETWORK_CONNECTION_FAILED` | 네트워크 연결에 실패했습니다 |
-| 1002 | 1000번대 | `NETWORK_TIMEOUT` | 네트워크 요청 시간이 초과되었습니다 |
-| 1003 | 1000번대 | `HTTP_REQUEST_FAILED` | HTTP 요청이 실패했습니다 |
-| 1004 | 1000번대 | `HTTP_ERROR_RESPONSE` | HTTP 요청이 오류 응답을 반환했습니다 |
-| 2001 | 2000번대 (파싱) | `JSON_PARSE_ERROR` | JSON 파싱에 실패했습니다 |
-| 2002 | 2000번대 | `XML_PARSE_ERROR` | XML 파싱에 실패했습니다 |
-| 2003 | 2000번대 | `INVALID_DATA_FORMAT` | 데이터 형식이 올바르지 않습니다 |
-| 2004 | 2000번대 | `FIELD_TYPE_MISMATCH` | 필드의 타입이 예상과 다릅니다 |
-| 2005 | 2000번대 | `REQUIRED_FIELD_MISSING` | 필수 필드가 누락되었습니다 |
-| 2006 | 2000번대 | `NUMBER_FORMAT_ERROR` | 숫자 형식이 올바르지 않습니다 |
-| 2007 | 2000번대 | `DATE_FORMAT_ERROR` | 날짜 형식이 올바르지 않습니다 |
-| 2008 | 2000번대 | `ZIP_PARSE_ERROR` | ZIP 파일 파싱에 실패했습니다 |
-| 3001 | 3000번대 (API) | `KRX_API_ERROR` | KRX API에서 오류가 발생했습니다 |
-| 3002 | 3000번대 | `OPENDART_API_ERROR` | OPENDART API에서 오류가 발생했습니다 |
-| 3003 | 3000번대 | `NAVER_API_ERROR` | Naver API에서 오류가 발생했습니다 |
-| 4001 | 4000번대 (Rate Limit) | `RATE_LIMIT_EXCEEDED` | API 호출 제한을 초과했습니다 |
-| 5001 | 5000번대 (검증) | `INVALID_DATE_RANGE` | 날짜 범위가 올바르지 않습니다 |
-| 5002 | 5000번대 | `INVALID_PARAMETER` | 파라미터가 올바르지 않습니다 |
-| 9999 | 9000번대 | `UNKNOWN_ERROR` | 알 수 없는 오류가 발생했습니다 |
+| Code | Category | Error Code | Description |
+|------|----------|-----------|-------------|
+| 1001 | Network | `NETWORK_CONNECTION_FAILED` | 네트워크 연결 실패 |
+| 1002 | Network | `NETWORK_TIMEOUT` | 네트워크 타임아웃 |
+| 1003 | Network | `HTTP_REQUEST_FAILED` | HTTP 요청 실패 |
+| 1004 | Network | `HTTP_ERROR_RESPONSE` | HTTP 오류 응답 |
+| 2001 | Parsing | `JSON_PARSE_ERROR` | JSON 파싱 실패 |
+| 2002 | Parsing | `XML_PARSE_ERROR` | XML 파싱 실패 |
+| 2003 | Parsing | `INVALID_DATA_FORMAT` | 잘못된 데이터 형식 |
+| 3001 | API | `KRX_API_ERROR` | KRX API 오류 |
+| 3002 | API | `OPENDART_API_ERROR` | OPENDART API 오류 |
+| 3003 | API | `NAVER_API_ERROR` | Naver API 오류 |
+| 4001 | Rate Limit | `RATE_LIMIT_EXCEEDED` | API 호출 제한 초과 |
+| 5001 | Validation | `INVALID_DATE_RANGE` | 잘못된 날짜 범위 |
+| 5002 | Validation | `INVALID_PARAMETER` | 잘못된 파라미터 |
 
 ---
 
-## Requirements
+## 📋 Requirements
 
-- **Kotlin**: 2.2.21
+- **Kotlin**: 2.2.21+
 - **JDK**: 21 (LTS)
 - **Gradle**: 8.0+
 - **Kotlinx Coroutines**: 1.8.0+
@@ -424,172 +556,101 @@ try {
 
 ---
 
-## Testing
+## 🗺️ Roadmap
 
-kfc 라이브러리는 Unit Test를 통해 API 안정성을 보장합니다.
+### v1.0.0 (Current)
 
-### Unit Test 실행
-
-Mock HTTP Client를 사용하여 빠르게 테스트를 실행할 수 있습니다:
-
-```bash
-./gradlew test
-```
-
-- **API 키 불필요**: Mock 데이터 사용
-- **실행 시간**: 약 5-10초
-- **총 테스트 수**: 26개 테스트 메서드
-- **통과율**: 100%
-
-### Live Test 실행 (선택사항)
-
-실제 API를 호출하여 테스트하려면 Live Test를 실행할 수 있습니다:
-
-```bash
-# 1. local.properties 파일에 API 키 설정
-echo "OPENDART_API_KEY=your_api_key_here" > local.properties
-
-# 2. Live Test 실행
-./gradlew liveTest
-```
-
-- **API 키 필요**: OPENDART API 키 (선택적)
-- **실행 시간**: 약 3-5분 (실제 API 호출)
-- **Rate Limiting**: 자동으로 API 호출 속도 제어
-
-### 테스트 구조
-
-```
-src/
-├── test/kotlin/dev/kairoscode/kfc/
-│   ├── api/
-│   │   ├── etf/          # ETF API Unit Tests (9개)
-│   │   └── corp/         # Corp API Unit Tests (4개)
-│   ├── mock/             # Mock 객체
-│   ├── utils/            # 테스트 유틸리티
-│   └── KfcClientTest.kt  # 통합 테스트
-│
-└── liveTest/kotlin/dev/kairoscode/kfc/live/
-    ├── etf/              # ETF Live Tests
-    └── corp/             # Corp Live Tests
-```
-
-### 테스트 커버리지
-
-| 도메인 | API 함수 수 | Unit Test | Live Test |
-|--------|------------|-----------|-----------|
-| **FundsApi** | 15 | ✅ 15/15 | ✅ 15/15 |
-| **CorpApi** | 4 | ✅ 4/4 | ✅ 4/4 |
-| **총계** | **19** | **✅ 100%** | **✅ 100%** |
-
-### 테스트 리포트 확인
-
-테스트 실행 후 HTML 리포트를 확인할 수 있습니다:
-
-```bash
-./gradlew test
-open build/reports/tests/test/index.html  # macOS
-xdg-open build/reports/tests/test/index.html  # Linux
-```
-
-### 테스트 작성 예제
-
-```kotlin
-import dev.kairoscode.kfc.KfcClient
-import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.Test
-import java.time.LocalDate
-
-class MyEtfTest {
-    @Test
-    fun `ETF 목록 조회 테스트`() = runBlocking {
-        // Given: KfcClient 생성
-        val kfc = KfcClient.create()
-
-        // When: ETF 목록 조회
-        val etfList = kfc.funds.getList()
-
-        // Then: 목록이 비어있지 않은지 확인
-        assert(etfList.isNotEmpty())
-        println("ETF 개수: ${etfList.size}")
-    }
-}
-```
-
----
-
-## Documentation
-
-- [프로젝트 개요](plan/1차개발/01-프로젝트-개요.md)
-- [라이브러리 아키텍처](plan/02-라이브러리-아키텍처.md)
-- [패키지 구조](plan/03-패키지-구조.md)
-
----
-
-## Roadmap
-
-### v1.0.0 (현재 - 개발 진행 중)
-
-- [x] 기획 문서 작성
-- [x] 디렉토리 구조 생성
-- [x] 프로젝트 초기화 (Gradle 멀티모듈, Kotlin 2.2.21, Ktor 3.3.2)
-- [x] 정규화 유틸리티 구현 (BigDecimal 기반 금융 데이터 처리)
-- [x] HTTP 클라이언트 인프라 구축
-- [x] 에러 핸들링 구조 구현
-- [x] MDCSTAT04701 구현 (ETF 종합정보 - 52주 고가/저가, 총보수 포함)
-- [x] 나머지 KRX ETF API 구현 (14개 함수)
-- [x] Naver ETF API 구현 (1개 함수)
-- [x] OPENDART API 구현 (4개 함수)
-- [x] Facade 패턴 적용 (KfcClient)
-- [x] Rate Limiting 구현 (Token Bucket 알고리즘)
-- [x] 테스트 작성 (Unit Test: 26개, Live Test: 19개, 커버리지 100%)
+- [x] KRX API 구현 (15개 함수)
+- [x] Naver API 구현 (1개 함수)
+- [x] OPENDART API 구현 (8개 함수)
+- [x] 5개 도메인 API (Funds, Price, Stock, Corp, Financials)
+- [x] GlobalRateLimiters 구현 (JVM 전역 Rate Limiting)
+- [x] 포괄적인 테스트 작성 (Unit + Integration)
 - [ ] Maven Central 배포
+- [ ] API 문서 사이트 구축
 
-### v2.0.0 (향후)
+### v2.0.0 (Future)
 
 - [ ] KRX 채권 API 추가
-- [ ] KRX 주식 API 추가
-- [ ] Naver 주식 API 추가
+- [ ] KRX 파생상품 API 추가
+- [ ] 실시간 시세 WebSocket 지원
 
-### v3.0.0 (향후)
+### v3.0.0 (Future)
 
 - [ ] Yahoo Finance API 추가
-- [ ] Investing.com API 추가
+- [ ] Alpha Vantage API 추가
+- [ ] 다중 데이터 소스 통합 조회
 
 ---
 
-## Contributing
+## 🤝 Contributing
 
-현재 기획 단계이며, 기여는 v1.0.0 릴리스 이후 받을 예정입니다.
+KFC는 오픈소스 프로젝트입니다. 기여를 환영합니다!
+
+### How to Contribute
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'feat: Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### Development Setup
+
+```bash
+# Clone repository
+git clone https://github.com/kairos-code-dev/kfc.git
+cd kfc
+
+# Run tests
+./gradlew test
+
+# Build
+./gradlew build
+```
 
 ---
 
-## License
+## 📄 License
 
-MIT License. See [LICENSE](LICENSE) for details.
-
----
-
-## Credits
-
-- Inspired by [pykrx](https://github.com/sharebook-kr/pykrx) (Python)
-- Data sources: [KRX](http://data.krx.co.kr), [Naver Finance](https://finance.naver.com), [OPENDART](https://opendart.fss.or.kr)
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## Contact
+## 🙏 Credits
+
+- Inspired by [pykrx](https://github.com/sharebook-kr/pykrx) (Python library for Korean financial data)
+- Data sources:
+  - [KRX (한국거래소)](http://data.krx.co.kr)
+  - [Naver Finance](https://finance.naver.com)
+  - [OPENDART (금융감독원)](https://opendart.fss.or.kr)
+
+---
+
+## 📞 Contact
 
 - **Author**: Kairos
 - **Email**: ulalax@kairoscode.dev
 - **Website**: https://www.kairoscode.dev
-- **GitHub**: https://github.com/ulalax-kairos/kotlin-krx
+- **GitHub**: https://github.com/kairos-code-dev/kfc
 
 ---
 
-**⚠️ 주의사항**
+## ⚠️ Disclaimer
 
-- 이 라이브러리는 KRX, Naver, OPENDART에서 공개한 API를 사용합니다.
-- KRX와 Naver는 공식 API 문서가 없으며, 프론트엔드에서 사용하는 API를 분석하여 사용합니다.
-- OPENDART API 사용 시 API Key가 필요합니다 ([발급 방법](https://opendart.fss.or.kr/mng/apiKey.do)).
-- 각 데이터 소스의 이용 약관 및 이용 정책을 확인하고 준수해야 합니다.
-- 투자 판단은 본인의 책임이며, 이 라이브러리는 투자 조언을 제공하지 않습니다.
+- 이 라이브러리는 KRX, Naver, OPENDART에서 공개한 데이터를 사용합니다
+- KRX와 Naver는 공식 API 문서가 없으며, 웹사이트에서 사용하는 API를 분석하여 구현했습니다
+- OPENDART API 사용 시 API Key가 필요합니다 ([발급 방법](https://opendart.fss.or.kr/mng/apiKey.do))
+- 각 데이터 소스의 이용 약관 및 이용 정책을 확인하고 준수해야 합니다
+- **투자 판단은 본인의 책임**이며, 이 라이브러리는 투자 조언을 제공하지 않습니다
+- 데이터의 정확성과 완전성을 보장하지 않습니다. 중요한 결정에는 공식 출처를 확인하세요
+
+---
+
+<p align="center">
+  Made with ❤️ by <a href="https://github.com/kairos-code-dev">Kairos Code</a>
+</p>
+
+<p align="center">
+  <a href="#kfc-korea-financial-client">⬆️ Back to top</a>
+</p>
