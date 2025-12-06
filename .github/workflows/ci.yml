@@ -5,6 +5,9 @@ on:
     branches: [main, develop]
   pull_request:
     branches: [main, develop]
+  schedule:
+    # 매일 UTC 00:00 (KST 09:00)에 실행
+    - cron: '0 0 * * *'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
