@@ -210,7 +210,7 @@ val unitTest by tasks.registering(Test::class) {
  *
  * 사용법:
  *   ./gradlew integrationTest                          # 통합 테스트 실행
- *   ./gradlew integrationTest -Precord.responses=true  # 레코딩 활성화fdg
+ *   ./gradlew integrationTest -Precord.responses=true  # 레코딩 활성화
  *
  * 특징:
  *   - @Tag("integration") 태그가 있는 테스트만 실행
