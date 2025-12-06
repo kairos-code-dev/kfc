@@ -32,7 +32,7 @@ fun main() = runBlocking {
     println("전체 지수 수: ${allIndices.size}개")
     println("\n주요 지수 (상위 10개):")
     allIndices.take(10).forEach { index ->
-        println("  - ${index.koreanName} (${index.ticker}) | 영문명: ${index.englishName}")
+        println("  - ${index.name} (${index.ticker})")
     }
 
     // 2. 코스피 지수 기본정보 조회
@@ -40,8 +40,7 @@ fun main() = runBlocking {
     println("-".repeat(80))
     val kospiInfo = kfc.index.getIndexInfo("1001") // 코스피 지수 코드: 1001
     if (kospiInfo != null) {
-        println("지수명: ${kospiInfo.koreanName}")
-        println("영문명: ${kospiInfo.englishName}")
+        println("지수명: ${kospiInfo.name}")
         println("지수코드: ${kospiInfo.ticker}")
         println("기준지수: ${kospiInfo.baseIndex}")
         println("시장: ${kospiInfo.market}")
@@ -74,7 +73,7 @@ fun main() = runBlocking {
         kospiOhlcv.takeLast(5).forEach { ohlcv ->
             println("  ${ohlcv.date}:")
             println("    시가: ${ohlcv.open} | 고가: ${ohlcv.high} | 저가: ${ohlcv.low} | 종가: ${ohlcv.close}")
-            println("    거래량: ${String.format("%,d", ohlcv.volume)}주 | 거래대금: ${String.format("%,d", ohlcv.tradingValue)}원")
+            println("    거래량: ${String.format("%,d", ohlcv.volume)}주 | 거래대금: ${String.format("%,d", ohlcv.tradingValue ?: 0L)}원")
         }
     }
 
@@ -85,8 +84,8 @@ fun main() = runBlocking {
     println("전체 지수 OHLCV 수: ${allIndicesOhlcv.size}개")
     println("\n주요 지수 OHLCV (상위 5개):")
     allIndicesOhlcv.take(5).forEach { ohlcv ->
-        println("  ${ohlcv.koreanName} (${ohlcv.ticker}):")
-        println("    종가: ${ohlcv.close} | 등락률: ${ohlcv.changeRate}%")
+        println("  ${ohlcv.name}:")
+        println("    종가: ${ohlcv.close}")
         println("    거래량: ${String.format("%,d", ohlcv.volume)}주")
     }
 
@@ -115,7 +114,7 @@ fun main() = runBlocking {
     println("코스피 지수 밸류에이션 수: ${allIndicesFundamental.size}개")
     println("\n주요 지수 밸류에이션 (상위 5개):")
     allIndicesFundamental.take(5).forEach { fundamental ->
-        println("  ${fundamental.koreanName} (${fundamental.ticker}):")
+        println("  ${fundamental.name}:")
         println("    PER: ${fundamental.per} | PBR: ${fundamental.pbr} | 배당수익률: ${fundamental.dividendYield}%")
     }
 
@@ -144,9 +143,9 @@ fun main() = runBlocking {
     priceChanges
         .take(10)
         .forEach { change ->
-            println("  ${change.koreanName} (${change.ticker}):")
-            println("    시작가: ${change.startPrice} | 종가: ${change.endPrice}")
-            println("    등락폭: ${change.priceChange} | 등락률: ${change.changeRate}%")
+            println("  ${change.name}:")
+            println("    시작가: ${change.openPrice} | 종가: ${change.closePrice}")
+            println("    등락률: ${change.changeRate}%")
         }
 
     // 10. 여러 지수 비교 분석
@@ -170,13 +169,13 @@ fun main() = runBlocking {
         if (indexInfo != null && ohlcvList.isNotEmpty()) {
             val ohlcv = ohlcvList.first()
             val fund = fundamental.firstOrNull()
-            println("\n  ${indexInfo.koreanName} (${indexInfo.ticker}):")
-            println("    종가: ${ohlcv.close} | 등락률: ${ohlcv.changeRate}%")
+            println("\n  ${indexInfo.name} (${indexInfo.ticker}):")
+            println("    종가: ${ohlcv.close}")
             if (fund != null) {
                 println("    PER: ${fund.per} | PBR: ${fund.pbr} | 배당수익률: ${fund.dividendYield}%")
             }
             println("    거래량: ${String.format("%,d", ohlcv.volume)}주")
-            println("    거래대금: ${String.format("%,d", ohlcv.tradingValue)}원")
+            println("    거래대금: ${String.format("%,d", ohlcv.tradingValue ?: 0L)}원")
         }
     }
 

@@ -32,7 +32,7 @@ fun main() = runBlocking {
     println("전체 ETF 수: ${allEtfs.size}개")
     println("\n상위 10개 ETF:")
     allEtfs.take(10).forEach { etf ->
-        println("  - ${etf.koreanName} (${etf.ticker}) | ISIN: ${etf.isin}")
+        println("  - ${etf.name} (${etf.ticker}) | ISIN: ${etf.isin}")
     }
 
     // 2. KODEX 200 ETF 상세정보 조회 (ISIN: KR7069500007)
@@ -41,17 +41,17 @@ fun main() = runBlocking {
     val kodex200Isin = "KR7069500007"
     val detailedInfo = kfc.funds.getDetailedInfo(isin = kodex200Isin)
     if (detailedInfo != null) {
-        println("ETF명: ${detailedInfo.koreanName}")
+        println("ETF명: ${detailedInfo.name}")
         println("ISIN: ${detailedInfo.isin}")
         println("종가: ${detailedInfo.closePrice}원")
         println("NAV: ${detailedInfo.nav}원")
-        println("괴리율: ${detailedInfo.divergenceRate}%")
+        println("괴리율: ${detailedInfo.calculateDivergenceRate()}%")
         println("거래량: ${String.format("%,d", detailedInfo.volume)}주")
         println("거래대금: ${String.format("%,d", detailedInfo.tradingValue)}원")
         println("시가총액: ${String.format("%,d", detailedInfo.marketCap)}원")
-        println("52주 고가: ${detailedInfo.fiftyTwoWeekHigh}원")
-        println("52주 저가: ${detailedInfo.fiftyTwoWeekLow}원")
-        println("총 보수: ${detailedInfo.totalExpenseRatio}%")
+        println("52주 고가: ${detailedInfo.week52High}원")
+        println("52주 저가: ${detailedInfo.week52Low}원")
+        println("총 보수: ${detailedInfo.totalFee}%")
     } else {
         println("ETF 상세정보를 찾을 수 없습니다.")
     }
@@ -61,12 +61,12 @@ fun main() = runBlocking {
     println("-".repeat(80))
     val generalInfo = kfc.funds.getGeneralInfo(isin = kodex200Isin)
     if (generalInfo != null) {
-        println("ETF명: ${generalInfo.koreanName}")
-        println("자산구분: ${generalInfo.assetClass}")
-        println("운용사: ${generalInfo.managementCompany}")
-        println("벤치마크: ${generalInfo.benchmark}")
+        println("ETF명: ${generalInfo.name}")
+        println("자산분류: ${generalInfo.assetClassName}")
+        println("운용사: ${generalInfo.issuerName}")
+        println("지수산출기관: ${generalInfo.indexProviderName}")
         println("상장일: ${generalInfo.listingDate}")
-        println("만기일: ${generalInfo.maturityDate ?: "없음"}")
+        println("LP: ${generalInfo.lpName}")
     } else {
         println("ETF 기본정보를 찾을 수 없습니다.")
     }
@@ -78,11 +78,11 @@ fun main() = runBlocking {
     println("포트폴리오 구성 종목 수: ${portfolio.size}개")
     println("\n상위 10개 구성 종목 (비중 기준):")
     portfolio
-        .sortedByDescending { it.weight }
+        .sortedByDescending { it.weightPercent }
         .take(10)
         .forEachIndexed { index, constituent ->
-            println("  ${index + 1}. ${constituent.koreanName} (${constituent.ticker})")
-            println("     비중: ${constituent.weight}% | 수량: ${String.format("%,d", constituent.quantity)}주")
+            println("  ${index + 1}. ${constituent.constituentName} (${constituent.constituentCode})")
+            println("     비중: ${constituent.weightPercent}% | CU당 수량: ${constituent.sharesPerCu}주")
         }
 
     // 5. 포트폴리오 상위 10종목 빠른 조회
@@ -91,8 +91,8 @@ fun main() = runBlocking {
     val portfolioTop10 = kfc.funds.getPortfolioTop10(isin = kodex200Isin)
     println("상위 10 종목:")
     portfolioTop10.forEachIndexed { index, item ->
-        println("  ${index + 1}. ${item.koreanName} (${item.ticker})")
-        println("     비중: ${item.weight}% | 평가금액: ${String.format("%,d", item.evaluationAmount)}원")
+        println("  ${index + 1}. ${item.name} (${item.ticker})")
+        println("     비중: ${item.compositionRatio}% | 구성금액: ${String.format("%,d", item.compositionAmount)}원")
     }
 
     // 6. KODEX 200 추적 오차 조회 (최근 30일)
@@ -110,7 +110,7 @@ fun main() = runBlocking {
     if (trackingErrors.isNotEmpty()) {
         println("\n최근 5일 추적 오차:")
         trackingErrors.takeLast(5).forEach { error ->
-            println("  ${error.date}: ${error.trackingError}%")
+            println("  ${error.tradeDate}: ${error.trackingErrorRate}%")
         }
     }
 
@@ -127,7 +127,7 @@ fun main() = runBlocking {
     if (divergenceRates.isNotEmpty()) {
         println("\n최근 5일 괴리율:")
         divergenceRates.takeLast(5).forEach { rate ->
-            println("  ${rate.date}: ${rate.divergenceRate}% (종가: ${rate.closePrice}원, NAV: ${rate.nav}원)")
+            println("  ${rate.tradeDate}: ${rate.divergenceRate}% (종가: ${rate.closePrice}원, NAV: ${rate.nav}원)")
         }
     }
 
@@ -145,10 +145,10 @@ fun main() = runBlocking {
     if (shortSelling.isNotEmpty()) {
         println("\n최근 5일 공매도 거래:")
         shortSelling.takeLast(5).forEach { selling ->
-            println("  ${selling.date}:")
+            println("  ${selling.tradeDate}:")
             println("    공매도량: ${String.format("%,d", selling.shortVolume)}주")
             println("    공매도 거래대금: ${String.format("%,d", selling.shortValue)}원")
-            println("    공매도 비중: ${selling.shortRatio}%")
+            println("    공매도 비중: ${selling.shortVolumeRatio}%")
         }
     }
 
@@ -166,10 +166,10 @@ fun main() = runBlocking {
     if (shortBalance.isNotEmpty()) {
         println("\n최근 5일 공매도 잔고:")
         shortBalance.takeLast(5).forEach { balance ->
-            println("  ${balance.date}:")
-            println("    잔고량: ${String.format("%,d", balance.balanceQuantity)}주")
-            println("    잔고금액: ${String.format("%,d", balance.balanceValue)}원")
-            println("    잔고비율: ${balance.balanceRatio}%")
+            println("  ${balance.tradeDate}:")
+            println("    잔고량: ${String.format("%,d", balance.shortBalance)}주")
+            println("    잔고금액: ${String.format("%,d", balance.shortBalanceValue)}원")
+            println("    잔고비율: ${balance.shortBalanceRatio}%")
         }
     }
 
@@ -180,9 +180,9 @@ fun main() = runBlocking {
     println("투자자 유형별 거래 현황:")
     investorTrading.forEach { trading ->
         println("  ${trading.investorType}:")
-        println("    매수량: ${String.format("%,d", trading.buyVolume)}주")
-        println("    매도량: ${String.format("%,d", trading.sellVolume)}주")
-        println("    순매수: ${String.format("%,d", trading.netVolume)}주")
+        println("    매수량: ${String.format("%,d", trading.bidVolume)}주")
+        println("    매도량: ${String.format("%,d", trading.askVolume)}주")
+        println("    순매수: ${String.format("%,d", trading.netBuyVolume)}주")
     }
 
     println("\n" + "=".repeat(80))

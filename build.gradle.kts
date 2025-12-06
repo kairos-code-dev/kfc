@@ -324,3 +324,15 @@ tasks.named<Jar>("javadocJar") {
     dependsOn(tasks.dokkaHtml)
     from(tasks.dokkaHtml.flatMap { it.outputDirectory })
 }
+
+// ============================================
+// Examples 소스셋 설정 (IntelliJ 실행용)
+// ============================================
+
+sourceSets {
+    create("examples") {
+        kotlin.srcDir("examples")
+        compileClasspath += sourceSets.main.get().output + sourceSets.main.get().compileClasspath
+        runtimeClasspath += sourceSets.main.get().output + sourceSets.main.get().runtimeClasspath
+    }
+}

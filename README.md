@@ -255,6 +255,34 @@ val futureOhlcv = kfc.future.getOhlcvByTicker(
 )
 ```
 
+## Examples
+
+`examples/` 디렉토리에서 각 API별 사용 예제를 확인할 수 있습니다. IntelliJ IDEA에서 직접 실행할 수 있습니다.
+
+| 파일 | 설명 |
+|------|------|
+| `StockExample.kt` | 주식 종목 리스트, 기본정보, 섹터/산업 분류 조회 |
+| `EtfExample.kt` | ETF 목록, 상세정보, 포트폴리오, 공매도, 투자자 거래 |
+| `IndexExample.kt` | 지수 목록, OHLCV, 밸류에이션(PER/PBR), 구성 종목 |
+| `BondExample.kt` | 채권 수익률, 수익률 곡선 분석, 스프레드 계산 |
+| `FinancialsExample.kt` | 재무제표 조회, 배당 정보, 공시 검색 (OPENDART API Key 필요) |
+
+### 더 자세한 예제
+
+더 상세한 API 사용법은 **통합 테스트**를 참고하세요. 통합 테스트는 실제 API 호출을 기반으로 작성되어 있어 각 API의 실제 동작을 확인할 수 있습니다.
+
+```
+src/test/kotlin/dev/kairoscode/kfc/integration/
+├── stock/      # Stock API 테스트
+├── funds/      # Funds/ETF API 테스트
+├── index/      # Index API 테스트
+├── bond/       # Bond API 테스트
+├── future/     # Future API 테스트
+├── price/      # Price API 테스트
+├── corp/       # Corp API 테스트 (OPENDART)
+└── financials/ # Financials API 테스트 (OPENDART)
+```
+
 ## API Reference
 
 ### KfcClient

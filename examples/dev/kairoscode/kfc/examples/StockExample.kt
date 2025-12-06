@@ -3,7 +3,6 @@ package dev.kairoscode.kfc.examples
 import dev.kairoscode.kfc.api.KfcClient
 import dev.kairoscode.kfc.domain.stock.Market
 import kotlinx.coroutines.runBlocking
-import java.time.LocalDate
 
 /**
  * Stock API 사용 예제
@@ -34,7 +33,7 @@ fun main() = runBlocking {
     println("코스피 상장 종목 수: ${kospiStocks.size}개")
     println("\n상위 5개 종목:")
     kospiStocks.take(5).forEach { stock ->
-        println("  - ${stock.koreanName} (${stock.ticker}) | ISIN: ${stock.isin} | 시장: ${stock.market}")
+        println("  - ${stock.name} (${stock.ticker}) | ISIN: ${stock.isin} | 시장: ${stock.market}")
     }
 
     // 2. 코스닥 종목 리스트 조회
@@ -44,7 +43,7 @@ fun main() = runBlocking {
     println("코스닥 상장 종목 수: ${kosdaqStocks.size}개")
     println("\n상위 5개 종목:")
     kosdaqStocks.take(5).forEach { stock ->
-        println("  - ${stock.koreanName} (${stock.ticker}) | ISIN: ${stock.isin} | 시장: ${stock.market}")
+        println("  - ${stock.name} (${stock.ticker}) | ISIN: ${stock.isin} | 시장: ${stock.market}")
     }
 
     // 3. 개별 종목 기본정보 조회
@@ -52,8 +51,8 @@ fun main() = runBlocking {
     println("-".repeat(80))
     val samsungInfo = kfc.stock.getStockInfo("005930")
     if (samsungInfo != null) {
-        println("종목명: ${samsungInfo.koreanName}")
-        println("영문명: ${samsungInfo.englishName}")
+        println("종목명: ${samsungInfo.name}")
+        println("정식명: ${samsungInfo.fullName ?: "-"}")
         println("종목코드: ${samsungInfo.ticker}")
         println("ISIN: ${samsungInfo.isin}")
         println("시장: ${samsungInfo.market}")
@@ -74,7 +73,7 @@ fun main() = runBlocking {
     val samsungStocks = kfc.stock.searchStocks(keyword = "삼성", market = Market.KOSPI)
     println("검색 결과: ${samsungStocks.size}개")
     samsungStocks.take(10).forEach { stock ->
-        println("  - ${stock.koreanName} (${stock.ticker})")
+        println("  - ${stock.name} (${stock.ticker})")
     }
 
     // 6. 업종분류 현황 조회
@@ -84,12 +83,12 @@ fun main() = runBlocking {
     println("전체 종목 수: ${sectorClassifications.size}개")
     println("\n상위 5개 종목 (시가총액 기준):")
     sectorClassifications
-        .sortedByDescending { it.marketCap }
+        .sortedByDescending { it.marketCap ?: 0L }
         .take(5)
         .forEach { info ->
-            println("  - ${info.koreanName} (${info.ticker})")
-            println("    산업: ${info.industryName} | 섹터: ${info.sectorName}")
-            println("    시가총액: ${String.format("%,d", info.marketCap)}백만원")
+            println("  - ${info.name} (${info.ticker})")
+            println("    산업: ${info.industry}")
+            println("    시가총액: ${String.format("%,d", info.marketCap ?: 0L)}백만원")
         }
 
     // 7. 산업별 그룹화 데이터 조회
@@ -111,13 +110,13 @@ fun main() = runBlocking {
     println("\n[8] 특정 산업 내 종목 상세 정보")
     println("-".repeat(80))
     val semiconductorStocks = sectorClassifications
-        .filter { it.industryName.contains("반도체") }
-        .sortedByDescending { it.marketCap }
+        .filter { it.industry.contains("반도체") }
+        .sortedByDescending { it.marketCap ?: 0L }
     println("반도체 산업 종목 수: ${semiconductorStocks.size}개")
     println("\n시가총액 상위 5개 종목:")
     semiconductorStocks.take(5).forEach { stock ->
-        println("  - ${stock.koreanName} (${stock.ticker})")
-        println("    시가총액: ${String.format("%,d", stock.marketCap)}백만원")
+        println("  - ${stock.name} (${stock.ticker})")
+        println("    시가총액: ${String.format("%,d", stock.marketCap ?: 0L)}백만원")
     }
 
     println("\n" + "=".repeat(80))

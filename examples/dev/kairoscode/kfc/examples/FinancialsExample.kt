@@ -1,8 +1,7 @@
 package dev.kairoscode.kfc.examples
 
 import dev.kairoscode.kfc.api.KfcClient
-import dev.kairoscode.kfc.domain.financials.ReportType
-import dev.kairoscode.kfc.domain.financials.StatementType
+import dev.kairoscode.kfc.domain.financials.*
 import kotlinx.coroutines.runBlocking
 import java.time.LocalDate
 
@@ -41,7 +40,9 @@ fun main() = runBlocking {
     val kfc = KfcClient.create(opendartApiKey = apiKey)
 
     // Corp API와 Financials API가 null이 아닌지 확인
-    if (kfc.corp == null || kfc.financials == null) {
+    val corpApi = kfc.corp
+    val financialsApi = kfc.financials
+    if (corpApi == null || financialsApi == null) {
         println("ERROR: Corp API 또는 Financials API를 사용할 수 없습니다.")
         return@runBlocking
     }
@@ -53,7 +54,7 @@ fun main() = runBlocking {
     // 1. OPENDART 고유번호 조회
     println("\n[1] OPENDART 고유번호 조회")
     println("-".repeat(80))
-    val corpCodeList = kfc.corp.getCorpCodeList()
+    val corpCodeList = corpApi.getCorpCodeList()
     println("전체 법인 수: ${corpCodeList.size}개")
 
     // 삼성전자 고유번호 찾기
@@ -81,7 +82,7 @@ fun main() = runBlocking {
     // 2. 삼성전자 손익계산서 조회 (2023년)
     println("\n[2] 삼성전자 손익계산서 조회 (2023년)")
     println("-".repeat(80))
-    val incomeStatement = kfc.financials.getIncomeStatement(
+    val incomeStatement = financialsApi.getIncomeStatement(
         corpCode = samsungCorp.corpCode,
         year = 2023,
         reportType = ReportType.ANNUAL,
@@ -89,17 +90,21 @@ fun main() = runBlocking {
     )
     println("보고서 종류: ${incomeStatement.reportType}")
     println("재무제표 구분: ${incomeStatement.statementType}")
-    println("통화: ${incomeStatement.currency}")
+    println("계정과목 수: ${incomeStatement.lineItems.size}개")
     println("\n주요 항목:")
-    println("  매출액: ${String.format("%,d", incomeStatement.revenue)}원")
-    println("  영업이익: ${String.format("%,d", incomeStatement.operatingProfit)}원")
-    println("  당기순이익: ${String.format("%,d", incomeStatement.netIncome)}원")
-    println("  주당순이익(EPS): ${incomeStatement.eps}원")
+    incomeStatement.getRevenue()?.let { println("  매출액: ${String.format("%,d", it.toLong())}원") }
+    incomeStatement.getOperatingIncome()?.let { println("  영업이익: ${String.format("%,d", it.toLong())}원") }
+    incomeStatement.getNetIncome()?.let { println("  당기순이익: ${String.format("%,d", it.toLong())}원") }
+
+    // 영업이익률 계산
+    incomeStatement.calculateOperatingMargin()?.let {
+        println("  영업이익률: ${String.format("%.2f", it)}%")
+    }
 
     // 3. 삼성전자 재무상태표 조회 (2023년)
     println("\n[3] 삼성전자 재무상태표 조회 (2023년)")
     println("-".repeat(80))
-    val balanceSheet = kfc.financials.getBalanceSheet(
+    val balanceSheet = financialsApi.getBalanceSheet(
         corpCode = samsungCorp.corpCode,
         year = 2023,
         reportType = ReportType.ANNUAL,
@@ -107,27 +112,27 @@ fun main() = runBlocking {
     )
     println("보고서 종류: ${balanceSheet.reportType}")
     println("재무제표 구분: ${balanceSheet.statementType}")
-    println("통화: ${balanceSheet.currency}")
+    println("계정과목 수: ${balanceSheet.lineItems.size}개")
     println("\n주요 항목:")
-    println("  자산총계: ${String.format("%,d", balanceSheet.totalAssets)}원")
-    println("  부채총계: ${String.format("%,d", balanceSheet.totalLiabilities)}원")
-    println("  자본총계: ${String.format("%,d", balanceSheet.totalEquity)}원")
-    println("  유동자산: ${String.format("%,d", balanceSheet.currentAssets)}원")
-    println("  비유동자산: ${String.format("%,d", balanceSheet.nonCurrentAssets)}원")
-    println("  유동부채: ${String.format("%,d", balanceSheet.currentLiabilities)}원")
-    println("  비유동부채: ${String.format("%,d", balanceSheet.nonCurrentLiabilities)}원")
+    balanceSheet.getTotalAssets()?.let { println("  자산총계: ${String.format("%,d", it.toLong())}원") }
+    balanceSheet.getTotalLiabilities()?.let { println("  부채총계: ${String.format("%,d", it.toLong())}원") }
+    balanceSheet.getTotalEquity()?.let { println("  자본총계: ${String.format("%,d", it.toLong())}원") }
+    balanceSheet.getCurrentAssets()?.let { println("  유동자산: ${String.format("%,d", it.toLong())}원") }
+    balanceSheet.getNoncurrentAssets()?.let { println("  비유동자산: ${String.format("%,d", it.toLong())}원") }
 
     // 재무비율 계산
-    val debtRatio = (balanceSheet.totalLiabilities.toDouble() / balanceSheet.totalAssets.toDouble()) * 100
-    val currentRatio = (balanceSheet.currentAssets.toDouble() / balanceSheet.currentLiabilities.toDouble()) * 100
     println("\n재무비율:")
-    println("  부채비율: ${String.format("%.2f", debtRatio)}%")
-    println("  유동비율: ${String.format("%.2f", currentRatio)}%")
+    balanceSheet.calculateDebtToEquityRatio()?.let {
+        println("  부채비율: ${String.format("%.2f", it)}%")
+    }
+    balanceSheet.calculateCurrentRatio()?.let {
+        println("  유동비율: ${String.format("%.2f", it)}%")
+    }
 
     // 4. 삼성전자 현금흐름표 조회 (2023년)
     println("\n[4] 삼성전자 현금흐름표 조회 (2023년)")
     println("-".repeat(80))
-    val cashFlowStatement = kfc.financials.getCashFlowStatement(
+    val cashFlowStatement = financialsApi.getCashFlowStatement(
         corpCode = samsungCorp.corpCode,
         year = 2023,
         reportType = ReportType.ANNUAL,
@@ -135,50 +140,65 @@ fun main() = runBlocking {
     )
     println("보고서 종류: ${cashFlowStatement.reportType}")
     println("재무제표 구분: ${cashFlowStatement.statementType}")
-    println("통화: ${cashFlowStatement.currency}")
+    println("계정과목 수: ${cashFlowStatement.lineItems.size}개")
     println("\n주요 항목:")
-    println("  영업활동 현금흐름: ${String.format("%,d", cashFlowStatement.operatingCashFlow)}원")
-    println("  투자활동 현금흐름: ${String.format("%,d", cashFlowStatement.investingCashFlow)}원")
-    println("  재무활동 현금흐름: ${String.format("%,d", cashFlowStatement.financingCashFlow)}원")
+    cashFlowStatement.getOperatingCashFlow()?.let {
+        println("  영업활동 현금흐름: ${String.format("%,d", it.toLong())}원")
+    }
+    cashFlowStatement.getInvestingCashFlow()?.let {
+        println("  투자활동 현금흐름: ${String.format("%,d", it.toLong())}원")
+    }
+    cashFlowStatement.getFinancingCashFlow()?.let {
+        println("  재무활동 현금흐름: ${String.format("%,d", it.toLong())}원")
+    }
 
     // 5. 카카오 전체 재무제표 한 번에 조회 (2023년)
     println("\n[5] 카카오 전체 재무제표 한 번에 조회 (2023년)")
     println("-".repeat(80))
-    val allFinancials = kfc.financials.getAllFinancials(
+    val allFinancials = financialsApi.getAllFinancials(
         corpCode = kakaoCorp.corpCode,
         year = 2023,
         reportType = ReportType.ANNUAL,
         statementType = StatementType.CONSOLIDATED
     )
     println("법인명: ${kakaoCorp.corpName}")
-    println("사업연도: ${allFinancials.year}")
-    println("\n손익계산서:")
-    println("  매출액: ${String.format("%,d", allFinancials.incomeStatement.revenue)}원")
-    println("  영업이익: ${String.format("%,d", allFinancials.incomeStatement.operatingProfit)}원")
-    println("  당기순이익: ${String.format("%,d", allFinancials.incomeStatement.netIncome)}원")
-    println("\n재무상태표:")
-    println("  자산총계: ${String.format("%,d", allFinancials.balanceSheet.totalAssets)}원")
-    println("  부채총계: ${String.format("%,d", allFinancials.balanceSheet.totalLiabilities)}원")
-    println("  자본총계: ${String.format("%,d", allFinancials.balanceSheet.totalEquity)}원")
-    println("\n현금흐름표:")
-    println("  영업활동 현금흐름: ${String.format("%,d", allFinancials.cashFlowStatement.operatingCashFlow)}원")
-    println("  투자활동 현금흐름: ${String.format("%,d", allFinancials.cashFlowStatement.investingCashFlow)}원")
-    println("  재무활동 현금흐름: ${String.format("%,d", allFinancials.cashFlowStatement.financingCashFlow)}원")
+    println("사업연도: ${allFinancials.fiscalYear}")
+
+    allFinancials.incomeStatement?.let { is_ ->
+        println("\n손익계산서:")
+        is_.getRevenue()?.let { println("  매출액: ${String.format("%,d", it.toLong())}원") }
+        is_.getOperatingIncome()?.let { println("  영업이익: ${String.format("%,d", it.toLong())}원") }
+        is_.getNetIncome()?.let { println("  당기순이익: ${String.format("%,d", it.toLong())}원") }
+    }
+
+    allFinancials.balanceSheet?.let { bs ->
+        println("\n재무상태표:")
+        bs.getTotalAssets()?.let { println("  자산총계: ${String.format("%,d", it.toLong())}원") }
+        bs.getTotalLiabilities()?.let { println("  부채총계: ${String.format("%,d", it.toLong())}원") }
+        bs.getTotalEquity()?.let { println("  자본총계: ${String.format("%,d", it.toLong())}원") }
+    }
+
+    allFinancials.cashFlowStatement?.let { cf ->
+        println("\n현금흐름표:")
+        cf.getOperatingCashFlow()?.let { println("  영업활동 현금흐름: ${String.format("%,d", it.toLong())}원") }
+        cf.getInvestingCashFlow()?.let { println("  투자활동 현금흐름: ${String.format("%,d", it.toLong())}원") }
+        cf.getFinancingCashFlow()?.let { println("  재무활동 현금흐름: ${String.format("%,d", it.toLong())}원") }
+    }
 
     // 6. 삼성전자 배당 정보 조회 (2023년)
     println("\n[6] 삼성전자 배당 정보 조회 (2023년)")
     println("-".repeat(80))
-    val dividendInfo = kfc.corp.getDividendInfo(
+    val dividendInfo = corpApi.getDividendInfo(
         corpCode = samsungCorp.corpCode,
         year = 2023
     )
     if (dividendInfo.isNotEmpty()) {
         println("배당 정보:")
         dividendInfo.forEach { info ->
-            println("  ${info.stockType}:")
-            println("    주당 현금배당금: ${info.cashDividendPerShare}원")
-            println("    현금배당수익률: ${info.dividendYield}%")
-            println("    현금배당성향: ${info.dividendPayoutRatio}%")
+            println("  ${info.dividendType} (${info.stockKind}):")
+            println("    당기 배당금: ${info.currentYear ?: "-"}원")
+            println("    전기 배당금: ${info.previousYear ?: "-"}원")
+            println("    결산기준일: ${info.settlementDate}")
         }
     } else {
         println("배당 정보가 없습니다.")
@@ -189,7 +209,7 @@ fun main() = runBlocking {
     println("-".repeat(80))
     val endDate = LocalDate.now()
     val startDate = endDate.minusDays(7)
-    val disclosures = kfc.corp.searchDisclosures(
+    val disclosures = corpApi.searchDisclosures(
         corpCode = samsungCorp.corpCode,
         startDate = startDate,
         endDate = endDate,
@@ -201,10 +221,10 @@ fun main() = runBlocking {
     if (disclosures.isNotEmpty()) {
         println("\n최근 공시:")
         disclosures.take(5).forEach { disclosure ->
-            println("\n  [${disclosure.reportDate}]")
+            println("\n  [${disclosure.rceptDate}]")
             println("  제목: ${disclosure.reportName}")
-            println("  제출인: ${disclosure.corpName}")
-            println("  접수번호: ${disclosure.receiptNo}")
+            println("  제출인: ${disclosure.filerName}")
+            println("  접수번호: ${disclosure.rceptNo}")
         }
     }
 
@@ -222,28 +242,34 @@ fun main() = runBlocking {
         val corp = corpCodeList.find { it.stockCode == ticker }
         if (corp != null) {
             try {
-                val financials = kfc.financials.getAllFinancials(
+                val financials = financialsApi.getAllFinancials(
                     corpCode = corp.corpCode,
                     year = 2023,
                     reportType = ReportType.ANNUAL,
                     statementType = StatementType.CONSOLIDATED
                 )
 
-                val roe = (financials.incomeStatement.netIncome.toDouble() /
-                    financials.balanceSheet.totalEquity.toDouble()) * 100
-                val profitMargin = (financials.incomeStatement.netIncome.toDouble() /
-                    financials.incomeStatement.revenue.toDouble()) * 100
+                val is_ = financials.incomeStatement
+                val bs = financials.balanceSheet
 
                 println("$name (${corp.stockCode}):")
-                println("  매출액: ${String.format("%,d", financials.incomeStatement.revenue)}원")
-                println("  영업이익률: ${String.format("%.2f",
-                    (financials.incomeStatement.operatingProfit.toDouble() /
-                    financials.incomeStatement.revenue.toDouble()) * 100)}%")
-                println("  순이익률: ${String.format("%.2f", profitMargin)}%")
-                println("  ROE: ${String.format("%.2f", roe)}%")
-                println("  부채비율: ${String.format("%.2f",
-                    (financials.balanceSheet.totalLiabilities.toDouble() /
-                    financials.balanceSheet.totalAssets.toDouble()) * 100)}%")
+
+                is_?.let {
+                    it.getRevenue()?.let { rev -> println("  매출액: ${String.format("%,d", rev.toLong())}원") }
+                    it.calculateOperatingMargin()?.let { margin ->
+                        println("  영업이익률: ${String.format("%.2f", margin)}%")
+                    }
+                    it.calculateNetMargin()?.let { margin ->
+                        println("  순이익률: ${String.format("%.2f", margin)}%")
+                    }
+                }
+
+                bs?.let {
+                    it.calculateDebtToEquityRatio()?.let { ratio ->
+                        println("  부채비율: ${String.format("%.2f", ratio)}%")
+                    }
+                }
+
                 println()
             } catch (e: Exception) {
                 println("$name (${corp.stockCode}): 데이터 조회 실패 - ${e.message}\n")

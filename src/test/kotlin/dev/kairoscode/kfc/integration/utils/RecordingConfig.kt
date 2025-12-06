@@ -37,7 +37,7 @@ object RecordingConfig {
      * 레코딩 파일 저장 경로
      * Integration Test의 리소스 경로로 저장됩니다.
      */
-    val baseOutputPath: Path = JavaPaths.get("src/integrationTest/resources/responses")
+    val baseOutputPath: Path = JavaPaths.get("src/test/resources/responses")
 
     /**
      * API 네임스페이스별 레코딩 경로
