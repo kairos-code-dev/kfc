@@ -93,8 +93,6 @@ object RecordingConfig {
             const val GENERAL_INFO = "$BASE/general_info"
             const val PORTFOLIO_TOP10 = "$BASE/portfolio_top10"
 
-            @Deprecated("Use DETAILED_INFO instead", ReplaceWith("DETAILED_INFO"))
-            const val COMPREHENSIVE = "$BASE/comprehensive"
         }
 
         /**
@@ -219,65 +217,5 @@ object RecordingConfig {
          */
         const val ERRORS = "errors"
 
-        // ========================================
-        // 하위 호환성을 위한 기존 경로 (Deprecated)
-        // ========================================
-
-        /**
-         * ETF 관련 기존 경로
-         * 새로운 계층 구조로 마이그레이션 권장
-         */
-        object Etf {
-            @Deprecated("Use EtfList.BASE instead", ReplaceWith("EtfList.BASE"))
-            const val LIST = "etf/list"
-
-            @Deprecated("Use EtfMetrics.COMPREHENSIVE instead", ReplaceWith("EtfMetrics.COMPREHENSIVE"))
-            const val COMPREHENSIVE = "etf/comprehensive"
-
-            @Deprecated("Use EtfPrice.DAILY instead", ReplaceWith("EtfPrice.DAILY"))
-            const val DAILY_PRICES = "etf/daily_prices"
-
-            @Deprecated("Use EtfPrice.OHLCV instead", ReplaceWith("EtfPrice.OHLCV"))
-            const val OHLCV = "etf/ohlcv"
-
-            @Deprecated("Use EtfPrice.ADJUSTED instead", ReplaceWith("EtfPrice.ADJUSTED"))
-            const val ADJUSTED_OHLCV = "etf/adjusted_ohlcv"
-
-            @Deprecated("Use EtfPrice.CHANGES instead", ReplaceWith("EtfPrice.CHANGES"))
-            const val PRICE_CHANGES = "etf/price_changes"
-
-            @Deprecated("Use EtfMetrics.PORTFOLIO instead", ReplaceWith("EtfMetrics.PORTFOLIO"))
-            const val PORTFOLIO = "etf/portfolio"
-
-            @Deprecated("Use EtfMetrics.TRACKING_ERROR instead", ReplaceWith("EtfMetrics.TRACKING_ERROR"))
-            const val TRACKING_ERROR = "etf/tracking_error"
-
-            @Deprecated("Use EtfMetrics.DIVERGENCE_RATE instead", ReplaceWith("EtfMetrics.DIVERGENCE_RATE"))
-            const val DIVERGENCE_RATE = "etf/divergence_rate"
-
-            @Deprecated("Use EtfTrading.INVESTOR instead", ReplaceWith("EtfTrading.INVESTOR"))
-            const val INVESTOR_TRADING = "etf/investor_trading"
-
-            @Deprecated("Use EtfTrading.SHORT instead", ReplaceWith("EtfTrading.SHORT"))
-            const val SHORT = "etf/short"
-        }
-
-        /**
-         * Corp 관련 기존 경로
-         * 새로운 계층 구조로 마이그레이션 권장
-         */
-        object Corp {
-            @Deprecated("Use CorpCode.BASE instead", ReplaceWith("CorpCode.BASE"))
-            const val CORP_CODE = "corp/corp_code"
-
-            @Deprecated("Use CorpActions.DIVIDEND instead", ReplaceWith("CorpActions.DIVIDEND"))
-            const val DIVIDEND = "corp/dividend"
-
-            @Deprecated("Use CorpActions.STOCK_SPLIT instead", ReplaceWith("CorpActions.STOCK_SPLIT"))
-            const val STOCK_SPLIT = "corp/stock_split"
-
-            @Deprecated("Use CorpDisclosure.BASE instead", ReplaceWith("CorpDisclosure.BASE"))
-            const val DISCLOSURE = "corp/disclosure"
-        }
     }
 }

@@ -160,10 +160,6 @@ abstract class UnitTestBase {
     protected fun loadDetailedInfoResponse(fileName: String) =
         loadMockResponse("etf/metrics/detailed_info", fileName)
 
-    @Deprecated("Use loadDetailedInfoResponse instead", ReplaceWith("loadDetailedInfoResponse(fileName)"))
-    protected fun loadEtfComprehensiveResponse(fileName: String) =
-        loadMockResponse("etf/comprehensive", fileName)
-
     protected fun loadDailyPricesResponse(fileName: String) =
         loadMockResponse("etf/daily_prices", fileName)
 

@@ -99,9 +99,4 @@ object TestFixtures {
      */
     val PERIOD_END: LocalDate = LocalDate.of(2024, 1, 31)
 
-    /**
-     * @deprecated NON_TRADING_DAY 대신 WEEKEND를 사용하세요
-     */
-    @Deprecated("Use WEEKEND instead", ReplaceWith("WEEKEND"))
-    val NON_TRADING_DAY: LocalDate = WEEKEND
 }
