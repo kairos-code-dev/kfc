@@ -3,7 +3,7 @@ name: KRX Port Compare
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 21 * * 0-4' # Weekdays 06:00 KST (UTC+9)
+    - cron: '0 21 * * 1-5' # Mon-Fri 06:00 KST (UTC+9)
 
 concurrency:
   group: krx-compare-${{ github.ref }}

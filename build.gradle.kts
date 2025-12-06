@@ -284,9 +284,6 @@ tasks.dokkaHtml {
                 )
             )
 
-            // 샘플 코드 디렉토리
-            samples.from("src/test/kotlin/samples")
-
             // 억제할 패키지
             perPackageOption {
                 matchingRegex.set(".*\\.internal.*")
