@@ -62,4 +62,4 @@ bin/
 *.env
 credentials.json
 secrets.properties
-local.properties
+local.properties.claude/
