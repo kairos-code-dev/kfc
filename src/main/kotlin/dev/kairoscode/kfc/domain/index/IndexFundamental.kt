@@ -25,5 +25,5 @@ data class IndexFundamental(
     val per: BigDecimal? = null,
     val forwardPer: BigDecimal? = null,
     val pbr: BigDecimal? = null,
-    val dividendYield: BigDecimal? = null
+    val dividendYield: BigDecimal? = null,
 )

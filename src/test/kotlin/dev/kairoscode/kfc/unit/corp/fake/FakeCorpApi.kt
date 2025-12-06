@@ -5,8 +5,8 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializer
 import dev.kairoscode.kfc.api.CorpApi
 import dev.kairoscode.kfc.domain.corp.CorpCode
-import dev.kairoscode.kfc.domain.corp.DividendInfo
 import dev.kairoscode.kfc.domain.corp.DisclosureItem
+import dev.kairoscode.kfc.domain.corp.DividendInfo
 import dev.kairoscode.kfc.domain.corp.StockSplitInfo
 import java.math.BigDecimal
 import java.time.LocalDate
@@ -32,29 +32,41 @@ class FakeCorpApi(
     private val corpCodeResponse: String? = null,
     private val dividendResponse: String? = null,
     private val stockSplitResponse: String? = null,
-    private val disclosureResponse: String? = null
+    private val disclosureResponse: String? = null,
 ) : CorpApi {
-
-    private val gson: Gson = GsonBuilder()
-        .registerTypeAdapter(LocalDate::class.java, JsonDeserializer { json, _, _ ->
-            LocalDate.parse(json.asString, DateTimeFormatter.ISO_LOCAL_DATE)
-        })
-        .registerTypeAdapter(BigDecimal::class.java, JsonDeserializer { json, _, _ ->
-            BigDecimal(json.asString)
-        })
-        .create()
+    private val gson: Gson =
+        GsonBuilder()
+            .registerTypeAdapter(
+                LocalDate::class.java,
+                JsonDeserializer { json, _, _ ->
+                    LocalDate.parse(json.asString, DateTimeFormatter.ISO_LOCAL_DATE)
+                },
+            ).registerTypeAdapter(
+                BigDecimal::class.java,
+                JsonDeserializer { json, _, _ ->
+                    BigDecimal(json.asString)
+                },
+            ).create()
 
     override suspend fun getCorpCodeList(): List<CorpCode> {
         require(corpCodeResponse != null) { "corpCodeResponse가 설정되지 않았습니다" }
         return gson.fromJson(corpCodeResponse, Array<CorpCode>::class.java).toList()
     }
 
-    override suspend fun getDividendInfo(corpCode: String, year: Int, reportCode: String): List<DividendInfo> {
+    override suspend fun getDividendInfo(
+        corpCode: String,
+        year: Int,
+        reportCode: String,
+    ): List<DividendInfo> {
         require(dividendResponse != null) { "dividendResponse가 설정되지 않았습니다" }
         return gson.fromJson(dividendResponse, Array<DividendInfo>::class.java).toList()
     }
 
-    override suspend fun getStockSplitInfo(corpCode: String, year: Int, reportCode: String): List<StockSplitInfo> {
+    override suspend fun getStockSplitInfo(
+        corpCode: String,
+        year: Int,
+        reportCode: String,
+    ): List<StockSplitInfo> {
         require(stockSplitResponse != null) { "stockSplitResponse가 설정되지 않았습니다" }
         return gson.fromJson(stockSplitResponse, Array<StockSplitInfo>::class.java).toList()
     }
@@ -64,7 +76,7 @@ class FakeCorpApi(
         startDate: LocalDate,
         endDate: LocalDate,
         pageNo: Int,
-        pageCount: Int
+        pageCount: Int,
     ): List<DisclosureItem> {
         require(disclosureResponse != null) { "disclosureResponse가 설정되지 않았습니다" }
         return gson.fromJson(disclosureResponse, Array<DisclosureItem>::class.java).toList()

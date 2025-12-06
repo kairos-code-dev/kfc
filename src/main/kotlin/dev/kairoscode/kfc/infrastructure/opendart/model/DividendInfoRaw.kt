@@ -2,8 +2,6 @@ package dev.kairoscode.kfc.infrastructure.opendart.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import java.math.BigDecimal
-import java.time.LocalDate
 
 // Public domain model은 dev.kairoscode.kfc.domain.corp.DividendInfo로 이동되었습니다.
 // import dev.kairoscode.kfc.domain.corp.DividendInfo
@@ -15,28 +13,20 @@ import java.time.LocalDate
 internal data class DividendInfoRaw(
     @SerialName("rcept_no")
     val rceptNo: String,
-
     @SerialName("corp_code")
     val corpCode: String,
-
     @SerialName("corp_name")
     val corpName: String,
-
     @SerialName("se")
     val dividendType: String,
-
     @SerialName("stock_knd")
     val stockKind: String? = null,
-
     @SerialName("thstrm")
     val currentYear: String? = null,
-
     @SerialName("frmtrm")
     val previousYear: String? = null,
-
     @SerialName("lwfr")
     val twoYearsAgo: String? = null,
-
     @SerialName("stlm_dt")
-    val settlementDate: String
+    val settlementDate: String,
 )

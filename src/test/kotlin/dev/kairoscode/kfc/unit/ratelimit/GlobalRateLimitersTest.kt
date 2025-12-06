@@ -33,7 +33,6 @@ import kotlin.concurrent.thread
 @DisplayName("GlobalRateLimiters 싱글톤 테스트")
 @Execution(ExecutionMode.SAME_THREAD)
 class GlobalRateLimitersTest {
-
     @BeforeEach
     fun setup() {
         // 병렬 테스트 실행 시 다른 테스트의 영향을 받지 않도록 각 테스트 전에 리셋

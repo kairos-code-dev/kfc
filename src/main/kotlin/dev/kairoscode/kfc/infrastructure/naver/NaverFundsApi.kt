@@ -17,7 +17,6 @@ import java.time.LocalDate
  * - 프로덕션 환경에서는 안정성을 위해 자체 조정주가 계산 권장
  */
 interface NaverFundsApi {
-
     /**
      * 조정주가 OHLCV 조회
      *
@@ -33,6 +32,6 @@ interface NaverFundsApi {
     suspend fun getAdjustedOhlcv(
         ticker: String,
         fromDate: LocalDate,
-        toDate: LocalDate
+        toDate: LocalDate,
     ): List<NaverEtfOhlcv>
 }

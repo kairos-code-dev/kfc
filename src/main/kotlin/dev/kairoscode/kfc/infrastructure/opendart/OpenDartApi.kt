@@ -1,8 +1,8 @@
 package dev.kairoscode.kfc.infrastructure.opendart
 
 import dev.kairoscode.kfc.domain.corp.CorpCode
-import dev.kairoscode.kfc.domain.corp.DividendInfo
 import dev.kairoscode.kfc.domain.corp.DisclosureItem
+import dev.kairoscode.kfc.domain.corp.DividendInfo
 import dev.kairoscode.kfc.domain.corp.StockSplitInfo
 import java.time.LocalDate
 
@@ -20,7 +20,6 @@ import java.time.LocalDate
  * - Rate Limiting 구현 권장 (애플리케이션 레이어)
  */
 interface OpenDartApi {
-
     /**
      * 고유번호 목록 조회
      *
@@ -49,7 +48,7 @@ interface OpenDartApi {
     suspend fun getDividendInfo(
         corpCode: String,
         year: Int,
-        reportCode: String = "11011"
+        reportCode: String = "11011",
     ): List<DividendInfo>
 
     /**
@@ -67,7 +66,7 @@ interface OpenDartApi {
     suspend fun getStockSplitInfo(
         corpCode: String,
         year: Int,
-        reportCode: String = "11011"
+        reportCode: String = "11011",
     ): List<StockSplitInfo>
 
     /**
@@ -88,7 +87,7 @@ interface OpenDartApi {
         startDate: LocalDate,
         endDate: LocalDate,
         pageNo: Int = 1,
-        pageCount: Int = 100
+        pageCount: Int = 100,
     ): List<DisclosureItem>
 
     /**
@@ -108,6 +107,6 @@ interface OpenDartApi {
         corpCode: String,
         year: Int,
         reportCode: String = "11011",
-        fsDiv: String = "CFS"
+        fsDiv: String = "CFS",
     ): List<dev.kairoscode.kfc.infrastructure.opendart.model.FinancialStatementRaw>
 }

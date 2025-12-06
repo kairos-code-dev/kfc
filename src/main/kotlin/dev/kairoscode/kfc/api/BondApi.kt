@@ -15,7 +15,6 @@ import java.time.LocalDate
  * 라이브러리 사용자가 직접 사용할 수 있습니다.
  */
 interface BondApi {
-
     /**
      * 특정 일자의 전체 채권 수익률 조회
      *
@@ -45,6 +44,6 @@ interface BondApi {
     suspend fun getBondYields(
         bondType: BondType,
         fromDate: LocalDate,
-        toDate: LocalDate
+        toDate: LocalDate,
     ): List<BondYield>
 }

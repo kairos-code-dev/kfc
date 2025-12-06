@@ -20,5 +20,5 @@ data class IndexPriceChange(
     val closePrice: BigDecimal,
     val changeRate: BigDecimal,
     val volume: Long,
-    val tradingValue: Long? = null
+    val tradingValue: Long? = null,
 )

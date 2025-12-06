@@ -1,6 +1,11 @@
 package dev.kairoscode.kfc.api
 
-import dev.kairoscode.kfc.domain.stock.*
+import dev.kairoscode.kfc.domain.stock.IndustryClassification
+import dev.kairoscode.kfc.domain.stock.ListingStatus
+import dev.kairoscode.kfc.domain.stock.Market
+import dev.kairoscode.kfc.domain.stock.StockInfo
+import dev.kairoscode.kfc.domain.stock.StockListItem
+import dev.kairoscode.kfc.domain.stock.StockSectorInfo
 import java.time.LocalDate
 
 /**
@@ -13,7 +18,6 @@ import java.time.LocalDate
  * 라이브러리 사용자가 직접 사용할 수 있습니다.
  */
 interface StockApi {
-
     /**
      * 종목 리스트 조회
      *
@@ -27,7 +31,7 @@ interface StockApi {
      */
     suspend fun getStockList(
         market: Market = Market.ALL,
-        listingStatus: ListingStatus = ListingStatus.LISTED
+        listingStatus: ListingStatus = ListingStatus.LISTED,
     ): List<StockListItem>
 
     /**
@@ -68,7 +72,7 @@ interface StockApi {
      */
     suspend fun getSectorClassifications(
         date: LocalDate = LocalDate.now(),
-        market: Market = Market.ALL
+        market: Market = Market.ALL,
     ): List<StockSectorInfo>
 
     /**
@@ -85,7 +89,7 @@ interface StockApi {
      */
     suspend fun getIndustryGroups(
         date: LocalDate = LocalDate.now(),
-        market: Market = Market.ALL
+        market: Market = Market.ALL,
     ): List<IndustryClassification>
 
     /**
@@ -107,6 +111,6 @@ interface StockApi {
      */
     suspend fun searchStocks(
         keyword: String,
-        market: Market = Market.ALL
+        market: Market = Market.ALL,
     ): List<StockListItem>
 }

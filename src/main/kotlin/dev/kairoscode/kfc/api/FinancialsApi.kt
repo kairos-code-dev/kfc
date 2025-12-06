@@ -1,6 +1,11 @@
 package dev.kairoscode.kfc.api
 
-import dev.kairoscode.kfc.domain.financials.*
+import dev.kairoscode.kfc.domain.financials.BalanceSheet
+import dev.kairoscode.kfc.domain.financials.CashFlowStatement
+import dev.kairoscode.kfc.domain.financials.FinancialStatements
+import dev.kairoscode.kfc.domain.financials.IncomeStatement
+import dev.kairoscode.kfc.domain.financials.ReportType
+import dev.kairoscode.kfc.domain.financials.StatementType
 
 /**
  * 재무제표 도메인 통합 API 인터페이스
@@ -17,7 +22,6 @@ import dev.kairoscode.kfc.domain.financials.*
  * - 일일 요청 제한: 20,000건
  */
 interface FinancialsApi {
-
     /**
      * 손익계산서 조회
      *
@@ -36,7 +40,7 @@ interface FinancialsApi {
         corpCode: String,
         year: Int,
         reportType: ReportType = ReportType.ANNUAL,
-        statementType: StatementType = StatementType.CONSOLIDATED
+        statementType: StatementType = StatementType.CONSOLIDATED,
     ): IncomeStatement
 
     /**
@@ -57,7 +61,7 @@ interface FinancialsApi {
         corpCode: String,
         year: Int,
         reportType: ReportType = ReportType.ANNUAL,
-        statementType: StatementType = StatementType.CONSOLIDATED
+        statementType: StatementType = StatementType.CONSOLIDATED,
     ): BalanceSheet
 
     /**
@@ -78,7 +82,7 @@ interface FinancialsApi {
         corpCode: String,
         year: Int,
         reportType: ReportType = ReportType.ANNUAL,
-        statementType: StatementType = StatementType.CONSOLIDATED
+        statementType: StatementType = StatementType.CONSOLIDATED,
     ): CashFlowStatement
 
     /**
@@ -99,6 +103,6 @@ interface FinancialsApi {
         corpCode: String,
         year: Int,
         reportType: ReportType = ReportType.ANNUAL,
-        statementType: StatementType = StatementType.CONSOLIDATED
+        statementType: StatementType = StatementType.CONSOLIDATED,
     ): FinancialStatements
 }

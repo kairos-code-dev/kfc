@@ -98,5 +98,4 @@ object TestFixtures {
      * 주요 용도: 기간별 조회 테스트 (한 달 단위)
      */
     val PERIOD_END: LocalDate = LocalDate.of(2024, 1, 31)
-
 }

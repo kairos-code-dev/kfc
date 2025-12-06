@@ -11,7 +11,6 @@ import java.time.LocalDate
  * 이 인터페이스는 infrastructure 레이어 내부에서만 사용되며, 외부에 노출되지 않습니다.
  */
 internal interface KrxFutureApi {
-
     /**
      * 선물 티커 목록 조회
      *
@@ -36,6 +35,6 @@ internal interface KrxFutureApi {
      */
     suspend fun getFutureOhlcv(
         date: LocalDate,
-        productId: String
+        productId: String,
     ): List<FutureOhlcv>
 }

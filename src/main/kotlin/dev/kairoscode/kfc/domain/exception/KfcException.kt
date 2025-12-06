@@ -54,9 +54,8 @@ class KfcException(
     val errorCode: ErrorCode,
     message: String? = null,
     cause: Throwable? = null,
-    val context: Map<String, Any?> = emptyMap()
+    val context: Map<String, Any?> = emptyMap(),
 ) : Exception(buildMessage(errorCode, message, context), cause) {
-
     /**
      * Secondary constructor for backward compatibility with Exception as second parameter
      */
@@ -71,14 +70,16 @@ class KfcException(
      * @param value 컨텍스트 값
      * @return 컨텍스트가 추가된 새로운 KfcException 인스턴스
      */
-    fun withContext(key: String, value: Any?): KfcException {
-        return KfcException(
+    fun withContext(
+        key: String,
+        value: Any?,
+    ): KfcException =
+        KfcException(
             errorCode = errorCode,
             message = message?.substringBefore(" [context:"), // 기존 메시지에서 context 부분 제거
             cause = cause,
-            context = context + (key to value)
+            context = context + (key to value),
         )
-    }
 
     companion object {
         /**
@@ -92,7 +93,7 @@ class KfcException(
         private fun buildMessage(
             errorCode: ErrorCode,
             message: String?,
-            context: Map<String, Any?>
+            context: Map<String, Any?>,
         ): String {
             val baseMessage = message ?: errorCode.message
 
@@ -100,9 +101,10 @@ class KfcException(
                 return baseMessage
             }
 
-            val contextString = context.entries.joinToString(", ") { (key, value) ->
-                "$key=$value"
-            }
+            val contextString =
+                context.entries.joinToString(", ") { (key, value) ->
+                    "$key=$value"
+                }
 
             return "$baseMessage [context: $contextString]"
         }

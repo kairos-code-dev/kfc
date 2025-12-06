@@ -14,7 +14,6 @@ import java.time.LocalDate
  * 라이브러리 사용자가 직접 사용할 수 있습니다.
  */
 interface PriceApi {
-
     // ================================
     // 1. 분단위 시세 정보
     // ================================
@@ -33,7 +32,7 @@ interface PriceApi {
      */
     suspend fun getIntradayBars(
         isin: String,
-        tradeDate: LocalDate = LocalDate.now()
+        tradeDate: LocalDate = LocalDate.now(),
     ): List<IntradayBar>
 
     // ================================
@@ -53,6 +52,6 @@ interface PriceApi {
      */
     suspend fun getRecentDaily(
         isin: String,
-        tradeDate: LocalDate = LocalDate.now()
+        tradeDate: LocalDate = LocalDate.now(),
     ): List<RecentDaily>
 }

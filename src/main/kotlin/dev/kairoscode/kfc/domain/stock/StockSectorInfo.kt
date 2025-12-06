@@ -23,7 +23,7 @@ data class StockSectorInfo(
     val industry: String,
     val closePrice: Long? = null,
     val marketCap: Long? = null,
-    val priceChangeType: PriceChangeType? = null
+    val priceChangeType: PriceChangeType? = null,
 ) {
     /**
      * 섹터 내 비중 계산
@@ -47,16 +47,14 @@ data class StockSectorInfo(
     fun isPriceFalling(): Boolean = priceChangeType == PriceChangeType.FALL
 }
 
-/**
- * List<StockSectorInfo> 확장 함수
- */
+// =============================================================================
+// List<StockSectorInfo> 확장 함수
+// =============================================================================
 
 /**
  * 산업별로 그룹화
  */
-fun List<StockSectorInfo>.groupByIndustry(): Map<String, List<StockSectorInfo>> {
-    return groupBy { it.industry }
-}
+fun List<StockSectorInfo>.groupByIndustry(): Map<String, List<StockSectorInfo>> = groupBy { it.industry }
 
 /**
  * 최소 시가총액으로 필터링
@@ -64,9 +62,8 @@ fun List<StockSectorInfo>.groupByIndustry(): Map<String, List<StockSectorInfo>> 
  * @param minCap 최소 시가총액 (원)
  * @return 필터링된 종목 리스트
  */
-fun List<StockSectorInfo>.filterByMarketCap(minCap: Long): List<StockSectorInfo> {
-    return filter { (it.marketCap ?: 0L) >= minCap }
-}
+fun List<StockSectorInfo>.filterByMarketCap(minCap: Long): List<StockSectorInfo> =
+    filter { (it.marketCap ?: 0L) >= minCap }
 
 /**
  * 시가총액 순으로 정렬
@@ -74,19 +71,16 @@ fun List<StockSectorInfo>.filterByMarketCap(minCap: Long): List<StockSectorInfo>
  * @param descending true면 내림차순, false면 오름차순 (기본값: true)
  * @return 정렬된 종목 리스트
  */
-fun List<StockSectorInfo>.sortByMarketCap(descending: Boolean = true): List<StockSectorInfo> {
-    return if (descending) {
+fun List<StockSectorInfo>.sortByMarketCap(descending: Boolean = true): List<StockSectorInfo> =
+    if (descending) {
         sortedByDescending { it.marketCap ?: 0L }
     } else {
         sortedBy { it.marketCap ?: 0L }
     }
-}
 
 /**
  * 전체 시가총액 합계 계산
  *
  * @return 전체 시가총액 (원)
  */
-fun List<StockSectorInfo>.calculateTotalMarketCap(): Long {
-    return sumOf { it.marketCap ?: 0L }
-}
+fun List<StockSectorInfo>.calculateTotalMarketCap(): Long = sumOf { it.marketCap ?: 0L }

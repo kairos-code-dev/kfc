@@ -17,10 +17,8 @@ import kotlinx.serialization.Serializable
 data class OpenDartResponse<T>(
     @SerialName("status")
     val status: String,
-
     @SerialName("message")
     val message: String,
-
     @SerialName("list")
-    val list: List<T>? = null
+    val list: List<T>? = null,
 )

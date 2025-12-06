@@ -23,5 +23,5 @@ data class FinancialLineItem(
     val currentPeriodAmount: BigDecimal,
     val previousPeriodAmount: BigDecimal?,
     val previous2PeriodAmount: BigDecimal?,
-    val order: Int
+    val order: Int,
 )

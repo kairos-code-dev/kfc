@@ -1,8 +1,8 @@
 package dev.kairoscode.kfc.api
 
 import dev.kairoscode.kfc.domain.corp.CorpCode
-import dev.kairoscode.kfc.domain.corp.DividendInfo
 import dev.kairoscode.kfc.domain.corp.DisclosureItem
+import dev.kairoscode.kfc.domain.corp.DividendInfo
 import dev.kairoscode.kfc.domain.corp.StockSplitInfo
 import java.time.LocalDate
 
@@ -21,7 +21,6 @@ import java.time.LocalDate
  * - Rate Limiting 구현 권장 (애플리케이션 레이어)
  */
 interface CorpApi {
-
     /**
      * 고유번호 목록 조회
      *
@@ -52,7 +51,7 @@ interface CorpApi {
     suspend fun getDividendInfo(
         corpCode: String,
         year: Int,
-        reportCode: String = "11011"
+        reportCode: String = "11011",
     ): List<DividendInfo>
 
     /**
@@ -71,7 +70,7 @@ interface CorpApi {
     suspend fun getStockSplitInfo(
         corpCode: String,
         year: Int,
-        reportCode: String = "11011"
+        reportCode: String = "11011",
     ): List<StockSplitInfo>
 
     /**
@@ -93,6 +92,6 @@ interface CorpApi {
         startDate: LocalDate,
         endDate: LocalDate,
         pageNo: Int = 1,
-        pageCount: Int = 100
+        pageCount: Int = 100,
     ): List<DisclosureItem>
 }

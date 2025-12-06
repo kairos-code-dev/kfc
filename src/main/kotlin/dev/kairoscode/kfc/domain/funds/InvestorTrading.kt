@@ -20,5 +20,5 @@ data class InvestorTrading(
     val bidVolume: Long,
     val bidValue: Long,
     val netBuyVolume: Long,
-    val netBuyValue: Long
+    val netBuyValue: Long,
 )

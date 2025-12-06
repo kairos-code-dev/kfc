@@ -1,9 +1,14 @@
 package dev.kairoscode.kfc.infrastructure.krx
 
-import dev.kairoscode.kfc.domain.stock.*
+import dev.kairoscode.kfc.domain.stock.ListingStatus
+import dev.kairoscode.kfc.domain.stock.Market
+import dev.kairoscode.kfc.domain.stock.PriceChangeType
+import dev.kairoscode.kfc.domain.stock.StockListItem
+import dev.kairoscode.kfc.domain.stock.StockSectorInfo
 import dev.kairoscode.kfc.infrastructure.common.ratelimit.GlobalRateLimiters
 import dev.kairoscode.kfc.infrastructure.common.ratelimit.RateLimiter
-import dev.kairoscode.kfc.infrastructure.common.util.*
+import dev.kairoscode.kfc.infrastructure.common.util.getString
+import dev.kairoscode.kfc.infrastructure.common.util.getStringOrNull
 import dev.kairoscode.kfc.infrastructure.krx.internal.KrxApiFields
 import dev.kairoscode.kfc.infrastructure.krx.internal.checkForErrors
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -23,9 +28,8 @@ private val logger = KotlinLogging.logger {}
  */
 internal class KrxStockApiImpl(
     private val httpClient: KrxHttpClient = KrxHttpClient(),
-    private val rateLimiter: RateLimiter = GlobalRateLimiters.getKrxLimiter()
+    private val rateLimiter: RateLimiter = GlobalRateLimiters.getKrxLimiter(),
 ) : KrxStockApi {
-
     companion object {
         private const val BASE_URL = "http://data.krx.co.kr/comm/bldAttendant/getJsonData.cmd"
 
@@ -39,22 +43,24 @@ internal class KrxStockApiImpl(
 
     override suspend fun getStockList(
         market: Market,
-        listingStatus: ListingStatus
+        listingStatus: ListingStatus,
     ): List<StockListItem> {
         rateLimiter.acquire()
         logger.debug { "Fetching stock list for market: $market, status: $listingStatus" }
 
-        val bld = when (listingStatus) {
-            ListingStatus.LISTED -> BLD_LISTED_STOCKS
-            ListingStatus.DELISTED -> BLD_DELISTED_STOCKS
-        }
+        val bld =
+            when (listingStatus) {
+                ListingStatus.LISTED -> BLD_LISTED_STOCKS
+                ListingStatus.DELISTED -> BLD_DELISTED_STOCKS
+            }
 
-        val parameters = mapOf(
-            "bld" to bld,
-            "mktsel" to market.code,
-            "searchText" to "",
-            "typeNo" to "0"
-        )
+        val parameters =
+            mapOf(
+                "bld" to bld,
+                "mktsel" to market.code,
+                "searchText" to "",
+                "typeNo" to "0",
+            )
 
         val response = httpClient.post(BASE_URL, parameters)
         response.checkForErrors()
@@ -62,29 +68,31 @@ internal class KrxStockApiImpl(
         // "block1" 필드 추출
         val block1 = (response["block1"] as? List<*>)?.filterIsInstance<Map<String, Any?>>() ?: emptyList()
 
-        return block1.map { raw ->
-            StockListItem(
-                ticker = raw.getString(KrxApiFields.Stock.SHORT_CODE),
-                name = raw.getString(KrxApiFields.Stock.CODE_NAME),
-                isin = raw.getString(KrxApiFields.Stock.FULL_CODE),
-                market = raw.getString(KrxApiFields.Stock.MARKET_CODE).toMarket(),
-                listingStatus = listingStatus
-            )
-        }.also { logger.debug { "Fetched ${it.size} stocks" } }
+        return block1
+            .map { raw ->
+                StockListItem(
+                    ticker = raw.getString(KrxApiFields.Stock.SHORT_CODE),
+                    name = raw.getString(KrxApiFields.Stock.CODE_NAME),
+                    isin = raw.getString(KrxApiFields.Stock.FULL_CODE),
+                    market = raw.getString(KrxApiFields.Stock.MARKET_CODE).toMarket(),
+                    listingStatus = listingStatus,
+                )
+            }.also { logger.debug { "Fetched ${it.size} stocks" } }
     }
 
     override suspend fun getSectorClassifications(
         date: LocalDate,
-        market: Market
+        market: Market,
     ): List<StockSectorInfo> {
         rateLimiter.acquire()
         logger.debug { "Fetching sector classifications for date: $date, market: $market" }
 
-        val parameters = mapOf(
-            "bld" to BLD_SECTOR_CLASSIFICATIONS,
-            "trdDd" to date.format(dateFormatter),
-            "mktId" to market.code
-        )
+        val parameters =
+            mapOf(
+                "bld" to BLD_SECTOR_CLASSIFICATIONS,
+                "trdDd" to date.format(dateFormatter),
+                "mktId" to market.code,
+            )
 
         val response = httpClient.post(BASE_URL, parameters)
         response.checkForErrors()
@@ -92,26 +100,33 @@ internal class KrxStockApiImpl(
         // "block1" 필드 추출 (KRX API 실제 응답 구조)
         val output = (response["block1"] as? List<*>)?.filterIsInstance<Map<String, Any?>>() ?: emptyList()
 
-        return output.map { raw ->
-            StockSectorInfo(
-                ticker = raw.getString(KrxApiFields.Identity.TICKER),
-                name = raw.getString(KrxApiFields.Identity.NAME_SHORT),
-                market = market,
-                industry = raw.getString(KrxApiFields.Index.NAME),
-                closePrice = raw.getStringOrNull(KrxApiFields.Price.CLOSE)
-                    ?.replace(",", "")?.toLongOrNull(),
-                marketCap = raw.getStringOrNull(KrxApiFields.Asset.MARKET_CAP)
-                    ?.replace(",", "")?.toLongOrNull(),
-                priceChangeType = raw.getStringOrNull(KrxApiFields.PriceChange.DIRECTION)
-                    ?.let { PriceChangeType.fromCode(it) }
-            )
-        }.also { logger.debug { "Fetched ${it.size} sector classifications" } }
+        return output
+            .map { raw ->
+                StockSectorInfo(
+                    ticker = raw.getString(KrxApiFields.Identity.TICKER),
+                    name = raw.getString(KrxApiFields.Identity.NAME_SHORT),
+                    market = market,
+                    industry = raw.getString(KrxApiFields.Index.NAME),
+                    closePrice =
+                        raw
+                            .getStringOrNull(KrxApiFields.Price.CLOSE)
+                            ?.replace(",", "")
+                            ?.toLongOrNull(),
+                    marketCap =
+                        raw
+                            .getStringOrNull(KrxApiFields.Asset.MARKET_CAP)
+                            ?.replace(",", "")
+                            ?.toLongOrNull(),
+                    priceChangeType =
+                        raw
+                            .getStringOrNull(KrxApiFields.PriceChange.DIRECTION)
+                            ?.let { PriceChangeType.fromCode(it) },
+                )
+            }.also { logger.debug { "Fetched ${it.size} sector classifications" } }
     }
 }
 
 /**
  * String 확장 함수: KRX 시장 코드를 Market Enum으로 변환
  */
-private fun String.toMarket(): Market {
-    return Market.fromCode(this)
-}
+private fun String.toMarket(): Market = Market.fromCode(this)

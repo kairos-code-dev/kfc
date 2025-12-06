@@ -22,42 +22,33 @@ data class CashFlowStatement(
     val statementType: StatementType,
     val currentPeriod: FinancialPeriod,
     val previousPeriod: FinancialPeriod?,
-    val lineItems: List<FinancialLineItem>
+    val lineItems: List<FinancialLineItem>,
 )
 
-/**
- * 현금흐름표 확장 함수
- *
- * 주요 계정과목 조회 및 현금흐름 분석 기능을 제공합니다.
- */
+// =============================================================================
+// 현금흐름표 확장 함수
+// 주요 계정과목 조회 및 현금흐름 분석 기능을 제공합니다.
+// =============================================================================
 
 /**
  * 영업활동 현금흐름 조회
  */
-fun CashFlowStatement.getOperatingCashFlow(): BigDecimal? {
-    return findAmountByKeywords("영업활동현금흐름", "영업활동으로인한현금흐름")
-}
+fun CashFlowStatement.getOperatingCashFlow(): BigDecimal? = findAmountByKeywords("영업활동현금흐름", "영업활동으로인한현금흐름")
 
 /**
  * 투자활동 현금흐름 조회
  */
-fun CashFlowStatement.getInvestingCashFlow(): BigDecimal? {
-    return findAmountByKeywords("투자활동현금흐름", "투자활동으로인한현금흐름")
-}
+fun CashFlowStatement.getInvestingCashFlow(): BigDecimal? = findAmountByKeywords("투자활동현금흐름", "투자활동으로인한현금흐름")
 
 /**
  * 재무활동 현금흐름 조회
  */
-fun CashFlowStatement.getFinancingCashFlow(): BigDecimal? {
-    return findAmountByKeywords("재무활동현금흐름", "재무활동으로인한현금흐름")
-}
+fun CashFlowStatement.getFinancingCashFlow(): BigDecimal? = findAmountByKeywords("재무활동현금흐름", "재무활동으로인한현금흐름")
 
 /**
  * 현금및현금성자산의증감 조회
  */
-fun CashFlowStatement.getNetChangeInCash(): BigDecimal? {
-    return findAmountByKeywords("현금및현금성자산의증감", "현금및현금성자산의 순증감")
-}
+fun CashFlowStatement.getNetChangeInCash(): BigDecimal? = findAmountByKeywords("현금및현금성자산의증감", "현금및현금성자산의 순증감")
 
 /**
  * 잉여현금흐름 계산 (Free Cash Flow)
@@ -77,10 +68,10 @@ fun CashFlowStatement.calculateFreeCashFlow(): BigDecimal? {
 /**
  * 키워드로 계정과목 금액 조회 (내부 헬퍼 함수)
  */
-private fun CashFlowStatement.findAmountByKeywords(vararg keywords: String): BigDecimal? {
-    return lineItems.find { item ->
-        keywords.any { keyword ->
-            item.accountName.contains(keyword, ignoreCase = true)
-        }
-    }?.currentPeriodAmount
-}
+private fun CashFlowStatement.findAmountByKeywords(vararg keywords: String): BigDecimal? =
+    lineItems
+        .find { item ->
+            keywords.any { keyword ->
+                item.accountName.contains(keyword, ignoreCase = true)
+            }
+        }?.currentPeriodAmount

@@ -1,10 +1,9 @@
 package dev.kairoscode.kfc.domain.stock
 
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class MarketTest {
-
     @Test
     fun `Market Enum 값 테스트`() {
         assertEquals("STK", Market.KOSPI.code)

@@ -13,8 +13,7 @@ import java.time.format.DateTimeFormatter
  * 확장 함수들을 제공합니다.
  */
 
-// 날짜 형식
-private val slashFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd")
+private val slashFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd") // 날짜 형식
 private val compactFormatter = DateTimeFormatter.ofPattern("yyyyMMdd")
 
 /**
@@ -39,14 +38,14 @@ private val compactFormatter = DateTimeFormatter.ofPattern("yyyyMMdd")
  * "".toKrxPrice()           // BigDecimal("0.00")
  * ```
  */
-fun String.toKrxPrice(): BigDecimal {
-    return this.replace(",", "")
+fun String.toKrxPrice(): BigDecimal =
+    this
+        .replace(",", "")
         .trim()
         .let { if (it == "-" || it.isEmpty()) "0" else it }
         .toBigDecimalOrNull()
         ?.setScale(2, RoundingMode.HALF_UP)
         ?: BigDecimal.ZERO
-}
 
 /**
  * String → BigDecimal 변환 (금액용)
@@ -69,14 +68,14 @@ fun String.toKrxPrice(): BigDecimal {
  * "-".toKrxAmount()                 // BigDecimal("0")
  * ```
  */
-fun String.toKrxAmount(): BigDecimal {
-    return this.replace(",", "")
+fun String.toKrxAmount(): BigDecimal =
+    this
+        .replace(",", "")
         .trim()
         .let { if (it == "-" || it.isEmpty()) "0" else it }
         .toBigDecimalOrNull()
         ?.setScale(0, RoundingMode.HALF_UP)
         ?: BigDecimal.ZERO
-}
 
 /**
  * String → BigDecimal 변환 (비율용)
@@ -102,14 +101,14 @@ fun String.toKrxAmount(): BigDecimal {
  * "".toKrxRate()         // BigDecimal("0.0000")
  * ```
  */
-fun String.toKrxRate(): BigDecimal {
-    return this.replace(",", "")
+fun String.toKrxRate(): BigDecimal =
+    this
+        .replace(",", "")
         .trim()
         .let { if (it == "-" || it.isEmpty()) "0" else it }
         .toBigDecimalOrNull()
         ?.setScale(4, RoundingMode.HALF_UP)
         ?: BigDecimal.ZERO
-}
 
 /**
  * String → BigDecimal 변환 (고정밀)
@@ -133,12 +132,12 @@ fun String.toKrxRate(): BigDecimal {
  * "-".toKrxBigDecimal()          // BigDecimal.ZERO
  * ```
  */
-fun String.toKrxBigDecimal(): BigDecimal {
-    return this.replace(",", "")
+fun String.toKrxBigDecimal(): BigDecimal =
+    this
+        .replace(",", "")
         .trim()
         .let { if (it == "-" || it.isEmpty()) "0" else it }
         .toBigDecimalOrNull() ?: BigDecimal.ZERO
-}
 
 /**
  * String → Int 변환 (항상 양수)
@@ -159,12 +158,12 @@ fun String.toKrxBigDecimal(): BigDecimal {
  * "-".toKrxInt()      // 0
  * ```
  */
-fun String.toKrxInt(): Int {
-    return this.replace(",", "")
+fun String.toKrxInt(): Int =
+    this
+        .replace(",", "")
         .trim()
         .let { if (it == "-" || it.isEmpty()) "0" else it }
         .toIntOrNull() ?: 0
-}
 
 /**
  * String → Long 변환 (항상 양수)
@@ -186,12 +185,12 @@ fun String.toKrxInt(): Int {
  * "-".toKrxLong()                // 0L
  * ```
  */
-fun String.toKrxLong(): Long {
-    return this.replace(",", "")
+fun String.toKrxLong(): Long =
+    this
+        .replace(",", "")
         .trim()
         .let { if (it == "-" || it.isEmpty()) "0" else it }
         .toLongOrNull() ?: 0L
-}
 
 /**
  * String → Long 변환 (부호 있음)
@@ -286,12 +285,12 @@ fun String.toKrxDate(): LocalDate {
  * "-".toKrxDouble()          // 0.0
  * ```
  */
-fun String.toKrxDouble(): Double {
-    return this.replace(",", "")
+fun String.toKrxDouble(): Double =
+    this
+        .replace(",", "")
         .trim()
         .let { if (it == "-" || it.isEmpty()) "0" else it }
         .toDoubleOrNull() ?: 0.0
-}
 
 /**
  * String → Direction Enum 변환
@@ -311,14 +310,13 @@ fun String.toKrxDouble(): Double {
  * "3".toKrxDirection()  // Direction.UNCHANGED
  * ```
  */
-fun String.toKrxDirection(): Direction {
-    return when (this.trim()) {
+fun String.toKrxDirection(): Direction =
+    when (this.trim()) {
         "1" -> Direction.UP
         "2" -> Direction.DOWN
         "3" -> Direction.UNCHANGED
         else -> Direction.UNCHANGED
     }
-}
 
 /**
  * String → Direction Enum 변환 (별칭)
@@ -341,9 +339,7 @@ fun String.toDirection(): Direction = toKrxDirection()
  * nullValue.toStringSafe()  // ""
  * ```
  */
-fun Any?.toStringSafe(): String {
-    return this?.toString() ?: ""
-}
+fun Any?.toStringSafe(): String = this?.toString() ?: ""
 
 /**
  * Map<String, Any?>에서 String 값을 안전하게 추출
@@ -357,9 +353,7 @@ fun Any?.toStringSafe(): String {
  * data.getString("MISSING") // "" (키가 없으면 빈 문자열)
  * ```
  */
-fun Map<String, Any?>.getString(key: String): String {
-    return this[key]?.toString() ?: ""
-}
+fun Map<String, Any?>.getString(key: String): String = this[key]?.toString() ?: ""
 
 /**
  * Map<String, Any?>에서 String 값을 안전하게 추출 (nullable)

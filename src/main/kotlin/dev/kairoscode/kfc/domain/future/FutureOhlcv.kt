@@ -37,7 +37,7 @@ data class FutureOhlcv(
     val changeRate: BigDecimal?,
     val priceChangeType: PriceChangeType?,
     val volume: Long,
-    val tradingValue: Long?
+    val tradingValue: Long?,
 ) {
     /**
      * 가격이 상승했는지 확인
@@ -67,15 +67,11 @@ data class FutureOhlcv(
  * @param productId 필터링할 상품 ID
  * @return 필터링된 OHLCV 리스트
  */
-fun List<FutureOhlcv>.filterByProduct(productId: String): List<FutureOhlcv> {
-    return filter { it.productId == productId }
-}
+fun List<FutureOhlcv>.filterByProduct(productId: String): List<FutureOhlcv> = filter { it.productId == productId }
 
 /**
  * 거래량 순으로 정렬 (내림차순)
  *
  * @return 거래량 순으로 정렬된 OHLCV 리스트
  */
-fun List<FutureOhlcv>.sortByVolume(): List<FutureOhlcv> {
-    return sortedByDescending { it.volume }
-}
+fun List<FutureOhlcv>.sortByVolume(): List<FutureOhlcv> = sortedByDescending { it.volume }

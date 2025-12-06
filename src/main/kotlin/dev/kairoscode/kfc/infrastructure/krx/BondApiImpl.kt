@@ -14,18 +14,13 @@ import java.time.LocalDate
  * @param krxBondApi KRX 채권 API 구현체
  */
 internal class BondApiImpl(
-    private val krxBondApi: KrxBondApi
+    private val krxBondApi: KrxBondApi,
 ) : BondApi {
-
-    override suspend fun getBondYieldsByDate(date: LocalDate): BondYieldSnapshot {
-        return krxBondApi.getBondYieldsByDate(date)
-    }
+    override suspend fun getBondYieldsByDate(date: LocalDate): BondYieldSnapshot = krxBondApi.getBondYieldsByDate(date)
 
     override suspend fun getBondYields(
         bondType: BondType,
         fromDate: LocalDate,
-        toDate: LocalDate
-    ): List<BondYield> {
-        return krxBondApi.getBondYields(bondType, fromDate, toDate)
-    }
+        toDate: LocalDate,
+    ): List<BondYield> = krxBondApi.getBondYields(bondType, fromDate, toDate)
 }

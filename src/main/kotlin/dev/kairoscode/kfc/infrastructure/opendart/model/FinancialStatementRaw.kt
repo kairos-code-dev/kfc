@@ -12,7 +12,7 @@ import kotlinx.serialization.Serializable
 data class FinancialStatementResponse(
     @SerialName("status") val status: String,
     @SerialName("message") val message: String,
-    @SerialName("list") val list: List<FinancialStatementRaw>? = null
+    @SerialName("list") val list: List<FinancialStatementRaw>? = null,
 )
 
 /**
@@ -44,5 +44,5 @@ data class FinancialStatementRaw(
     @SerialName("frmtrm_add_amount") val frmtrmAddAmount: String? = null,
     @SerialName("bfefrmtrm_nm") val bfefrmtrmNm: String? = null,
     @SerialName("bfefrmtrm_amount") val bfefrmtrmAmount: String? = null,
-    @SerialName("ord") val ord: String
+    @SerialName("ord") val ord: String,
 )

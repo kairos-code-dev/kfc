@@ -24,5 +24,5 @@ data class PriceChange(
     val changeRate: Double,
     val changeDirection: Direction,
     val totalVolume: Long,
-    val totalTradingValue: Long
+    val totalTradingValue: Long,
 )

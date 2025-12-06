@@ -1,7 +1,13 @@
 package dev.kairoscode.kfc.domain.funds
 
+import dev.kairoscode.kfc.infrastructure.common.util.toKrxAmount
+import dev.kairoscode.kfc.infrastructure.common.util.toKrxBigDecimal
+import dev.kairoscode.kfc.infrastructure.common.util.toKrxDate
+import dev.kairoscode.kfc.infrastructure.common.util.toKrxLong
+import dev.kairoscode.kfc.infrastructure.common.util.toKrxPrice
+import dev.kairoscode.kfc.infrastructure.common.util.toKrxRate
+import dev.kairoscode.kfc.infrastructure.common.util.toStringSafe
 import dev.kairoscode.kfc.infrastructure.krx.internal.KrxApiFields
-import dev.kairoscode.kfc.infrastructure.common.util.*
 import java.math.BigDecimal
 import java.time.LocalDate
 
@@ -57,43 +63,36 @@ data class DetailedInfo(
     val isin: String,
     val ticker: String,
     val name: String,
-    val securityGroup: String,  // 예: ETF
-
+    val securityGroup: String, // 예: ETF
     // 가격 데이터 (OHLCV)
     val openPrice: BigDecimal,
     val highPrice: BigDecimal,
     val lowPrice: BigDecimal,
     val closePrice: BigDecimal,
     val priceChange: BigDecimal,
-    val priceChangeDirection: Int,  // 1=상승, 2=하락, 3=보합
+    val priceChangeDirection: Int, // 1=상승, 2=하락, 3=보합
     val priceChangeRate: BigDecimal,
-
     // 거래량 및 거래대금
     val volume: Long,
     val tradingValue: BigDecimal,
-
     // NAV 및 시가총액
     val nav: BigDecimal,
     val marketCap: BigDecimal,
-
     // 52주 고가/저가 (핵심 필드 - 다른 엔드포인트에 없음)
     val week52High: BigDecimal,
     val week52Low: BigDecimal,
-
     // 자산분류 및 보수
     val assetClass: String,
     val assetClassId: String,
-    val totalFee: BigDecimal,  // 핵심 필드 - 다른 엔드포인트에 없음
+    val totalFee: BigDecimal, // 핵심 필드 - 다른 엔드포인트에 없음
     val benchmarkIndex: String,
-
     // 지수 정보
     val indexValue: BigDecimal,
     val indexChange: BigDecimal,
     val indexChangeDirection: Int,
     val indexChangeRate: BigDecimal,
-
     // 조회 시간
-    val currentDateTime: String
+    val currentDateTime: String,
 ) {
     companion object {
         /**
@@ -103,15 +102,17 @@ data class DetailedInfo(
          * @param tradeDateOverride 거래일자 override (API 응답에 TRD_DD가 없을 경우 사용)
          * @return DetailedInfo 인스턴스
          */
-        fun fromRaw(raw: Map<*, *>, tradeDateOverride: LocalDate? = null): DetailedInfo {
-            return DetailedInfo(
+        fun fromRaw(
+            raw: Map<*, *>,
+            tradeDateOverride: LocalDate? = null,
+        ): DetailedInfo =
+            DetailedInfo(
                 // 기본 식별 정보
                 tradeDate = tradeDateOverride ?: raw[KrxApiFields.DateTime.TRADE_DATE].toStringSafe().toKrxDate(),
                 isin = raw[KrxApiFields.Identity.ISIN].toStringSafe(),
                 ticker = raw[KrxApiFields.Identity.TICKER].toStringSafe(),
                 name = raw[KrxApiFields.Identity.NAME_SHORT].toStringSafe(),
                 securityGroup = raw[KrxApiFields.Identity.SECURITY_GROUP].toStringSafe(),
-
                 // 가격 데이터
                 openPrice = raw[KrxApiFields.Price.OPEN].toStringSafe().toKrxPrice(),
                 highPrice = raw[KrxApiFields.Price.HIGH].toStringSafe().toKrxPrice(),
@@ -120,35 +121,28 @@ data class DetailedInfo(
                 priceChange = raw[KrxApiFields.PriceChange.AMOUNT].toStringSafe().toKrxPrice(),
                 priceChangeDirection = raw[KrxApiFields.PriceChange.DIRECTION].toStringSafe().toIntOrNull() ?: 3,
                 priceChangeRate = raw[KrxApiFields.PriceChange.RATE_ALT1].toStringSafe().toKrxRate(),
-
                 // 거래량 및 거래대금
                 volume = raw[KrxApiFields.Volume.ACCUMULATED].toStringSafe().toKrxLong(),
                 tradingValue = raw[KrxApiFields.Volume.TRADING_VALUE].toStringSafe().toKrxAmount(),
-
                 // NAV 및 시가총액
                 nav = raw[KrxApiFields.Nav.VALUE_LAST].toStringSafe().toKrxBigDecimal(),
                 marketCap = raw[KrxApiFields.Asset.MARKET_CAP].toStringSafe().toKrxAmount(),
-
                 // 52주 고가/저가 (날짜는 API에서 제공 안함)
                 week52High = raw[KrxApiFields.Price.WEEK52_HIGH].toStringSafe().toKrxPrice(),
                 week52Low = raw[KrxApiFields.Price.WEEK52_LOW].toStringSafe().toKrxPrice(),
-
                 // 자산분류 및 보수
                 assetClass = raw[KrxApiFields.EtfMetadata.ASSET_CLASS].toStringSafe(),
                 assetClassId = raw[KrxApiFields.EtfMetadata.ASSET_CLASS_ID].toStringSafe(),
                 totalFee = raw[KrxApiFields.EtfMetadata.TOTAL_EXPENSE_RATIO].toStringSafe().toKrxRate(),
                 benchmarkIndex = raw[KrxApiFields.EtfMetadata.BENCHMARK_INDEX].toStringSafe(),
-
                 // 지수 정보
                 indexValue = raw[KrxApiFields.Index.VALUE].toStringSafe().toKrxBigDecimal(),
                 indexChange = raw[KrxApiFields.Index.CHANGE_AMOUNT].toStringSafe().toKrxBigDecimal(),
                 indexChangeDirection = raw[KrxApiFields.PriceChange.DIRECTION_ALT2].toStringSafe().toIntOrNull() ?: 3,
                 indexChangeRate = raw[KrxApiFields.PriceChange.RATE_ALT2].toStringSafe().toKrxRate(),
-
                 // 조회 시간
-                currentDateTime = raw[KrxApiFields.DateTime.CURRENT_DATETIME].toStringSafe()
+                currentDateTime = raw[KrxApiFields.DateTime.CURRENT_DATETIME].toStringSafe(),
             )
-        }
     }
 
     /**
@@ -159,7 +153,8 @@ data class DetailedInfo(
      */
     fun calculateDivergenceRate(): BigDecimal {
         if (nav == BigDecimal.ZERO) return BigDecimal.ZERO
-        return closePrice.subtract(nav)
+        return closePrice
+            .subtract(nav)
             .divide(nav, 4, java.math.RoundingMode.HALF_UP)
             .multiply(BigDecimal("100"))
     }
@@ -169,9 +164,7 @@ data class DetailedInfo(
      *
      * @return 괴리율의 절대값이 1.0% 이상이면 true
      */
-    fun hasExcessiveDivergence(): Boolean {
-        return calculateDivergenceRate().abs() >= BigDecimal("1.0")
-    }
+    fun hasExcessiveDivergence(): Boolean = calculateDivergenceRate().abs() >= BigDecimal("1.0")
 
     /**
      * 가격이 52주 고가 근처인지 확인 (95% 이상)
@@ -200,7 +193,5 @@ data class DetailedInfo(
      *
      * @return 총 보수가 0.3% 이하면 true
      */
-    fun hasLowFee(): Boolean {
-        return totalFee <= BigDecimal("0.3")
-    }
+    fun hasLowFee(): Boolean = totalFee <= BigDecimal("0.3")
 }

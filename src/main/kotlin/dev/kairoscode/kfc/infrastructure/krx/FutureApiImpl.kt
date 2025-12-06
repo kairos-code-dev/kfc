@@ -12,12 +12,9 @@ import java.time.LocalDate
  * 이 클래스는 infrastructure 레이어에 속하지만, 공개 API 레이어에 대한 구현을 제공합니다.
  */
 internal class FutureApiImpl(
-    private val krxFutureApi: KrxFutureApi
+    private val krxFutureApi: KrxFutureApi,
 ) : FutureApi {
-
-    override suspend fun getFutureTickerList(): List<FutureProduct> {
-        return krxFutureApi.getFutureTickerList()
-    }
+    override suspend fun getFutureTickerList(): List<FutureProduct> = krxFutureApi.getFutureTickerList()
 
     override suspend fun getFutureName(productId: String): String? {
         // productId로 상품 검색
@@ -29,7 +26,7 @@ internal class FutureApiImpl(
         date: LocalDate,
         productId: String,
         alternative: Boolean,
-        previousBusiness: Boolean
+        previousBusiness: Boolean,
     ): List<FutureOhlcv> {
         // 먼저 요청한 날짜로 조회
         val data = krxFutureApi.getFutureOhlcv(date, productId)
@@ -38,11 +35,12 @@ internal class FutureApiImpl(
         if (data.isEmpty() && alternative) {
             // 대체 날짜 조회 로직 (간단한 구현)
             // 이전/다음 영업일을 찾기 위해 최대 7일 범위 내에서 검색
-            val searchRange = if (previousBusiness) {
-                (1..7).map { date.minusDays(it.toLong()) }
-            } else {
-                (1..7).map { date.plusDays(it.toLong()) }
-            }
+            val searchRange =
+                if (previousBusiness) {
+                    (1..7).map { date.minusDays(it.toLong()) }
+                } else {
+                    (1..7).map { date.plusDays(it.toLong()) }
+                }
 
             for (alternativeDate in searchRange) {
                 val alternativeData = krxFutureApi.getFutureOhlcv(alternativeDate, productId)

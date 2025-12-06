@@ -4,33 +4,52 @@ import dev.kairoscode.kfc.domain.exception.ErrorCode
 import dev.kairoscode.kfc.domain.exception.KfcException
 import dev.kairoscode.kfc.infrastructure.common.recording.installResponseRecording
 import io.github.oshai.kotlinlogging.KotlinLogging
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.engine.cio.*
-import io.ktor.client.plugins.*
-import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.client.request.*
-import io.ktor.http.*
-import io.ktor.serialization.kotlinx.json.*
-import kotlinx.serialization.json.*
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.engine.cio.CIO
+import io.ktor.client.plugins.HttpTimeout
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.defaultRequest
+import io.ktor.client.plugins.expectSuccess
+import io.ktor.client.request.get
+import io.ktor.client.request.header
+import io.ktor.client.request.parameter
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
+import io.ktor.http.ContentType
+import io.ktor.http.HttpHeaders
+import io.ktor.http.contentType
+import io.ktor.http.isSuccess
+import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonNull
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.boolean
+import kotlinx.serialization.json.booleanOrNull
+import kotlinx.serialization.json.double
+import kotlinx.serialization.json.doubleOrNull
+import kotlinx.serialization.json.long
+import kotlinx.serialization.json.longOrNull
 
 private val logger = KotlinLogging.logger {}
 
 /**
  * JsonElement를 Map<String, Any?>로 변환하는 확장 함수
  */
-private fun JsonElement.toMap(): Map<String, Any?> {
-    return when (this) {
+private fun JsonElement.toMap(): Map<String, Any?> =
+    when (this) {
         is JsonObject -> this.mapValues { (_, value) -> value.toAny() }
         else -> throw KfcException(ErrorCode.FIELD_TYPE_MISMATCH)
     }
-}
 
 /**
  * JsonElement를 Any?로 변환하는 확장 함수
  */
-private fun JsonElement.toAny(): Any? {
-    return when (this) {
+private fun JsonElement.toAny(): Any? =
+    when (this) {
         is JsonNull -> null
         is JsonPrimitive -> {
             when {
@@ -44,7 +63,6 @@ private fun JsonElement.toAny(): Any? {
         is JsonArray -> this.map { it.toAny() }
         is JsonObject -> this.mapValues { (_, value) -> value.toAny() }
     }
-}
 
 /**
  * KRX API 통신을 위한 HTTP 클라이언트
@@ -59,38 +77,43 @@ private fun JsonElement.toAny(): Any? {
  * 이 클래스는 internal 가시성을 가지며, 라이브러리 사용자에게 노출되지 않습니다.
  */
 internal class KrxHttpClient {
+    private val httpClient =
+        HttpClient(CIO) {
+            // 응답 레코딩 플러그인 설치 (ResponseRecordingContext가 있을 때만 동작)
+            installResponseRecording()
 
-    private val httpClient = HttpClient(CIO) {
-        // 응답 레코딩 플러그인 설치 (ResponseRecordingContext가 있을 때만 동작)
-        installResponseRecording()
+            install(ContentNegotiation) {
+                json(
+                    Json {
+                        prettyPrint = true
+                        isLenient = true
+                        ignoreUnknownKeys = true
+                        coerceInputValues = true
+                    },
+                )
+            }
 
-        install(ContentNegotiation) {
-            json(Json {
-                prettyPrint = true
-                isLenient = true
-                ignoreUnknownKeys = true
-                coerceInputValues = true
-            })
+            install(HttpTimeout) {
+                requestTimeoutMillis = 30_000 // 30초
+                connectTimeoutMillis = 10_000 // 10초
+                socketTimeoutMillis = 30_000 // 30초
+            }
+
+            // 기본 헤더 설정 (KRX API는 웹 브라우저 헤더 필요)
+            defaultRequest {
+                header(
+                    HttpHeaders.UserAgent,
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                )
+                header(HttpHeaders.Accept, "application/json, text/plain, */*")
+                header(HttpHeaders.AcceptLanguage, "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7")
+                header(HttpHeaders.Referrer, "http://data.krx.co.kr/")
+                header(HttpHeaders.Origin, "http://data.krx.co.kr")
+            }
+
+            // 에러 응답 검증
+            expectSuccess = false
         }
-
-        install(HttpTimeout) {
-            requestTimeoutMillis = 30_000 // 30초
-            connectTimeoutMillis = 10_000 // 10초
-            socketTimeoutMillis = 30_000   // 30초
-        }
-
-        // 기본 헤더 설정 (KRX API는 웹 브라우저 헤더 필요)
-        defaultRequest {
-            header(HttpHeaders.UserAgent, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
-            header(HttpHeaders.Accept, "application/json, text/plain, */*")
-            header(HttpHeaders.AcceptLanguage, "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7")
-            header(HttpHeaders.Referrer, "http://data.krx.co.kr/")
-            header(HttpHeaders.Origin, "http://data.krx.co.kr")
-        }
-
-        // 에러 응답 검증
-        expectSuccess = false
-    }
 
     /**
      * POST 요청을 수행하고 응답을 Map으로 반환
@@ -101,14 +124,18 @@ internal class KrxHttpClient {
      * @throws NetworkException 네트워크 에러 발생 시
      * @throws ParseException 응답 파싱 실패 시
      */
-    suspend fun post(url: String, parameters: Map<String, String>): Map<String, Any?> {
+    suspend fun post(
+        url: String,
+        parameters: Map<String, String>,
+    ): Map<String, Any?> {
         logger.debug { "POST request to $url with parameters: $parameters" }
 
         return try {
-            val response = httpClient.post(url) {
-                contentType(ContentType.Application.FormUrlEncoded)
-                setBody(parameters.entries.joinToString("&") { "${it.key}=${it.value}" })
-            }
+            val response =
+                httpClient.post(url) {
+                    contentType(ContentType.Application.FormUrlEncoded)
+                    setBody(parameters.entries.joinToString("&") { "${it.key}=${it.value}" })
+                }
 
             when {
                 response.status.isSuccess() -> {
@@ -118,10 +145,11 @@ internal class KrxHttpClient {
                         logger.debug { "POST response from $url: $bodyText" }
 
                         // JSON 파싱: JsonElement를 사용하여 파싱 후 Map으로 변환
-                        val json = Json {
-                            ignoreUnknownKeys = true
-                            isLenient = true
-                        }
+                        val json =
+                            Json {
+                                ignoreUnknownKeys = true
+                                isLenient = true
+                            }
                         val jsonElement = json.parseToJsonElement(bodyText)
                         val body = jsonElement.toMap()
                         body
@@ -131,11 +159,12 @@ internal class KrxHttpClient {
                             ErrorCode.JSON_PARSE_ERROR,
                             "응답 JSON 파싱 실패",
                             cause = e,
-                            context = mapOf(
-                                "url" to url,
-                                "method" to "POST",
-                                "bld" to (parameters["bld"] ?: "unknown")
-                            )
+                            context =
+                                mapOf(
+                                    "url" to url,
+                                    "method" to "POST",
+                                    "bld" to (parameters["bld"] ?: "unknown"),
+                                ),
                         )
                     }
                 }
@@ -145,12 +174,13 @@ internal class KrxHttpClient {
                     throw KfcException(
                         ErrorCode.HTTP_ERROR_RESPONSE,
                         "HTTP 요청 실패",
-                        context = mapOf(
-                            "url" to url,
-                            "method" to "POST",
-                            "statusCode" to statusCode,
-                            "bld" to (parameters["bld"] ?: "unknown")
-                        )
+                        context =
+                            mapOf(
+                                "url" to url,
+                                "method" to "POST",
+                                "statusCode" to statusCode,
+                                "bld" to (parameters["bld"] ?: "unknown"),
+                            ),
                     )
                 }
             }
@@ -162,11 +192,12 @@ internal class KrxHttpClient {
                 ErrorCode.NETWORK_CONNECTION_FAILED,
                 "네트워크 연결 실패",
                 cause = e,
-                context = mapOf(
-                    "url" to url,
-                    "method" to "POST",
-                    "bld" to (parameters["bld"] ?: "unknown")
-                )
+                context =
+                    mapOf(
+                        "url" to url,
+                        "method" to "POST",
+                        "bld" to (parameters["bld"] ?: "unknown"),
+                    ),
             )
         }
     }
@@ -180,15 +211,19 @@ internal class KrxHttpClient {
      * @throws NetworkException 네트워크 에러 발생 시
      * @throws ParseException 응답 파싱 실패 시
      */
-    suspend fun get(url: String, parameters: Map<String, String> = emptyMap()): Map<String, Any?> {
+    suspend fun get(
+        url: String,
+        parameters: Map<String, String> = emptyMap(),
+    ): Map<String, Any?> {
         logger.debug { "GET request to $url with parameters: $parameters" }
 
         return try {
-            val response = httpClient.get(url) {
-                parameters.forEach { (key, value) ->
-                    parameter(key, value)
+            val response =
+                httpClient.get(url) {
+                    parameters.forEach { (key, value) ->
+                        parameter(key, value)
+                    }
                 }
-            }
 
             when {
                 response.status.isSuccess() -> {
@@ -197,10 +232,11 @@ internal class KrxHttpClient {
                         logger.debug { "GET response from $url: success" }
 
                         // JSON 파싱: JsonElement를 사용하여 파싱 후 Map으로 변환
-                        val json = Json {
-                            ignoreUnknownKeys = true
-                            isLenient = true
-                        }
+                        val json =
+                            Json {
+                                ignoreUnknownKeys = true
+                                isLenient = true
+                            }
                         val jsonElement = json.parseToJsonElement(bodyText)
                         val body = jsonElement.toMap()
                         body
@@ -210,10 +246,11 @@ internal class KrxHttpClient {
                             ErrorCode.JSON_PARSE_ERROR,
                             "응답 JSON 파싱 실패",
                             cause = e,
-                            context = mapOf(
-                                "url" to url,
-                                "method" to "GET"
-                            )
+                            context =
+                                mapOf(
+                                    "url" to url,
+                                    "method" to "GET",
+                                ),
                         )
                     }
                 }
@@ -223,11 +260,12 @@ internal class KrxHttpClient {
                     throw KfcException(
                         ErrorCode.HTTP_ERROR_RESPONSE,
                         "HTTP 요청 실패",
-                        context = mapOf(
-                            "url" to url,
-                            "method" to "GET",
-                            "statusCode" to statusCode
-                        )
+                        context =
+                            mapOf(
+                                "url" to url,
+                                "method" to "GET",
+                                "statusCode" to statusCode,
+                            ),
                     )
                 }
             }
@@ -239,10 +277,11 @@ internal class KrxHttpClient {
                 ErrorCode.NETWORK_CONNECTION_FAILED,
                 "네트워크 연결 실패",
                 cause = e,
-                context = mapOf(
-                    "url" to url,
-                    "method" to "GET"
-                )
+                context =
+                    mapOf(
+                        "url" to url,
+                        "method" to "GET",
+                    ),
             )
         }
     }

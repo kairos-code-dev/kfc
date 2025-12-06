@@ -43,5 +43,5 @@ data class FundListItem(
     val assetManager: String,
     val cuQuantity: Long,
     val totalExpenseRatio: BigDecimal,
-    val taxType: String
+    val taxType: String,
 )

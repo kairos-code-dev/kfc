@@ -8,7 +8,10 @@ package dev.kairoscode.kfc.domain.financials
  * @property code OPENDART fs_div 코드
  * @property description 한글 설명
  */
-enum class StatementType(val code: String, val description: String) {
+enum class StatementType(
+    val code: String,
+    val description: String,
+) {
     /**
      * 연결재무제표 (Consolidated Financial Statements)
      *
@@ -21,7 +24,8 @@ enum class StatementType(val code: String, val description: String) {
      *
      * 개별 법인의 재무 상태를 반영합니다.
      */
-    SEPARATE("OFS", "재무제표");
+    SEPARATE("OFS", "재무제표"),
+    ;
 
     companion object {
         /**
@@ -30,8 +34,6 @@ enum class StatementType(val code: String, val description: String) {
          * @param code OPENDART fs_div 코드
          * @return StatementType, 없으면 null
          */
-        fun fromCode(code: String): StatementType? {
-            return entries.find { it.code == code }
-        }
+        fun fromCode(code: String): StatementType? = entries.find { it.code == code }
     }
 }

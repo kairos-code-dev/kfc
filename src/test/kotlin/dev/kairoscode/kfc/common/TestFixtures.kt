@@ -28,12 +28,12 @@ import java.time.LocalDate
  * - 공휴일 없는 기간 선택으로 일관성 보장
  */
 object TestFixtures {
-
     // =========================================
     // ETF 관련 데이터
     // =========================================
     object Etf {
         // === ISIN 코드 (12자리) ===
+
         /** TIGER 200 ETF ISIN */
         const val TIGER_200_ISIN = "KR7102110004"
 
@@ -44,6 +44,7 @@ object TestFixtures {
         const val TIGER_NASDAQ100_ISIN = "KR7133690008"
 
         // === 티커 코드 (6자리) ===
+
         /** TIGER 200 ETF 티커 */
         const val TIGER_200_TICKER = "102110"
 
@@ -59,6 +60,7 @@ object TestFixtures {
     // =========================================
     object Corp {
         // === 법인 코드 (8자리) ===
+
         /** 삼성전자 법인 코드 */
         const val SAMSUNG_CORP_CODE = "00126380"
 
@@ -66,6 +68,7 @@ object TestFixtures {
         const val KAKAO_CORP_CODE = "00222206"
 
         // === 종목 코드 (6자리) ===
+
         /** 삼성전자 종목 코드 */
         const val SAMSUNG_STOCK_CODE = "005930"
     }
@@ -98,6 +101,7 @@ object TestFixtures {
     // =========================================
     object Invalid {
         // === 무효한 ISIN ===
+
         /** 너무 짧은 ISIN */
         const val TOO_SHORT_ISIN = "KR7102"
 

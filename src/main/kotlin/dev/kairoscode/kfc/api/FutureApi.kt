@@ -14,7 +14,6 @@ import java.time.LocalDate
  * 라이브러리 사용자가 직접 사용할 수 있습니다.
  */
 interface FutureApi {
-
     /**
      * 선물 티커 목록 조회
      *
@@ -55,6 +54,6 @@ interface FutureApi {
         date: LocalDate = LocalDate.now(),
         productId: String,
         alternative: Boolean = false,
-        previousBusiness: Boolean = true
+        previousBusiness: Boolean = true,
     ): List<FutureOhlcv>
 }

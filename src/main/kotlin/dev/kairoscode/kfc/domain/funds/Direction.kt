@@ -17,5 +17,5 @@ enum class Direction {
     /**
      * 보합 (코드: 3)
      */
-    UNCHANGED
+    UNCHANGED,
 }

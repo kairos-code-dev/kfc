@@ -25,7 +25,7 @@ data class StockInfo(
     val market: Market,
     val listingStatus: ListingStatus,
     val listingDate: LocalDate? = null,
-    val sharesOutstanding: Long? = null
+    val sharesOutstanding: Long? = null,
 ) {
     /**
      * 코스피 종목 여부 확인

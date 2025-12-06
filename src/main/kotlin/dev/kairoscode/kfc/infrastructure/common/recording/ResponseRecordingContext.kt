@@ -1,8 +1,8 @@
 package dev.kairoscode.kfc.infrastructure.common.recording
 
+import java.util.concurrent.atomic.AtomicReference
 import kotlin.coroutines.AbstractCoroutineContextElement
 import kotlin.coroutines.CoroutineContext
-import java.util.concurrent.atomic.AtomicReference
 
 /**
  * HTTP 응답 레코딩을 위한 Coroutine Context Element
@@ -25,9 +25,8 @@ import java.util.concurrent.atomic.AtomicReference
  * ```
  */
 class ResponseRecordingContext(
-    private val responseBodyRef: AtomicReference<String?> = AtomicReference(null)
+    private val responseBodyRef: AtomicReference<String?> = AtomicReference(null),
 ) : AbstractCoroutineContextElement(ResponseRecordingContext) {
-
     companion object Key : CoroutineContext.Key<ResponseRecordingContext>
 
     /**

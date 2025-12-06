@@ -17,7 +17,7 @@ data class IndustryClassification(
     val market: Market,
     val stocks: List<StockSectorInfo>,
     val totalMarketCap: Long,
-    val stockCount: Int
+    val stockCount: Int,
 ) {
     /**
      * 시가총액 순위별 상위 N개 종목 조회
@@ -25,16 +25,12 @@ data class IndustryClassification(
      * @param n 조회할 종목 수
      * @return 시가총액 상위 N개 종목
      */
-    fun getTopNByMarketCap(n: Int): List<StockSectorInfo> {
-        return stocks.sortByMarketCap(descending = true).take(n)
-    }
+    fun getTopNByMarketCap(n: Int): List<StockSectorInfo> = stocks.sortByMarketCap(descending = true).take(n)
 
     /**
      * 평균 시가총액 계산
      *
      * @return 평균 시가총액 (원)
      */
-    fun getAverageMarketCap(): Long {
-        return if (stockCount > 0) totalMarketCap / stockCount else 0L
-    }
+    fun getAverageMarketCap(): Long = if (stockCount > 0) totalMarketCap / stockCount else 0L
 }

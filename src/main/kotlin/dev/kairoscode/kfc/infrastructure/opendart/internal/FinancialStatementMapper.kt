@@ -1,6 +1,13 @@
 package dev.kairoscode.kfc.infrastructure.opendart.internal
 
-import dev.kairoscode.kfc.domain.financials.*
+import dev.kairoscode.kfc.domain.financials.BalanceSheet
+import dev.kairoscode.kfc.domain.financials.CashFlowStatement
+import dev.kairoscode.kfc.domain.financials.FinancialLineItem
+import dev.kairoscode.kfc.domain.financials.FinancialPeriod
+import dev.kairoscode.kfc.domain.financials.FinancialStatements
+import dev.kairoscode.kfc.domain.financials.IncomeStatement
+import dev.kairoscode.kfc.domain.financials.ReportType
+import dev.kairoscode.kfc.domain.financials.StatementType
 import dev.kairoscode.kfc.infrastructure.opendart.model.FinancialStatementRaw
 import java.math.BigDecimal
 
@@ -8,7 +15,6 @@ import java.math.BigDecimal
  * OPENDART 원시 데이터를 도메인 모델로 변환하는 매퍼
  */
 internal object FinancialStatementMapper {
-
     /**
      * 원시 데이터를 재무제표별로 그룹핑하고 도메인 모델로 변환
      */
@@ -17,21 +23,24 @@ internal object FinancialStatementMapper {
         corpCode: String,
         year: Int,
         reportType: ReportType,
-        statementType: StatementType
+        statementType: StatementType,
     ): FinancialStatements {
         val groupedByCategory = rawList.groupBy { it.sjDiv }
 
-        val incomeStatement = groupedByCategory["IS"]?.let {
-            toIncomeStatement(it, corpCode, year, reportType, statementType)
-        }
+        val incomeStatement =
+            groupedByCategory["IS"]?.let {
+                toIncomeStatement(it, corpCode, year, reportType, statementType)
+            }
 
-        val balanceSheet = groupedByCategory["BS"]?.let {
-            toBalanceSheet(it, corpCode, year, reportType, statementType)
-        }
+        val balanceSheet =
+            groupedByCategory["BS"]?.let {
+                toBalanceSheet(it, corpCode, year, reportType, statementType)
+            }
 
-        val cashFlowStatement = groupedByCategory["CF"]?.let {
-            toCashFlowStatement(it, corpCode, year, reportType, statementType)
-        }
+        val cashFlowStatement =
+            groupedByCategory["CF"]?.let {
+                toCashFlowStatement(it, corpCode, year, reportType, statementType)
+            }
 
         return FinancialStatements(
             corpCode = corpCode,
@@ -40,7 +49,7 @@ internal object FinancialStatementMapper {
             statementType = statementType,
             incomeStatement = incomeStatement,
             balanceSheet = balanceSheet,
-            cashFlowStatement = cashFlowStatement
+            cashFlowStatement = cashFlowStatement,
         )
     }
 
@@ -52,7 +61,7 @@ internal object FinancialStatementMapper {
         corpCode: String,
         year: Int,
         reportType: ReportType,
-        statementType: StatementType
+        statementType: StatementType,
     ): IncomeStatement {
         val lineItems = rawList.map { toLineItem(it) }
         val (currentPeriod, previousPeriod) = extractPeriods(rawList.firstOrNull(), year)
@@ -64,7 +73,7 @@ internal object FinancialStatementMapper {
             statementType = statementType,
             currentPeriod = currentPeriod,
             previousPeriod = previousPeriod,
-            lineItems = lineItems
+            lineItems = lineItems,
         )
     }
 
@@ -76,7 +85,7 @@ internal object FinancialStatementMapper {
         corpCode: String,
         year: Int,
         reportType: ReportType,
-        statementType: StatementType
+        statementType: StatementType,
     ): BalanceSheet {
         val lineItems = rawList.map { toLineItem(it) }
         val (currentPeriod, previousPeriod) = extractPeriods(rawList.firstOrNull(), year)
@@ -88,7 +97,7 @@ internal object FinancialStatementMapper {
             statementType = statementType,
             currentPeriod = currentPeriod,
             previousPeriod = previousPeriod,
-            lineItems = lineItems
+            lineItems = lineItems,
         )
     }
 
@@ -100,7 +109,7 @@ internal object FinancialStatementMapper {
         corpCode: String,
         year: Int,
         reportType: ReportType,
-        statementType: StatementType
+        statementType: StatementType,
     ): CashFlowStatement {
         val lineItems = rawList.map { toLineItem(it) }
         val (currentPeriod, previousPeriod) = extractPeriods(rawList.firstOrNull(), year)
@@ -112,43 +121,44 @@ internal object FinancialStatementMapper {
             statementType = statementType,
             currentPeriod = currentPeriod,
             previousPeriod = previousPeriod,
-            lineItems = lineItems
+            lineItems = lineItems,
         )
     }
 
     /**
      * 원시 데이터 → FinancialLineItem 변환
      */
-    private fun toLineItem(raw: FinancialStatementRaw): FinancialLineItem {
-        return FinancialLineItem(
+    private fun toLineItem(raw: FinancialStatementRaw): FinancialLineItem =
+        FinancialLineItem(
             accountId = raw.accountId,
             accountName = raw.accountNm,
             accountDetail = raw.accountDetail?.takeIf { it != "-" },
             currentPeriodAmount = raw.thstrmAmount.toFinancialAmount(),
             previousPeriodAmount = raw.frmtrmAmount?.toFinancialAmount(),
             previous2PeriodAmount = raw.bfefrmtrmAmount?.toFinancialAmount(),
-            order = raw.ord.toIntOrNull() ?: 0
+            order = raw.ord.toIntOrNull() ?: 0,
         )
-    }
 
     /**
      * 당기/전기 기간 정보 추출
      */
     private fun extractPeriods(
         raw: FinancialStatementRaw?,
-        fiscalYear: Int
+        fiscalYear: Int,
     ): Pair<FinancialPeriod, FinancialPeriod?> {
-        val currentPeriod = FinancialPeriod(
-            periodName = raw?.thstrmNm ?: "",
-            fiscalYear = fiscalYear
-        )
-
-        val previousPeriod = raw?.frmtrmNm?.let {
+        val currentPeriod =
             FinancialPeriod(
-                periodName = it,
-                fiscalYear = fiscalYear - 1
+                periodName = raw?.thstrmNm ?: "",
+                fiscalYear = fiscalYear,
             )
-        }
+
+        val previousPeriod =
+            raw?.frmtrmNm?.let {
+                FinancialPeriod(
+                    periodName = it,
+                    fiscalYear = fiscalYear - 1,
+                )
+            }
 
         return currentPeriod to previousPeriod
     }

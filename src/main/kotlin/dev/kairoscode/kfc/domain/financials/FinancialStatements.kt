@@ -21,5 +21,5 @@ data class FinancialStatements(
     val statementType: StatementType,
     val incomeStatement: IncomeStatement?,
     val balanceSheet: BalanceSheet?,
-    val cashFlowStatement: CashFlowStatement?
+    val cashFlowStatement: CashFlowStatement?,
 )

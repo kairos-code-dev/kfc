@@ -46,5 +46,5 @@ data class DailyPrice(
     val indexValue: BigDecimal,
     val indexChange: BigDecimal,
     val indexChangeRate: Double,
-    val indexDirection: Direction
+    val indexDirection: Direction,
 )

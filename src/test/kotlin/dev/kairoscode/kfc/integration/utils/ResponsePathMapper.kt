@@ -37,7 +37,6 @@ import java.time.temporal.ChronoUnit
  * @see ResponseRecorder 실제 레코딩 수행
  */
 object ResponsePathMapper {
-
     private val logger = LoggerFactory.getLogger(ResponsePathMapper::class.java)
 
     // 날짜 포맷터
@@ -58,7 +57,7 @@ object ResponsePathMapper {
     data class MappingResult(
         val category: String,
         val fileName: String,
-        val confidence: MappingConfidence = MappingConfidence.HIGH
+        val confidence: MappingConfidence = MappingConfidence.HIGH,
     ) {
         override fun toString(): String =
             "MappingResult(category='$category', fileName='$fileName', confidence=$confidence)"
@@ -80,7 +79,7 @@ object ResponsePathMapper {
         LOW,
 
         /** 매칭 불가 - 알 수 없는 API 패턴 */
-        UNKNOWN
+        UNKNOWN,
     }
 
     // ========================================
@@ -145,15 +144,16 @@ object ResponsePathMapper {
             val path = uri.path ?: ""
             val queryParams = extractQueryParams(uri.rawQuery)
 
-            val result = when {
-                host.contains("krx.co.kr") -> mapKrxUrl(path, queryParams)
-                host.contains("naver.com") -> mapNaverUrl(path, queryParams)
-                host.contains("opendart.fss.or.kr") -> mapOpenDartUrl(path, queryParams)
-                else -> {
-                    logger.warn("Unknown API host: {}", host)
-                    null
+            val result =
+                when {
+                    host.contains("krx.co.kr") -> mapKrxUrl(path, queryParams)
+                    host.contains("naver.com") -> mapNaverUrl(path, queryParams)
+                    host.contains("opendart.fss.or.kr") -> mapOpenDartUrl(path, queryParams)
+                    else -> {
+                        logger.warn("Unknown API host: {}", host)
+                        null
+                    }
                 }
-            }
 
             result?.also {
                 logger.info("Mapped URL to: {}", it)
@@ -176,17 +176,18 @@ object ResponsePathMapper {
      */
     fun mapKrxRequest(
         bldCode: String,
-        params: Map<String, String> = emptyMap()
+        params: Map<String, String> = emptyMap(),
     ): MappingResult {
         logger.debug("Mapping KRX request - bldCode: {}, params: {}", bldCode, params)
 
         return when (bldCode) {
             // ETF 목록
-            KrxBldCodes.ETF_LIST -> MappingResult(
-                category = RecordingConfig.Paths.EtfList.ALL,
-                fileName = "etf_list_all",
-                confidence = MappingConfidence.HIGH
-            )
+            KrxBldCodes.ETF_LIST ->
+                MappingResult(
+                    category = RecordingConfig.Paths.EtfList.ALL,
+                    fileName = "etf_list_all",
+                    confidence = MappingConfidence.HIGH,
+                )
 
             // ETF 종합 정보
             KrxBldCodes.ETF_COMPREHENSIVE_INFO -> {
@@ -197,7 +198,7 @@ object ResponsePathMapper {
                 MappingResult(
                     category = RecordingConfig.Paths.EtfMetrics.COMPREHENSIVE,
                     fileName = "${ticker}_comprehensive_$date",
-                    confidence = if (isin != "unknown") MappingConfidence.HIGH else MappingConfidence.MEDIUM
+                    confidence = if (isin != "unknown") MappingConfidence.HIGH else MappingConfidence.MEDIUM,
                 )
             }
 
@@ -208,7 +209,7 @@ object ResponsePathMapper {
                 MappingResult(
                     category = RecordingConfig.Paths.EtfPrice.DAILY,
                     fileName = "etf_daily_prices_$date",
-                    confidence = MappingConfidence.HIGH
+                    confidence = MappingConfidence.HIGH,
                 )
             }
 
@@ -219,7 +220,7 @@ object ResponsePathMapper {
                 MappingResult(
                     category = RecordingConfig.Paths.EtfPrice.CHANGES,
                     fileName = "etf_price_changes_$period",
-                    confidence = MappingConfidence.HIGH
+                    confidence = MappingConfidence.HIGH,
                 )
             }
 
@@ -232,7 +233,7 @@ object ResponsePathMapper {
                 MappingResult(
                     category = RecordingConfig.Paths.EtfPrice.OHLCV,
                     fileName = "${ticker}_ohlcv_$period",
-                    confidence = if (isin != "unknown") MappingConfidence.HIGH else MappingConfidence.MEDIUM
+                    confidence = if (isin != "unknown") MappingConfidence.HIGH else MappingConfidence.MEDIUM,
                 )
             }
 
@@ -245,7 +246,7 @@ object ResponsePathMapper {
                 MappingResult(
                     category = RecordingConfig.Paths.EtfMetrics.PORTFOLIO,
                     fileName = "${ticker}_portfolio_$date",
-                    confidence = if (isin != "unknown") MappingConfidence.HIGH else MappingConfidence.MEDIUM
+                    confidence = if (isin != "unknown") MappingConfidence.HIGH else MappingConfidence.MEDIUM,
                 )
             }
 
@@ -258,7 +259,7 @@ object ResponsePathMapper {
                 MappingResult(
                     category = RecordingConfig.Paths.EtfMetrics.TRACKING_ERROR,
                     fileName = "${ticker}_tracking_error_$period",
-                    confidence = if (isin != "unknown") MappingConfidence.HIGH else MappingConfidence.MEDIUM
+                    confidence = if (isin != "unknown") MappingConfidence.HIGH else MappingConfidence.MEDIUM,
                 )
             }
 
@@ -271,20 +272,21 @@ object ResponsePathMapper {
                 MappingResult(
                     category = RecordingConfig.Paths.EtfMetrics.DIVERGENCE_RATE,
                     fileName = "${ticker}_divergence_rate_$period",
-                    confidence = if (isin != "unknown") MappingConfidence.HIGH else MappingConfidence.MEDIUM
+                    confidence = if (isin != "unknown") MappingConfidence.HIGH else MappingConfidence.MEDIUM,
                 )
             }
 
             // 전체 ETF 투자자별 거래 (일별)
             KrxBldCodes.ETF_ALL_INVESTOR_TRADING_DAILY -> {
-                val date = params["strtDd"]?.let { formatDateSuffix(it) }
-                    ?: params["endDd"]?.let { formatDateSuffix(it) }
-                    ?: "unknown"
+                val date =
+                    params["strtDd"]?.let { formatDateSuffix(it) }
+                        ?: params["endDd"]?.let { formatDateSuffix(it) }
+                        ?: "unknown"
 
                 MappingResult(
                     category = RecordingConfig.Paths.EtfTrading.INVESTOR,
                     fileName = "etf_all_investor_trading_$date",
-                    confidence = MappingConfidence.HIGH
+                    confidence = MappingConfidence.HIGH,
                 )
             }
 
@@ -295,7 +297,7 @@ object ResponsePathMapper {
                 MappingResult(
                     category = RecordingConfig.Paths.EtfTrading.INVESTOR,
                     fileName = "etf_all_investor_trading_period_$period",
-                    confidence = MappingConfidence.HIGH
+                    confidence = MappingConfidence.HIGH,
                 )
             }
 
@@ -303,14 +305,15 @@ object ResponsePathMapper {
             KrxBldCodes.ETF_INVESTOR_TRADING_DAILY -> {
                 val isin = params["isuCd"] ?: "unknown"
                 val ticker = extractTickerFromIsin(isin)
-                val date = params["strtDd"]?.let { formatDateSuffix(it) }
-                    ?: params["endDd"]?.let { formatDateSuffix(it) }
-                    ?: "unknown"
+                val date =
+                    params["strtDd"]?.let { formatDateSuffix(it) }
+                        ?: params["endDd"]?.let { formatDateSuffix(it) }
+                        ?: "unknown"
 
                 MappingResult(
                     category = RecordingConfig.Paths.EtfTrading.INVESTOR,
                     fileName = "${ticker}_investor_trading_$date",
-                    confidence = if (isin != "unknown") MappingConfidence.HIGH else MappingConfidence.MEDIUM
+                    confidence = if (isin != "unknown") MappingConfidence.HIGH else MappingConfidence.MEDIUM,
                 )
             }
 
@@ -323,7 +326,7 @@ object ResponsePathMapper {
                 MappingResult(
                     category = RecordingConfig.Paths.EtfTrading.INVESTOR,
                     fileName = "${ticker}_investor_trading_period_$period",
-                    confidence = if (isin != "unknown") MappingConfidence.HIGH else MappingConfidence.MEDIUM
+                    confidence = if (isin != "unknown") MappingConfidence.HIGH else MappingConfidence.MEDIUM,
                 )
             }
 
@@ -336,7 +339,7 @@ object ResponsePathMapper {
                 MappingResult(
                     category = RecordingConfig.Paths.EtfTrading.SHORT,
                     fileName = "${ticker}_short_selling_$period",
-                    confidence = if (isin != "unknown") MappingConfidence.HIGH else MappingConfidence.MEDIUM
+                    confidence = if (isin != "unknown") MappingConfidence.HIGH else MappingConfidence.MEDIUM,
                 )
             }
 
@@ -349,7 +352,7 @@ object ResponsePathMapper {
                 MappingResult(
                     category = RecordingConfig.Paths.EtfTrading.SHORT,
                     fileName = "${ticker}_short_balance_$period",
-                    confidence = if (isin != "unknown") MappingConfidence.HIGH else MappingConfidence.MEDIUM
+                    confidence = if (isin != "unknown") MappingConfidence.HIGH else MappingConfidence.MEDIUM,
                 )
             }
 
@@ -359,7 +362,7 @@ object ResponsePathMapper {
                 MappingResult(
                     category = "krx/unknown",
                     fileName = "krx_unknown_${System.currentTimeMillis()}",
-                    confidence = MappingConfidence.UNKNOWN
+                    confidence = MappingConfidence.UNKNOWN,
                 )
             }
         }.also {
@@ -378,14 +381,14 @@ object ResponsePathMapper {
     fun mapNaverRequest(
         ticker: String,
         fromDate: LocalDate,
-        toDate: LocalDate
+        toDate: LocalDate,
     ): MappingResult {
         val period = calculatePeriodSuffix(fromDate, toDate)
 
         return MappingResult(
             category = RecordingConfig.Paths.EtfPrice.ADJUSTED,
             fileName = "${ticker}_adjusted_ohlcv_$period",
-            confidence = MappingConfidence.HIGH
+            confidence = MappingConfidence.HIGH,
         ).also {
             logger.info("Mapped Naver request to: {}", it)
         }
@@ -400,16 +403,17 @@ object ResponsePathMapper {
      */
     fun mapOpenDartRequest(
         endpoint: String,
-        params: Map<String, String> = emptyMap()
+        params: Map<String, String> = emptyMap(),
     ): MappingResult {
         logger.debug("Mapping OpenDART request - endpoint: {}, params: {}", endpoint, params)
 
         return when {
-            endpoint.contains("corpCode.xml") -> MappingResult(
-                category = RecordingConfig.Paths.CorpCode.LOOKUP,
-                fileName = "corp_code_list",
-                confidence = MappingConfidence.HIGH
-            )
+            endpoint.contains("corpCode.xml") ->
+                MappingResult(
+                    category = RecordingConfig.Paths.CorpCode.LOOKUP,
+                    fileName = "corp_code_list",
+                    confidence = MappingConfidence.HIGH,
+                )
 
             endpoint.contains("alotMatter.json") -> {
                 val corpCode = params["corp_code"] ?: "unknown"
@@ -419,7 +423,7 @@ object ResponsePathMapper {
                 MappingResult(
                     category = RecordingConfig.Paths.CorpActions.DIVIDEND,
                     fileName = "${corpCode}_dividend_${year}_$reportCode",
-                    confidence = if (corpCode != "unknown") MappingConfidence.HIGH else MappingConfidence.MEDIUM
+                    confidence = if (corpCode != "unknown") MappingConfidence.HIGH else MappingConfidence.MEDIUM,
                 )
             }
 
@@ -431,7 +435,7 @@ object ResponsePathMapper {
                 MappingResult(
                     category = RecordingConfig.Paths.CorpActions.STOCK_SPLIT,
                     fileName = "${corpCode}_stock_split_${year}_$reportCode",
-                    confidence = if (corpCode != "unknown") MappingConfidence.HIGH else MappingConfidence.MEDIUM
+                    confidence = if (corpCode != "unknown") MappingConfidence.HIGH else MappingConfidence.MEDIUM,
                 )
             }
 
@@ -439,16 +443,17 @@ object ResponsePathMapper {
                 val corpCode = params["corp_code"]
                 val period = calculatePeriodSuffixFromParams(params["bgn_de"], params["end_de"])
 
-                val fileName = if (corpCode != null) {
-                    "${corpCode}_disclosures_$period"
-                } else {
-                    "all_disclosures_$period"
-                }
+                val fileName =
+                    if (corpCode != null) {
+                        "${corpCode}_disclosures_$period"
+                    } else {
+                        "all_disclosures_$period"
+                    }
 
                 MappingResult(
                     category = RecordingConfig.Paths.CorpDisclosure.LIST,
                     fileName = fileName,
-                    confidence = MappingConfidence.HIGH
+                    confidence = MappingConfidence.HIGH,
                 )
             }
 
@@ -457,7 +462,7 @@ object ResponsePathMapper {
                 MappingResult(
                     category = "corp/unknown",
                     fileName = "opendart_unknown_${System.currentTimeMillis()}",
-                    confidence = MappingConfidence.UNKNOWN
+                    confidence = MappingConfidence.UNKNOWN,
                 )
             }
         }.also {
@@ -472,7 +477,10 @@ object ResponsePathMapper {
     /**
      * KRX URL을 레코딩 경로로 매핑
      */
-    private fun mapKrxUrl(path: String, queryParams: Map<String, String>): MappingResult? {
+    private fun mapKrxUrl(
+        path: String,
+        queryParams: Map<String, String>,
+    ): MappingResult? {
         // KRX는 단일 엔드포인트를 사용하므로 BLD 파라미터 확인
         val bldCode = queryParams["bld"] ?: return null
         return mapKrxRequest(bldCode, queryParams)
@@ -481,7 +489,10 @@ object ResponsePathMapper {
     /**
      * Naver URL을 레코딩 경로로 매핑
      */
-    private fun mapNaverUrl(path: String, queryParams: Map<String, String>): MappingResult? {
+    private fun mapNaverUrl(
+        path: String,
+        queryParams: Map<String, String>,
+    ): MappingResult? {
         // Naver 증권 차트 API
         if (!path.contains("sise.nhn")) {
             logger.warn("Unknown Naver API path: {}", path)
@@ -493,16 +504,17 @@ object ResponsePathMapper {
         return MappingResult(
             category = RecordingConfig.Paths.EtfPrice.ADJUSTED,
             fileName = "${ticker}_adjusted_ohlcv",
-            confidence = MappingConfidence.HIGH
+            confidence = MappingConfidence.HIGH,
         )
     }
 
     /**
      * OpenDART URL을 레코딩 경로로 매핑
      */
-    private fun mapOpenDartUrl(path: String, queryParams: Map<String, String>): MappingResult? {
-        return mapOpenDartRequest(path, queryParams)
-    }
+    private fun mapOpenDartUrl(
+        path: String,
+        queryParams: Map<String, String>,
+    ): MappingResult? = mapOpenDartRequest(path, queryParams)
 
     // ========================================
     // 유틸리티 함수
@@ -513,13 +525,14 @@ object ResponsePathMapper {
      */
     private fun parseUri(url: String): URI {
         // 상대 경로인 경우 임시 호스트 추가
-        val normalizedUrl = if (url.startsWith("/")) {
-            "http://localhost$url"
-        } else if (!url.startsWith("http")) {
-            "http://$url"
-        } else {
-            url
-        }
+        val normalizedUrl =
+            if (url.startsWith("/")) {
+                "http://localhost$url"
+            } else if (!url.startsWith("http")) {
+                "http://$url"
+            } else {
+                url
+            }
         return URI(normalizedUrl)
     }
 
@@ -533,7 +546,8 @@ object ResponsePathMapper {
         if (queryString.isNullOrBlank()) return emptyMap()
 
         return try {
-            queryString.split("&")
+            queryString
+                .split("&")
                 .mapNotNull { param ->
                     val parts = param.split("=", limit = 2)
                     if (parts.size == 2) {
@@ -543,8 +557,7 @@ object ResponsePathMapper {
                     } else {
                         null
                     }
-                }
-                .toMap()
+                }.toMap()
         } catch (e: Exception) {
             logger.warn("Failed to parse query string: {}", queryString, e)
             emptyMap()
@@ -560,7 +573,8 @@ object ResponsePathMapper {
     fun extractPathSegments(path: String?): List<String> {
         if (path.isNullOrBlank()) return emptyList()
 
-        return path.split("/")
+        return path
+            .split("/")
             .filter { it.isNotBlank() }
     }
 
@@ -572,32 +586,33 @@ object ResponsePathMapper {
      * @param isin ISIN 코드
      * @return 6자리 티커 코드
      */
-    private fun extractTickerFromIsin(isin: String): String {
-        return if (isin.length >= 9 && isin.startsWith("KR")) {
+    private fun extractTickerFromIsin(isin: String): String =
+        if (isin.length >= 9 && isin.startsWith("KR")) {
             isin.substring(3, 9)
         } else if (isin.length == 6) {
             isin // 이미 티커 형식
         } else {
             isin.take(6).ifEmpty { "unknown" }
         }
-    }
 
     /**
      * KRX 날짜 형식(yyyyMMdd)을 파일명 suffix로 변환
      */
-    private fun formatDateSuffix(yyyyMMdd: String): String {
-        return try {
+    private fun formatDateSuffix(yyyyMMdd: String): String =
+        try {
             val date = LocalDate.parse(yyyyMMdd, KRX_DATE_FORMATTER)
             date.format(ISO_DATE_FORMATTER)
         } catch (e: Exception) {
             yyyyMMdd
         }
-    }
 
     /**
      * 시작일/종료일 파라미터로부터 기간 suffix 계산 (KRX 형식)
      */
-    private fun calculatePeriodSuffix(startDate: String?, endDate: String?): String {
+    private fun calculatePeriodSuffix(
+        startDate: String?,
+        endDate: String?,
+    ): String {
         if (startDate == null || endDate == null) return "unknown"
 
         return try {
@@ -612,7 +627,10 @@ object ResponsePathMapper {
     /**
      * OpenDART 날짜 형식으로부터 기간 suffix 계산
      */
-    private fun calculatePeriodSuffixFromParams(startDate: String?, endDate: String?): String {
+    private fun calculatePeriodSuffixFromParams(
+        startDate: String?,
+        endDate: String?,
+    ): String {
         if (startDate == null || endDate == null) return "unknown"
 
         return try {
@@ -627,7 +645,10 @@ object ResponsePathMapper {
     /**
      * LocalDate 기반 기간 suffix 계산
      */
-    private fun calculatePeriodSuffix(startDate: LocalDate, endDate: LocalDate): String {
+    private fun calculatePeriodSuffix(
+        startDate: LocalDate,
+        endDate: LocalDate,
+    ): String {
         val days = ChronoUnit.DAYS.between(startDate, endDate).toInt()
 
         return when {
@@ -649,58 +670,61 @@ object ResponsePathMapper {
     /**
      * 지원하는 KRX BLD 코드 목록 반환
      */
-    fun getSupportedKrxBldCodes(): List<String> = listOf(
-        KrxBldCodes.ETF_LIST,
-        KrxBldCodes.ETF_COMPREHENSIVE_INFO,
-        KrxBldCodes.ETF_ALL_DAILY_PRICES,
-        KrxBldCodes.ETF_PRICE_CHANGES,
-        KrxBldCodes.ETF_OHLCV,
-        KrxBldCodes.ETF_ALL_INVESTOR_TRADING_DAILY,
-        KrxBldCodes.ETF_ALL_INVESTOR_TRADING_PERIOD,
-        KrxBldCodes.ETF_INVESTOR_TRADING_DAILY,
-        KrxBldCodes.ETF_INVESTOR_TRADING_PERIOD,
-        KrxBldCodes.ETF_PORTFOLIO,
-        KrxBldCodes.ETF_TRACKING_ERROR,
-        KrxBldCodes.ETF_DIVERGENCE_RATE,
-        KrxBldCodes.ETF_SHORT_SELLING,
-        KrxBldCodes.ETF_SHORT_BALANCE
-    )
+    fun getSupportedKrxBldCodes(): List<String> =
+        listOf(
+            KrxBldCodes.ETF_LIST,
+            KrxBldCodes.ETF_COMPREHENSIVE_INFO,
+            KrxBldCodes.ETF_ALL_DAILY_PRICES,
+            KrxBldCodes.ETF_PRICE_CHANGES,
+            KrxBldCodes.ETF_OHLCV,
+            KrxBldCodes.ETF_ALL_INVESTOR_TRADING_DAILY,
+            KrxBldCodes.ETF_ALL_INVESTOR_TRADING_PERIOD,
+            KrxBldCodes.ETF_INVESTOR_TRADING_DAILY,
+            KrxBldCodes.ETF_INVESTOR_TRADING_PERIOD,
+            KrxBldCodes.ETF_PORTFOLIO,
+            KrxBldCodes.ETF_TRACKING_ERROR,
+            KrxBldCodes.ETF_DIVERGENCE_RATE,
+            KrxBldCodes.ETF_SHORT_SELLING,
+            KrxBldCodes.ETF_SHORT_BALANCE,
+        )
 
     /**
      * 지원하는 OpenDART 엔드포인트 목록 반환
      */
-    fun getSupportedOpenDartEndpoints(): List<String> = listOf(
-        OpenDartEndpoints.CORP_CODE,
-        OpenDartEndpoints.DIVIDEND,
-        OpenDartEndpoints.STOCK_SPLIT,
-        OpenDartEndpoints.DISCLOSURE_LIST
-    )
+    fun getSupportedOpenDartEndpoints(): List<String> =
+        listOf(
+            OpenDartEndpoints.CORP_CODE,
+            OpenDartEndpoints.DIVIDEND,
+            OpenDartEndpoints.STOCK_SPLIT,
+            OpenDartEndpoints.DISCLOSURE_LIST,
+        )
 
     /**
      * 매핑 가이드 문자열 반환
      */
-    fun getMappingGuide(): String = buildString {
-        appendLine("=== ResponsePathMapper 매핑 가이드 ===")
-        appendLine()
-        appendLine("# KRX API (BLD 코드 기반)")
-        appendLine("  - ETF_LIST -> etf/list/all")
-        appendLine("  - ETF_COMPREHENSIVE_INFO -> etf/metrics/comprehensive")
-        appendLine("  - ETF_ALL_DAILY_PRICES -> etf/price/daily")
-        appendLine("  - ETF_OHLCV -> etf/price/ohlcv")
-        appendLine("  - ETF_PRICE_CHANGES -> etf/price/changes")
-        appendLine("  - ETF_PORTFOLIO -> etf/metrics/portfolio")
-        appendLine("  - ETF_TRACKING_ERROR -> etf/metrics/tracking_error")
-        appendLine("  - ETF_DIVERGENCE_RATE -> etf/metrics/divergence_rate")
-        appendLine("  - ETF_INVESTOR_TRADING -> etf/trading/investor")
-        appendLine("  - ETF_SHORT_* -> etf/trading/short")
-        appendLine()
-        appendLine("# Naver API")
-        appendLine("  - /sise.nhn -> etf/price/adjusted")
-        appendLine()
-        appendLine("# OpenDART API")
-        appendLine("  - /api/corpCode.xml -> corp/code/lookup")
-        appendLine("  - /api/alotMatter.json -> corp/actions/dividend")
-        appendLine("  - /api/irdsSttus.json -> corp/actions/stock_split")
-        appendLine("  - /api/list.json -> corp/disclosure/list")
-    }
+    fun getMappingGuide(): String =
+        buildString {
+            appendLine("=== ResponsePathMapper 매핑 가이드 ===")
+            appendLine()
+            appendLine("# KRX API (BLD 코드 기반)")
+            appendLine("  - ETF_LIST -> etf/list/all")
+            appendLine("  - ETF_COMPREHENSIVE_INFO -> etf/metrics/comprehensive")
+            appendLine("  - ETF_ALL_DAILY_PRICES -> etf/price/daily")
+            appendLine("  - ETF_OHLCV -> etf/price/ohlcv")
+            appendLine("  - ETF_PRICE_CHANGES -> etf/price/changes")
+            appendLine("  - ETF_PORTFOLIO -> etf/metrics/portfolio")
+            appendLine("  - ETF_TRACKING_ERROR -> etf/metrics/tracking_error")
+            appendLine("  - ETF_DIVERGENCE_RATE -> etf/metrics/divergence_rate")
+            appendLine("  - ETF_INVESTOR_TRADING -> etf/trading/investor")
+            appendLine("  - ETF_SHORT_* -> etf/trading/short")
+            appendLine()
+            appendLine("# Naver API")
+            appendLine("  - /sise.nhn -> etf/price/adjusted")
+            appendLine()
+            appendLine("# OpenDART API")
+            appendLine("  - /api/corpCode.xml -> corp/code/lookup")
+            appendLine("  - /api/alotMatter.json -> corp/actions/dividend")
+            appendLine("  - /api/irdsSttus.json -> corp/actions/stock_split")
+            appendLine("  - /api/list.json -> corp/disclosure/list")
+        }
 }

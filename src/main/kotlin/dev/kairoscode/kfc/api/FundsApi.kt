@@ -1,7 +1,17 @@
 package dev.kairoscode.kfc.api
 
 import dev.kairoscode.kfc.domain.FundType
-import dev.kairoscode.kfc.domain.funds.*
+import dev.kairoscode.kfc.domain.funds.DetailedInfo
+import dev.kairoscode.kfc.domain.funds.DivergenceRate
+import dev.kairoscode.kfc.domain.funds.FundListItem
+import dev.kairoscode.kfc.domain.funds.GeneralInfo
+import dev.kairoscode.kfc.domain.funds.InvestorTrading
+import dev.kairoscode.kfc.domain.funds.InvestorTradingByDate
+import dev.kairoscode.kfc.domain.funds.PortfolioConstituent
+import dev.kairoscode.kfc.domain.funds.PortfolioTopItem
+import dev.kairoscode.kfc.domain.funds.ShortBalance
+import dev.kairoscode.kfc.domain.funds.ShortSelling
+import dev.kairoscode.kfc.domain.funds.TrackingError
 import java.time.LocalDate
 
 /**
@@ -14,7 +24,6 @@ import java.time.LocalDate
  * 라이브러리 사용자가 직접 사용할 수 있습니다.
  */
 interface FundsApi {
-
     // ================================
     // 1. 펀드 목록 및 기본 정보
     // ================================
@@ -52,7 +61,7 @@ interface FundsApi {
      */
     suspend fun getDetailedInfo(
         isin: String,
-        tradeDate: LocalDate = LocalDate.now()
+        tradeDate: LocalDate = LocalDate.now(),
     ): DetailedInfo?
 
     /**
@@ -69,7 +78,7 @@ interface FundsApi {
      */
     suspend fun getGeneralInfo(
         isin: String,
-        tradeDate: LocalDate = LocalDate.now()
+        tradeDate: LocalDate = LocalDate.now(),
     ): GeneralInfo?
 
     // ================================
@@ -89,7 +98,7 @@ interface FundsApi {
      */
     suspend fun getPortfolio(
         isin: String,
-        date: LocalDate = LocalDate.now()
+        date: LocalDate = LocalDate.now(),
     ): List<PortfolioConstituent>
 
     /**
@@ -106,7 +115,7 @@ interface FundsApi {
      */
     suspend fun getPortfolioTop10(
         isin: String,
-        date: LocalDate = LocalDate.now()
+        date: LocalDate = LocalDate.now(),
     ): List<PortfolioTopItem>
 
     // ================================
@@ -128,7 +137,7 @@ interface FundsApi {
     suspend fun getTrackingError(
         isin: String,
         fromDate: LocalDate,
-        toDate: LocalDate
+        toDate: LocalDate,
     ): List<TrackingError>
 
     /**
@@ -146,7 +155,7 @@ interface FundsApi {
     suspend fun getDivergenceRate(
         isin: String,
         fromDate: LocalDate,
-        toDate: LocalDate
+        toDate: LocalDate,
     ): List<DivergenceRate>
 
     // ================================
@@ -163,9 +172,7 @@ interface FundsApi {
      * @throws dev.kairoscode.kfc.exception.KfcException 네트워크 에러, 파싱 실패, API 에러 발생 시
      * @source KRX API (MDCSTAT04801)
      */
-    suspend fun getAllInvestorTrading(
-        date: LocalDate = LocalDate.now()
-    ): List<InvestorTrading>
+    suspend fun getAllInvestorTrading(date: LocalDate = LocalDate.now()): List<InvestorTrading>
 
     /**
      * 전체 펀드 투자자별 거래 (기간별) 조회
@@ -180,7 +187,7 @@ interface FundsApi {
      */
     suspend fun getAllInvestorTradingByPeriod(
         fromDate: LocalDate,
-        toDate: LocalDate
+        toDate: LocalDate,
     ): List<InvestorTradingByDate>
 
     /**
@@ -196,7 +203,7 @@ interface FundsApi {
      */
     suspend fun getInvestorTrading(
         isin: String,
-        date: LocalDate = LocalDate.now()
+        date: LocalDate = LocalDate.now(),
     ): List<InvestorTrading>
 
     /**
@@ -214,7 +221,7 @@ interface FundsApi {
     suspend fun getInvestorTradingByPeriod(
         isin: String,
         fromDate: LocalDate,
-        toDate: LocalDate
+        toDate: LocalDate,
     ): List<InvestorTradingByDate>
 
     // ================================
@@ -238,7 +245,7 @@ interface FundsApi {
         isin: String,
         fromDate: LocalDate,
         toDate: LocalDate,
-        type: FundType = FundType.ETF
+        type: FundType = FundType.ETF,
     ): List<ShortSelling>
 
     /**
@@ -258,6 +265,6 @@ interface FundsApi {
         isin: String,
         fromDate: LocalDate,
         toDate: LocalDate,
-        type: FundType = FundType.ETF
+        type: FundType = FundType.ETF,
     ): List<ShortBalance>
 }

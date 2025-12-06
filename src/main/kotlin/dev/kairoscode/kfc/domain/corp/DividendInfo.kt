@@ -27,5 +27,5 @@ data class DividendInfo(
     val currentYear: BigDecimal?,
     val previousYear: BigDecimal?,
     val twoYearsAgo: BigDecimal?,
-    val settlementDate: LocalDate
+    val settlementDate: LocalDate,
 )

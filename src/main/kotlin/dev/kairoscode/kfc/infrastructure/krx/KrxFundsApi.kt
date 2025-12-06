@@ -1,8 +1,19 @@
 package dev.kairoscode.kfc.infrastructure.krx
 
 import dev.kairoscode.kfc.domain.FundType
-import dev.kairoscode.kfc.domain.funds.*
-import dev.kairoscode.kfc.domain.price.*
+import dev.kairoscode.kfc.domain.funds.DetailedInfo
+import dev.kairoscode.kfc.domain.funds.DivergenceRate
+import dev.kairoscode.kfc.domain.funds.FundListItem
+import dev.kairoscode.kfc.domain.funds.GeneralInfo
+import dev.kairoscode.kfc.domain.funds.InvestorTrading
+import dev.kairoscode.kfc.domain.funds.InvestorTradingByDate
+import dev.kairoscode.kfc.domain.funds.PortfolioConstituent
+import dev.kairoscode.kfc.domain.funds.PortfolioTopItem
+import dev.kairoscode.kfc.domain.funds.ShortBalance
+import dev.kairoscode.kfc.domain.funds.ShortSelling
+import dev.kairoscode.kfc.domain.funds.TrackingError
+import dev.kairoscode.kfc.domain.price.IntradayBar
+import dev.kairoscode.kfc.domain.price.RecentDaily
 import java.time.LocalDate
 
 /**
@@ -14,7 +25,6 @@ import java.time.LocalDate
  * 라이브러리 사용자가 직접 사용할 수 있습니다.
  */
 interface KrxFundsApi {
-
     // ================================
     // 1. 펀드 목록 및 기본 정보
     // ================================
@@ -50,7 +60,7 @@ interface KrxFundsApi {
      */
     suspend fun getDetailedInfo(
         isin: String,
-        tradeDate: LocalDate = LocalDate.now()
+        tradeDate: LocalDate = LocalDate.now(),
     ): DetailedInfo?
 
     /**
@@ -69,7 +79,7 @@ interface KrxFundsApi {
      */
     suspend fun getIntradayBars(
         isin: String,
-        tradeDate: LocalDate = LocalDate.now()
+        tradeDate: LocalDate = LocalDate.now(),
     ): List<IntradayBar>
 
     /**
@@ -84,7 +94,7 @@ interface KrxFundsApi {
      */
     suspend fun getRecentDaily(
         isin: String,
-        tradeDate: LocalDate = LocalDate.now()
+        tradeDate: LocalDate = LocalDate.now(),
     ): List<RecentDaily>
 
     /**
@@ -100,7 +110,7 @@ interface KrxFundsApi {
      */
     suspend fun getGeneralInfo(
         isin: String,
-        tradeDate: LocalDate = LocalDate.now()
+        tradeDate: LocalDate = LocalDate.now(),
     ): GeneralInfo?
 
     // ================================
@@ -119,7 +129,7 @@ interface KrxFundsApi {
      */
     suspend fun getEtfPortfolio(
         isin: String,
-        date: LocalDate = LocalDate.now()
+        date: LocalDate = LocalDate.now(),
     ): List<PortfolioConstituent>
 
     /**
@@ -137,7 +147,7 @@ interface KrxFundsApi {
      */
     suspend fun getEtfPortfolioTop10(
         isin: String,
-        date: LocalDate = LocalDate.now()
+        date: LocalDate = LocalDate.now(),
     ): List<PortfolioTopItem>
 
     // ================================
@@ -158,7 +168,7 @@ interface KrxFundsApi {
     suspend fun getEtfTrackingError(
         isin: String,
         fromDate: LocalDate,
-        toDate: LocalDate
+        toDate: LocalDate,
     ): List<TrackingError>
 
     /**
@@ -175,7 +185,7 @@ interface KrxFundsApi {
     suspend fun getEtfDivergenceRate(
         isin: String,
         fromDate: LocalDate,
-        toDate: LocalDate
+        toDate: LocalDate,
     ): List<DivergenceRate>
 
     // ================================
@@ -191,9 +201,7 @@ interface KrxFundsApi {
      * @return 투자자별 거래 목록
      * @throws dev.kairoscode.kfc.exception.KfcException 네트워크 에러, 파싱 실패, API 에러 발생 시
      */
-    suspend fun getAllEtfInvestorTrading(
-        date: LocalDate = LocalDate.now()
-    ): List<InvestorTrading>
+    suspend fun getAllEtfInvestorTrading(date: LocalDate = LocalDate.now()): List<InvestorTrading>
 
     /**
      * 전체 펀드 투자자별 거래 (기간별) 조회 (MDCSTAT04802)
@@ -207,7 +215,7 @@ interface KrxFundsApi {
      */
     suspend fun getAllEtfInvestorTradingByPeriod(
         fromDate: LocalDate,
-        toDate: LocalDate
+        toDate: LocalDate,
     ): List<InvestorTradingByDate>
 
     /**
@@ -222,7 +230,7 @@ interface KrxFundsApi {
      */
     suspend fun getEtfInvestorTrading(
         isin: String,
-        date: LocalDate = LocalDate.now()
+        date: LocalDate = LocalDate.now(),
     ): List<InvestorTrading>
 
     /**
@@ -239,7 +247,7 @@ interface KrxFundsApi {
     suspend fun getEtfInvestorTradingByPeriod(
         isin: String,
         fromDate: LocalDate,
-        toDate: LocalDate
+        toDate: LocalDate,
     ): List<InvestorTradingByDate>
 
     // ================================
@@ -262,7 +270,7 @@ interface KrxFundsApi {
         isin: String,
         fromDate: LocalDate,
         toDate: LocalDate,
-        type: FundType = FundType.ETF
+        type: FundType = FundType.ETF,
     ): List<ShortSelling>
 
     /**
@@ -281,6 +289,6 @@ interface KrxFundsApi {
         isin: String,
         fromDate: LocalDate,
         toDate: LocalDate,
-        type: FundType = FundType.ETF
+        type: FundType = FundType.ETF,
     ): List<ShortBalance>
 }

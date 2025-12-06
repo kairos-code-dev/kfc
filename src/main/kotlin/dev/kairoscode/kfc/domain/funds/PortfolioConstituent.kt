@@ -20,5 +20,5 @@ data class PortfolioConstituent(
     val sharesPerCu: BigDecimal,
     val value: Long,
     val constituentAmount: Long,
-    val weightPercent: BigDecimal
+    val weightPercent: BigDecimal,
 )

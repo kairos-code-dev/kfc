@@ -12,7 +12,9 @@ import kotlinx.coroutines.sync.Mutex
  * @param config Rate limiting 설정
  * @see RateLimitConfig
  */
-class TokenBucketRateLimiter(private val config: RateLimitConfig) : RateLimiter {
+class TokenBucketRateLimiter(
+    private val config: RateLimitConfig,
+) : RateLimiter {
     private val lock = Mutex()
 
     // 부동소수점으로 정밀한 토큰 계산
@@ -61,8 +63,9 @@ class TokenBucketRateLimiter(private val config: RateLimitConfig) : RateLimiter 
                         throw RateLimitTimeoutException(
                             source = "Unknown",
                             config = config,
-                            message = "Rate limit timeout exceeded after ${elapsedTime}ms, " +
-                                "need to wait additional ${waitTimeMs}ms for $tokensNeeded tokens"
+                            message =
+                                "Rate limit timeout exceeded after ${elapsedTime}ms, " +
+                                    "need to wait additional ${waitTimeMs}ms for $tokensNeeded tokens",
                         )
                     }
                 } finally {
@@ -71,36 +74,31 @@ class TokenBucketRateLimiter(private val config: RateLimitConfig) : RateLimiter 
             }
 
             // 토큰이 충전될 때까지 대기
-            delay(10)  // 짧은 대기로 스핀락 방지
+            delay(10) // 짧은 대기로 스핀락 방지
         }
     }
 
     /**
      * 현재 사용 가능한 토큰 개수를 반환합니다.
      */
-    override fun getAvailableTokens(): Int {
-        return tokens.toInt()
-    }
+    override fun getAvailableTokens(): Int = tokens.toInt()
 
     /**
      * 1개의 토큰을 획득하는 데 필요한 대기 시간(밀리초)을 반환합니다.
      */
-    override fun getWaitTimeMillis(): Long {
-        return calculateWaitTimeMs(1)
-    }
+    override fun getWaitTimeMillis(): Long = calculateWaitTimeMs(1)
 
     /**
      * Rate Limiter의 현재 상태를 반환합니다.
      */
-    override fun getStatus(): RateLimiterStatus {
-        return RateLimiterStatus(
+    override fun getStatus(): RateLimiterStatus =
+        RateLimiterStatus(
             availableTokens = getAvailableTokens(),
             capacity = config.capacity,
             refillRate = config.refillRate,
             isEnabled = config.enabled,
-            estimatedWaitTimeMs = getWaitTimeMillis()
+            estimatedWaitTimeMs = getWaitTimeMillis(),
         )
-    }
 
     /**
      * 경과 시간에 따라 토큰을 충전합니다.
@@ -108,7 +106,7 @@ class TokenBucketRateLimiter(private val config: RateLimitConfig) : RateLimiter 
      */
     private fun refillTokens() {
         val now = System.currentTimeMillis()
-        val elapsedSeconds = (now - lastRefillTime) / 1000.0  // 부동소수점으로 정밀한 계산
+        val elapsedSeconds = (now - lastRefillTime) / 1000.0 // 부동소수점으로 정밀한 계산
 
         // 충전할 토큰 수 계산
         val tokensToAdd = elapsedSeconds * config.refillRate
@@ -133,6 +131,6 @@ class TokenBucketRateLimiter(private val config: RateLimitConfig) : RateLimiter 
 
         val tokensNeeded = (tokensNeeded - tokens).coerceAtLeast(0.0)
         val secondsNeeded = tokensNeeded / config.refillRate
-        return (secondsNeeded * 1000).toLong().coerceAtLeast(1L)  // 최소 1ms
+        return (secondsNeeded * 1000).toLong().coerceAtLeast(1L) // 최소 1ms
     }
 }

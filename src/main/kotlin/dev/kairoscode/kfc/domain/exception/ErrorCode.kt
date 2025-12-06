@@ -11,7 +11,10 @@ package dev.kairoscode.kfc.domain.exception
  * - 4000번대: Rate Limit 오류
  * - 5000번대: 검증 오류
  */
-enum class ErrorCode(val code: Int, val message: String) {
+enum class ErrorCode(
+    val code: Int,
+    val message: String,
+) {
     // ================================
     // 1000번대: 네트워크 오류
     // ================================
@@ -125,7 +128,8 @@ enum class ErrorCode(val code: Int, val message: String) {
     /**
      * 알 수 없는 오류
      */
-    UNKNOWN_ERROR(9999, "알 수 없는 오류가 발생했습니다");
+    UNKNOWN_ERROR(9999, "알 수 없는 오류가 발생했습니다"),
+    ;
 
     override fun toString(): String = "[$code] $message"
 }

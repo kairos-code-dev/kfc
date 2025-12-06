@@ -6,9 +6,9 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 
 private val logger = KotlinLogging.logger {}
 
-/**
- * HTTP 관련 유틸리티 확장 함수
- */
+// =============================================================================
+// HTTP 관련 유틸리티 확장 함수
+// =============================================================================
 
 /**
  * API 응답에서 output 필드를 안전하게 추출
@@ -46,7 +46,9 @@ internal fun Map<String, Any?>.extractOutput(): List<Map<String, Any?>> {
             // output 필드가 없으면, 응답 자체가 데이터인지 확인
             // MDCSTAT04701 등의 API는 직접 데이터를 반환함
             if (containsKey("ISU_CD") || containsKey("ISU_ABBRV")) {
-                logger.debug { "Response is direct data (no 'output' field), treating entire response as single record" }
+                logger.debug {
+                    "Response is direct data (no 'output' field), treating entire response as single record"
+                }
                 listOf(this)
             } else {
                 logger.warn { "Response does not contain 'output' field and is not recognized as direct data" }
@@ -57,11 +59,12 @@ internal fun Map<String, Any?>.extractOutput(): List<Map<String, Any?>> {
             throw KfcException(
                 ErrorCode.FIELD_TYPE_MISMATCH,
                 "'output' 필드의 타입이 예상과 다릅니다",
-                context = mapOf(
-                    "expectedType" to "List",
-                    "actualType" to output::class.simpleName,
-                    "actualValue" to output
-                )
+                context =
+                    mapOf(
+                        "expectedType" to "List",
+                        "actualType" to output::class.simpleName,
+                        "actualValue" to output,
+                    ),
             )
         }
     }
@@ -88,11 +91,12 @@ internal fun Map<String, Any?>.extractResult(): Map<String, Any?> {
             throw KfcException(
                 ErrorCode.FIELD_TYPE_MISMATCH,
                 "'result' 필드의 타입이 예상과 다릅니다",
-                context = mapOf(
-                    "expectedType" to "Map",
-                    "actualType" to result::class.simpleName,
-                    "actualValue" to result
-                )
+                context =
+                    mapOf(
+                        "expectedType" to "Map",
+                        "actualType" to result::class.simpleName,
+                        "actualValue" to result,
+                    ),
             )
         }
     }
@@ -127,11 +131,12 @@ internal fun Map<String, Any?>.checkForErrors() {
         throw KfcException(
             ErrorCode.KRX_API_ERROR,
             "KRX API 응답 오류",
-            context = mapOf(
-                "apiErrorCode" to errorCode,
-                "apiErrorMessage" to errorMessage,
-                "status" to status
-            )
+            context =
+                mapOf(
+                    "apiErrorCode" to errorCode,
+                    "apiErrorMessage" to errorMessage,
+                    "status" to status,
+                ),
         )
     }
 }
@@ -151,10 +156,11 @@ internal fun Map<String, Any?>.requireField(key: String): String {
             throw KfcException(
                 ErrorCode.REQUIRED_FIELD_MISSING,
                 "필수 필드가 없습니다",
-                context = mapOf(
-                    "missingField" to key,
-                    "availableFields" to this.keys
-                )
+                context =
+                    mapOf(
+                        "missingField" to key,
+                        "availableFields" to this.keys,
+                    ),
             )
         }
         else -> value.toString()
@@ -168,6 +174,7 @@ internal fun Map<String, Any?>.requireField(key: String): String {
  * @param defaultValue 기본값 (필드가 없을 경우)
  * @return 필드 값 (String) 또는 기본값
  */
-internal fun Map<String, Any?>.optionalField(key: String, defaultValue: String = ""): String {
-    return this[key]?.toString() ?: defaultValue
-}
+internal fun Map<String, Any?>.optionalField(
+    key: String,
+    defaultValue: String = "",
+): String = this[key]?.toString() ?: defaultValue

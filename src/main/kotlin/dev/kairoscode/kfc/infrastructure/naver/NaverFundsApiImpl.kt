@@ -2,17 +2,20 @@ package dev.kairoscode.kfc.infrastructure.naver
 
 import dev.kairoscode.kfc.domain.exception.ErrorCode
 import dev.kairoscode.kfc.domain.exception.KfcException
-import dev.kairoscode.kfc.infrastructure.common.recording.installResponseRecording
 import dev.kairoscode.kfc.infrastructure.common.ratelimit.GlobalRateLimiters
 import dev.kairoscode.kfc.infrastructure.common.ratelimit.RateLimiter
+import dev.kairoscode.kfc.infrastructure.common.recording.installResponseRecording
 import dev.kairoscode.kfc.infrastructure.naver.model.NaverEtfOhlcv
 import io.github.oshai.kotlinlogging.KotlinLogging
-import io.ktor.client.*
-import io.ktor.client.engine.cio.*
-import io.ktor.client.plugins.*
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
-import io.ktor.http.*
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.cio.CIO
+import io.ktor.client.plugins.HttpTimeout
+import io.ktor.client.plugins.expectSuccess
+import io.ktor.client.request.get
+import io.ktor.client.request.header
+import io.ktor.client.statement.bodyAsText
+import io.ktor.http.HttpHeaders
+import io.ktor.http.isSuccess
 import org.w3c.dom.Element
 import org.xml.sax.InputSource
 import java.io.StringReader
@@ -30,21 +33,21 @@ import javax.xml.parsers.DocumentBuilderFactory
  * @param rateLimiter Naver API Rate Limiter (기본값: GlobalRateLimiters의 Naver 싱글톤)
  */
 internal class NaverFundsApiImpl(
-    private val rateLimiter: RateLimiter = GlobalRateLimiters.getNaverLimiter()
+    private val rateLimiter: RateLimiter = GlobalRateLimiters.getNaverLimiter(),
 ) : NaverFundsApi {
+    private val httpClient =
+        HttpClient(CIO) {
+            // 응답 레코딩 플러그인 설치 (ResponseRecordingContext가 있을 때만 동작)
+            installResponseRecording()
 
-    private val httpClient = HttpClient(CIO) {
-        // 응답 레코딩 플러그인 설치 (ResponseRecordingContext가 있을 때만 동작)
-        installResponseRecording()
+            install(HttpTimeout) {
+                requestTimeoutMillis = 30_000
+                connectTimeoutMillis = 10_000
+                socketTimeoutMillis = 30_000
+            }
 
-        install(HttpTimeout) {
-            requestTimeoutMillis = 30_000
-            connectTimeoutMillis = 10_000
-            socketTimeoutMillis = 30_000
+            expectSuccess = false
         }
-
-        expectSuccess = false
-    }
 
     private val logger = KotlinLogging.logger {}
 
@@ -60,7 +63,7 @@ internal class NaverFundsApiImpl(
     override suspend fun getAdjustedOhlcv(
         ticker: String,
         fromDate: LocalDate,
-        toDate: LocalDate
+        toDate: LocalDate,
     ): List<NaverEtfOhlcv> {
         rateLimiter.acquire()
 
@@ -103,17 +106,18 @@ internal class NaverFundsApiImpl(
     private suspend fun fetchChartData(
         ticker: String,
         count: Int,
-        timeframe: String = "day"
+        timeframe: String = "day",
     ): String {
         val url = "$BASE_URL?symbol=$ticker&timeframe=$timeframe&count=$count&requestType=0"
 
         logger.debug { "Requesting Naver API: $url" }
 
         return try {
-            val response = httpClient.get(url) {
-                header(HttpHeaders.UserAgent, USER_AGENT)
-                header(HttpHeaders.Referrer, REFERER)
-            }
+            val response =
+                httpClient.get(url) {
+                    header(HttpHeaders.UserAgent, USER_AGENT)
+                    header(HttpHeaders.Referrer, REFERER)
+                }
 
             when {
                 response.status.isSuccess() -> {
@@ -141,9 +145,9 @@ internal class NaverFundsApiImpl(
      * @param xml XML 응답 문자열
      * @return OHLCV 데이터 목록
      */
-    private fun parseXmlResponse(xml: String): List<NaverEtfOhlcv> {
-        return try {
-            val cleanedXml = xml.trimStart();
+    private fun parseXmlResponse(xml: String): List<NaverEtfOhlcv> =
+        try {
+            val cleanedXml = xml.trimStart()
             val factory = DocumentBuilderFactory.newInstance()
             val builder = factory.newDocumentBuilder()
             val doc = builder.parse(InputSource(StringReader(cleanedXml)))
@@ -168,7 +172,6 @@ internal class NaverFundsApiImpl(
         } catch (e: Exception) {
             throw KfcException(ErrorCode.XML_PARSE_ERROR, e)
         }
-    }
 
     /**
      * data 필드 파싱
@@ -191,7 +194,7 @@ internal class NaverFundsApiImpl(
             high = parseBigDecimal(fields[2]),
             low = parseBigDecimal(fields[3]),
             close = parseBigDecimal(fields[4]),
-            volume = parseLong(fields[5])
+            volume = parseLong(fields[5]),
         )
     }
 
@@ -206,20 +209,20 @@ internal class NaverFundsApiImpl(
     /**
      * 숫자 파싱: "42965" → BigDecimal
      */
-    private fun parseBigDecimal(value: String): BigDecimal {
-        return value.trim()
+    private fun parseBigDecimal(value: String): BigDecimal =
+        value
+            .trim()
             .replace(",", "")
             .toBigDecimalOrNull()
             ?: throw KfcException(ErrorCode.NUMBER_FORMAT_ERROR)
-    }
 
     /**
      * 정수 파싱: "192061" → Long
      */
-    private fun parseLong(value: String): Long {
-        return value.trim()
+    private fun parseLong(value: String): Long =
+        value
+            .trim()
             .replace(",", "")
             .toLongOrNull()
             ?: throw KfcException(ErrorCode.NUMBER_FORMAT_ERROR)
-    }
 }

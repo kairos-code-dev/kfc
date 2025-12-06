@@ -15,7 +15,7 @@ enum class BondType(
     val krxCode: String,
     val displayName: String,
     val maturity: String,
-    val category: BondCategory
+    val category: BondCategory,
 ) {
     /** 국고채 1년 */
     TREASURY_1Y("3006", "국고채 1년", "1Y", BondCategory.TREASURY),
@@ -48,7 +48,8 @@ enum class BondType(
     CORPORATE_BBB("3010", "회사채 BBB- (무보증 3년)", "3Y", BondCategory.CORPORATE),
 
     /** CD(91일) */
-    CD_91("4000", "CD(91일)", "91D", BondCategory.SHORT_TERM);
+    CD_91("4000", "CD(91일)", "91D", BondCategory.SHORT_TERM),
+    ;
 
     companion object {
         /**
@@ -57,9 +58,7 @@ enum class BondType(
          * @param krxCode KRX API 채권 종류 숫자 코드 (예: "3006", "3009")
          * @return 매칭되는 BondType, 없으면 null
          */
-        fun fromKrxCode(krxCode: String): BondType? {
-            return entries.find { it.krxCode == krxCode }
-        }
+        fun fromKrxCode(krxCode: String): BondType? = entries.find { it.krxCode == krxCode }
 
         /**
          * 한글명으로 BondType 조회
@@ -105,5 +104,5 @@ enum class BondCategory {
     CORPORATE,
 
     /** 단기 금융상품 (CD 등) */
-    SHORT_TERM
+    SHORT_TERM,
 }

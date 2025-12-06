@@ -54,7 +54,6 @@ object RecordingConfig {
      *   - Disclosure: 공시 정보
      */
     object Paths {
-
         // ========================================
         // ETF API 네임스페이스
         // ========================================
@@ -92,7 +91,7 @@ object RecordingConfig {
             const val PORTFOLIO = "$BASE/portfolio"
             const val GENERAL_INFO = "$BASE/general_info"
             const val PORTFOLIO_TOP10 = "$BASE/portfolio_top10"
-
+            const val COMPREHENSIVE = "$BASE/comprehensive"
         }
 
         /**
@@ -216,6 +215,5 @@ object RecordingConfig {
          * 에러 응답 저장 경로
          */
         const val ERRORS = "errors"
-
     }
 }

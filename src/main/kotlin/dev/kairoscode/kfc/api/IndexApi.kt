@@ -1,6 +1,12 @@
 package dev.kairoscode.kfc.api
 
-import dev.kairoscode.kfc.domain.index.*
+import dev.kairoscode.kfc.domain.index.IndexFundamental
+import dev.kairoscode.kfc.domain.index.IndexFundamentalSnapshot
+import dev.kairoscode.kfc.domain.index.IndexInfo
+import dev.kairoscode.kfc.domain.index.IndexMarket
+import dev.kairoscode.kfc.domain.index.IndexOhlcv
+import dev.kairoscode.kfc.domain.index.IndexOhlcvSnapshot
+import dev.kairoscode.kfc.domain.index.IndexPriceChange
 import java.time.LocalDate
 
 /**
@@ -13,7 +19,6 @@ import java.time.LocalDate
  * 라이브러리 사용자가 직접 사용할 수 있습니다.
  */
 interface IndexApi {
-
     /**
      * 지수 목록 조회
      *
@@ -24,9 +29,7 @@ interface IndexApi {
      * @throws dev.kairoscode.kfc.domain.exception.KfcException 네트워크 에러, 파싱 실패, API 에러 발생 시
      * @source KRX API (MDCSTAT00201)
      */
-    suspend fun getIndexList(
-        market: IndexMarket = IndexMarket.ALL
-    ): List<IndexInfo>
+    suspend fun getIndexList(market: IndexMarket = IndexMarket.ALL): List<IndexInfo>
 
     /**
      * 지수명 조회
@@ -66,7 +69,7 @@ interface IndexApi {
      */
     suspend fun getIndexConstituents(
         ticker: String,
-        date: LocalDate = LocalDate.now()
+        date: LocalDate = LocalDate.now(),
     ): List<String>
 
     /**
@@ -84,7 +87,7 @@ interface IndexApi {
     suspend fun getOhlcvByDate(
         ticker: String,
         fromDate: LocalDate,
-        toDate: LocalDate
+        toDate: LocalDate,
     ): List<IndexOhlcv>
 
     /**
@@ -100,7 +103,7 @@ interface IndexApi {
      */
     suspend fun getOhlcvByTicker(
         date: LocalDate = LocalDate.now(),
-        market: IndexMarket = IndexMarket.ALL
+        market: IndexMarket = IndexMarket.ALL,
     ): List<IndexOhlcvSnapshot>
 
     /**
@@ -118,7 +121,7 @@ interface IndexApi {
     suspend fun getFundamentalByDate(
         ticker: String,
         fromDate: LocalDate,
-        toDate: LocalDate
+        toDate: LocalDate,
     ): List<IndexFundamental>
 
     /**
@@ -134,7 +137,7 @@ interface IndexApi {
      */
     suspend fun getFundamentalByTicker(
         date: LocalDate = LocalDate.now(),
-        market: IndexMarket = IndexMarket.ALL
+        market: IndexMarket = IndexMarket.ALL,
     ): List<IndexFundamentalSnapshot>
 
     /**
@@ -152,6 +155,6 @@ interface IndexApi {
     suspend fun getPriceChange(
         fromDate: LocalDate,
         toDate: LocalDate,
-        market: IndexMarket = IndexMarket.ALL
+        market: IndexMarket = IndexMarket.ALL,
     ): List<IndexPriceChange>
 }

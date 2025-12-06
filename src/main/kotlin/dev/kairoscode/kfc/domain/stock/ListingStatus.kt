@@ -14,5 +14,5 @@ enum class ListingStatus {
     /**
      * 상장폐지 종목
      */
-    DELISTED
+    DELISTED,
 }

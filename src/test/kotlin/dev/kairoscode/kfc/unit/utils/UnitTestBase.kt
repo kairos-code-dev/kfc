@@ -1,13 +1,13 @@
 package dev.kairoscode.kfc.unit.utils
 
-import dev.kairoscode.kfc.api.KfcClient
-import dev.kairoscode.kfc.api.FundsApi
-import dev.kairoscode.kfc.api.PriceApi
 import dev.kairoscode.kfc.api.CorpApi
 import dev.kairoscode.kfc.api.FinancialsApi
+import dev.kairoscode.kfc.api.FundsApi
 import dev.kairoscode.kfc.api.FutureApi
-import dev.kairoscode.kfc.domain.stock.Market
+import dev.kairoscode.kfc.api.KfcClient
+import dev.kairoscode.kfc.api.PriceApi
 import dev.kairoscode.kfc.domain.stock.ListingStatus
+import dev.kairoscode.kfc.domain.stock.Market
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Tag
@@ -53,7 +53,6 @@ import kotlin.time.Duration.Companion.seconds
 @Tag("unit")
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 abstract class UnitTestBase {
-
     protected lateinit var client: KfcClient
     protected var fakeFundsApi: FundsApi? = null
     protected var fakePriceApi: PriceApi? = null
@@ -74,72 +73,201 @@ abstract class UnitTestBase {
 
         // KfcClient 생성자는 funds가 필수이고 price, corp는 optional이므로
         // fakeFundsApi가 없으면 dummy FundsApi 생성
-        val dummyFundsApi = object : FundsApi {
-            override suspend fun getList(type: dev.kairoscode.kfc.domain.FundType?) = emptyList<dev.kairoscode.kfc.domain.funds.FundListItem>()
-            override suspend fun getDetailedInfo(isin: String, tradeDate: java.time.LocalDate) = null
-            override suspend fun getGeneralInfo(isin: String, tradeDate: java.time.LocalDate) = null
-            override suspend fun getPortfolio(isin: String, date: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.domain.funds.PortfolioConstituent>()
-            override suspend fun getPortfolioTop10(isin: String, date: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.domain.funds.PortfolioTopItem>()
-            override suspend fun getTrackingError(isin: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.domain.funds.TrackingError>()
-            override suspend fun getDivergenceRate(isin: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.domain.funds.DivergenceRate>()
-            override suspend fun getAllInvestorTrading(date: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.domain.funds.InvestorTrading>()
-            override suspend fun getAllInvestorTradingByPeriod(fromDate: java.time.LocalDate, toDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.domain.funds.InvestorTradingByDate>()
-            override suspend fun getInvestorTrading(isin: String, date: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.domain.funds.InvestorTrading>()
-            override suspend fun getInvestorTradingByPeriod(isin: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.domain.funds.InvestorTradingByDate>()
-            override suspend fun getShortSelling(isin: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate, type: dev.kairoscode.kfc.domain.FundType) = emptyList<dev.kairoscode.kfc.domain.funds.ShortSelling>()
-            override suspend fun getShortBalance(isin: String, fromDate: java.time.LocalDate, toDate: java.time.LocalDate, type: dev.kairoscode.kfc.domain.FundType) = emptyList<dev.kairoscode.kfc.domain.funds.ShortBalance>()
-        }
+        val dummyFundsApi =
+            object : FundsApi {
+                override suspend fun getList(type: dev.kairoscode.kfc.domain.FundType?) =
+                    emptyList<dev.kairoscode.kfc.domain.funds.FundListItem>()
 
-        val dummyPriceApi = object : PriceApi {
-            override suspend fun getIntradayBars(isin: String, tradeDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.domain.price.IntradayBar>()
-            override suspend fun getRecentDaily(isin: String, tradeDate: java.time.LocalDate) = emptyList<dev.kairoscode.kfc.domain.price.RecentDaily>()
-        }
+                override suspend fun getDetailedInfo(
+                    isin: String,
+                    tradeDate: java.time.LocalDate,
+                ) = null
 
-        val dummyStockApi = object : dev.kairoscode.kfc.api.StockApi {
-            override suspend fun getStockList(market: Market, listingStatus: ListingStatus) = emptyList<dev.kairoscode.kfc.domain.stock.StockListItem>()
-            override suspend fun getStockInfo(ticker: String) = null
-            override suspend fun getStockName(ticker: String) = null
-            override suspend fun getSectorClassifications(date: LocalDate, market: Market) = emptyList<dev.kairoscode.kfc.domain.stock.StockSectorInfo>()
-            override suspend fun getIndustryGroups(date: LocalDate, market: Market) = emptyList<dev.kairoscode.kfc.domain.stock.IndustryClassification>()
-            override suspend fun searchStocks(keyword: String, market: Market) = emptyList<dev.kairoscode.kfc.domain.stock.StockListItem>()
-        }
+                override suspend fun getGeneralInfo(
+                    isin: String,
+                    tradeDate: java.time.LocalDate,
+                ) = null
+
+                override suspend fun getPortfolio(
+                    isin: String,
+                    date: java.time.LocalDate,
+                ) = emptyList<dev.kairoscode.kfc.domain.funds.PortfolioConstituent>()
+
+                override suspend fun getPortfolioTop10(
+                    isin: String,
+                    date: java.time.LocalDate,
+                ) = emptyList<dev.kairoscode.kfc.domain.funds.PortfolioTopItem>()
+
+                override suspend fun getTrackingError(
+                    isin: String,
+                    fromDate: java.time.LocalDate,
+                    toDate: java.time.LocalDate,
+                ) = emptyList<dev.kairoscode.kfc.domain.funds.TrackingError>()
+
+                override suspend fun getDivergenceRate(
+                    isin: String,
+                    fromDate: java.time.LocalDate,
+                    toDate: java.time.LocalDate,
+                ) = emptyList<dev.kairoscode.kfc.domain.funds.DivergenceRate>()
+
+                override suspend fun getAllInvestorTrading(date: java.time.LocalDate) =
+                    emptyList<dev.kairoscode.kfc.domain.funds.InvestorTrading>()
+
+                override suspend fun getAllInvestorTradingByPeriod(
+                    fromDate: java.time.LocalDate,
+                    toDate: java.time.LocalDate,
+                ) = emptyList<dev.kairoscode.kfc.domain.funds.InvestorTradingByDate>()
+
+                override suspend fun getInvestorTrading(
+                    isin: String,
+                    date: java.time.LocalDate,
+                ) = emptyList<dev.kairoscode.kfc.domain.funds.InvestorTrading>()
+
+                override suspend fun getInvestorTradingByPeriod(
+                    isin: String,
+                    fromDate: java.time.LocalDate,
+                    toDate: java.time.LocalDate,
+                ) = emptyList<dev.kairoscode.kfc.domain.funds.InvestorTradingByDate>()
+
+                override suspend fun getShortSelling(
+                    isin: String,
+                    fromDate: java.time.LocalDate,
+                    toDate: java.time.LocalDate,
+                    type: dev.kairoscode.kfc.domain.FundType,
+                ) = emptyList<dev.kairoscode.kfc.domain.funds.ShortSelling>()
+
+                override suspend fun getShortBalance(
+                    isin: String,
+                    fromDate: java.time.LocalDate,
+                    toDate: java.time.LocalDate,
+                    type: dev.kairoscode.kfc.domain.FundType,
+                ) = emptyList<dev.kairoscode.kfc.domain.funds.ShortBalance>()
+            }
+
+        val dummyPriceApi =
+            object : PriceApi {
+                override suspend fun getIntradayBars(
+                    isin: String,
+                    tradeDate: java.time.LocalDate,
+                ) = emptyList<dev.kairoscode.kfc.domain.price.IntradayBar>()
+
+                override suspend fun getRecentDaily(
+                    isin: String,
+                    tradeDate: java.time.LocalDate,
+                ) = emptyList<dev.kairoscode.kfc.domain.price.RecentDaily>()
+            }
+
+        val dummyStockApi =
+            object : dev.kairoscode.kfc.api.StockApi {
+                override suspend fun getStockList(
+                    market: Market,
+                    listingStatus: ListingStatus,
+                ) = emptyList<dev.kairoscode.kfc.domain.stock.StockListItem>()
+
+                override suspend fun getStockInfo(ticker: String) = null
+
+                override suspend fun getStockName(ticker: String) = null
+
+                override suspend fun getSectorClassifications(
+                    date: LocalDate,
+                    market: Market,
+                ) = emptyList<dev.kairoscode.kfc.domain.stock.StockSectorInfo>()
+
+                override suspend fun getIndustryGroups(
+                    date: LocalDate,
+                    market: Market,
+                ) = emptyList<dev.kairoscode.kfc.domain.stock.IndustryClassification>()
+
+                override suspend fun searchStocks(
+                    keyword: String,
+                    market: Market,
+                ) = emptyList<dev.kairoscode.kfc.domain.stock.StockListItem>()
+            }
 
         // Dummy BondApi
-        val dummyBondApi = object : dev.kairoscode.kfc.api.BondApi {
-            override suspend fun getBondYieldsByDate(date: LocalDate) = dev.kairoscode.kfc.domain.bond.BondYieldSnapshot(date, emptyList())
-            override suspend fun getBondYields(bondType: dev.kairoscode.kfc.domain.bond.BondType, fromDate: LocalDate, toDate: LocalDate) = emptyList<dev.kairoscode.kfc.domain.bond.BondYield>()
-        }
+        val dummyBondApi =
+            object : dev.kairoscode.kfc.api.BondApi {
+                override suspend fun getBondYieldsByDate(date: LocalDate) =
+                    dev.kairoscode.kfc.domain.bond
+                        .BondYieldSnapshot(date, emptyList())
+
+                override suspend fun getBondYields(
+                    bondType: dev.kairoscode.kfc.domain.bond.BondType,
+                    fromDate: LocalDate,
+                    toDate: LocalDate,
+                ) = emptyList<dev.kairoscode.kfc.domain.bond.BondYield>()
+            }
 
         // Dummy FutureApi
-        val dummyFutureApi = object : FutureApi {
-            override suspend fun getFutureTickerList() = emptyList<dev.kairoscode.kfc.domain.future.FutureProduct>()
-            override suspend fun getFutureName(productId: String) = null
-            override suspend fun getOhlcvByTicker(date: LocalDate, productId: String, alternative: Boolean, previousBusiness: Boolean) = emptyList<dev.kairoscode.kfc.domain.future.FutureOhlcv>()
-        }
+        val dummyFutureApi =
+            object : FutureApi {
+                override suspend fun getFutureTickerList() = emptyList<dev.kairoscode.kfc.domain.future.FutureProduct>()
+
+                override suspend fun getFutureName(productId: String) = null
+
+                override suspend fun getOhlcvByTicker(
+                    date: LocalDate,
+                    productId: String,
+                    alternative: Boolean,
+                    previousBusiness: Boolean,
+                ) = emptyList<dev.kairoscode.kfc.domain.future.FutureOhlcv>()
+            }
 
         // Dummy IndexApi
-        val dummyIndexApi = object : dev.kairoscode.kfc.api.IndexApi {
-            override suspend fun getIndexList(market: dev.kairoscode.kfc.domain.index.IndexMarket) = emptyList<dev.kairoscode.kfc.domain.index.IndexInfo>()
-            override suspend fun getIndexName(ticker: String) = null
-            override suspend fun getIndexInfo(ticker: String) = null
-            override suspend fun getIndexConstituents(ticker: String, date: LocalDate) = emptyList<String>()
-            override suspend fun getOhlcvByDate(ticker: String, fromDate: LocalDate, toDate: LocalDate) = emptyList<dev.kairoscode.kfc.domain.index.IndexOhlcv>()
-            override suspend fun getOhlcvByTicker(date: LocalDate, market: dev.kairoscode.kfc.domain.index.IndexMarket) = emptyList<dev.kairoscode.kfc.domain.index.IndexOhlcvSnapshot>()
-            override suspend fun getFundamentalByDate(ticker: String, fromDate: LocalDate, toDate: LocalDate) = emptyList<dev.kairoscode.kfc.domain.index.IndexFundamental>()
-            override suspend fun getFundamentalByTicker(date: LocalDate, market: dev.kairoscode.kfc.domain.index.IndexMarket) = emptyList<dev.kairoscode.kfc.domain.index.IndexFundamentalSnapshot>()
-            override suspend fun getPriceChange(fromDate: LocalDate, toDate: LocalDate, market: dev.kairoscode.kfc.domain.index.IndexMarket) = emptyList<dev.kairoscode.kfc.domain.index.IndexPriceChange>()
-        }
+        val dummyIndexApi =
+            object : dev.kairoscode.kfc.api.IndexApi {
+                override suspend fun getIndexList(market: dev.kairoscode.kfc.domain.index.IndexMarket) =
+                    emptyList<dev.kairoscode.kfc.domain.index.IndexInfo>()
 
-        client = KfcClient(
-            funds = fakeFundsApi ?: dummyFundsApi,
-            price = fakePriceApi ?: dummyPriceApi,
-            stock = dummyStockApi,
-            bond = dummyBondApi,
-            future = fakeFutureApi ?: dummyFutureApi,
-            index = dummyIndexApi,
-            corp = fakeCorpApi,
-            financials = fakeFinancialsApi
-        )
+                override suspend fun getIndexName(ticker: String) = null
+
+                override suspend fun getIndexInfo(ticker: String) = null
+
+                override suspend fun getIndexConstituents(
+                    ticker: String,
+                    date: LocalDate,
+                ) = emptyList<String>()
+
+                override suspend fun getOhlcvByDate(
+                    ticker: String,
+                    fromDate: LocalDate,
+                    toDate: LocalDate,
+                ) = emptyList<dev.kairoscode.kfc.domain.index.IndexOhlcv>()
+
+                override suspend fun getOhlcvByTicker(
+                    date: LocalDate,
+                    market: dev.kairoscode.kfc.domain.index.IndexMarket,
+                ) = emptyList<dev.kairoscode.kfc.domain.index.IndexOhlcvSnapshot>()
+
+                override suspend fun getFundamentalByDate(
+                    ticker: String,
+                    fromDate: LocalDate,
+                    toDate: LocalDate,
+                ) = emptyList<dev.kairoscode.kfc.domain.index.IndexFundamental>()
+
+                override suspend fun getFundamentalByTicker(
+                    date: LocalDate,
+                    market: dev.kairoscode.kfc.domain.index.IndexMarket,
+                ) = emptyList<dev.kairoscode.kfc.domain.index.IndexFundamentalSnapshot>()
+
+                override suspend fun getPriceChange(
+                    fromDate: LocalDate,
+                    toDate: LocalDate,
+                    market: dev.kairoscode.kfc.domain.index.IndexMarket,
+                ) = emptyList<dev.kairoscode.kfc.domain.index.IndexPriceChange>()
+            }
+
+        client =
+            KfcClient(
+                funds = fakeFundsApi ?: dummyFundsApi,
+                price = fakePriceApi ?: dummyPriceApi,
+                stock = dummyStockApi,
+                bond = dummyBondApi,
+                future = fakeFutureApi ?: dummyFutureApi,
+                index = dummyIndexApi,
+                corp = fakeCorpApi,
+                financials = fakeFinancialsApi,
+            )
     }
 
     /**
@@ -149,44 +277,34 @@ abstract class UnitTestBase {
      * @param fileName 파일명 (.json 확장자 제외)
      * @return JSON 문자열
      */
-    protected fun loadMockResponse(category: String, fileName: String): String {
-        return JsonResponseLoader.load(category, fileName)
-    }
+    protected fun loadMockResponse(
+        category: String,
+        fileName: String,
+    ): String = JsonResponseLoader.load(category, fileName)
 
     // ETF API Fake 헬퍼 - JSON 파일 로드
-    protected fun loadEtfListResponse(fileName: String) =
-        loadMockResponse("etf/list", fileName)
+    protected fun loadEtfListResponse(fileName: String) = loadMockResponse("etf/list", fileName)
 
-    protected fun loadDetailedInfoResponse(fileName: String) =
-        loadMockResponse("etf/metrics/detailed_info", fileName)
+    protected fun loadDetailedInfoResponse(fileName: String) = loadMockResponse("etf/metrics/detailed_info", fileName)
 
-    protected fun loadDailyPricesResponse(fileName: String) =
-        loadMockResponse("etf/daily_prices", fileName)
+    protected fun loadDailyPricesResponse(fileName: String) = loadMockResponse("etf/daily_prices", fileName)
 
-    protected fun loadOhlcvResponse(fileName: String) =
-        loadMockResponse("etf/ohlcv", fileName)
+    protected fun loadOhlcvResponse(fileName: String) = loadMockResponse("etf/ohlcv", fileName)
 
-    protected fun loadEtfAdjustedOhlcvResponse(fileName: String) =
-        loadMockResponse("etf/adjusted_ohlcv", fileName)
+    protected fun loadEtfAdjustedOhlcvResponse(fileName: String) = loadMockResponse("etf/adjusted_ohlcv", fileName)
 
-    protected fun loadEtfPriceChangesResponse(fileName: String) =
-        loadMockResponse("etf/price_changes", fileName)
+    protected fun loadEtfPriceChangesResponse(fileName: String) = loadMockResponse("etf/price_changes", fileName)
 
-    protected fun loadEtfPortfolioResponse(fileName: String) =
-        loadMockResponse("etf/portfolio", fileName)
+    protected fun loadEtfPortfolioResponse(fileName: String) = loadMockResponse("etf/portfolio", fileName)
 
     // Corp API Fake 헬퍼 - JSON 파일 로드
-    protected fun loadCorpCodeResponse(fileName: String) =
-        loadMockResponse("corp/corp_code", fileName)
+    protected fun loadCorpCodeResponse(fileName: String) = loadMockResponse("corp/corp_code", fileName)
 
-    protected fun loadDividendResponse(fileName: String) =
-        loadMockResponse("corp/dividend", fileName)
+    protected fun loadDividendResponse(fileName: String) = loadMockResponse("corp/dividend", fileName)
 
-    protected fun loadStockSplitResponse(fileName: String) =
-        loadMockResponse("corp/stock_split", fileName)
+    protected fun loadStockSplitResponse(fileName: String) = loadMockResponse("corp/stock_split", fileName)
 
-    protected fun loadDisclosureResponse(fileName: String) =
-        loadMockResponse("corp/disclosure", fileName)
+    protected fun loadDisclosureResponse(fileName: String) = loadMockResponse("corp/disclosure", fileName)
 
     @AfterEach
     fun tearDown() {
@@ -199,7 +317,7 @@ abstract class UnitTestBase {
      */
     protected fun unitTest(
         timeout: kotlin.time.Duration = 10.seconds,
-        block: suspend () -> Unit
+        block: suspend () -> Unit,
     ) = runTest(timeout = timeout) {
         block()
     }

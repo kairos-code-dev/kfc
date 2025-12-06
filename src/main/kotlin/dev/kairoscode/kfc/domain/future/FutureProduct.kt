@@ -11,5 +11,5 @@ package dev.kairoscode.kfc.domain.future
  */
 data class FutureProduct(
     val productId: String,
-    val name: String
+    val name: String,
 )

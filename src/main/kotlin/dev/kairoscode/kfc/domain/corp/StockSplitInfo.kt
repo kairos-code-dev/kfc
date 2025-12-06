@@ -26,5 +26,5 @@ data class StockSplitInfo(
     val stockKind: String,
     val quantity: Long,
     val parValuePerShare: Int,
-    val totalAmount: Long
+    val totalAmount: Long,
 )

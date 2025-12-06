@@ -22,5 +22,5 @@ data class ShortBalance(
     val shortBalance: Long,
     val shortBalanceValue: Long,
     val listedShares: Long,
-    val shortBalanceRatio: Double
+    val shortBalanceRatio: Double,
 )

@@ -1,6 +1,5 @@
 package dev.kairoscode.kfc.domain.funds
 
-import dev.kairoscode.kfc.infrastructure.common.util.*
 import java.math.BigDecimal
 
 /**
@@ -24,18 +23,16 @@ import java.math.BigDecimal
 data class TrackingMetrics(
     // 원시 데이터 (유연한 접근용)
     val rawData: Map<String, Any?>,
-
     // 추적오차율 (기간별)
     val trackingErrorRate1M: BigDecimal?,
     val trackingErrorRate3M: BigDecimal?,
     val trackingErrorRate6M: BigDecimal?,
     val trackingErrorRate1Y: BigDecimal?,
-
     // 괴리율 (기간별)
     val divergenceRate1M: BigDecimal?,
     val divergenceRate3M: BigDecimal?,
     val divergenceRate6M: BigDecimal?,
-    val divergenceRate1Y: BigDecimal?
+    val divergenceRate1Y: BigDecimal?,
 ) {
     companion object {
         // 추정 필드명 (실제 API 응답 확인 후 조정 필요)
@@ -56,8 +53,10 @@ data class TrackingMetrics(
          */
         @Suppress("UNCHECKED_CAST")
         fun fromRaw(raw: Map<*, *>): TrackingMetrics {
-            val rawData = raw.mapKeys { it.key.toString() }
-                .mapValues { it.value } as Map<String, Any?>
+            val rawData =
+                raw
+                    .mapKeys { it.key.toString() }
+                    .mapValues { it.value } as Map<String, Any?>
 
             return TrackingMetrics(
                 rawData = rawData,
@@ -68,7 +67,7 @@ data class TrackingMetrics(
                 divergenceRate1M = raw[DIVRG_RT_1M]?.toString()?.toKrxRateOrNull(),
                 divergenceRate3M = raw[DIVRG_RT_3M]?.toString()?.toKrxRateOrNull(),
                 divergenceRate6M = raw[DIVRG_RT_6M]?.toString()?.toKrxRateOrNull(),
-                divergenceRate1Y = raw[DIVRG_RT_1Y]?.toString()?.toKrxRateOrNull()
+                divergenceRate1Y = raw[DIVRG_RT_1Y]?.toString()?.toKrxRateOrNull(),
             )
         }
 
@@ -77,8 +76,11 @@ data class TrackingMetrics(
          */
         private fun String.toKrxRateOrNull(): BigDecimal? {
             val clean = this.replace(",", "").trim()
-            return if (clean.isEmpty() || clean == "-") null
-            else clean.toBigDecimalOrNull()
+            return if (clean.isEmpty() || clean == "-") {
+                null
+            } else {
+                clean.toBigDecimalOrNull()
+            }
         }
     }
 
@@ -88,9 +90,7 @@ data class TrackingMetrics(
      * @param key 필드 키
      * @return 해당 값의 문자열 표현, 없으면 null
      */
-    fun getString(key: String): String? {
-        return rawData[key]?.toString()
-    }
+    fun getString(key: String): String? = rawData[key]?.toString()
 
     /**
      * 특정 키의 값을 BigDecimal로 가져옵니다.
@@ -98,9 +98,12 @@ data class TrackingMetrics(
      * @param key 필드 키
      * @return 해당 값의 BigDecimal, 없거나 변환 실패 시 null
      */
-    fun getBigDecimal(key: String): BigDecimal? {
-        return rawData[key]?.toString()?.replace(",", "")?.trim()?.toBigDecimalOrNull()
-    }
+    fun getBigDecimal(key: String): BigDecimal? =
+        rawData[key]
+            ?.toString()
+            ?.replace(",", "")
+            ?.trim()
+            ?.toBigDecimalOrNull()
 
     /**
      * 특정 키의 값을 Long으로 가져옵니다.
@@ -108,7 +111,10 @@ data class TrackingMetrics(
      * @param key 필드 키
      * @return 해당 값의 Long, 없거나 변환 실패 시 null
      */
-    fun getLong(key: String): Long? {
-        return rawData[key]?.toString()?.replace(",", "")?.trim()?.toLongOrNull()
-    }
+    fun getLong(key: String): Long? =
+        rawData[key]
+            ?.toString()
+            ?.replace(",", "")
+            ?.trim()
+            ?.toLongOrNull()
 }

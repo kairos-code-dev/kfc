@@ -8,7 +8,10 @@ package dev.kairoscode.kfc.domain.financials
  * @property code OPENDART 보고서 코드
  * @property description 한글 설명
  */
-enum class ReportType(val code: String, val description: String) {
+enum class ReportType(
+    val code: String,
+    val description: String,
+) {
     /**
      * 사업보고서 (연간)
      */
@@ -27,7 +30,8 @@ enum class ReportType(val code: String, val description: String) {
     /**
      * 3분기보고서
      */
-    Q3("11014", "3분기보고서");
+    Q3("11014", "3분기보고서"),
+    ;
 
     companion object {
         /**
@@ -36,8 +40,6 @@ enum class ReportType(val code: String, val description: String) {
          * @param code OPENDART 보고서 코드
          * @return ReportType, 없으면 null
          */
-        fun fromCode(code: String): ReportType? {
-            return entries.find { it.code == code }
-        }
+        fun fromCode(code: String): ReportType? = entries.find { it.code == code }
     }
 }

@@ -23,5 +23,5 @@ data class IndexOhlcvSnapshot(
     val low: BigDecimal,
     val close: BigDecimal,
     val volume: Long,
-    val tradingValue: Long? = null
+    val tradingValue: Long? = null,
 )

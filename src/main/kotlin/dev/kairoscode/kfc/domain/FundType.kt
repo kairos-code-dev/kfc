@@ -12,9 +12,9 @@ package dev.kairoscode.kfc.domain
  * @property krxMarketTypeCode KRX API mktTpCd 파라미터 값
  */
 enum class FundType(
-    val krxSecurityGroupId: String,  // secugrpId
+    val krxSecurityGroupId: String, // secugrpId
     val krxInquiryCondition: String, // inqCond
-    val krxMarketTypeCode: String    // mktTpCd
+    val krxMarketTypeCode: String, // mktTpCd
 ) {
     /**
      * 상장지수펀드 (Exchange Traded Fund)
@@ -34,5 +34,5 @@ enum class FundType(
     /**
      * 주식워런트증권 (Equity Linked Warrant)
      */
-    ELW("EW", "EW", "5")
+    ELW("EW", "EW", "5"),
 }

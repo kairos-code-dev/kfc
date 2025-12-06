@@ -23,5 +23,5 @@ data class TrackingError(
     val indexValue: BigDecimal,
     val indexChangeRate: Double,
     val trackingMultiple: BigDecimal,
-    val trackingErrorRate: Double
+    val trackingErrorRate: Double,
 )

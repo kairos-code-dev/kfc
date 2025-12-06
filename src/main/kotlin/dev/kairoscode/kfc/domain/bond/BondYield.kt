@@ -18,40 +18,30 @@ data class BondYield(
     val date: LocalDate,
     val bondType: BondType,
     val yield: BigDecimal,
-    val change: BigDecimal
+    val change: BigDecimal,
 ) {
     /**
      * 국고채 여부 확인
      */
-    fun isTreasury(): Boolean {
-        return bondType.category == BondCategory.TREASURY
-    }
+    fun isTreasury(): Boolean = bondType.category == BondCategory.TREASURY
 
     /**
      * 회사채 여부 확인
      */
-    fun isCorporate(): Boolean {
-        return bondType.category == BondCategory.CORPORATE
-    }
+    fun isCorporate(): Boolean = bondType.category == BondCategory.CORPORATE
 
     /**
      * 수익률 상승 여부 확인
      */
-    fun isYieldRising(): Boolean {
-        return change.compareTo(BigDecimal.ZERO) > 0
-    }
+    fun isYieldRising(): Boolean = change.compareTo(BigDecimal.ZERO) > 0
 
     /**
      * 수익률 하락 여부 확인
      */
-    fun isYieldFalling(): Boolean {
-        return change.compareTo(BigDecimal.ZERO) < 0
-    }
+    fun isYieldFalling(): Boolean = change.compareTo(BigDecimal.ZERO) < 0
 
     /**
      * 수익률 변동 없음 확인
      */
-    fun isYieldUnchanged(): Boolean {
-        return change.compareTo(BigDecimal.ZERO) == 0
-    }
+    fun isYieldUnchanged(): Boolean = change.compareTo(BigDecimal.ZERO) == 0
 }

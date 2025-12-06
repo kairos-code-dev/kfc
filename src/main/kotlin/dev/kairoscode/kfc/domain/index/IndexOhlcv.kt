@@ -25,7 +25,7 @@ data class IndexOhlcv(
     val low: BigDecimal,
     val close: BigDecimal,
     val volume: Long,
-    val tradingValue: Long? = null
+    val tradingValue: Long? = null,
 ) {
     /**
      * 일별 수익률 계산 (종가 / 시가 - 1)

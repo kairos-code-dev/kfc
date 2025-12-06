@@ -54,7 +54,6 @@ import kotlin.time.Duration.Companion.seconds
 @Tag("integration")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class IntegrationTestBase {
-
     protected lateinit var client: KfcClient
 
     // 메모리 모니터링용
@@ -70,12 +69,13 @@ abstract class IntegrationTestBase {
         // OPENDART API 키가 필요한 경우만 체크
         // KRX, Naver는 API 키 불필요
 
-        client = if (apiKey != null) {
-            KfcClient.create(opendartApiKey = apiKey)
-        } else {
-            println("[IntegrationTest] OPENDART_API_KEY가 설정되지 않았습니다. Corp API 테스트는 skip됩니다.")
-            KfcClient.create(opendartApiKey = null) // Funds API는 키 없이도 동작
-        }
+        client =
+            if (apiKey != null) {
+                KfcClient.create(opendartApiKey = apiKey)
+            } else {
+                println("[IntegrationTest] OPENDART_API_KEY가 설정되지 않았습니다. Corp API 테스트는 skip됩니다.")
+                KfcClient.create(opendartApiKey = null) // Funds API는 키 없이도 동작
+            }
 
         println("[IntegrationTest] Integration Test 시작")
         println("[IntegrationTest] Recording 활성화: ${RecordingConfig.isRecordingEnabled}")
@@ -94,7 +94,9 @@ abstract class IntegrationTestBase {
             val finalMemoryUsed = getUsedMemoryMB()
             val maxMemory = getMaxMemoryMB()
             println("[IntegrationTest] Integration Test 종료")
-            println("[IntegrationTest] Memory usage: ${finalMemoryUsed}/${maxMemory} MB (초기: ${initialMemoryUsed}MB, 증가: ${finalMemoryUsed - initialMemoryUsed}MB)")
+            println(
+                "[IntegrationTest] Memory usage: $finalMemoryUsed/$maxMemory MB (초기: ${initialMemoryUsed}MB, 증가: ${finalMemoryUsed - initialMemoryUsed}MB)",
+            )
         }
     }
 
@@ -136,7 +138,7 @@ abstract class IntegrationTestBase {
         Assumptions.assumeTrue(
             hasOpendartApiKey,
             "OPENDART_API_KEY가 설정되지 않아 테스트를 skip합니다. " +
-                    "(환경변수 또는 local.properties에 설정 필요)"
+                "(환경변수 또는 local.properties에 설정 필요)",
         )
     }
 
@@ -161,9 +163,7 @@ abstract class IntegrationTestBase {
     /**
      * 최대 사용 가능 메모리를 MB 단위로 반환
      */
-    private fun getMaxMemoryMB(): Long {
-        return Runtime.getRuntime().maxMemory() / (1024 * 1024)
-    }
+    private fun getMaxMemoryMB(): Long = Runtime.getRuntime().maxMemory() / (1024 * 1024)
 
     // ========================================
     // 기본 테스트 실행 헬퍼
@@ -190,7 +190,7 @@ abstract class IntegrationTestBase {
      */
     protected fun integrationTest(
         timeout: Duration = 30.seconds,
-        block: suspend () -> Unit
+        block: suspend () -> Unit,
     ) = runTest(timeout = timeout) {
         block()
     }
@@ -242,23 +242,24 @@ abstract class IntegrationTestBase {
         category: String,
         fileName: String,
         timeout: Duration = 30.seconds,
-        crossinline block: suspend () -> Unit
-    ): Unit = runTest(timeout = timeout) {
-        val recordingContext = ResponseRecordingContext()
-        withContext(recordingContext) {
-            block()
+        crossinline block: suspend () -> Unit,
+    ): Unit =
+        runTest(timeout = timeout) {
+            val recordingContext = ResponseRecordingContext()
+            withContext(recordingContext) {
+                block()
 
-            // 캡처된 응답 body가 있으면 레코딩
-            val responseBody = recordingContext.getResponseBody()
-            if (responseBody != null) {
-                ResponseRecorder.recordRaw(
-                    jsonString = responseBody,
-                    category = category,
-                    fileName = fileName
-                )
-            } else if (RecordingConfig.isRecordingEnabled) {
-                println("[IntegrationTest] Warning: 캡처된 응답이 없습니다. ($category/$fileName)")
+                // 캡처된 응답 body가 있으면 레코딩
+                val responseBody = recordingContext.getResponseBody()
+                if (responseBody != null) {
+                    ResponseRecorder.recordRaw(
+                        jsonString = responseBody,
+                        category = category,
+                        fileName = fileName,
+                    )
+                } else if (RecordingConfig.isRecordingEnabled) {
+                    println("[IntegrationTest] Warning: 캡처된 응답이 없습니다. ($category/$fileName)")
+                }
             }
         }
-    }
 }

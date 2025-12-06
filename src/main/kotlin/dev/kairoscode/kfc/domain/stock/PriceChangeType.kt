@@ -7,7 +7,9 @@ package dev.kairoscode.kfc.domain.stock
  *
  * @property code KRX API에서 사용하는 등락 구분 코드 (FLUC_TP_CD)
  */
-enum class PriceChangeType(val code: String) {
+enum class PriceChangeType(
+    val code: String,
+) {
     /**
      * 상승 (전일 대비 가격 상승)
      */
@@ -21,7 +23,8 @@ enum class PriceChangeType(val code: String) {
     /**
      * 보합 (전일 대비 가격 변동 없음)
      */
-    UNCHANGED("3");
+    UNCHANGED("3"),
+    ;
 
     companion object {
         /**
@@ -30,8 +33,6 @@ enum class PriceChangeType(val code: String) {
          * @param code KRX API 등락 구분 코드 (1, 2, 3)
          * @return PriceChangeType Enum, 코드가 유효하지 않으면 null
          */
-        fun fromCode(code: String): PriceChangeType? {
-            return entries.find { it.code == code }
-        }
+        fun fromCode(code: String): PriceChangeType? = entries.find { it.code == code }
     }
 }

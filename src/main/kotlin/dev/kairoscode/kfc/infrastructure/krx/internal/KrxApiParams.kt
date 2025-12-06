@@ -13,7 +13,6 @@ package dev.kairoscode.kfc.infrastructure.krx.internal
  * - 나머지 파라미터는 `bld` 값에 따라 달라짐
  */
 internal object KrxApiParams {
-
     // ================================
     // 공통 파라미터
     // ================================

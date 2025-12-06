@@ -1,11 +1,21 @@
 package dev.kairoscode.kfc.infrastructure.krx
 
 import dev.kairoscode.kfc.api.FundsApi
-import dev.kairoscode.kfc.infrastructure.krx.KrxFundsApi
+import dev.kairoscode.kfc.domain.FundType
 import dev.kairoscode.kfc.domain.exception.ErrorCode
 import dev.kairoscode.kfc.domain.exception.KfcException
-import dev.kairoscode.kfc.domain.FundType
-import dev.kairoscode.kfc.domain.funds.*
+import dev.kairoscode.kfc.domain.funds.DetailedInfo
+import dev.kairoscode.kfc.domain.funds.DivergenceRate
+import dev.kairoscode.kfc.domain.funds.FundListItem
+import dev.kairoscode.kfc.domain.funds.GeneralInfo
+import dev.kairoscode.kfc.domain.funds.InvestorTrading
+import dev.kairoscode.kfc.domain.funds.InvestorTradingByDate
+import dev.kairoscode.kfc.domain.funds.PortfolioConstituent
+import dev.kairoscode.kfc.domain.funds.PortfolioTopItem
+import dev.kairoscode.kfc.domain.funds.ShortBalance
+import dev.kairoscode.kfc.domain.funds.ShortSelling
+import dev.kairoscode.kfc.domain.funds.TrackingError
+import dev.kairoscode.kfc.infrastructure.krx.KrxFundsApi
 import java.time.LocalDate
 
 /**
@@ -15,9 +25,8 @@ import java.time.LocalDate
  * 내부적으로 KrxFundsApi를 사용하며, RateLimiter를 적용합니다.
  */
 internal class FundsApiImpl(
-    private val krxFundsApi: KrxFundsApi
+    private val krxFundsApi: KrxFundsApi,
 ) : FundsApi {
-
     companion object {
         // ISIN 코드 형식: KR7 + 9자리 숫자 (총 12자리)
         private const val ISIN_LENGTH = 12
@@ -28,13 +37,11 @@ internal class FundsApiImpl(
     // 1. 펀드 목록 및 기본 정보
     // ================================
 
-    override suspend fun getList(type: FundType?): List<FundListItem> {
-        return krxFundsApi.getEtfList(type)
-    }
+    override suspend fun getList(type: FundType?): List<FundListItem> = krxFundsApi.getEtfList(type)
 
     override suspend fun getDetailedInfo(
         isin: String,
-        tradeDate: LocalDate
+        tradeDate: LocalDate,
     ): DetailedInfo? {
         validateIsin(isin)
         validateTradeDate(tradeDate)
@@ -43,7 +50,7 @@ internal class FundsApiImpl(
 
     override suspend fun getGeneralInfo(
         isin: String,
-        tradeDate: LocalDate
+        tradeDate: LocalDate,
     ): GeneralInfo? {
         validateIsin(isin)
         validateTradeDate(tradeDate)
@@ -56,7 +63,7 @@ internal class FundsApiImpl(
 
     override suspend fun getPortfolio(
         isin: String,
-        date: LocalDate
+        date: LocalDate,
     ): List<PortfolioConstituent> {
         validateIsin(isin)
         validateTradeDate(date)
@@ -65,7 +72,7 @@ internal class FundsApiImpl(
 
     override suspend fun getPortfolioTop10(
         isin: String,
-        date: LocalDate
+        date: LocalDate,
     ): List<PortfolioTopItem> {
         validateIsin(isin)
         validateTradeDate(date)
@@ -79,7 +86,7 @@ internal class FundsApiImpl(
     override suspend fun getTrackingError(
         isin: String,
         fromDate: LocalDate,
-        toDate: LocalDate
+        toDate: LocalDate,
     ): List<TrackingError> {
         validateIsin(isin)
         validateDateRange(fromDate, toDate)
@@ -89,7 +96,7 @@ internal class FundsApiImpl(
     override suspend fun getDivergenceRate(
         isin: String,
         fromDate: LocalDate,
-        toDate: LocalDate
+        toDate: LocalDate,
     ): List<DivergenceRate> {
         validateIsin(isin)
         validateDateRange(fromDate, toDate)
@@ -100,22 +107,17 @@ internal class FundsApiImpl(
     // 4. 투자자별 거래
     // ================================
 
-    override suspend fun getAllInvestorTrading(
-        date: LocalDate
-    ): List<InvestorTrading> {
-        return krxFundsApi.getAllEtfInvestorTrading(date)
-    }
+    override suspend fun getAllInvestorTrading(date: LocalDate): List<InvestorTrading> =
+        krxFundsApi.getAllEtfInvestorTrading(date)
 
     override suspend fun getAllInvestorTradingByPeriod(
         fromDate: LocalDate,
-        toDate: LocalDate
-    ): List<InvestorTradingByDate> {
-        return krxFundsApi.getAllEtfInvestorTradingByPeriod(fromDate, toDate)
-    }
+        toDate: LocalDate,
+    ): List<InvestorTradingByDate> = krxFundsApi.getAllEtfInvestorTradingByPeriod(fromDate, toDate)
 
     override suspend fun getInvestorTrading(
         isin: String,
-        date: LocalDate
+        date: LocalDate,
     ): List<InvestorTrading> {
         validateIsin(isin)
         validateTradeDate(date)
@@ -125,7 +127,7 @@ internal class FundsApiImpl(
     override suspend fun getInvestorTradingByPeriod(
         isin: String,
         fromDate: LocalDate,
-        toDate: LocalDate
+        toDate: LocalDate,
     ): List<InvestorTradingByDate> {
         validateIsin(isin)
         validateDateRange(fromDate, toDate)
@@ -140,7 +142,7 @@ internal class FundsApiImpl(
         isin: String,
         fromDate: LocalDate,
         toDate: LocalDate,
-        type: FundType
+        type: FundType,
     ): List<ShortSelling> {
         validateIsin(isin)
         validateDateRange(fromDate, toDate)
@@ -151,7 +153,7 @@ internal class FundsApiImpl(
         isin: String,
         fromDate: LocalDate,
         toDate: LocalDate,
-        type: FundType
+        type: FundType,
     ): List<ShortBalance> {
         validateIsin(isin)
         validateDateRange(fromDate, toDate)
@@ -177,37 +179,40 @@ internal class FundsApiImpl(
                 throw KfcException(
                     ErrorCode.INVALID_PARAMETER,
                     "ISIN 코드는 공백이 아니어야 합니다",
-                    context = mapOf("input" to isin)
+                    context = mapOf("input" to isin),
                 )
             trimmed.length != ISIN_LENGTH ->
                 throw KfcException(
                     ErrorCode.INVALID_PARAMETER,
                     "ISIN 코드는 정확히 ${ISIN_LENGTH}자여야 합니다",
-                    context = mapOf(
-                        "input" to trimmed,
-                        "expectedLength" to ISIN_LENGTH,
-                        "actualLength" to trimmed.length
-                    )
+                    context =
+                        mapOf(
+                            "input" to trimmed,
+                            "expectedLength" to ISIN_LENGTH,
+                            "actualLength" to trimmed.length,
+                        ),
                 )
             !trimmed.startsWith(ISIN_PREFIX) ->
                 throw KfcException(
                     ErrorCode.INVALID_PARAMETER,
                     "ISIN 코드는 ${ISIN_PREFIX}로 시작해야 합니다",
-                    context = mapOf(
-                        "input" to trimmed,
-                        "expectedPrefix" to ISIN_PREFIX,
-                        "actualPrefix" to trimmed.take(ISIN_PREFIX.length)
-                    )
+                    context =
+                        mapOf(
+                            "input" to trimmed,
+                            "expectedPrefix" to ISIN_PREFIX,
+                            "actualPrefix" to trimmed.take(ISIN_PREFIX.length),
+                        ),
                 )
             !trimmed.drop(ISIN_PREFIX.length).all { it.isDigit() } ->
                 throw KfcException(
                     ErrorCode.INVALID_PARAMETER,
                     "ISIN 코드는 ${ISIN_PREFIX} 이후 숫자만 포함해야 합니다",
-                    context = mapOf(
-                        "input" to trimmed,
-                        "expectedPrefix" to ISIN_PREFIX,
-                        "invalidPart" to trimmed.drop(ISIN_PREFIX.length)
-                    )
+                    context =
+                        mapOf(
+                            "input" to trimmed,
+                            "expectedPrefix" to ISIN_PREFIX,
+                            "invalidPart" to trimmed.drop(ISIN_PREFIX.length),
+                        ),
                 )
         }
     }
@@ -223,10 +228,11 @@ internal class FundsApiImpl(
                 throw KfcException(
                     ErrorCode.INVALID_PARAMETER,
                     "거래 날짜는 미래 날짜일 수 없습니다",
-                    context = mapOf(
-                        "inputDate" to date,
-                        "currentDate" to now
-                    )
+                    context =
+                        mapOf(
+                            "inputDate" to date,
+                            "currentDate" to now,
+                        ),
                 )
         }
     }
@@ -236,26 +242,31 @@ internal class FundsApiImpl(
      * - fromDate <= toDate
      * - 둘 다 현재 또는 과거 날짜
      */
-    private fun validateDateRange(fromDate: LocalDate, toDate: LocalDate) {
+    private fun validateDateRange(
+        fromDate: LocalDate,
+        toDate: LocalDate,
+    ) {
         val now = LocalDate.now()
         when {
             fromDate > toDate ->
                 throw KfcException(
                     ErrorCode.INVALID_DATE_RANGE,
                     "시작 날짜는 종료 날짜보다 이전이어야 합니다",
-                    context = mapOf(
-                        "fromDate" to fromDate,
-                        "toDate" to toDate
-                    )
+                    context =
+                        mapOf(
+                            "fromDate" to fromDate,
+                            "toDate" to toDate,
+                        ),
                 )
             toDate > now ->
                 throw KfcException(
                     ErrorCode.INVALID_PARAMETER,
                     "종료 날짜는 미래 날짜일 수 없습니다",
-                    context = mapOf(
-                        "toDate" to toDate,
-                        "currentDate" to now
-                    )
+                    context =
+                        mapOf(
+                            "toDate" to toDate,
+                            "currentDate" to now,
+                        ),
                 )
         }
     }

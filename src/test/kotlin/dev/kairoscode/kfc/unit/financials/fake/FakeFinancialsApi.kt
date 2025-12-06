@@ -1,7 +1,12 @@
 package dev.kairoscode.kfc.unit.financials.fake
 
 import dev.kairoscode.kfc.api.FinancialsApi
-import dev.kairoscode.kfc.domain.financials.*
+import dev.kairoscode.kfc.domain.financials.BalanceSheet
+import dev.kairoscode.kfc.domain.financials.CashFlowStatement
+import dev.kairoscode.kfc.domain.financials.FinancialStatements
+import dev.kairoscode.kfc.domain.financials.IncomeStatement
+import dev.kairoscode.kfc.domain.financials.ReportType
+import dev.kairoscode.kfc.domain.financials.StatementType
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
@@ -14,19 +19,19 @@ class FakeFinancialsApi(
     private val incomeStatementResponse: String? = null,
     private val balanceSheetResponse: String? = null,
     private val cashFlowStatementResponse: String? = null,
-    private val allFinancialsResponse: String? = null
+    private val allFinancialsResponse: String? = null,
 ) : FinancialsApi {
-
-    private val json = Json {
-        ignoreUnknownKeys = true
-        isLenient = true
-    }
+    private val json =
+        Json {
+            ignoreUnknownKeys = true
+            isLenient = true
+        }
 
     override suspend fun getIncomeStatement(
         corpCode: String,
         year: Int,
         reportType: ReportType,
-        statementType: StatementType
+        statementType: StatementType,
     ): IncomeStatement {
         require(incomeStatementResponse != null) { "incomeStatementResponse가 설정되지 않았습니다" }
         return json.decodeFromString(incomeStatementResponse)
@@ -36,7 +41,7 @@ class FakeFinancialsApi(
         corpCode: String,
         year: Int,
         reportType: ReportType,
-        statementType: StatementType
+        statementType: StatementType,
     ): BalanceSheet {
         require(balanceSheetResponse != null) { "balanceSheetResponse가 설정되지 않았습니다" }
         return json.decodeFromString(balanceSheetResponse)
@@ -46,7 +51,7 @@ class FakeFinancialsApi(
         corpCode: String,
         year: Int,
         reportType: ReportType,
-        statementType: StatementType
+        statementType: StatementType,
     ): CashFlowStatement {
         require(cashFlowStatementResponse != null) { "cashFlowStatementResponse가 설정되지 않았습니다" }
         return json.decodeFromString(cashFlowStatementResponse)
@@ -56,7 +61,7 @@ class FakeFinancialsApi(
         corpCode: String,
         year: Int,
         reportType: ReportType,
-        statementType: StatementType
+        statementType: StatementType,
     ): FinancialStatements {
         require(allFinancialsResponse != null) { "allFinancialsResponse가 설정되지 않았습니다" }
         return json.decodeFromString(allFinancialsResponse)

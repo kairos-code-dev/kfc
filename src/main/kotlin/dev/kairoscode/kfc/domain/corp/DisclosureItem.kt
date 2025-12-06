@@ -26,5 +26,5 @@ data class DisclosureItem(
     val rceptNo: String,
     val filerName: String,
     val rceptDate: LocalDate,
-    val remark: String?
+    val remark: String?,
 )

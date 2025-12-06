@@ -1,6 +1,5 @@
 package dev.kairoscode.kfc.domain.funds
 
-import dev.kairoscode.kfc.infrastructure.common.util.*
 import java.math.BigDecimal
 
 /**
@@ -24,20 +23,17 @@ import java.math.BigDecimal
 data class AdditionalMetadata(
     // 원시 데이터 (유연한 접근용)
     val rawData: Map<String, Any?>,
-
     // 지수 정보
     val benchmarkIndexName: String?,
     val indexCalculationInstitution: String?,
-
     // 비용 및 운용 정보
     val totalExpenseRatio: BigDecimal?,
     val creationUnitQuantity: Long?,
     val settlementType: String?,
-
     // 분배금 정보
     val distributionFrequency: String?,
     val lastDistributionDate: String?,
-    val lastDistributionAmount: BigDecimal?
+    val lastDistributionAmount: BigDecimal?,
 ) {
     companion object {
         // 추정 필드명 (실제 API 응답 확인 후 조정 필요)
@@ -58,19 +54,24 @@ data class AdditionalMetadata(
          */
         @Suppress("UNCHECKED_CAST")
         fun fromRaw(raw: Map<*, *>): AdditionalMetadata {
-            val rawData = raw.mapKeys { it.key.toString() }
-                .mapValues { it.value } as Map<String, Any?>
+            val rawData =
+                raw
+                    .mapKeys { it.key.toString() }
+                    .mapValues { it.value } as Map<String, Any?>
 
             return AdditionalMetadata(
                 rawData = rawData,
                 benchmarkIndexName = raw[ETF_OBJ_IDX_NM]?.toString()?.takeIf { it.isNotBlank() && it != "-" },
-                indexCalculationInstitution = raw[IDX_CALC_INST_NM]?.toString()?.takeIf { it.isNotBlank() && it != "-" },
+                indexCalculationInstitution =
+                    raw[IDX_CALC_INST_NM]?.toString()?.takeIf {
+                        it.isNotBlank() && it != "-"
+                    },
                 totalExpenseRatio = raw[ETF_TOT_FEE]?.toString()?.toKrxRateOrNull(),
                 creationUnitQuantity = raw[CU_QTY]?.toString()?.toKrxLongOrNull(),
                 settlementType = raw[SETL_TP_NM]?.toString()?.takeIf { it.isNotBlank() && it != "-" },
                 distributionFrequency = raw[DISTR_FREQ]?.toString()?.takeIf { it.isNotBlank() && it != "-" },
                 lastDistributionDate = raw[LST_DISTR_DD]?.toString()?.takeIf { it.isNotBlank() && it != "-" },
-                lastDistributionAmount = raw[LST_DISTR_AMT]?.toString()?.toKrxRateOrNull()
+                lastDistributionAmount = raw[LST_DISTR_AMT]?.toString()?.toKrxRateOrNull(),
             )
         }
 
@@ -79,8 +80,11 @@ data class AdditionalMetadata(
          */
         private fun String.toKrxRateOrNull(): BigDecimal? {
             val clean = this.replace(",", "").trim()
-            return if (clean.isEmpty() || clean == "-") null
-            else clean.toBigDecimalOrNull()
+            return if (clean.isEmpty() || clean == "-") {
+                null
+            } else {
+                clean.toBigDecimalOrNull()
+            }
         }
 
         /**
@@ -88,8 +92,11 @@ data class AdditionalMetadata(
          */
         private fun String.toKrxLongOrNull(): Long? {
             val clean = this.replace(",", "").trim()
-            return if (clean.isEmpty() || clean == "-") null
-            else clean.toLongOrNull()
+            return if (clean.isEmpty() || clean == "-") {
+                null
+            } else {
+                clean.toLongOrNull()
+            }
         }
     }
 
@@ -99,9 +106,7 @@ data class AdditionalMetadata(
      * @param key 필드 키
      * @return 해당 값의 문자열 표현, 없으면 null
      */
-    fun getString(key: String): String? {
-        return rawData[key]?.toString()
-    }
+    fun getString(key: String): String? = rawData[key]?.toString()
 
     /**
      * 특정 키의 값을 BigDecimal로 가져옵니다.
@@ -109,9 +114,12 @@ data class AdditionalMetadata(
      * @param key 필드 키
      * @return 해당 값의 BigDecimal, 없거나 변환 실패 시 null
      */
-    fun getBigDecimal(key: String): BigDecimal? {
-        return rawData[key]?.toString()?.replace(",", "")?.trim()?.toBigDecimalOrNull()
-    }
+    fun getBigDecimal(key: String): BigDecimal? =
+        rawData[key]
+            ?.toString()
+            ?.replace(",", "")
+            ?.trim()
+            ?.toBigDecimalOrNull()
 
     /**
      * 특정 키의 값을 Long으로 가져옵니다.
@@ -119,16 +127,17 @@ data class AdditionalMetadata(
      * @param key 필드 키
      * @return 해당 값의 Long, 없거나 변환 실패 시 null
      */
-    fun getLong(key: String): Long? {
-        return rawData[key]?.toString()?.replace(",", "")?.trim()?.toLongOrNull()
-    }
+    fun getLong(key: String): Long? =
+        rawData[key]
+            ?.toString()
+            ?.replace(",", "")
+            ?.trim()
+            ?.toLongOrNull()
 
     /**
      * 모든 원시 데이터 키 목록을 반환합니다.
      *
      * @return 키 Set
      */
-    fun getAvailableKeys(): Set<String> {
-        return rawData.keys
-    }
+    fun getAvailableKeys(): Set<String> = rawData.keys
 }

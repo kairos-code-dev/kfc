@@ -17,7 +17,7 @@ data class StockListItem(
     val name: String,
     val isin: String,
     val market: Market,
-    val listingStatus: ListingStatus
+    val listingStatus: ListingStatus,
 ) {
     /**
      * 코스피 종목 여부 확인

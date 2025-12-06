@@ -31,7 +31,7 @@ data class IntradayBar(
     val highPrice: Int,
     val lowPrice: Int,
     val cumulativeVolume: Long,
-    val basePrice: Int
+    val basePrice: Int,
 ) {
     companion object {
         // KRX API 필드명 상수
@@ -49,17 +49,16 @@ data class IntradayBar(
          * @param raw KRX API 응답 Map
          * @return IntradayBar 인스턴스
          */
-        fun fromRaw(raw: Map<*, *>): IntradayBar {
-            return IntradayBar(
+        fun fromRaw(raw: Map<*, *>): IntradayBar =
+            IntradayBar(
                 time = raw[TRD_DD].toStringSafe(),
                 closePrice = raw[TDD_CLSPRC].toStringSafe().toKrxInt(),
                 openPrice = raw[TDD_OPNPRC].toStringSafe().toKrxInt(),
                 highPrice = raw[TDD_HGPRC].toStringSafe().toKrxInt(),
                 lowPrice = raw[TDD_LWPRC].toStringSafe().toKrxInt(),
                 cumulativeVolume = raw[ACC_TRDVOL].toStringSafe().toKrxLong(),
-                basePrice = raw[BAS_PRC].toStringSafe().toKrxInt()
+                basePrice = raw[BAS_PRC].toStringSafe().toKrxInt(),
             )
-        }
     }
 
     /**

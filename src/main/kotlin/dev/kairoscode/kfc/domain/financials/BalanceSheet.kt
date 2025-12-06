@@ -23,77 +23,58 @@ data class BalanceSheet(
     val statementType: StatementType,
     val currentPeriod: FinancialPeriod,
     val previousPeriod: FinancialPeriod?,
-    val lineItems: List<FinancialLineItem>
+    val lineItems: List<FinancialLineItem>,
 )
 
-/**
- * 재무상태표 확장 함수
- *
- * 주요 계정과목 조회 및 재무비율 계산 기능을 제공합니다.
- */
+// =============================================================================
+// 재무상태표 확장 함수
+// 주요 계정과목 조회 및 재무비율 계산 기능을 제공합니다.
+// =============================================================================
 
 /**
  * 자산총계 조회
  */
-fun BalanceSheet.getTotalAssets(): BigDecimal? {
-    return findAmountByKeywords("자산총계")
-}
+fun BalanceSheet.getTotalAssets(): BigDecimal? = findAmountByKeywords("자산총계")
 
 /**
  * 유동자산 조회
  */
-fun BalanceSheet.getCurrentAssets(): BigDecimal? {
-    return findAmountByKeywords("유동자산")
-}
+fun BalanceSheet.getCurrentAssets(): BigDecimal? = findAmountByKeywords("유동자산")
 
 /**
  * 비유동자산 조회
  */
-fun BalanceSheet.getNoncurrentAssets(): BigDecimal? {
-    return findAmountByKeywords("비유동자산")
-}
+fun BalanceSheet.getNoncurrentAssets(): BigDecimal? = findAmountByKeywords("비유동자산")
 
 /**
  * 부채총계 조회
  */
-fun BalanceSheet.getTotalLiabilities(): BigDecimal? {
-    return findAmountByKeywords("부채총계")
-}
+fun BalanceSheet.getTotalLiabilities(): BigDecimal? = findAmountByKeywords("부채총계")
 
 /**
  * 유동부채 조회
  */
-fun BalanceSheet.getCurrentLiabilities(): BigDecimal? {
-    return findAmountByKeywords("유동부채")
-}
+fun BalanceSheet.getCurrentLiabilities(): BigDecimal? = findAmountByKeywords("유동부채")
 
 /**
  * 비유동부채 조회
  */
-fun BalanceSheet.getNoncurrentLiabilities(): BigDecimal? {
-    return findAmountByKeywords("비유동부채")
-}
+fun BalanceSheet.getNoncurrentLiabilities(): BigDecimal? = findAmountByKeywords("비유동부채")
 
 /**
  * 자본총계 조회
  */
-fun BalanceSheet.getTotalEquity(): BigDecimal? {
-    return findAmountByKeywords("자본총계")
-}
+fun BalanceSheet.getTotalEquity(): BigDecimal? = findAmountByKeywords("자본총계")
 
 /**
  * 자본금 조회
  */
-fun BalanceSheet.getShareCapital(): BigDecimal? {
-    return findAmountByKeywords("자본금")
-}
+fun BalanceSheet.getShareCapital(): BigDecimal? = findAmountByKeywords("자본금")
 
 /**
  * 이익잉여금 조회
  */
-fun BalanceSheet.getRetainedEarnings(): BigDecimal? {
-    return findAmountByKeywords("이익잉여금")
-}
+fun BalanceSheet.getRetainedEarnings(): BigDecimal? = findAmountByKeywords("이익잉여금")
 
 /**
  * 부채비율 계산 (%)
@@ -146,10 +127,10 @@ fun BalanceSheet.calculateEquityRatio(): BigDecimal? {
 /**
  * 키워드로 계정과목 금액 조회 (내부 헬퍼 함수)
  */
-private fun BalanceSheet.findAmountByKeywords(vararg keywords: String): BigDecimal? {
-    return lineItems.find { item ->
-        keywords.any { keyword ->
-            item.accountName.contains(keyword, ignoreCase = true)
-        }
-    }?.currentPeriodAmount
-}
+private fun BalanceSheet.findAmountByKeywords(vararg keywords: String): BigDecimal? =
+    lineItems
+        .find { item ->
+            keywords.any { keyword ->
+                item.accountName.contains(keyword, ignoreCase = true)
+            }
+        }?.currentPeriodAmount

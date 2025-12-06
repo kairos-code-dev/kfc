@@ -1,11 +1,12 @@
-import java.util.Properties
 import java.time.Duration
+import java.util.Properties
 
 plugins {
     kotlin("jvm") version "2.2.21"
     kotlin("plugin.serialization") version "2.2.21"
     `maven-publish`
     alias(libs.plugins.dokka)
+    alias(libs.plugins.ktlint)
 }
 
 group = "dev.kairoscode"
@@ -105,7 +106,6 @@ publishing {
     }
 }
 
-
 // ============================================
 // Test Tasks 설정
 // ============================================
@@ -115,20 +115,22 @@ publishing {
  */
 fun Test.configureCommonTestSettings() {
     // OPENDART API Key 설정 (우선순위: 환경변수 > local.properties)
-    val opendartApiKey = System.getenv("OPENDART_API_KEY")
-        ?: localProperties.getProperty("OPENDART_API_KEY")
+    val opendartApiKey =
+        System.getenv("OPENDART_API_KEY")
+            ?: localProperties.getProperty("OPENDART_API_KEY")
 
     opendartApiKey?.let { apiKey ->
         environment("OPENDART_API_KEY", apiKey)
     }
 
     // Integration test용 레코딩 플래그 (기본값: false)
-    systemProperty("record.responses",
+    systemProperty(
+        "record.responses",
         if (project.hasProperty("record.responses")) {
             project.property("record.responses").toString()
         } else {
             "false"
-        }
+        },
     )
 
     // 타임아웃 설정
@@ -151,9 +153,6 @@ fun Test.configureCommonTestSettings() {
  * 사용법:
  *   ./gradlew test                          # 전체 테스트
  *   ./gradlew test -Precord.responses=true  # 레코딩 활성화
- *
- * 주의: Integration 테스트가 포함되어 있으므로 순차 실행됩니다.
- * Unit 테스트만 병렬로 실행하려면 ./gradlew unitTest를 사용하세요.
  */
 tasks.test {
     description = "Run all tests (unit + integration)"
@@ -162,12 +161,17 @@ tasks.test {
     useJUnitPlatform()
     configureCommonTestSettings()
 
-    // Integration 테스트 포함 시 순차 실행 (KRX API Rate Limiting)
-    maxParallelForks = 10
+    // 사용 가능한 프로세서 수만큼 병렬 실행
+    maxParallelForks = Runtime.getRuntime().availableProcessors()
+
+    // JUnit 5 병렬 실행 활성화
+    systemProperty("junit.jupiter.execution.parallel.enabled", "true")
+    systemProperty("junit.jupiter.execution.parallel.mode.default", "concurrent")
+    systemProperty("junit.jupiter.execution.parallel.mode.classes.default", "concurrent")
 
     doFirst {
         println("🧪 Running all tests (unit + integration)")
-        println("   Mode: Sequential (integration tests require rate limiting)")
+        println("   Parallel forks: $maxParallelForks")
     }
 }
 
@@ -191,8 +195,8 @@ val unitTest by tasks.registering(Test::class) {
     }
     configureCommonTestSettings()
 
-    // Unit 테스트는 완전 병렬 실행 가능
-    maxParallelForks = Runtime.getRuntime().availableProcessors().coerceIn(1, 8)
+    // 사용 가능한 프로세서 수만큼 병렬 실행
+    maxParallelForks = Runtime.getRuntime().availableProcessors()
 
     // JUnit 5 병렬 실행 활성화
     systemProperty("junit.jupiter.execution.parallel.enabled", "true")
@@ -226,15 +230,17 @@ val integrationTest by tasks.registering(Test::class) {
     }
     configureCommonTestSettings()
 
-    // Integration 테스트는 순차 실행 필수
-    // 이유: GlobalRateLimiters는 JVM 프로세스별로 독립적이므로
-    //       maxParallelForks > 1이면 각 fork마다 별도 RateLimiter 생성
-    //       → 총 RPS = forks × limitPerProcess (KRX 25 RPS 제한 초과)
-    maxParallelForks = 10
+    // 사용 가능한 프로세서 수만큼 병렬 실행
+    maxParallelForks = Runtime.getRuntime().availableProcessors()
+
+    // JUnit 5 병렬 실행 활성화
+    systemProperty("junit.jupiter.execution.parallel.enabled", "true")
+    systemProperty("junit.jupiter.execution.parallel.mode.default", "concurrent")
+    systemProperty("junit.jupiter.execution.parallel.mode.classes.default", "concurrent")
 
     doFirst {
         println("🌐 Running integration tests only")
-        println("   Mode: Sequential (KRX API rate limiting)")
+        println("   Parallel forks: $maxParallelForks")
     }
 }
 
@@ -280,8 +286,8 @@ tasks.dokkaHtml {
             documentedVisibilities.set(
                 setOf(
                     org.jetbrains.dokka.DokkaConfiguration.Visibility.PUBLIC,
-                    org.jetbrains.dokka.DokkaConfiguration.Visibility.PROTECTED
-                )
+                    org.jetbrains.dokka.DokkaConfiguration.Visibility.PROTECTED,
+                ),
             )
 
             // 억제할 패키지
@@ -334,5 +340,22 @@ sourceSets {
         kotlin.srcDir("examples")
         compileClasspath += sourceSets.main.get().output + sourceSets.main.get().compileClasspath
         runtimeClasspath += sourceSets.main.get().output + sourceSets.main.get().runtimeClasspath
+    }
+}
+
+// ============================================
+// ktlint 설정
+// ============================================
+
+ktlint {
+    version.set("1.5.0")
+    android.set(false)
+    outputToConsole.set(true)
+    outputColorName.set("RED")
+    ignoreFailures.set(false)
+
+    filter {
+        exclude("**/generated/**")
+        include("**/kotlin/**")
     }
 }

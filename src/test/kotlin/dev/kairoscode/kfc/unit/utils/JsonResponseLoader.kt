@@ -22,7 +22,6 @@ import java.nio.file.Paths
  * - 전체 경로: `src/test/resources/responses/{category}/{fileName}.json`
  */
 object JsonResponseLoader {
-
     /**
      * JSON 응답 파일 로드
      *
@@ -31,17 +30,21 @@ object JsonResponseLoader {
      * @return JSON 문자열
      * @throws IllegalArgumentException 파일을 찾을 수 없을 때
      */
-    fun load(category: String, fileName: String): String {
+    fun load(
+        category: String,
+        fileName: String,
+    ): String {
         val resourcePath = "responses/$category/$fileName.json"
-        val resource = this::class.java.classLoader.getResource(resourcePath)
-            ?: throw IllegalArgumentException(
-                """
-                테스트 리소스를 찾을 수 없습니다: $resourcePath
+        val resource =
+            this::class.java.classLoader.getResource(resourcePath)
+                ?: throw IllegalArgumentException(
+                    """
+                    테스트 리소스를 찾을 수 없습니다: $resourcePath
 
-                Live Test를 먼저 실행하여 응답을 레코딩해야 합니다:
-                ./gradlew liveTest -Precord.responses=true
-                """.trimIndent()
-            )
+                    Live Test를 먼저 실행하여 응답을 레코딩해야 합니다:
+                    ./gradlew liveTest -Precord.responses=true
+                    """.trimIndent(),
+                )
 
         return Files.readString(Paths.get(resource.toURI()))
     }
@@ -53,7 +56,10 @@ object JsonResponseLoader {
      * @param fileName 파일명 (.json 확장자 제외)
      * @return 파일 존재 여부
      */
-    fun exists(category: String, fileName: String): Boolean {
+    fun exists(
+        category: String,
+        fileName: String,
+    ): Boolean {
         val resourcePath = "responses/$category/$fileName.json"
         return this::class.java.classLoader.getResource(resourcePath) != null
     }
@@ -66,11 +72,13 @@ object JsonResponseLoader {
      */
     fun listFiles(category: String): List<String> {
         val resourcePath = "responses/$category"
-        val resource = this::class.java.classLoader.getResource(resourcePath)
-            ?: return emptyList()
+        val resource =
+            this::class.java.classLoader.getResource(resourcePath)
+                ?: return emptyList()
 
         val directory = Paths.get(resource.toURI())
-        return Files.list(directory)
+        return Files
+            .list(directory)
             .filter { it.toString().endsWith(".json") }
             .map { it.fileName.toString().removeSuffix(".json") }
             .toList()

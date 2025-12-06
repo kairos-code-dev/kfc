@@ -39,7 +39,6 @@ private val logger = KotlinLogging.logger {}
  * @see RateLimitingSettings
  */
 object GlobalRateLimiters {
-
     // ========================================
     // Volatile 변수: JMM visibility 보장
     // ========================================
@@ -90,9 +89,9 @@ object GlobalRateLimiters {
                 krxInstance = newInstance
                 logger.info {
                     "Initialized global KRX RateLimiter: " +
-                            "capacity=${config.capacity}, " +
-                            "refillRate=${config.refillRate} req/sec, " +
-                            "enabled=${config.enabled}"
+                        "capacity=${config.capacity}, " +
+                        "refillRate=${config.refillRate} req/sec, " +
+                        "enabled=${config.enabled}"
                 }
             }
         }
@@ -119,9 +118,9 @@ object GlobalRateLimiters {
                 naverInstance = newInstance
                 logger.info {
                     "Initialized global Naver RateLimiter: " +
-                            "capacity=${config.capacity}, " +
-                            "refillRate=${config.refillRate} req/sec, " +
-                            "enabled=${config.enabled}"
+                        "capacity=${config.capacity}, " +
+                        "refillRate=${config.refillRate} req/sec, " +
+                        "enabled=${config.enabled}"
                 }
             }
         }
@@ -148,9 +147,9 @@ object GlobalRateLimiters {
                 opendartInstance = newInstance
                 logger.info {
                     "Initialized global OPENDART RateLimiter: " +
-                            "capacity=${config.capacity}, " +
-                            "refillRate=${config.refillRate} req/sec, " +
-                            "enabled=${config.enabled}"
+                        "capacity=${config.capacity}, " +
+                        "refillRate=${config.refillRate} req/sec, " +
+                        "enabled=${config.enabled}"
                 }
             }
         }

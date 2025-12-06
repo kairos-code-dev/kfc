@@ -1,9 +1,10 @@
 package dev.kairoscode.kfc.infrastructure.common.recording
 
 import io.github.oshai.kotlinlogging.KotlinLogging
-import io.ktor.client.*
-import io.ktor.client.plugins.api.*
-import io.ktor.client.statement.*
+import io.ktor.client.HttpClientConfig
+import io.ktor.client.plugins.api.createClientPlugin
+import io.ktor.client.statement.bodyAsText
+import io.ktor.client.statement.request
 import kotlin.coroutines.coroutineContext
 
 private val logger = KotlinLogging.logger {}
@@ -27,25 +28,26 @@ private val logger = KotlinLogging.logger {}
  * }
  * ```
  */
-val ResponseRecordingPlugin = createClientPlugin("ResponseRecordingPlugin") {
-    onResponse { response ->
-        try {
-            // 현재 코루틴 컨텍스트에서 ResponseRecordingContext 조회
-            val recordingContext = coroutineContext[ResponseRecordingContext]
+val ResponseRecordingPlugin =
+    createClientPlugin("ResponseRecordingPlugin") {
+        onResponse { response ->
+            try {
+                // 현재 코루틴 컨텍스트에서 ResponseRecordingContext 조회
+                val recordingContext = coroutineContext[ResponseRecordingContext]
 
-            if (recordingContext != null) {
-                // 응답 body를 문자열로 읽어서 저장
-                // bodyAsText()는 응답을 캐싱하므로 이후 다시 읽을 수 있음
-                val bodyText = response.bodyAsText()
-                recordingContext.setResponseBody(bodyText)
-                logger.debug { "Recorded HTTP response: ${response.request.url} (${bodyText.length} chars)" }
+                if (recordingContext != null) {
+                    // 응답 body를 문자열로 읽어서 저장
+                    // bodyAsText()는 응답을 캐싱하므로 이후 다시 읽을 수 있음
+                    val bodyText = response.bodyAsText()
+                    recordingContext.setResponseBody(bodyText)
+                    logger.debug { "Recorded HTTP response: ${response.request.url} (${bodyText.length} chars)" }
+                }
+            } catch (e: Exception) {
+                // 레코딩 실패는 로그만 남기고 원본 응답 처리 계속
+                logger.warn(e) { "Failed to record HTTP response: ${response.request.url}" }
             }
-        } catch (e: Exception) {
-            // 레코딩 실패는 로그만 남기고 원본 응답 처리 계속
-            logger.warn(e) { "Failed to record HTTP response: ${response.request.url}" }
         }
     }
-}
 
 /**
  * HttpClient 설정에 ResponseRecordingPlugin을 설치하는 확장 함수

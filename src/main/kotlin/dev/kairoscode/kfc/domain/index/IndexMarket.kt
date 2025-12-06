@@ -9,7 +9,11 @@ package dev.kairoscode.kfc.domain.index
  * @property ohlcvCode KRX 개별지수 시세 조회용 코드 (MDCSTAT00301)
  * @property koreanName 한글 시장명
  */
-enum class IndexMarket(val code: String, val ohlcvCode: String, val koreanName: String) {
+enum class IndexMarket(
+    val code: String,
+    val ohlcvCode: String,
+    val koreanName: String,
+) {
     /**
      * 코스피 지수
      */
@@ -28,7 +32,8 @@ enum class IndexMarket(val code: String, val ohlcvCode: String, val koreanName: 
     /**
      * 전체 시장
      */
-    ALL("ALL", "01", "전체");
+    ALL("ALL", "01", "전체"),
+    ;
 
     companion object {
         /**
@@ -37,8 +42,6 @@ enum class IndexMarket(val code: String, val ohlcvCode: String, val koreanName: 
          * @param code KRX API 시장 코드 (예: "1", "2", "3", "ALL")
          * @return 매칭되는 IndexMarket enum, 없으면 ALL
          */
-        fun fromCode(code: String): IndexMarket {
-            return entries.find { it.code == code } ?: ALL
-        }
+        fun fromCode(code: String): IndexMarket = entries.find { it.code == code } ?: ALL
     }
 }

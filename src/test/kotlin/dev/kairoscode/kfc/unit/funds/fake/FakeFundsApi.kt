@@ -5,7 +5,18 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializer
 import dev.kairoscode.kfc.api.FundsApi
 import dev.kairoscode.kfc.domain.FundType
-import dev.kairoscode.kfc.domain.funds.*
+import dev.kairoscode.kfc.domain.funds.DetailedInfo
+import dev.kairoscode.kfc.domain.funds.Direction
+import dev.kairoscode.kfc.domain.funds.DivergenceRate
+import dev.kairoscode.kfc.domain.funds.FundListItem
+import dev.kairoscode.kfc.domain.funds.GeneralInfo
+import dev.kairoscode.kfc.domain.funds.InvestorTrading
+import dev.kairoscode.kfc.domain.funds.InvestorTradingByDate
+import dev.kairoscode.kfc.domain.funds.PortfolioConstituent
+import dev.kairoscode.kfc.domain.funds.PortfolioTopItem
+import dev.kairoscode.kfc.domain.funds.ShortBalance
+import dev.kairoscode.kfc.domain.funds.ShortSelling
+import dev.kairoscode.kfc.domain.funds.TrackingError
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -45,50 +56,72 @@ class FakeFundsApi(
     private val divergenceRateResponse: String? = null,
     private val investorTradingResponse: String? = null,
     private val shortSellingResponse: String? = null,
-    private val shortBalanceResponse: String? = null
+    private val shortBalanceResponse: String? = null,
 ) : FundsApi {
-
-    private val gson: Gson = GsonBuilder()
-        .registerTypeAdapter(LocalDate::class.java, JsonDeserializer { json, _, _ ->
-            LocalDate.parse(json.asString, DateTimeFormatter.ISO_LOCAL_DATE)
-        })
-        .registerTypeAdapter(BigDecimal::class.java, JsonDeserializer { json, _, _ ->
-            BigDecimal(json.asString)
-        })
-        .registerTypeAdapter(Direction::class.java, JsonDeserializer { json, _, _ ->
-            Direction.valueOf(json.asString)
-        })
-        .create()
+    private val gson: Gson =
+        GsonBuilder()
+            .registerTypeAdapter(
+                LocalDate::class.java,
+                JsonDeserializer { json, _, _ ->
+                    LocalDate.parse(json.asString, DateTimeFormatter.ISO_LOCAL_DATE)
+                },
+            ).registerTypeAdapter(
+                BigDecimal::class.java,
+                JsonDeserializer { json, _, _ ->
+                    BigDecimal(json.asString)
+                },
+            ).registerTypeAdapter(
+                Direction::class.java,
+                JsonDeserializer { json, _, _ ->
+                    Direction.valueOf(json.asString)
+                },
+            ).create()
 
     override suspend fun getList(type: FundType?): List<FundListItem> {
         require(listResponse != null) { "listResponse가 설정되지 않았습니다" }
         return gson.fromJson(listResponse, Array<FundListItem>::class.java).toList()
     }
 
-    override suspend fun getDetailedInfo(isin: String, tradeDate: LocalDate): DetailedInfo? {
+    override suspend fun getDetailedInfo(
+        isin: String,
+        tradeDate: LocalDate,
+    ): DetailedInfo? {
         require(comprehensiveResponse != null) { "comprehensiveResponse가 설정되지 않았습니다" }
         return gson.fromJson(comprehensiveResponse, DetailedInfo::class.java)
     }
 
-    override suspend fun getGeneralInfo(isin: String, tradeDate: LocalDate): GeneralInfo? {
-        throw UnsupportedOperationException("Fake에서 지원하지 않는 메서드입니다. 필요시 생성자에서 응답을 설정하세요.")
-    }
+    override suspend fun getGeneralInfo(
+        isin: String,
+        tradeDate: LocalDate,
+    ): GeneralInfo? = throw UnsupportedOperationException("Fake에서 지원하지 않는 메서드입니다. 필요시 생성자에서 응답을 설정하세요.")
 
-    override suspend fun getPortfolio(isin: String, date: LocalDate): List<PortfolioConstituent> {
+    override suspend fun getPortfolio(
+        isin: String,
+        date: LocalDate,
+    ): List<PortfolioConstituent> {
         require(portfolioResponse != null) { "portfolioResponse가 설정되지 않았습니다" }
         return gson.fromJson(portfolioResponse, Array<PortfolioConstituent>::class.java).toList()
     }
 
-    override suspend fun getPortfolioTop10(isin: String, date: LocalDate): List<PortfolioTopItem> {
-        throw UnsupportedOperationException("Fake에서 지원하지 않는 메서드입니다. 필요시 생성자에서 응답을 설정하세요.")
-    }
+    override suspend fun getPortfolioTop10(
+        isin: String,
+        date: LocalDate,
+    ): List<PortfolioTopItem> = throw UnsupportedOperationException("Fake에서 지원하지 않는 메서드입니다. 필요시 생성자에서 응답을 설정하세요.")
 
-    override suspend fun getTrackingError(isin: String, fromDate: LocalDate, toDate: LocalDate): List<TrackingError> {
+    override suspend fun getTrackingError(
+        isin: String,
+        fromDate: LocalDate,
+        toDate: LocalDate,
+    ): List<TrackingError> {
         require(trackingErrorResponse != null) { "trackingErrorResponse가 설정되지 않았습니다" }
         return gson.fromJson(trackingErrorResponse, Array<TrackingError>::class.java).toList()
     }
 
-    override suspend fun getDivergenceRate(isin: String, fromDate: LocalDate, toDate: LocalDate): List<DivergenceRate> {
+    override suspend fun getDivergenceRate(
+        isin: String,
+        fromDate: LocalDate,
+        toDate: LocalDate,
+    ): List<DivergenceRate> {
         require(divergenceRateResponse != null) { "divergenceRateResponse가 설정되지 않았습니다" }
         return gson.fromJson(divergenceRateResponse, Array<DivergenceRate>::class.java).toList()
     }
@@ -98,25 +131,41 @@ class FakeFundsApi(
         return gson.fromJson(investorTradingResponse, Array<InvestorTrading>::class.java).toList()
     }
 
-    override suspend fun getAllInvestorTradingByPeriod(fromDate: LocalDate, toDate: LocalDate): List<InvestorTradingByDate> {
-        throw UnsupportedOperationException("Fake에서 지원하지 않는 메서드입니다. 필요시 생성자에서 응답을 설정하세요.")
-    }
+    override suspend fun getAllInvestorTradingByPeriod(
+        fromDate: LocalDate,
+        toDate: LocalDate,
+    ): List<InvestorTradingByDate> = throw UnsupportedOperationException("Fake에서 지원하지 않는 메서드입니다. 필요시 생성자에서 응답을 설정하세요.")
 
-    override suspend fun getInvestorTrading(isin: String, date: LocalDate): List<InvestorTrading> {
+    override suspend fun getInvestorTrading(
+        isin: String,
+        date: LocalDate,
+    ): List<InvestorTrading> {
         require(investorTradingResponse != null) { "investorTradingResponse가 설정되지 않았습니다" }
         return gson.fromJson(investorTradingResponse, Array<InvestorTrading>::class.java).toList()
     }
 
-    override suspend fun getInvestorTradingByPeriod(isin: String, fromDate: LocalDate, toDate: LocalDate): List<InvestorTradingByDate> {
-        throw UnsupportedOperationException("Fake에서 지원하지 않는 메서드입니다. 필요시 생성자에서 응답을 설정하세요.")
-    }
+    override suspend fun getInvestorTradingByPeriod(
+        isin: String,
+        fromDate: LocalDate,
+        toDate: LocalDate,
+    ): List<InvestorTradingByDate> = throw UnsupportedOperationException("Fake에서 지원하지 않는 메서드입니다. 필요시 생성자에서 응답을 설정하세요.")
 
-    override suspend fun getShortSelling(isin: String, fromDate: LocalDate, toDate: LocalDate, type: FundType): List<ShortSelling> {
+    override suspend fun getShortSelling(
+        isin: String,
+        fromDate: LocalDate,
+        toDate: LocalDate,
+        type: FundType,
+    ): List<ShortSelling> {
         require(shortSellingResponse != null) { "shortSellingResponse가 설정되지 않았습니다" }
         return gson.fromJson(shortSellingResponse, Array<ShortSelling>::class.java).toList()
     }
 
-    override suspend fun getShortBalance(isin: String, fromDate: LocalDate, toDate: LocalDate, type: FundType): List<ShortBalance> {
+    override suspend fun getShortBalance(
+        isin: String,
+        fromDate: LocalDate,
+        toDate: LocalDate,
+        type: FundType,
+    ): List<ShortBalance> {
         require(shortBalanceResponse != null) { "shortBalanceResponse가 설정되지 않았습니다" }
         return gson.fromJson(shortBalanceResponse, Array<ShortBalance>::class.java).toList()
     }

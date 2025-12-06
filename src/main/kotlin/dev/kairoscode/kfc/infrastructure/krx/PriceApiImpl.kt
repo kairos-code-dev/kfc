@@ -1,9 +1,9 @@
 package dev.kairoscode.kfc.infrastructure.krx
 
 import dev.kairoscode.kfc.api.PriceApi
-import dev.kairoscode.kfc.infrastructure.krx.KrxFundsApi
 import dev.kairoscode.kfc.domain.price.IntradayBar
 import dev.kairoscode.kfc.domain.price.RecentDaily
+import dev.kairoscode.kfc.infrastructure.krx.KrxFundsApi
 import java.time.LocalDate
 
 /**
@@ -12,9 +12,8 @@ import java.time.LocalDate
  * KRX 증권 API를 통해 가격 및 거래 데이터를 제공합니다.
  */
 internal class PriceApiImpl(
-    private val krxFundsApi: KrxFundsApi
+    private val krxFundsApi: KrxFundsApi,
 ) : PriceApi {
-
     companion object {
         // ISIN 코드 형식: KR7 + 9자리 숫자 (총 12자리)
         private const val ISIN_LENGTH = 12
@@ -23,7 +22,7 @@ internal class PriceApiImpl(
 
     override suspend fun getIntradayBars(
         isin: String,
-        tradeDate: LocalDate
+        tradeDate: LocalDate,
     ): List<IntradayBar> {
         validateIsin(isin)
         validateTradeDate(tradeDate)
@@ -32,7 +31,7 @@ internal class PriceApiImpl(
 
     override suspend fun getRecentDaily(
         isin: String,
-        tradeDate: LocalDate
+        tradeDate: LocalDate,
     ): List<RecentDaily> {
         validateIsin(isin)
         validateTradeDate(tradeDate)

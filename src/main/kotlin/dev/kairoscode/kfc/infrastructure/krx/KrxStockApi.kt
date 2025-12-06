@@ -1,6 +1,9 @@
 package dev.kairoscode.kfc.infrastructure.krx
 
-import dev.kairoscode.kfc.domain.stock.*
+import dev.kairoscode.kfc.domain.stock.ListingStatus
+import dev.kairoscode.kfc.domain.stock.Market
+import dev.kairoscode.kfc.domain.stock.StockListItem
+import dev.kairoscode.kfc.domain.stock.StockSectorInfo
 import java.time.LocalDate
 
 /**
@@ -10,7 +13,6 @@ import java.time.LocalDate
  * 이 인터페이스는 라이브러리 내부에서만 사용되며, 외부에 노출되지 않습니다.
  */
 internal interface KrxStockApi {
-
     /**
      * 종목 리스트 조회
      *
@@ -20,7 +22,7 @@ internal interface KrxStockApi {
      */
     suspend fun getStockList(
         market: Market,
-        listingStatus: ListingStatus
+        listingStatus: ListingStatus,
     ): List<StockListItem>
 
     /**
@@ -32,6 +34,6 @@ internal interface KrxStockApi {
      */
     suspend fun getSectorClassifications(
         date: LocalDate,
-        market: Market
+        market: Market,
     ): List<StockSectorInfo>
 }

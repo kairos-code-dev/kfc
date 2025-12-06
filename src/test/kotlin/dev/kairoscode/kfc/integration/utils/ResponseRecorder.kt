@@ -1,13 +1,12 @@
 package dev.kairoscode.kfc.integration.utils
 
-import java.nio.file.Files
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
 import com.google.gson.JsonSerializer
 import java.math.BigDecimal
+import java.nio.file.Files
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 /**
  * API 응답을 JSON 파일로 저장하는 유틸리티
@@ -42,19 +41,24 @@ import java.time.format.DateTimeFormatter
  * ```
  */
 object ResponseRecorder {
-    const val MAX_RECORD_SIZE = 10_000  // 최대 10,000개만 레코딩
-    const val DEFAULT_CHUNK_SIZE = 1_000  // 기본 청크 크기
+    const val MAX_RECORD_SIZE = 10_000 // 최대 10,000개만 레코딩
+    const val DEFAULT_CHUNK_SIZE = 1_000 // 기본 청크 크기
 
     @PublishedApi
-    internal val gson: Gson = GsonBuilder()
-        .setPrettyPrinting()
-        .registerTypeAdapter(LocalDate::class.java, JsonSerializer<LocalDate> { src, _, _ ->
-            com.google.gson.JsonPrimitive(src.toString())
-        })
-        .registerTypeAdapter(BigDecimal::class.java, JsonSerializer<BigDecimal> { src, _, _ ->
-            com.google.gson.JsonPrimitive(src.toPlainString())
-        })
-        .create()
+    internal val gson: Gson =
+        GsonBuilder()
+            .setPrettyPrinting()
+            .registerTypeAdapter(
+                LocalDate::class.java,
+                JsonSerializer<LocalDate> { src, _, _ ->
+                    com.google.gson.JsonPrimitive(src.toString())
+                },
+            ).registerTypeAdapter(
+                BigDecimal::class.java,
+                JsonSerializer<BigDecimal> { src, _, _ ->
+                    com.google.gson.JsonPrimitive(src.toPlainString())
+                },
+            ).create()
 
     // Pretty printing 없는 compact Gson (내부 파싱용)
     private val compactGson: Gson = Gson()
@@ -65,7 +69,11 @@ object ResponseRecorder {
      * @param category API 카테고리 (RecordingConfig.Paths 사용)
      * @param fileName 파일명 (확장자 제외)
      */
-    inline fun <reified T> record(data: T, category: String, fileName: String) {
+    inline fun <reified T> record(
+        data: T,
+        category: String,
+        fileName: String,
+    ) {
         if (!RecordingConfig.isRecordingEnabled) return
 
         val outputDir = RecordingConfig.baseOutputPath.resolve(category)
@@ -82,7 +90,11 @@ object ResponseRecorder {
      * 리스트 데이터를 JSON 파일로 저장
      * 데이터가 MAX_RECORD_SIZE를 초과하면 처음 MAX_RECORD_SIZE개만 레코딩
      */
-    inline fun <reified T> recordList(data: List<T>, category: String, fileName: String) {
+    inline fun <reified T> recordList(
+        data: List<T>,
+        category: String,
+        fileName: String,
+    ) {
         if (!RecordingConfig.isRecordingEnabled) return
 
         if (data.isEmpty()) {
@@ -90,12 +102,15 @@ object ResponseRecorder {
             return
         }
 
-        val recordData = if (data.size > MAX_RECORD_SIZE) {
-            println("[Recording] Warning: Data too large (${data.size} items). Recording only first $MAX_RECORD_SIZE items.")
-            data.take(MAX_RECORD_SIZE)
-        } else {
-            data
-        }
+        val recordData =
+            if (data.size > MAX_RECORD_SIZE) {
+                println(
+                    "[Recording] Warning: Data too large (${data.size} items). Recording only first $MAX_RECORD_SIZE items.",
+                )
+                data.take(MAX_RECORD_SIZE)
+            } else {
+                data
+            }
 
         record(recordData, category, fileName)
     }
@@ -121,7 +136,11 @@ object ResponseRecorder {
      * )
      * ```
      */
-    fun recordRaw(jsonString: String, category: String, fileName: String): Boolean {
+    fun recordRaw(
+        jsonString: String,
+        category: String,
+        fileName: String,
+    ): Boolean {
         if (!RecordingConfig.isRecordingEnabled) return false
 
         if (jsonString.isBlank()) {
@@ -135,14 +154,17 @@ object ResponseRecorder {
         val outputFile = outputDir.resolve("$fileName.json")
 
         // JSON 파싱 및 pretty-printing 시도
-        val formattedJson = try {
-            val jsonElement = JsonParser.parseString(jsonString)
-            gson.toJson(jsonElement)
-        } catch (e: Exception) {
-            // 파싱 실패 시 원본 JSON 그대로 저장
-            println("[Recording] Warning: JSON parsing failed for $category/$fileName. Saving raw content. Error: ${e.message}")
-            jsonString
-        }
+        val formattedJson =
+            try {
+                val jsonElement = JsonParser.parseString(jsonString)
+                gson.toJson(jsonElement)
+            } catch (e: Exception) {
+                // 파싱 실패 시 원본 JSON 그대로 저장
+                println(
+                    "[Recording] Warning: JSON parsing failed for $category/$fileName. Saving raw content. Error: ${e.message}",
+                )
+                jsonString
+            }
 
         return try {
             Files.writeString(outputFile, formattedJson)
@@ -185,7 +207,7 @@ object ResponseRecorder {
         category: String,
         fileName: String,
         chunkSize: Int = DEFAULT_CHUNK_SIZE,
-        enableMemoryLogging: Boolean = false
+        enableMemoryLogging: Boolean = false,
     ): Int {
         if (!RecordingConfig.isRecordingEnabled) return 0
 
@@ -195,7 +217,7 @@ object ResponseRecorder {
         }
 
         val totalSize = data.size
-        val effectiveChunkSize = chunkSize.coerceAtLeast(100)  // 최소 100개
+        val effectiveChunkSize = chunkSize.coerceAtLeast(100) // 최소 100개
 
         // 데이터가 청크 크기보다 작으면 일반 recordList 사용
         if (totalSize <= effectiveChunkSize) {
@@ -264,7 +286,6 @@ object ResponseRecorder {
 
             println("[Recording] Streaming completed: $outputFile ($totalSize items)")
             totalSize
-
         } catch (e: Exception) {
             println("[Recording] Error during streaming for $category/$fileName: ${e.message}")
             e.printStackTrace()
@@ -303,7 +324,7 @@ object ResponseRecorder {
         data: List<T>,
         category: String,
         fileName: String,
-        chunkSize: Int = DEFAULT_CHUNK_SIZE
+        chunkSize: Int = DEFAULT_CHUNK_SIZE,
     ): Int {
         if (!RecordingConfig.isRecordingEnabled) return 0
 
@@ -316,18 +337,19 @@ object ResponseRecorder {
         val outputFile = outputDir.resolve("$fileName.json")
 
         // 기존 파일이 있으면 읽어서 병합
-        val existingData: List<T> = if (Files.exists(outputFile)) {
-            try {
-                val existingJson = Files.readString(outputFile)
-                val typeToken = object : com.google.gson.reflect.TypeToken<List<T>>() {}.type
-                gson.fromJson<List<T>>(existingJson, typeToken) ?: emptyList()
-            } catch (e: Exception) {
-                println("[Recording] Warning: Failed to read existing file. Creating new file. Error: ${e.message}")
+        val existingData: List<T> =
+            if (Files.exists(outputFile)) {
+                try {
+                    val existingJson = Files.readString(outputFile)
+                    val typeToken = object : com.google.gson.reflect.TypeToken<List<T>>() {}.type
+                    gson.fromJson<List<T>>(existingJson, typeToken) ?: emptyList()
+                } catch (e: Exception) {
+                    println("[Recording] Warning: Failed to read existing file. Creating new file. Error: ${e.message}")
+                    emptyList()
+                }
+            } else {
                 emptyList()
             }
-        } else {
-            emptyList()
-        }
 
         val combinedData = existingData + data
         println("[Recording] Appending ${data.size} items to existing ${existingData.size} items")
@@ -336,7 +358,7 @@ object ResponseRecorder {
             data = combinedData,
             category = category,
             fileName = fileName,
-            chunkSize = chunkSize
+            chunkSize = chunkSize,
         )
     }
 

@@ -16,5 +16,5 @@ data class CorpCode(
     val corpCode: String,
     val corpName: String,
     val stockCode: String?,
-    val modifyDate: LocalDate
+    val modifyDate: LocalDate,
 )

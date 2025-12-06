@@ -16,7 +16,7 @@ data class IndexConstituent(
     val indexTicker: String,
     val indexName: String,
     val constituents: List<String>,
-    val asOfDate: LocalDate
+    val asOfDate: LocalDate,
 ) {
     /**
      * 구성 종목 개수

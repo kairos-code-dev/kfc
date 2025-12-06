@@ -20,9 +20,9 @@ inline fun <T> wrapApiCall(
     errorCode: ErrorCode,
     context: Map<String, Any?> = emptyMap(),
     operation: String? = null,
-    block: () -> T
-): T {
-    return try {
+    block: () -> T,
+): T =
+    try {
         block()
     } catch (e: KfcException) {
         // 이미 KfcException인 경우 그대로 re-throw
@@ -34,10 +34,9 @@ inline fun <T> wrapApiCall(
             errorCode = errorCode,
             message = message,
             cause = e,
-            context = context
+            context = context,
         )
     }
-}
 
 /**
  * suspend 함수용 API 호출 래퍼입니다.
@@ -55,9 +54,9 @@ suspend inline fun <T> wrapSuspendApiCall(
     errorCode: ErrorCode,
     context: Map<String, Any?> = emptyMap(),
     operation: String? = null,
-    crossinline block: suspend () -> T
-): T {
-    return try {
+    crossinline block: suspend () -> T,
+): T =
+    try {
         block()
     } catch (e: KfcException) {
         // 이미 KfcException인 경우 그대로 re-throw
@@ -69,7 +68,6 @@ suspend inline fun <T> wrapSuspendApiCall(
             errorCode = errorCode,
             message = message,
             cause = e,
-            context = context
+            context = context,
         )
     }
-}

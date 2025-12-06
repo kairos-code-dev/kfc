@@ -1,6 +1,8 @@
 package dev.kairoscode.kfc.domain.funds
 
-import dev.kairoscode.kfc.infrastructure.common.util.*
+import dev.kairoscode.kfc.infrastructure.common.util.toKrxBigDecimal
+import dev.kairoscode.kfc.infrastructure.common.util.toKrxLong
+import dev.kairoscode.kfc.infrastructure.common.util.toStringSafe
 import java.math.BigDecimal
 
 /**
@@ -24,7 +26,7 @@ data class PortfolioTopItem(
     val cuQuantity: BigDecimal,
     val value: Long,
     val compositionAmount: Long,
-    val compositionRatio: BigDecimal
+    val compositionRatio: BigDecimal,
 ) {
     companion object {
         // KRX API 필드명 상수
@@ -41,16 +43,15 @@ data class PortfolioTopItem(
          * @param raw KRX API 응답 Map
          * @return PortfolioTopItem 인스턴스
          */
-        fun fromRaw(raw: Map<*, *>): PortfolioTopItem {
-            return PortfolioTopItem(
+        fun fromRaw(raw: Map<*, *>): PortfolioTopItem =
+            PortfolioTopItem(
                 ticker = raw[ISU_CD].toStringSafe(),
                 name = raw[ISU_ABBRV].toStringSafe(),
                 cuQuantity = raw[COMPST_ISU_CU1_SHRS].toStringSafe().toKrxBigDecimal(),
                 value = raw[VALU_AMT].toStringSafe().toKrxLong(),
                 compositionAmount = raw[COMPST_AMT].toStringSafe().toKrxLong(),
-                compositionRatio = raw[COMPST_RTO].toStringSafe().toKrxBigDecimal()
+                compositionRatio = raw[COMPST_RTO].toStringSafe().toKrxBigDecimal(),
             )
-        }
     }
 
     /**

@@ -19,5 +19,5 @@ data class DivergenceRate(
     val closePrice: Int,
     val nav: BigDecimal,
     val divergenceRate: Double,
-    val priceDirection: Direction
+    val priceDirection: Direction,
 )

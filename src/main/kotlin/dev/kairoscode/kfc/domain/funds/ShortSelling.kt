@@ -26,5 +26,5 @@ data class ShortSelling(
     val totalVolume: Long,
     val totalValue: Long,
     val shortVolumeRatio: Double,
-    val shortValueRatio: Double
+    val shortValueRatio: Double,
 )

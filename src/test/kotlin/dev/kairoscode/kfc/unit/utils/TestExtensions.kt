@@ -1,20 +1,19 @@
 package dev.kairoscode.kfc.unit.utils
 
-import dev.kairoscode.kfc.domain.funds.*
-import dev.kairoscode.kfc.domain.corp.*
+import dev.kairoscode.kfc.domain.corp.CorpCode
+import dev.kairoscode.kfc.domain.corp.DividendInfo
+import dev.kairoscode.kfc.domain.funds.DailyPrice
+import dev.kairoscode.kfc.domain.funds.DetailedInfo
+import dev.kairoscode.kfc.domain.funds.FundListItem
+import dev.kairoscode.kfc.domain.funds.Ohlcv
+import dev.kairoscode.kfc.domain.funds.PortfolioConstituent
 import org.assertj.core.api.Assertions.assertThat
 import java.math.BigDecimal
 
-/**
- * 테스트용 확장 함수 모음
- *
- * 공통 검증 로직을 확장 함수로 제공하여
- * 테스트 코드의 가독성과 재사용성을 높입니다.
- */
-
-// ================================
-// ETF 모델 검증 확장 함수
-// ================================
+// =============================================================================
+// 테스트용 확장 함수 모음
+// 공통 검증 로직을 확장 함수로 제공하여 테스트 코드의 가독성과 재사용성을 높입니다.
+// =============================================================================
 
 /**
  * FundListItem 유효성 검증
@@ -66,10 +65,6 @@ fun PortfolioConstituent.assertValidPortfolioItem() {
     assertThat(this.weightPercent).isGreaterThanOrEqualTo(BigDecimal.ZERO)
 }
 
-// ================================
-// Corp 모델 검증 확장 함수
-// ================================
-
 /**
  * CorpCode 유효성 검증
  */
@@ -85,10 +80,6 @@ fun DividendInfo.assertValidDividend() {
     assertThat(this.corpCode).isNotEmpty()
     assertThat(this.corpName).isNotEmpty()
 }
-
-// ================================
-// Collection 검증 확장 함수
-// ================================
 
 /**
  * 리스트가 비어있지 않은지 검증
@@ -135,7 +126,10 @@ fun <T> List<T>.assertMaxSize(maxSize: Int) {
 /**
  * 모든 요소가 조건을 만족하는지 검증
  */
-fun <T> List<T>.assertAllMatch(predicate: (T) -> Boolean, description: String = "조건") {
+fun <T> List<T>.assertAllMatch(
+    predicate: (T) -> Boolean,
+    description: String = "조건",
+) {
     assertThat(this.all(predicate))
         .withFailMessage("모든 요소가 $description 을 만족해야 합니다")
         .isTrue()

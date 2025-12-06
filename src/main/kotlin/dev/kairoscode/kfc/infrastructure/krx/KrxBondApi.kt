@@ -14,7 +14,6 @@ import java.time.LocalDate
  * @see dev.kairoscode.kfc.api.BondApi
  */
 internal interface KrxBondApi {
-
     /**
      * 특정 일자의 전체 채권 수익률 조회
      *
@@ -40,6 +39,6 @@ internal interface KrxBondApi {
     suspend fun getBondYields(
         bondType: BondType,
         fromDate: LocalDate,
-        toDate: LocalDate
+        toDate: LocalDate,
     ): List<BondYield>
 }

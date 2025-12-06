@@ -14,21 +14,17 @@ import java.time.LocalDate
  */
 data class BondYieldSnapshot(
     val date: LocalDate,
-    val yields: List<BondYieldItem>
+    val yields: List<BondYieldItem>,
 ) {
     /**
      * 국고채만 필터링
      */
-    fun getTreasuryYields(): List<BondYieldItem> {
-        return yields.filter { it.bondType.category == BondCategory.TREASURY }
-    }
+    fun getTreasuryYields(): List<BondYieldItem> = yields.filter { it.bondType.category == BondCategory.TREASURY }
 
     /**
      * 회사채만 필터링
      */
-    fun getCorporateYields(): List<BondYieldItem> {
-        return yields.filter { it.bondType.category == BondCategory.CORPORATE }
-    }
+    fun getCorporateYields(): List<BondYieldItem> = yields.filter { it.bondType.category == BondCategory.CORPORATE }
 
     /**
      * 특정 채권 종류의 수익률 조회
@@ -36,9 +32,7 @@ data class BondYieldSnapshot(
      * @param bondType 조회할 채권 종류
      * @return 해당 채권의 수익률 정보, 없으면 null
      */
-    fun getYieldByType(bondType: BondType): BondYieldItem? {
-        return yields.find { it.bondType == bondType }
-    }
+    fun getYieldByType(bondType: BondType): BondYieldItem? = yields.find { it.bondType == bondType }
 
     /**
      * 장단기 금리 스프레드 계산 (10년 - 2년)
@@ -50,7 +44,9 @@ data class BondYieldSnapshot(
         val treasury2Y = getYieldByType(BondType.TREASURY_2Y)?.yield
         return if (treasury10Y != null && treasury2Y != null) {
             treasury10Y - treasury2Y
-        } else null
+        } else {
+            null
+        }
     }
 
     /**
@@ -63,7 +59,9 @@ data class BondYieldSnapshot(
         val treasury3Y = getYieldByType(BondType.TREASURY_3Y)?.yield
         return if (corporateAA != null && treasury3Y != null) {
             corporateAA - treasury3Y
-        } else null
+        } else {
+            null
+        }
     }
 }
 
@@ -79,5 +77,5 @@ data class BondYieldSnapshot(
 data class BondYieldItem(
     val bondType: BondType,
     val yield: BigDecimal,
-    val change: BigDecimal
+    val change: BigDecimal,
 )

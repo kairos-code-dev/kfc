@@ -23,7 +23,7 @@ data class IndexInfo(
     val baseDate: LocalDate? = null,
     val announcementDate: LocalDate? = null,
     val baseIndex: BigDecimal? = null,
-    val constituentCount: Int? = null
+    val constituentCount: Int? = null,
 ) {
     /**
      * 코스피 지수 여부 확인

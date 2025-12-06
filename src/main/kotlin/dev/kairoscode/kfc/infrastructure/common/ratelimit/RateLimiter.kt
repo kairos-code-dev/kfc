@@ -51,5 +51,5 @@ data class RateLimiterStatus(
     val capacity: Int,
     val refillRate: Int,
     val isEnabled: Boolean,
-    val estimatedWaitTimeMs: Long
+    val estimatedWaitTimeMs: Long,
 )

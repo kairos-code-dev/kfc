@@ -1,22 +1,21 @@
 package dev.kairoscode.kfc.api
 
+import dev.kairoscode.kfc.infrastructure.common.ratelimit.GlobalRateLimiters
+import dev.kairoscode.kfc.infrastructure.common.ratelimit.RateLimitingSettings
 import dev.kairoscode.kfc.infrastructure.krx.BondApiImpl
 import dev.kairoscode.kfc.infrastructure.krx.FundsApiImpl
+import dev.kairoscode.kfc.infrastructure.krx.FutureApiImpl
+import dev.kairoscode.kfc.infrastructure.krx.IndexApiImpl
+import dev.kairoscode.kfc.infrastructure.krx.KrxBondApiImpl
+import dev.kairoscode.kfc.infrastructure.krx.KrxFundsApiImpl
+import dev.kairoscode.kfc.infrastructure.krx.KrxFutureApiImpl
+import dev.kairoscode.kfc.infrastructure.krx.KrxIndexApiImpl
+import dev.kairoscode.kfc.infrastructure.krx.KrxStockApiImpl
 import dev.kairoscode.kfc.infrastructure.krx.PriceApiImpl
 import dev.kairoscode.kfc.infrastructure.krx.StockApiImpl
-import dev.kairoscode.kfc.infrastructure.krx.KrxBondApiImpl
-import dev.kairoscode.kfc.infrastructure.krx.FutureApiImpl
-import dev.kairoscode.kfc.infrastructure.krx.KrxFundsApiImpl
-import dev.kairoscode.kfc.infrastructure.krx.KrxStockApiImpl
-import dev.kairoscode.kfc.infrastructure.krx.KrxFutureApiImpl
-import dev.kairoscode.kfc.infrastructure.krx.IndexApiImpl
-import dev.kairoscode.kfc.infrastructure.krx.KrxIndexApiImpl
 import dev.kairoscode.kfc.infrastructure.opendart.CorpApiImpl
 import dev.kairoscode.kfc.infrastructure.opendart.FinancialsApiImpl
 import dev.kairoscode.kfc.infrastructure.opendart.OpenDartApiImpl
-import dev.kairoscode.kfc.infrastructure.common.ratelimit.GlobalRateLimiters
-import dev.kairoscode.kfc.infrastructure.common.ratelimit.RateLimitingSettings
-import dev.kairoscode.kfc.infrastructure.common.ratelimit.TokenBucketRateLimiter
 
 /**
  * KFC (Korea Financial Client) 통합 클라이언트
@@ -107,9 +106,8 @@ class KfcClient internal constructor(
     val future: FutureApi,
     val index: IndexApi,
     val corp: CorpApi?,
-    val financials: FinancialsApi?
+    val financials: FinancialsApi?,
 ) {
-
     companion object {
         /**
          * KfcClient 인스턴스 생성
@@ -143,7 +141,7 @@ class KfcClient internal constructor(
          */
         fun create(
             opendartApiKey: String? = null,
-            rateLimitingSettings: RateLimitingSettings = RateLimitingSettings()
+            rateLimitingSettings: RateLimitingSettings = RateLimitingSettings(),
         ): KfcClient {
             // 글로벌 싱글톤 Rate Limiter 사용 (모든 KfcClient 인스턴스가 공유)
             val krxRateLimiter = GlobalRateLimiters.getKrxLimiter(rateLimitingSettings.krx)
@@ -186,7 +184,7 @@ class KfcClient internal constructor(
                 future = futureApi,
                 index = indexApi,
                 corp = corpApi,
-                financials = financialsApi
+                financials = financialsApi,
             )
         }
     }

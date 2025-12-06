@@ -23,5 +23,5 @@ data class IndexFundamentalSnapshot(
     val per: BigDecimal? = null,
     val forwardPer: BigDecimal? = null,
     val pbr: BigDecimal? = null,
-    val dividendYield: BigDecimal? = null
+    val dividendYield: BigDecimal? = null,
 )

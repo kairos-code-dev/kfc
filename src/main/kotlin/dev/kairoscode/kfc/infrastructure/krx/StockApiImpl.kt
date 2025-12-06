@@ -1,7 +1,12 @@
 package dev.kairoscode.kfc.infrastructure.krx
 
 import dev.kairoscode.kfc.api.StockApi
-import dev.kairoscode.kfc.domain.stock.*
+import dev.kairoscode.kfc.domain.stock.IndustryClassification
+import dev.kairoscode.kfc.domain.stock.ListingStatus
+import dev.kairoscode.kfc.domain.stock.Market
+import dev.kairoscode.kfc.domain.stock.StockInfo
+import dev.kairoscode.kfc.domain.stock.StockListItem
+import dev.kairoscode.kfc.domain.stock.StockSectorInfo
 import java.time.LocalDate
 
 /**
@@ -11,15 +16,12 @@ import java.time.LocalDate
  * 이 클래스는 infrastructure 레이어에 속하지만, 공개 API 레이어에 대한 구현을 제공합니다.
  */
 internal class StockApiImpl(
-    private val krxStockApi: KrxStockApi
+    private val krxStockApi: KrxStockApi,
 ) : StockApi {
-
     override suspend fun getStockList(
         market: Market,
-        listingStatus: ListingStatus
-    ): List<StockListItem> {
-        return krxStockApi.getStockList(market, listingStatus)
-    }
+        listingStatus: ListingStatus,
+    ): List<StockListItem> = krxStockApi.getStockList(market, listingStatus)
 
     override suspend fun getStockInfo(ticker: String): StockInfo? {
         // ticker로 종목 검색 후 StockInfo 구성
@@ -28,30 +30,26 @@ internal class StockApiImpl(
             StockInfo(
                 ticker = it.ticker,
                 name = it.name,
-                fullName = null,  // API에서 제공하지 않음
+                fullName = null, // API에서 제공하지 않음
                 isin = it.isin,
                 market = it.market,
                 listingStatus = it.listingStatus,
-                listingDate = null,  // finder API에서는 제공하지 않음
-                sharesOutstanding = null  // 별도 API 필요
+                listingDate = null, // finder API에서는 제공하지 않음
+                sharesOutstanding = null, // 별도 API 필요
             )
         }
     }
 
-    override suspend fun getStockName(ticker: String): String? {
-        return getStockInfo(ticker)?.name
-    }
+    override suspend fun getStockName(ticker: String): String? = getStockInfo(ticker)?.name
 
     override suspend fun getSectorClassifications(
         date: LocalDate,
-        market: Market
-    ): List<StockSectorInfo> {
-        return krxStockApi.getSectorClassifications(date, market)
-    }
+        market: Market,
+    ): List<StockSectorInfo> = krxStockApi.getSectorClassifications(date, market)
 
     override suspend fun getIndustryGroups(
         date: LocalDate,
-        market: Market
+        market: Market,
     ): List<IndustryClassification> {
         val sectors = getSectorClassifications(date, market)
 
@@ -61,14 +59,14 @@ internal class StockApiImpl(
                 market = market,
                 stocks = stocks,
                 totalMarketCap = stocks.sumOf { it.marketCap ?: 0L },
-                stockCount = stocks.size
+                stockCount = stocks.size,
             )
         }
     }
 
     override suspend fun searchStocks(
         keyword: String,
-        market: Market
+        market: Market,
     ): List<StockListItem> {
         // 방법 1: 클라이언트 측 필터링 (현재 구현)
         // - 장점: 간단, KRX API searchText 파라미터 동작 불안정
@@ -76,7 +74,7 @@ internal class StockApiImpl(
         val allStocks = krxStockApi.getStockList(market, ListingStatus.LISTED)
         return allStocks.filter {
             it.name.contains(keyword, ignoreCase = true) ||
-            it.ticker.contains(keyword, ignoreCase = true)
+                it.ticker.contains(keyword, ignoreCase = true)
         }
 
         // 방법 2: 서버 측 검색 (Phase 2 고려)

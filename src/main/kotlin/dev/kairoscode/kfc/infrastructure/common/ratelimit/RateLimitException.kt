@@ -3,7 +3,10 @@ package dev.kairoscode.kfc.infrastructure.common.ratelimit
 /**
  * Rate Limiting 관련 기본 예외 클래스
  */
-sealed class RateLimitException(message: String, cause: Throwable? = null) : Exception(message, cause)
+sealed class RateLimitException(
+    message: String,
+    cause: Throwable? = null,
+) : Exception(message, cause)
 
 /**
  * Rate limiting 대기 시간이 초과되었을 때 발생하는 예외
@@ -15,7 +18,7 @@ sealed class RateLimitException(message: String, cause: Throwable? = null) : Exc
 class RateLimitTimeoutException(
     val source: String,
     val config: RateLimitConfig,
-    message: String = "Rate limit timeout exceeded for $source after ${config.waitTimeoutMillis}ms"
+    message: String = "Rate limit timeout exceeded for $source after ${config.waitTimeoutMillis}ms",
 ) : RateLimitException(message)
 
 /**
@@ -26,5 +29,5 @@ class RateLimitTimeoutException(
  */
 class RateLimitConfigException(
     message: String,
-    cause: Throwable? = null
+    cause: Throwable? = null,
 ) : RateLimitException(message, cause)

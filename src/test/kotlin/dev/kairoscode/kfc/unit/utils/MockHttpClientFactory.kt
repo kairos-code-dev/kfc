@@ -1,11 +1,14 @@
 package dev.kairoscode.kfc.unit.utils
 
-import io.ktor.client.*
-import io.ktor.client.engine.mock.*
-import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.http.*
-import io.ktor.serialization.kotlinx.json.*
-import io.ktor.utils.io.*
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.mock.MockEngine
+import io.ktor.client.engine.mock.respond
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpStatusCode
+import io.ktor.http.headersOf
+import io.ktor.serialization.kotlinx.json.json
+import io.ktor.utils.io.ByteReadChannel
 import kotlinx.serialization.json.Json
 
 /**
@@ -22,7 +25,6 @@ import kotlinx.serialization.json.Json
  * ```
  */
 object MockHttpClientFactory {
-
     /**
      * JSON 응답을 반환하는 Mock HttpClient 생성
      *
@@ -30,22 +32,25 @@ object MockHttpClientFactory {
      * @return Mock HttpClient 인스턴스
      */
     fun createWithResponse(jsonResponse: String): HttpClient {
-        val mockEngine = MockEngine { _ ->
-            respond(
-                content = ByteReadChannel(jsonResponse),
-                status = HttpStatusCode.OK,
-                headers = headersOf(HttpHeaders.ContentType, "application/json")
-            )
-        }
+        val mockEngine =
+            MockEngine { _ ->
+                respond(
+                    content = ByteReadChannel(jsonResponse),
+                    status = HttpStatusCode.OK,
+                    headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                )
+            }
 
         return HttpClient(mockEngine) {
             install(ContentNegotiation) {
-                json(Json {
-                    ignoreUnknownKeys = true
-                    isLenient = true
-                    coerceInputValues = true
-                    prettyPrint = true
-                })
+                json(
+                    Json {
+                        ignoreUnknownKeys = true
+                        isLenient = true
+                        coerceInputValues = true
+                        prettyPrint = true
+                    },
+                )
             }
         }
     }
@@ -59,23 +64,26 @@ object MockHttpClientFactory {
      */
     fun createWithError(
         statusCode: HttpStatusCode,
-        errorMessage: String = statusCode.description
+        errorMessage: String = statusCode.description,
     ): HttpClient {
-        val mockEngine = MockEngine { _ ->
-            respond(
-                content = ByteReadChannel("""{"error": "$errorMessage"}"""),
-                status = statusCode,
-                headers = headersOf(HttpHeaders.ContentType, "application/json")
-            )
-        }
+        val mockEngine =
+            MockEngine { _ ->
+                respond(
+                    content = ByteReadChannel("""{"error": "$errorMessage"}"""),
+                    status = statusCode,
+                    headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                )
+            }
 
         return HttpClient(mockEngine) {
             install(ContentNegotiation) {
-                json(Json {
-                    ignoreUnknownKeys = true
-                    isLenient = true
-                    coerceInputValues = true
-                })
+                json(
+                    Json {
+                        ignoreUnknownKeys = true
+                        isLenient = true
+                        coerceInputValues = true
+                    },
+                )
             }
         }
     }
@@ -89,28 +97,32 @@ object MockHttpClientFactory {
     fun createWithMultipleResponses(responses: List<String>): HttpClient {
         var callCount = 0
 
-        val mockEngine = MockEngine { _ ->
-            val response = if (callCount < responses.size) {
-                responses[callCount]
-            } else {
-                responses.last()
-            }
-            callCount++
+        val mockEngine =
+            MockEngine { _ ->
+                val response =
+                    if (callCount < responses.size) {
+                        responses[callCount]
+                    } else {
+                        responses.last()
+                    }
+                callCount++
 
-            respond(
-                content = ByteReadChannel(response),
-                status = HttpStatusCode.OK,
-                headers = headersOf(HttpHeaders.ContentType, "application/json")
-            )
-        }
+                respond(
+                    content = ByteReadChannel(response),
+                    status = HttpStatusCode.OK,
+                    headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                )
+            }
 
         return HttpClient(mockEngine) {
             install(ContentNegotiation) {
-                json(Json {
-                    ignoreUnknownKeys = true
-                    isLenient = true
-                    coerceInputValues = true
-                })
+                json(
+                    Json {
+                        ignoreUnknownKeys = true
+                        isLenient = true
+                        coerceInputValues = true
+                    },
+                )
             }
         }
     }

@@ -1,30 +1,36 @@
 package dev.kairoscode.kfc.infrastructure.opendart
 
-import dev.kairoscode.kfc.infrastructure.opendart.OpenDartApi
+import dev.kairoscode.kfc.domain.corp.CorpCode
+import dev.kairoscode.kfc.domain.corp.DisclosureItem
+import dev.kairoscode.kfc.domain.corp.DividendInfo
+import dev.kairoscode.kfc.domain.corp.StockSplitInfo
 import dev.kairoscode.kfc.domain.exception.ErrorCode
 import dev.kairoscode.kfc.domain.exception.KfcException
-import dev.kairoscode.kfc.domain.corp.*
-import dev.kairoscode.kfc.infrastructure.common.recording.installResponseRecording
 import dev.kairoscode.kfc.infrastructure.common.ratelimit.GlobalRateLimiters
 import dev.kairoscode.kfc.infrastructure.common.ratelimit.RateLimiter
-import dev.kairoscode.kfc.infrastructure.opendart.model.*
+import dev.kairoscode.kfc.infrastructure.common.recording.installResponseRecording
+import dev.kairoscode.kfc.infrastructure.opendart.model.DisclosureItemRaw
+import dev.kairoscode.kfc.infrastructure.opendart.model.DisclosureListResponse
+import dev.kairoscode.kfc.infrastructure.opendart.model.DividendInfoRaw
 import dev.kairoscode.kfc.infrastructure.opendart.model.FinancialStatementRaw
 import dev.kairoscode.kfc.infrastructure.opendart.model.FinancialStatementResponse
+import dev.kairoscode.kfc.infrastructure.opendart.model.OpenDartResponse
+import dev.kairoscode.kfc.infrastructure.opendart.model.StockSplitInfoRaw
 import io.github.oshai.kotlinlogging.KotlinLogging
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.engine.cio.*
-import io.ktor.client.plugins.*
-import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
-import io.ktor.http.*
-import io.ktor.serialization.kotlinx.json.*
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.engine.cio.CIO
+import io.ktor.client.plugins.HttpTimeout
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.expectSuccess
+import io.ktor.client.request.get
+import io.ktor.client.request.parameter
+import io.ktor.http.isSuccess
+import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.w3c.dom.Element
 import org.xml.sax.InputSource
 import java.io.StringReader
-import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.zip.ZipInputStream
@@ -38,30 +44,32 @@ import javax.xml.parsers.DocumentBuilderFactory
  */
 internal class OpenDartApiImpl(
     private val apiKey: String,
-    private val rateLimiter: RateLimiter = GlobalRateLimiters.getOpendartLimiter()
+    private val rateLimiter: RateLimiter = GlobalRateLimiters.getOpendartLimiter(),
 ) : OpenDartApi {
+    private val httpClient =
+        HttpClient(CIO) {
+            // 응답 레코딩 플러그인 설치 (ResponseRecordingContext가 있을 때만 동작)
+            installResponseRecording()
 
-    private val httpClient = HttpClient(CIO) {
-        // 응답 레코딩 플러그인 설치 (ResponseRecordingContext가 있을 때만 동작)
-        installResponseRecording()
+            install(ContentNegotiation) {
+                json(
+                    Json {
+                        prettyPrint = true
+                        isLenient = true
+                        ignoreUnknownKeys = true
+                        coerceInputValues = true
+                    },
+                )
+            }
 
-        install(ContentNegotiation) {
-            json(Json {
-                prettyPrint = true
-                isLenient = true
-                ignoreUnknownKeys = true
-                coerceInputValues = true
-            })
+            install(HttpTimeout) {
+                requestTimeoutMillis = 60_000 // 60초 (ZIP 다운로드 고려)
+                connectTimeoutMillis = 10_000
+                socketTimeoutMillis = 60_000
+            }
+
+            expectSuccess = false
         }
-
-        install(HttpTimeout) {
-            requestTimeoutMillis = 60_000 // 60초 (ZIP 다운로드 고려)
-            connectTimeoutMillis = 10_000
-            socketTimeoutMillis = 60_000
-        }
-
-        expectSuccess = false
-    }
 
     private val logger = KotlinLogging.logger {}
 
@@ -78,9 +86,10 @@ internal class OpenDartApiImpl(
         val url = "$BASE_URL/corpCode.xml"
 
         return try {
-            val response = httpClient.get(url) {
-                parameter("crtfc_key", apiKey)
-            }
+            val response =
+                httpClient.get(url) {
+                    parameter("crtfc_key", apiKey)
+                }
 
             when {
                 response.status.isSuccess() -> {
@@ -95,11 +104,12 @@ internal class OpenDartApiImpl(
                     throw KfcException(
                         ErrorCode.HTTP_ERROR_RESPONSE,
                         "HTTP 요청 실패",
-                        context = mapOf(
-                            "url" to url,
-                            "statusCode" to response.status.value,
-                            "endpoint" to "corpCode.xml"
-                        )
+                        context =
+                            mapOf(
+                                "url" to url,
+                                "statusCode" to response.status.value,
+                                "endpoint" to "corpCode.xml",
+                            ),
                     )
                 }
             }
@@ -111,10 +121,11 @@ internal class OpenDartApiImpl(
                 ErrorCode.NETWORK_CONNECTION_FAILED,
                 "네트워크 연결 실패",
                 cause = e,
-                context = mapOf(
-                    "url" to url,
-                    "endpoint" to "corpCode.xml"
-                )
+                context =
+                    mapOf(
+                        "url" to url,
+                        "endpoint" to "corpCode.xml",
+                    ),
             )
         }
     }
@@ -122,18 +133,22 @@ internal class OpenDartApiImpl(
     override suspend fun getDividendInfo(
         corpCode: String,
         year: Int,
-        reportCode: String
+        reportCode: String,
     ): List<DividendInfo> {
         rateLimiter.acquire()
         logger.debug { "Fetching dividend info: corpCode=$corpCode, year=$year, reportCode=$reportCode" }
 
         val url = "$BASE_URL/alotMatter.json"
 
-        val response = fetchJson<OpenDartResponse<DividendInfoRaw>>(url, mapOf(
-            "corp_code" to corpCode,
-            "bsns_year" to year.toString(),
-            "reprt_code" to reportCode
-        ))
+        val response =
+            fetchJson<OpenDartResponse<DividendInfoRaw>>(
+                url,
+                mapOf(
+                    "corp_code" to corpCode,
+                    "bsns_year" to year.toString(),
+                    "reprt_code" to reportCode,
+                ),
+            )
 
         return response.list?.map { it.toDividendInfo() } ?: emptyList()
     }
@@ -141,18 +156,22 @@ internal class OpenDartApiImpl(
     override suspend fun getStockSplitInfo(
         corpCode: String,
         year: Int,
-        reportCode: String
+        reportCode: String,
     ): List<StockSplitInfo> {
         rateLimiter.acquire()
         logger.debug { "Fetching stock split info: corpCode=$corpCode, year=$year, reportCode=$reportCode" }
 
         val url = "$BASE_URL/irdsSttus.json"
 
-        val response = fetchJson<OpenDartResponse<StockSplitInfoRaw>>(url, mapOf(
-            "corp_code" to corpCode,
-            "bsns_year" to year.toString(),
-            "reprt_code" to reportCode
-        ))
+        val response =
+            fetchJson<OpenDartResponse<StockSplitInfoRaw>>(
+                url,
+                mapOf(
+                    "corp_code" to corpCode,
+                    "bsns_year" to year.toString(),
+                    "reprt_code" to reportCode,
+                ),
+            )
 
         return response.list?.mapNotNull { it.toStockSplitInfo() } ?: emptyList()
     }
@@ -162,19 +181,20 @@ internal class OpenDartApiImpl(
         startDate: LocalDate,
         endDate: LocalDate,
         pageNo: Int,
-        pageCount: Int
+        pageCount: Int,
     ): List<DisclosureItem> {
         rateLimiter.acquire()
         logger.debug { "Searching disclosures: corpCode=$corpCode, from=$startDate, to=$endDate" }
 
         val url = "$BASE_URL/list.json"
 
-        val params = mutableMapOf(
-            "bgn_de" to startDate.format(DATE_FORMATTER),
-            "end_de" to endDate.format(DATE_FORMATTER),
-            "page_no" to pageNo.toString(),
-            "page_count" to pageCount.toString()
-        )
+        val params =
+            mutableMapOf(
+                "bgn_de" to startDate.format(DATE_FORMATTER),
+                "end_de" to endDate.format(DATE_FORMATTER),
+                "page_no" to pageNo.toString(),
+                "page_count" to pageCount.toString(),
+            )
 
         corpCode?.let { params["corp_code"] = it }
 
@@ -187,19 +207,25 @@ internal class OpenDartApiImpl(
         corpCode: String,
         year: Int,
         reportCode: String,
-        fsDiv: String
+        fsDiv: String,
     ): List<FinancialStatementRaw> {
         rateLimiter.acquire()
-        logger.debug { "Fetching financial statements: corpCode=$corpCode, year=$year, reportCode=$reportCode, fsDiv=$fsDiv" }
+        logger.debug {
+            "Fetching financial statements: corpCode=$corpCode, year=$year, reportCode=$reportCode, fsDiv=$fsDiv"
+        }
 
         val url = "$BASE_URL/fnlttSinglAcntAll.json"
 
-        val response = fetchJson<FinancialStatementResponse>(url, mapOf(
-            "corp_code" to corpCode,
-            "bsns_year" to year.toString(),
-            "reprt_code" to reportCode,
-            "fs_div" to fsDiv
-        ))
+        val response =
+            fetchJson<FinancialStatementResponse>(
+                url,
+                mapOf(
+                    "corp_code" to corpCode,
+                    "bsns_year" to year.toString(),
+                    "reprt_code" to reportCode,
+                    "fs_div" to fsDiv,
+                ),
+            )
 
         return response.list ?: emptyList()
     }
@@ -209,15 +235,16 @@ internal class OpenDartApiImpl(
      */
     private suspend inline fun <reified T> fetchJson(
         url: String,
-        params: Map<String, String>
-    ): T {
-        return try {
-            val response = httpClient.get(url) {
-                parameter("crtfc_key", apiKey)
-                params.forEach { (key, value) ->
-                    parameter(key, value)
+        params: Map<String, String>,
+    ): T =
+        try {
+            val response =
+                httpClient.get(url) {
+                    parameter("crtfc_key", apiKey)
+                    params.forEach { (key, value) ->
+                        parameter(key, value)
+                    }
                 }
-            }
 
             when {
                 response.status.isSuccess() -> {
@@ -232,11 +259,12 @@ internal class OpenDartApiImpl(
                                 else -> throw KfcException(
                                     ErrorCode.OPENDART_API_ERROR,
                                     "OPENDART API 오류",
-                                    context = mapOf(
-                                        "url" to url,
-                                        "statusCode" to body.status,
-                                        "message" to (body.message ?: "Unknown error")
-                                    )
+                                    context =
+                                        mapOf(
+                                            "url" to url,
+                                            "statusCode" to body.status,
+                                            "message" to (body.message ?: "Unknown error"),
+                                        ),
                                 )
                             }
                         } else if (body is DisclosureListResponse) {
@@ -246,11 +274,12 @@ internal class OpenDartApiImpl(
                                 else -> throw KfcException(
                                     ErrorCode.OPENDART_API_ERROR,
                                     "OPENDART API 오류",
-                                    context = mapOf(
-                                        "url" to url,
-                                        "statusCode" to body.status,
-                                        "message" to (body.message ?: "Unknown error")
-                                    )
+                                    context =
+                                        mapOf(
+                                            "url" to url,
+                                            "statusCode" to body.status,
+                                            "message" to (body.message ?: "Unknown error"),
+                                        ),
                                 )
                             }
                         } else if (body is FinancialStatementResponse) {
@@ -260,11 +289,12 @@ internal class OpenDartApiImpl(
                                 else -> throw KfcException(
                                     ErrorCode.OPENDART_API_ERROR,
                                     "OPENDART API 오류",
-                                    context = mapOf(
-                                        "url" to url,
-                                        "statusCode" to body.status,
-                                        "message" to (body.message ?: "Unknown error")
-                                    )
+                                    context =
+                                        mapOf(
+                                            "url" to url,
+                                            "statusCode" to body.status,
+                                            "message" to (body.message ?: "Unknown error"),
+                                        ),
                                 )
                             }
                         } else {
@@ -278,10 +308,11 @@ internal class OpenDartApiImpl(
                             ErrorCode.JSON_PARSE_ERROR,
                             "응답 JSON 파싱 실패",
                             cause = e,
-                            context = mapOf(
-                                "url" to url,
-                                "params" to params
-                            )
+                            context =
+                                mapOf(
+                                    "url" to url,
+                                    "params" to params,
+                                ),
                         )
                     }
                 }
@@ -289,11 +320,12 @@ internal class OpenDartApiImpl(
                     throw KfcException(
                         ErrorCode.HTTP_ERROR_RESPONSE,
                         "HTTP 요청 실패",
-                        context = mapOf(
-                            "url" to url,
-                            "statusCode" to response.status.value,
-                            "params" to params
-                        )
+                        context =
+                            mapOf(
+                                "url" to url,
+                                "statusCode" to response.status.value,
+                                "params" to params,
+                            ),
                     )
                 }
             }
@@ -305,19 +337,19 @@ internal class OpenDartApiImpl(
                 ErrorCode.NETWORK_CONNECTION_FAILED,
                 "네트워크 연결 실패",
                 cause = e,
-                context = mapOf(
-                    "url" to url,
-                    "params" to params
-                )
+                context =
+                    mapOf(
+                        "url" to url,
+                        "params" to params,
+                    ),
             )
         }
-    }
 
     /**
      * ZIP 압축된 XML 파싱 (corpCode API)
      */
-    private fun parseCorpCodeZip(zipInputStream: ZipInputStream): List<CorpCode> {
-        return zipInputStream.use { zis ->
+    private fun parseCorpCodeZip(zipInputStream: ZipInputStream): List<CorpCode> =
+        zipInputStream.use { zis ->
             try {
                 // ZIP 엔트리 진입
                 val entry = zis.nextEntry
@@ -325,16 +357,18 @@ internal class OpenDartApiImpl(
                     throw KfcException(
                         ErrorCode.ZIP_PARSE_ERROR,
                         "ZIP 파일에 엔트리가 없습니다",
-                        context = mapOf("endpoint" to "corpCode.xml")
+                        context = mapOf("endpoint" to "corpCode.xml"),
                     )
                 }
 
                 // XML 파싱 - DocumentBuilder.parse()는 스트림을 닫지 않도록 설정
                 // InputSource를 사용하여 스트림이 자동으로 닫히지 않도록 방지
                 val xmlContent = zis.readBytes().toString(Charsets.UTF_8)
-                val doc = DocumentBuilderFactory.newInstance()
-                    .newDocumentBuilder()
-                    .parse(InputSource(StringReader(xmlContent)))
+                val doc =
+                    DocumentBuilderFactory
+                        .newInstance()
+                        .newDocumentBuilder()
+                        .parse(InputSource(StringReader(xmlContent)))
 
                 val listNodes = doc.getElementsByTagName("list")
                 val result = mutableListOf<CorpCode>()
@@ -344,17 +378,20 @@ internal class OpenDartApiImpl(
 
                     val corpCode = node.getElementsByTagName("corp_code").item(0).textContent
                     val corpName = node.getElementsByTagName("corp_name").item(0).textContent
-                    val stockCode = node.getElementsByTagName("stock_code").item(0)?.textContent?.let {
-                        if (it.isBlank() || it == " ") null else it.trim()
-                    }
+                    val stockCode =
+                        node.getElementsByTagName("stock_code").item(0)?.textContent?.let {
+                            if (it.isBlank() || it == " ") null else it.trim()
+                        }
                     val modifyDate = node.getElementsByTagName("modify_date").item(0).textContent
 
-                    result.add(CorpCode(
-                        corpCode = corpCode,
-                        corpName = corpName,
-                        stockCode = stockCode,
-                        modifyDate = LocalDate.parse(modifyDate, DATE_FORMATTER)
-                    ))
+                    result.add(
+                        CorpCode(
+                            corpCode = corpCode,
+                            corpName = corpName,
+                            stockCode = stockCode,
+                            modifyDate = LocalDate.parse(modifyDate, DATE_FORMATTER),
+                        ),
+                    )
                 }
 
                 result
@@ -365,11 +402,10 @@ internal class OpenDartApiImpl(
                     ErrorCode.ZIP_PARSE_ERROR,
                     "ZIP 파일 파싱 실패",
                     cause = e,
-                    context = mapOf("endpoint" to "corpCode.xml")
+                    context = mapOf("endpoint" to "corpCode.xml"),
                 )
             }
         }
-    }
 
     /**
      * 리소스 정리
@@ -383,8 +419,8 @@ internal class OpenDartApiImpl(
 /**
  * 원시 데이터 → DividendInfo 변환
  */
-private fun DividendInfoRaw.toDividendInfo(): DividendInfo {
-    return DividendInfo(
+private fun DividendInfoRaw.toDividendInfo(): DividendInfo =
+    DividendInfo(
         rceptNo = rceptNo,
         corpCode = corpCode,
         corpName = corpName,
@@ -393,9 +429,8 @@ private fun DividendInfoRaw.toDividendInfo(): DividendInfo {
         currentYear = currentYear?.replace(",", "")?.replace("-", "")?.toBigDecimalOrNull(),
         previousYear = previousYear?.replace(",", "")?.replace("-", "")?.toBigDecimalOrNull(),
         twoYearsAgo = twoYearsAgo?.replace(",", "")?.replace("-", "")?.toBigDecimalOrNull(),
-        settlementDate = LocalDate.parse(settlementDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        settlementDate = LocalDate.parse(settlementDate, DateTimeFormatter.ofPattern("yyyy-MM-dd")),
     )
-}
 
 /**
  * 원시 데이터 → StockSplitInfo 변환
@@ -423,15 +458,15 @@ private fun StockSplitInfoRaw.toStockSplitInfo(): StockSplitInfo? {
         stockKind = stockKind?.takeIf { it != "-" } ?: "",
         quantity = quantity?.takeIf { it != "-" }?.replace(",", "")?.toLongOrNull() ?: 0L,
         parValuePerShare = parValuePerShare?.takeIf { it != "-" }?.replace(",", "")?.toIntOrNull() ?: 0,
-        totalAmount = totalAmount?.takeIf { it != "-" }?.replace(",", "")?.toLongOrNull() ?: 0L
+        totalAmount = totalAmount?.takeIf { it != "-" }?.replace(",", "")?.toLongOrNull() ?: 0L,
     )
 }
 
 /**
  * 원시 데이터 → DisclosureItem 변환
  */
-private fun DisclosureItemRaw.toDisclosureItem(): DisclosureItem {
-    return DisclosureItem(
+private fun DisclosureItemRaw.toDisclosureItem(): DisclosureItem =
+    DisclosureItem(
         corpCode = corpCode,
         corpName = corpName,
         stockCode = stockCode?.let { if (it.isBlank()) null else it.trim() },
@@ -440,6 +475,5 @@ private fun DisclosureItemRaw.toDisclosureItem(): DisclosureItem {
         rceptNo = rceptNo,
         filerName = filerName,
         rceptDate = LocalDate.parse(rceptDate, DateTimeFormatter.ofPattern("yyyyMMdd")),
-        remark = remark
+        remark = remark,
     )
-}

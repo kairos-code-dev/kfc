@@ -1,6 +1,12 @@
 package dev.kairoscode.kfc.infrastructure.krx
 
-import dev.kairoscode.kfc.domain.index.*
+import dev.kairoscode.kfc.domain.index.IndexFundamental
+import dev.kairoscode.kfc.domain.index.IndexFundamentalSnapshot
+import dev.kairoscode.kfc.domain.index.IndexInfo
+import dev.kairoscode.kfc.domain.index.IndexMarket
+import dev.kairoscode.kfc.domain.index.IndexOhlcv
+import dev.kairoscode.kfc.domain.index.IndexOhlcvSnapshot
+import dev.kairoscode.kfc.domain.index.IndexPriceChange
 import java.time.LocalDate
 
 /**
@@ -10,7 +16,6 @@ import java.time.LocalDate
  * 이 인터페이스는 infrastructure 레이어 내부에서만 사용되며, 외부에 노출되지 않습니다.
  */
 internal interface KrxIndexApi {
-
     /**
      * 지수 목록 조회
      *
@@ -35,7 +40,11 @@ internal interface KrxIndexApi {
      * @throws dev.kairoscode.kfc.domain.exception.KfcException 네트워크 에러, 파싱 실패, API 에러 발생 시
      * @source KRX API (MDCSTAT00601)
      */
-    suspend fun getIndexConstituents(ticker: String, date: LocalDate, market: IndexMarket = IndexMarket.KOSPI): List<String>
+    suspend fun getIndexConstituents(
+        ticker: String,
+        date: LocalDate,
+        market: IndexMarket = IndexMarket.KOSPI,
+    ): List<String>
 
     /**
      * 지수 OHLCV 조회 (특정 지수 기간별)
@@ -54,7 +63,7 @@ internal interface KrxIndexApi {
         ticker: String,
         fromDate: LocalDate,
         toDate: LocalDate,
-        market: IndexMarket = IndexMarket.KOSPI
+        market: IndexMarket = IndexMarket.KOSPI,
     ): List<IndexOhlcv>
 
     /**
@@ -70,7 +79,7 @@ internal interface KrxIndexApi {
      */
     suspend fun getOhlcvByTicker(
         date: LocalDate,
-        market: IndexMarket
+        market: IndexMarket,
     ): List<IndexOhlcvSnapshot>
 
     /**
@@ -90,7 +99,7 @@ internal interface KrxIndexApi {
         ticker: String,
         fromDate: LocalDate,
         toDate: LocalDate,
-        market: IndexMarket = IndexMarket.KOSPI
+        market: IndexMarket = IndexMarket.KOSPI,
     ): List<IndexFundamental>
 
     /**
@@ -106,7 +115,7 @@ internal interface KrxIndexApi {
      */
     suspend fun getFundamentalByTicker(
         date: LocalDate,
-        market: IndexMarket
+        market: IndexMarket,
     ): List<IndexFundamentalSnapshot>
 
     /**
@@ -124,6 +133,6 @@ internal interface KrxIndexApi {
     suspend fun getPriceChange(
         fromDate: LocalDate,
         toDate: LocalDate,
-        market: IndexMarket
+        market: IndexMarket,
     ): List<IndexPriceChange>
 }

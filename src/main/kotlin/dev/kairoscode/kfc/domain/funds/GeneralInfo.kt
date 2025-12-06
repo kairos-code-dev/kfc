@@ -1,6 +1,10 @@
 package dev.kairoscode.kfc.domain.funds
 
-import dev.kairoscode.kfc.infrastructure.common.util.*
+import dev.kairoscode.kfc.infrastructure.common.util.toKrxAmount
+import dev.kairoscode.kfc.infrastructure.common.util.toKrxBigDecimal
+import dev.kairoscode.kfc.infrastructure.common.util.toKrxDate
+import dev.kairoscode.kfc.infrastructure.common.util.toKrxLong
+import dev.kairoscode.kfc.infrastructure.common.util.toStringSafe
 import java.math.BigDecimal
 import java.time.LocalDate
 
@@ -36,32 +40,26 @@ data class GeneralInfo(
     val name: String,
     val isin: String,
     val ticker: String,
-
     // 자산 정보
     val netAssetTotal: BigDecimal,
     val prevDayNav: BigDecimal,
-
     // 유형 코드
     val etfTypeCode: String,
     val leverageInverseTypeCode: String,
     val underlyingDomesticForeignTypeCode: String,
-
     // 운용사 및 지수 정보
     val issuerName: String,
     val indexProviderName: String,
-
     // 상장 정보
     val listedShares: Long,
     val listingDate: LocalDate,
     val taxTypeCode: String,
-
     // 복제 방법 및 자산 분류
     val replicationMethodTypeCode: String,
     val assetClassName: String,
-
     // 분배금 및 LP 정보
     val distributionPaymentBasisContent: String,
-    val lpName: String
+    val lpName: String,
 ) {
     companion object {
         // KRX API 필드명 상수 (MDCSTAT04704 전용)
@@ -89,8 +87,8 @@ data class GeneralInfo(
          * @param raw KRX API 응답 Map
          * @return GeneralInfo 인스턴스
          */
-        fun fromRaw(raw: Map<*, *>): GeneralInfo {
-            return GeneralInfo(
+        fun fromRaw(raw: Map<*, *>): GeneralInfo =
+            GeneralInfo(
                 name = raw[ISU_NM].toStringSafe(),
                 isin = raw[ISU_CD].toStringSafe(),
                 ticker = raw[ISU_SRT_CD].toStringSafe(),
@@ -107,9 +105,8 @@ data class GeneralInfo(
                 replicationMethodTypeCode = raw[ETF_REPLICA_METHD_TP_CD].toStringSafe(),
                 assetClassName = raw[IDX_ASST_CLSS_NM].toStringSafe(),
                 distributionPaymentBasisContent = raw[TRST_DISTR_PAY_BAS_DD_CONTN].toStringSafe(),
-                lpName = raw[LP_NM].toStringSafe()
+                lpName = raw[LP_NM].toStringSafe(),
             )
-        }
     }
 
     /**
@@ -117,38 +114,34 @@ data class GeneralInfo(
      *
      * @return 레버리지 ETF이면 true
      */
-    fun isLeveraged(): Boolean {
-        return leverageInverseTypeCode.contains("레버리지") ||
-                leverageInverseTypeCode.lowercase().contains("leverage")
-    }
+    fun isLeveraged(): Boolean =
+        leverageInverseTypeCode.contains("레버리지") ||
+            leverageInverseTypeCode.lowercase().contains("leverage")
 
     /**
      * 인버스 ETF인지 확인
      *
      * @return 인버스 ETF이면 true
      */
-    fun isInverse(): Boolean {
-        return leverageInverseTypeCode.contains("인버스") ||
-                leverageInverseTypeCode.lowercase().contains("inverse")
-    }
+    fun isInverse(): Boolean =
+        leverageInverseTypeCode.contains("인버스") ||
+            leverageInverseTypeCode.lowercase().contains("inverse")
 
     /**
      * 해외 기초자산 추적 ETF인지 확인
      *
      * @return 해외 기초자산 ETF이면 true
      */
-    fun isForeignUnderlying(): Boolean {
-        return underlyingDomesticForeignTypeCode.contains("해외") ||
-                underlyingDomesticForeignTypeCode.lowercase().contains("foreign")
-    }
+    fun isForeignUnderlying(): Boolean =
+        underlyingDomesticForeignTypeCode.contains("해외") ||
+            underlyingDomesticForeignTypeCode.lowercase().contains("foreign")
 
     /**
      * 합성(Synthetic) ETF인지 확인
      *
      * @return 합성 복제 방식이면 true
      */
-    fun isSynthetic(): Boolean {
-        return replicationMethodTypeCode.contains("합성") ||
-                replicationMethodTypeCode.lowercase().contains("synthetic")
-    }
+    fun isSynthetic(): Boolean =
+        replicationMethodTypeCode.contains("합성") ||
+            replicationMethodTypeCode.lowercase().contains("synthetic")
 }

@@ -10,5 +10,5 @@ package dev.kairoscode.kfc.domain.financials
  */
 data class FinancialPeriod(
     val periodName: String,
-    val fiscalYear: Int
+    val fiscalYear: Int,
 )

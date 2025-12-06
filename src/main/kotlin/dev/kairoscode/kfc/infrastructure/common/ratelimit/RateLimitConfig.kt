@@ -12,7 +12,7 @@ data class RateLimitConfig(
     val capacity: Int = 50,
     val refillRate: Int = 50,
     val enabled: Boolean = true,
-    val waitTimeoutMillis: Long = 60000L
+    val waitTimeoutMillis: Long = 60000L,
 ) {
     init {
         require(capacity > 0) { "capacity must be greater than 0" }
@@ -50,7 +50,7 @@ data class RateLimitConfig(
 data class RateLimitingSettings(
     val krx: RateLimitConfig = RateLimitConfig(capacity = 25, refillRate = 25),
     val naver: RateLimitConfig = RateLimitConfig(),
-    val opendart: RateLimitConfig = RateLimitConfig()
+    val opendart: RateLimitConfig = RateLimitConfig(),
 ) {
     companion object {
         /**
@@ -77,10 +77,11 @@ data class RateLimitingSettings(
         /**
          * Rate Limiting 비활성화 설정 (모든 소스)
          */
-        fun unlimited(): RateLimitingSettings = RateLimitingSettings(
-            krx = RateLimitConfig(enabled = false),
-            naver = RateLimitConfig(enabled = false),
-            opendart = RateLimitConfig(enabled = false)
-        )
+        fun unlimited(): RateLimitingSettings =
+            RateLimitingSettings(
+                krx = RateLimitConfig(enabled = false),
+                naver = RateLimitConfig(enabled = false),
+                opendart = RateLimitConfig(enabled = false),
+            )
     }
 }

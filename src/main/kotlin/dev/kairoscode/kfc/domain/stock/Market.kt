@@ -8,7 +8,10 @@ package dev.kairoscode.kfc.domain.stock
  * @property code KRX API에서 사용하는 시장 코드 (mktId, mktsel)
  * @property koreanName 한글 시장명
  */
-enum class Market(val code: String, val koreanName: String) {
+enum class Market(
+    val code: String,
+    val koreanName: String,
+) {
     /**
      * 코스피 (한국거래소 유가증권시장)
      */
@@ -27,7 +30,8 @@ enum class Market(val code: String, val koreanName: String) {
     /**
      * 전체 시장 (모든 시장 통합)
      */
-    ALL("ALL", "전체");
+    ALL("ALL", "전체"),
+    ;
 
     companion object {
         /**
@@ -36,8 +40,6 @@ enum class Market(val code: String, val koreanName: String) {
          * @param code KRX API 코드 (STK, KSQ, KNX, ALL)
          * @return Market Enum
          */
-        fun fromCode(code: String): Market {
-            return entries.find { it.code == code } ?: ALL
-        }
+        fun fromCode(code: String): Market = entries.find { it.code == code } ?: ALL
     }
 }

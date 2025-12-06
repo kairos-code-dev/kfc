@@ -1,10 +1,10 @@
 package dev.kairoscode.kfc.domain.stock
 
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 
 class PriceChangeTypeTest {
-
     @Test
     fun `PriceChangeType Enum 값 테스트`() {
         assertEquals("1", PriceChangeType.RISE.code)

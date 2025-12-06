@@ -12,7 +12,7 @@ package dev.kairoscode.kfc.domain.financials
 enum class FinancialStatementCategory(
     val code: String,
     val koreanName: String,
-    val englishName: String
+    val englishName: String,
 ) {
     /**
      * 재무상태표
@@ -37,7 +37,8 @@ enum class FinancialStatementCategory(
     /**
      * 자본변동표
      */
-    CHANGES_IN_EQUITY("SCE", "자본변동표", "Statement of Changes in Equity");
+    CHANGES_IN_EQUITY("SCE", "자본변동표", "Statement of Changes in Equity"),
+    ;
 
     companion object {
         /**
@@ -46,8 +47,6 @@ enum class FinancialStatementCategory(
          * @param code OPENDART sj_div 코드
          * @return FinancialStatementCategory, 없으면 null
          */
-        fun fromCode(code: String): FinancialStatementCategory? {
-            return entries.find { it.code == code }
-        }
+        fun fromCode(code: String): FinancialStatementCategory? = entries.find { it.code == code }
     }
 }
