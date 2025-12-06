@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2025-12-06
+
+> **Pre-release**: 이 버전은 프리릴리즈입니다. 정식 릴리즈(v1.0.0) 전까지 API가 변경될 수 있습니다.
+
 ### Added
 
 #### Stock API
@@ -103,10 +107,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Gradle Kotlin DSL 설정
 - EditorConfig 설정
 
-## [1.0.0] - YYYY-MM-DD
-
-### Note
-Initial release version - 출시 예정
-
-[Unreleased]: https://github.com/username/kfc/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/username/kfc/releases/tag/v1.0.0
+[Unreleased]: https://github.com/kairos-code-dev/kfc/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/kairos-code-dev/kfc/releases/tag/v0.5.0

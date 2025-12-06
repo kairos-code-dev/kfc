@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "dev.kairoscode"
-version = "1.0.0-SNAPSHOT"
+version = "0.5.0"
 
 // Load local.properties if exists
 val localProperties = Properties()

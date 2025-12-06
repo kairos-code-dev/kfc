@@ -6,6 +6,10 @@
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.0+-7F52FF.svg?logo=kotlin)](https://kotlinlang.org)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
+> **Pre-release (v0.5.0)**
+>
+> 이 라이브러리는 현재 **프리릴리즈** 상태입니다. API가 예고 없이 변경될 수 있으며, 프로덕션 환경에서의 사용은 권장하지 않습니다. 정식 릴리즈(v1.0.0) 전까지 테스트 및 피드백 목적으로만 사용해 주세요.
+
 **한국 금융 데이터 수집을 위한 Kotlin 라이브러리**
 
 KFC는 [pykrx](https://github.com/sharebook-kr/pykrx)에서 영감을 받아 만들어진 Kotlin 기반의 한국 금융 데이터 라이브러리입니다. KRX(한국거래소)와 OPENDART의 데이터를 Kotlin/JVM 환경에서 쉽고 안전하게 조회할 수 있습니다.
@@ -70,7 +74,7 @@ dependencyResolutionManagement {
 
 // build.gradle.kts
 dependencies {
-    implementation("com.github.kairos-code-dev:kfc:v1.0.0")
+    implementation("com.github.kairos-code-dev:kfc:v0.5.0")
 }
 ```
 
@@ -87,7 +91,7 @@ dependencyResolutionManagement {
 
 // build.gradle
 dependencies {
-    implementation 'com.github.kairos-code-dev:kfc:v1.0.0'
+    implementation 'com.github.kairos-code-dev:kfc:v0.5.0'
 }
 ```
 
@@ -106,7 +110,7 @@ dependencies {
     <dependency>
         <groupId>com.github.kairos-code-dev</groupId>
         <artifactId>kfc</artifactId>
-        <version>v1.0.0</version>
+        <version>v0.5.0</version>
     </dependency>
 </dependencies>
 ```
@@ -115,7 +119,7 @@ dependencies {
 
 JitPack은 GitHub 릴리즈 태그를 사용합니다:
 
-- Latest release: `v1.0.0`
+- Latest release: `v0.5.0`
 - Specific commit: `commit-hash`
 - Development snapshot: `main-SNAPSHOT`
 
